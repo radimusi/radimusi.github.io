@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Notefy</title>
+<title>notefy</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Syne:wght@700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -27,10 +27,10 @@ button{cursor:pointer}
 
 /* top bar */
 .top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:16px 4px}
-.brand{font-family:"Syne",var(--f-display);font-weight:700;font-size:20px;letter-spacing:0;display:flex;align-items:center;gap:8px}
-.brand svg{width:24px;height:24px;flex:none;margin-right:-2px}
+.brand{font-family:"Syne",var(--f-display);font-weight:700;font-size:22px;letter-spacing:0;white-space:nowrap;line-height:1}
+.brand svg{width:.74em;height:1.2em;vertical-align:-.2em}
 .title-in{flex:1;min-width:150px;display:flex;align-items:center;gap:8px}
-#beatName{background:transparent;border:1px solid transparent;border-radius:6px;padding:5px 8px;font-size:15px;font-weight:500;width:100%;max-width:360px;min-width:0}
+#beatName{background:transparent;border:1px solid transparent;border-radius:6px;padding:5px 8px;font-size:15px;font-weight:500;color:#e6c57f;width:100%;max-width:360px;min-width:0}
 #beatName:hover{border-color:var(--line)}
 #beatName:focus{border-color:var(--line);background:var(--panel);outline:none}
 .folder-tag{font-size:12px;color:var(--muted);white-space:nowrap}
@@ -156,7 +156,7 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .pseg{display:inline-flex;border:1px solid var(--paper-line);border-radius:8px;overflow:hidden}
 .pseg button{border:none;background:transparent;padding:6px 9px;font-family:var(--f-mono);font-size:12px;color:var(--paper-muted)}
 .pseg button[aria-pressed="true"]{background:var(--paper-ink);color:var(--paper)}
-.pbtn.ico{padding:6px 8px;display:inline-grid;place-items:center}
+.pbtn.ico{padding:6px 8px;display:inline-flex;align-items:center}
 .pbtn.ico svg{width:16px;height:16px}
 
 /* paper score section */
@@ -220,12 +220,19 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
 
 /* phone */
 @media (max-width:640px){
-  :root{--label-w:104px;--row-h:40px}
+  :root{--label-w:122px;--row-h:40px}
   body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--bg)}
   .top{padding-block:12px 0;gap:8px}
   .btn .lbl{display:none}
   .btn{padding:8px 10px}
-  .lab{font-size:11.5px;padding:0 8px;gap:6px}
+  .lab{font-size:11.5px;padding:0 6px 0 8px;gap:5px;white-space:normal}
+  .lab .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.15;overflow:hidden;word-break:break-word}
+  .fb{font-size:9.5px;padding:0 3px}
+  .fb.zero{font-size:0;padding:0 5px}.fb.zero::after{content:"±";font-size:11px}
+  section>.hint{display:none}
+  .ptools .pbtn.q{padding:6px 6px;font-size:12px}
+  .subbtn{min-width:20px;padding:0 3px}
+  .hsub{gap:2px;padding:0 3px}
   .lab .pv{display:none}
   .grid{min-width:0}
   .pager{display:flex}
@@ -248,7 +255,7 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
 
 <div class="wrap">
   <header class="top">
-    <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="21" y="5" width="5" height="26" rx="2.5" fill="currentColor"/><path d="M26 5c4 3 10 5 10 12-2-3-6-5-10-5z" fill="currentColor"/><ellipse cx="23.5" cy="39" rx="6" ry="4.6" transform="rotate(-20 23.5 39)" fill="var(--accent)"/></svg>notefy</div>
+    <div class="brand" role="img" aria-label="notefy">n<svg viewBox="0 0 74 120" aria-hidden="true"><ellipse cx="37" cy="75" rx="33" ry="24" transform="rotate(-20 37 75)" fill="var(--accent)"/></svg>tefy</div>
     <div class="title-in">
       <input id="beatName" aria-label="Groove name" maxlength="80">
       <button class="dirty" id="dirty" hidden title="This groove has unsaved changes – click to save">Unsaved</button>
@@ -257,7 +264,9 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
     <div class="actions">
       <button class="btn ghost" id="bNew" title="New groove"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg><span class="lbl">New</span></button>
       <button class="btn" id="bLib" title="Library"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4.5h4l1.5 1.5H14v6.5H2z"/></svg><span class="lbl">Library</span></button>
+      <button class="btn" id="bImport" title="Import a PDF exported from notefy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 10.5v-8M4.5 6 8 2.5 11.5 6M3 13.5h10"/></svg><span class="lbl">Import</span></button>
       <button class="btn" id="bSave" title="Save"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2.5h8l2 2v9H3z M5.5 2.5v3.5h5v-3.5 M5.5 13.5v-4h5v4"/></svg><span class="lbl">Save</span></button>
+      <button class="btn" id="bMidi" title="Export MIDI – for Ableton, Logic, GarageBand…"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5.5 3v6M8 3v6M10.5 3v6"/></svg><span class="lbl">MIDI</span></button>
       <button class="btn primary" id="bPdf" title="Export PDF"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg><span class="lbl">Export PDF</span></button>
     </div>
   </header>
@@ -310,6 +319,7 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
         <button class="play" id="bPlayAll" aria-label="Play groove" title="Play the whole groove"></button>
         <span class="play-lab">Play groove</span>
         <button class="pbtn ico" id="bRepeat" aria-pressed="false" aria-label="Loop" title="Loop – start again from the top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.2V6.5A2.5 2.5 0 0 1 5.5 4H12M10 2l2 2-2 2M13 8.8v.7A2.5 2.5 0 0 1 10.5 12H4M6 14l-2-2 2-2"/></svg></button>
+        <button class="pbtn ico" id="bFollow" aria-pressed="false" aria-label="Follow playback" title="Follow – keep the playing line in view while the groove plays"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="1.6" fill="currentColor" stroke="none"/><path d="M8 1v2.2M8 12.8V15M1 8h2.2M12.8 8H15"/></svg><span style="margin-left:5px">Follow</span></button>
         <span class="psep"></span>
         <span class="plab">Sticking</span>
         <button class="pbtn st" data-st="R" title="Right hand (R key)">R</button>
@@ -333,6 +343,7 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
   </section>
 </div>
 
+<input type="file" id="importFile" accept=".pdf,application/pdf" hidden>
 <div id="drawerRoot"></div>
 <div id="modalRoot"></div>
 <div id="toastRoot"></div>
@@ -404,24 +415,6 @@ const k=(b,c)=>b+":"+c;
 function newMeasure(){ const g=tsi().groups; return {sub:g.map(defaultSub), hits:{}, stick:{}, orn:{}}; }
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 
-function demo(){
-  S.ts="4/4";
-  const m1=newMeasure(), m2=newMeasure(), m3=newMeasure();
-  const put=(m,i,b,c,v=1)=>{(m.hits[i]=m.hits[i]||{})[k(b,c)]=v;};
-  for(let b=0;b<4;b++) for(let c=0;c<4;c+=2) put(m1,"hh",b,c, c===0?2:1);
-  put(m1,"kick",0,0); put(m1,"kick",1,2); put(m1,"kick",2,0); put(m1,"kick",2,3);
-  put(m1,"sn",1,0); put(m1,"sn",3,0); put(m1,"sn",2,1,3); put(m1,"sn",3,3,3);
-  Object.assign(m2, clone(m1)); m2.stick={};
-  delete m2.hits.hh[k(3,2)]; put(m2,"hho",3,2);
-  m3.sub=[4,4,3,3];
-  put(m3,"crash",0,0,2); put(m3,"kick",0,0);
-  put(m3,"hh",0,2); put(m3,"sn",1,0); put(m3,"kick",1,2);
-  put(m3,"sn",2,0,2); put(m3,"sn",2,1,3); put(m3,"sn",2,2);
-  put(m3,"t1",3,0,2); put(m3,"t2",3,1); put(m3,"ft",3,2,2);
-  put(m3,"hhf",1,0); put(m3,"hhf",3,0);
-  Object.assign(m3.stick,{"2:0":"R","2:1":"L","2:2":"R","3:0":"L","3:1":"R","3:2":"L"});
-  return {id:null,name:"Example – rock groove with fill",folder:"",bpm:92,ts:"4/4",measures:[m1,m2,m3]};
-}
 
 /* ---------- Persistence of the working draft (per-viewer convenience) ---------- */
 const DRAFT="notefy.draft.v2", PREFS="notefy.prefs.v2";
@@ -433,7 +426,7 @@ function loadDraft(){
     return d&&Array.isArray(d.measures)&&d.measures.length&&TS[d.ts]?d:null;
   }catch(e){ return null; }
 }
-function savePrefs(){ try{ localStorage.setItem(PREFS, JSON.stringify({onlyUsed:S.onlyUsed,repeat:S.repeat,metro:S.metro,mix:S.mix})); }catch(e){} }
+function savePrefs(){ try{ localStorage.setItem(PREFS, JSON.stringify({onlyUsed:S.onlyUsed,repeat:S.repeat,follow:S.follow,metro:S.metro,mix:S.mix})); }catch(e){} }
 function loadPrefs(){ try{ return JSON.parse(localStorage.getItem(PREFS)||"null"); }catch(e){ return null; } }
 
 function applyBeat(d, keepDirty){
@@ -559,13 +552,13 @@ function frame(){
   while(P.queue.length&&P.queue[0].t<=now) last=P.queue.shift();
   if(last){
     P.last=last;
-    if(P.mode==="all"&&last.mi!==S.sel){ S.sel=last.mi; S.page=pageOf(last.b); renderGrid(); renderScore(); }
+    if(P.mode==="all"&&last.mi!==S.sel){ S.sel=last.mi; S.page=pageOf(last.b); renderGrid(); markSelBar(); }
     if(paged()&&last.mi===S.sel&&pageOf(last.b)!==S.page){ S.page=pageOf(last.b); renderGrid(); }
     showPlayhead(last);
   }
   if(P.last){ // smooth line through the notes
     const L=P.last, m=S.measures[L.mi]; if(m){ const g=tsi().groups, st=starts(g), n=m.sub[L.b];
-      const span=(L.tn||L.t+.1)-L.t, fr=Math.min(1,Math.max(0,(now-L.t)/span)); scoreLine(L.mi, st[L.b]+(L.c+fr)*g[L.b]/n); }
+      const span=(L.tn||L.t+.1)-L.t, fr=Math.min(1,Math.max(0,(now-L.t)/span)); scoreLine(L.mi, st[L.b]+(L.c+fr)*g[L.b]/n); followLine(); }
   }
   if(P.ending!=null&&now>P.ending+.15&&!P.queue.length){ stop(); return; }
   P.raf=requestAnimationFrame(frame);
@@ -587,11 +580,11 @@ function visibleGroups(){
 }
 function pagesFor(m){ // as many beats as fit: ~118px per beat header, ~22px per cell
   const tw=trackW(), pages=[]; let pg=[], cells=0;
-  m.sub.forEach((n,b)=>{ if(pg.length&&((pg.length+1)*118>tw||(cells+n)*22>tw)){ pages.push(pg); pg=[]; cells=0; } pg.push(b); cells+=n; });
+  m.sub.forEach((n,b)=>{ if(pg.length&&((pg.length+1)*104>tw||(cells+n)*22>tw)){ pages.push(pg); pg=[]; cells=0; } pg.push(b); cells+=n; });
   if(pg.length) pages.push(pg); return pages;
 }
 function trackW(){ const gb=document.querySelector(".gridbox"), lw=parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--label-w"))||140; return (gb?gb.clientWidth:900)-lw; }
-function paged(){ const m=cur(), tw=trackW(); return tsi().groups.length*118>tw || m.sub.reduce((a,b)=>a+b,0)*22>tw; } // page beats when they don't fit
+function paged(){ const m=cur(), tw=trackW(); return tsi().groups.length*104>tw || m.sub.reduce((a,b)=>a+b,0)*22>tw; } // page beats when they don't fit
 function pageOf(b){ if(!paged()) return 0; const p=pagesFor(cur()); return Math.max(0,p.findIndex(x=>x.includes(b))); }
 function countLabels(b,n){
   const t=tsi(), L=t.groups[b];
@@ -617,7 +610,7 @@ function shownInstr(){
 }
 
 function renderGrid(){
-  const m=cur(), t=tsi(), g=$("#grid"); g.innerHTML="";
+  const m=cur(), t=tsi(), g=$("#grid"); g.style.minHeight=g.offsetHeight+"px"; g.innerHTML=""; // hold height so the page never jumps
   const vis=visibleGroups();
   const labels=el("div",{class:"labels"}), tracks=el("div",{class:"tracks"});
   const pages=paged()?pagesFor(m):[vis]; g.classList.toggle("paged",paged());
@@ -659,7 +652,7 @@ function renderGrid(){
     tracks.append(row);
   }
   tracks.append(el("div",{class:"playhead",id:"playhead"}));
-  g.append(labels,tracks);
+  g.append(labels,tracks); g.style.minHeight="";
   // widen the track area so notes pushed past the bar edges by swing / feel stay fully visible
   const row0=tracks.querySelector(".row");
   if(row0&&(over>.02||under>.02)){
@@ -945,7 +938,13 @@ function drawScore(container,opts){
       for(const o of M.info.onsets){
         const key=k(o.b,o.c), sv=m.stick[key]||"";
         let cx; try{ cx=(o.n.getNoteHeadBeginX()+o.n.getNoteHeadEndX())/2; }catch(e){ continue; }
-        if(sv) svg.append(svgEl("text",{x:cx,y:sy,"text-anchor":"middle","font-family":"Helvetica, Arial, sans-serif","font-size":12,"font-weight":"bold",fill:INK},sv));
+        if(sv){
+          svg.append(svgEl("text",{x:cx,y:sy,"text-anchor":"middle","font-family":"Helvetica, Arial, sans-serif","font-size":12,fill:INK},sv));
+          // grace-note hand for flams / drags: the other hand, smaller, just before the main letter
+          const orns=INSTR.filter(i=>i.voice==="up"&&m.hits[i.id]&&m.hits[i.id][key]).map(i=>m.orn&&m.orn[i.id]&&m.orn[i.id][key]);
+          const g=orns.includes("d")?2:orns.includes("f")?1:0, gh=sv==="R"?"L":"R";
+          for(let gi=0;gi<g;gi++) svg.append(svgEl("text",{x:cx-9-(g-1-gi)*6.5,y:sy,"text-anchor":"end","font-family":"Helvetica, Arial, sans-serif","font-size":8.5,fill:INK},gh));
+        }
         if(opts.interactive){
           if(!sv) svg.append(svgEl("circle",{cx,cy:sy-4,r:1.6,fill:"#b3b0a6","pointer-events":"none"}));
           const id=mi+"|"+key;
@@ -980,9 +979,18 @@ function scoreLine(mi,tt){
 
 let scoreT=0;
 function scheduleScore(){ cancelAnimationFrame(scoreT); scoreT=requestAnimationFrame(renderScore); }
+function markSelBar(){ document.querySelectorAll("#score .m-bg").forEach(r=>r.setAttribute("fill",+r.dataset.m===S.sel?"rgba(27,27,29,.06)":"transparent")); }
+let followAt=0;
+function followLine(){ // keep the moving line in view while Follow is on
+  if(!S.follow) return; const ln=document.getElementById("phLine"); if(!ln||ln.getAttribute("visibility")!=="visible") return;
+  const r=ln.getBoundingClientRect(), now=performance.now(); if(now-followAt<700) return;
+  const top=r.top, bot=r.bottom, vh=window.innerHeight;
+  if(top<70||bot>vh-30){ followAt=now; window.scrollBy({top:top-vh*.3,behavior:"smooth"}); }
+}
 function renderScore(){
-  const W=Math.max(280,$("#sheet").clientWidth-(isNarrow()?12:28));
-  drawScore($("#score"),{width:W,interactive:true});
+  const W=Math.max(280,$("#sheet").clientWidth-(isNarrow()?12:28)), box=$("#score");
+  box.style.minHeight=box.offsetHeight+"px";
+  drawScore(box,{width:W,interactive:true}); box.style.minHeight="";
   $("#sheetName").textContent=S.name||"Untitled";
   $("#sheetTempo").textContent=tempoText();
   paintStickSel();
@@ -1041,7 +1049,7 @@ function updateHeader(){
   $("#folderTag").textContent=S.folder?("in "+S.folder):"";
   $("#bpm").value=S.bpm; $("#tsig").value=S.ts;
   $("#bDel").disabled=S.measures.length<2;
-  $("#bRepeat").setAttribute("aria-pressed",S.repeat); $("#bMetro").setAttribute("aria-pressed",S.metro);
+  $("#bRepeat").setAttribute("aria-pressed",S.repeat); $("#bFollow").setAttribute("aria-pressed",S.follow); $("#bMetro").setAttribute("aria-pressed",S.metro);
 }
 $("#beatName").addEventListener("input",e=>{ S.name=e.target.value; touch(); $("#sheetName").textContent=S.name||"Untitled"; });
 function setBpm(v){ v=Math.round(Math.min(300,Math.max(30,+v||S.bpm))); if(v!==S.bpm){ S.bpm=v; touch(); } $("#bpm").value=S.bpm; $("#sheetTempo").textContent=tempoText(); renderGrid(); }
@@ -1050,6 +1058,7 @@ $("#bpmDn").onclick=()=>setBpm(S.bpm-1); $("#bpmUp").onclick=()=>setBpm(S.bpm+1)
 $("#tsig").addEventListener("change",e=>changeTs(e.target.value));
 $("#bMetro").onclick=()=>{ S.metro=!S.metro; savePrefs(); updateHeader(); };
 $("#bRepeat").onclick=()=>{ S.repeat=!S.repeat; savePrefs(); updateHeader(); };
+$("#bFollow").onclick=()=>{ S.follow=!S.follow; savePrefs(); updateHeader(); if(S.follow){ followAt=0; followLine(); } };
 function setMode(md){ S.mode=md; document.querySelectorAll("#modes button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===md)); }
 $("#modes").addEventListener("click",e=>{ const b=e.target.closest("button"); if(b) setMode(b.dataset.mode); });
 $("#bPlay").onclick=()=>{ if(P.on&&P.mode==="loop") stop(); else start("loop"); };
@@ -1227,13 +1236,12 @@ function textImg(doc,text,x,y,w,size,font,color,align){ // canvas text keeps any
   g.fillText(text,align==="center"?w/2:0,size*.2,w);
   doc.addImage(c.toDataURL("image/png"),"PNG",align==="center"?x-w/2:x,y,w,size*1.6);
 }
-function brandImg(doc,x,y,h){ // logo mark + "notefy" wordmark, drawn on canvas so the Syne font is kept
-  const kk=6, w=h*4.6, c=document.createElement("canvas"); c.width=Math.ceil(w*kk); c.height=Math.ceil(h*kk);
-  const g=c.getContext("2d"); g.scale(kk*h/48,kk*h/48); // logo drawn in its 48-unit box
-  g.fillStyle="#1b1b1d"; g.beginPath(); g.roundRect?g.roundRect(21,5,5,26,2.5):g.rect(21,5,5,26); g.fill();
-  g.fill(new Path2D("M26 5c4 3 10 5 10 12-2-3-6-5-10-5z"));
-  g.save(); g.translate(23.5,39); g.rotate(-20*Math.PI/180); g.fillStyle="#e4a853"; g.beginPath(); g.ellipse(0,0,6,4.6,0,0,Math.PI*2); g.fill(); g.restore();
-  g.setTransform(kk,0,0,kk,0,0); g.font="700 "+(h*.82)+"px Syne, Sora, sans-serif"; g.fillStyle="#1b1b1d"; g.textBaseline="middle"; g.fillText("notefy",h*.86,h*.53);
+function brandImg(doc,x,y,h){ // "notefy" wordmark with an orange notehead as the o, drawn on canvas so the Syne font is kept
+  const kk=6, fs=h*.9, w=h*4.2, c=document.createElement("canvas"); c.width=Math.ceil(w*kk); c.height=Math.ceil(h*kk);
+  const g=c.getContext("2d"); g.scale(kk,kk); g.font="700 "+fs+"px Syne, Sora, sans-serif"; g.fillStyle="#1b1b1d"; g.textBaseline="alphabetic";
+  const base=h*.82; g.fillText("n",0,base); const nx=g.measureText("n").width;
+  g.save(); g.translate(nx+fs*.37,base-fs*.25); g.rotate(-20*Math.PI/180); g.fillStyle="#e4a853"; g.beginPath(); g.ellipse(0,0,fs*.33,fs*.24,0,0,Math.PI*2); g.fill(); g.restore();
+  g.fillText("tefy",nx+fs*.74,base);
   doc.addImage(c.toDataURL("image/png"),"PNG",x,y,w,h);
 }
 async function exportPdf(){
@@ -1242,6 +1250,9 @@ async function exportPdf(){
   try{
     const { jsPDF }=window.jspdf;
     const doc=new jsPDF({orientation:"portrait",unit:"pt",format:"a4"});
+    // embed the groove itself, so the PDF can be imported back into notefy without loss
+    const payload={app:"notefy",v:1,name:S.name,bpm:S.bpm,ts:S.ts,swing:S.swing,swingUnit:S.swingUnit,feel:S.feel,measures:S.measures};
+    doc.setProperties({title:S.name||"Groove",subject:"Drum groove made with notefy",creator:"notefy",keywords:"notefy-groove:"+btoa(unescape(encodeURIComponent(JSON.stringify(payload))))+":end"});
     const PW=595, PH=842, M=42, W=PW-2*M, SC=1.75, PER=4, ROWPT=180/SC;
     const host=el("div",{style:"position:absolute;left:-9999px;top:0"}); document.body.append(host);
     let from=0, page=0;
@@ -1271,6 +1282,101 @@ async function exportPdf(){
   btn.disabled=false; renderScore();
 }
 $("#bPdf").onclick=exportPdf;
+
+/* ---------- MIDI export (General MIDI drum map, channel 10) ---------- */
+const MAPS={
+  gm:{name:"General MIDI (Logic, GarageBand, EZdrummer, Superior Drummer)",desc:"Standard drum map – works with most kits and plugins (Superior Drummer, EZdrummer, Addictive Drums, Logic, GarageBand).",
+      notes:{kick:36,sn:38,rs:40,xs:37,snr:37,hh:42,hhf:44,hho:46,crash:49,crash2:57,ride:51,bell:53,rcr:59,t1:50,t1r:50,t2:47,t2r:47,ft:43,ftr:43}},
+  pad16:{name:"16-pad Drum Rack (Ableton Live)",desc:"Everything packed onto the 16 pads a Drum Rack shows by default: kick & snares on the bottom row, toms, hi-hats, then cymbals on top.",
+      notes:{kick:36,xs:37,sn:38,rs:39,ft:40,ftr:40,t2:41,t2r:41,t1:42,t1r:42,snr:43,hh:44,hhf:45,hho:46,ride:47,bell:48,rcr:49,crash:50,crash2:51}},
+  custom:{name:"Custom",desc:"Your own note for every instrument."},
+};
+function noteName(n){ return ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"][n%12]+(Math.floor(n/12)-2); } // Ableton naming: C3 = 60
+const MIDIPREF="notefy.midimap.v1";
+function midiPref(){ try{ return JSON.parse(localStorage.getItem(MIDIPREF)||"null")||{map:"gm",custom:{...MAPS.gm.notes}}; }catch(e){ return {map:"gm",custom:{...MAPS.gm.notes}}; } }
+function saveMidiPref(p){ try{ localStorage.setItem(MIDIPREF,JSON.stringify(p)); }catch(e){} }
+let GM=MAPS.gm.notes;
+function vlq(n){ const out=[n&0x7f]; while((n>>=7)>0) out.unshift((n&0x7f)|0x80); return out; }
+function buildMidi(){
+  const PPQ=480, t=tsi(), uq=t.unit==="q"?1:t.unit==="qd"?1.5:.5;        // quarter notes per tempo beat
+  const qbpm=S.bpm*uq, tps=PPQ*qbpm/60, E=PPQ/2;                          // ticks per second, ticks per eighth
+  const barE=t.groups.reduce((a,b)=>a+b,0), ms=x=>Math.round(x/1000*tps);
+  const ev=[]; // [tick, order, bytes]
+  const note=(tick,n,vel)=>{ tick=Math.max(0,Math.round(tick)); ev.push([tick,1,[0x99,n,vel]]); ev.push([tick+Math.round(PPQ/8),0,[0x89,n,0]]); };
+  S.measures.forEach((m,mi)=>{
+    for(let b=0;b<t.groups.length;b++) for(let c=0;c<m.sub[b];c++){
+      const base=(mi*barE+warpE(m,b,c))*E;
+      for(const id in m.hits){ const v=m.hits[id][k(b,c)]; if(!v||!GM[id]) continue;
+        const tk=base+ms(S.feel[id]||0), o=m.orn&&m.orn[id]&&m.orn[id][k(b,c)];
+        const vel=v===2||IBY[id].autoAcc?118:v===3?38:88;
+        if(o==="f") note(tk-ms(28),GM[id],44);
+        if(o==="d"){ note(tk-ms(60),GM[id],40); note(tk-ms(32),GM[id],40); }
+        note(tk,GM[id],vel);
+      }
+    }
+  });
+  ev.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
+  const name=new TextEncoder().encode(S.name||"notefy groove");
+  const trk=[0,0xff,0x03,...vlq(name.length),...name,
+    0,0xff,0x51,3,...(v=>[(v>>16)&255,(v>>8)&255,v&255])(Math.round(60e6/qbpm)),
+    0,0xff,0x58,4,t.num,t.den===8?3:2,t.den===8?36:24,8];
+  let last=0; for(const [tick,,bytes] of ev){ trk.push(...vlq(tick-last),...bytes); last=tick; }
+  trk.push(0,0xff,0x2f,0);
+  const hdr=[0x4d,0x54,0x68,0x64,0,0,0,6,0,0,0,1,(PPQ>>8)&255,PPQ&255];
+  const tl=trk.length, th=[0x4d,0x54,0x72,0x6b,(tl>>>24)&255,(tl>>16)&255,(tl>>8)&255,tl&255];
+  return new Uint8Array([...hdr,...th,...trk]);
+}
+function crc32(u8){ let c,crc=0xffffffff; for(let i=0;i<u8.length;i++){ c=(crc^u8[i])&0xff; for(let j=0;j<8;j++) c=c&1?(c>>>1)^0xedb88320:c>>>1; crc=(crc>>>8)^c; } return (crc^0xffffffff)>>>0; }
+function zipOne(filename,data){ // single stored (uncompressed) file
+  const fn=new TextEncoder().encode(filename), crc=crc32(data), sz=data.length;
+  const le=(n,b)=>Array.from({length:b},(_,i)=>(n>>>(8*i))&255);
+  const local=[...le(0x04034b50,4),20,0,0x00,0x08,0,0,0,0,0,0,...le(crc,4),...le(sz,4),...le(sz,4),...le(fn.length,2),0,0,...fn];
+  const central=[...le(0x02014b50,4),20,0,20,0,0x00,0x08,0,0,0,0,0,0,...le(crc,4),...le(sz,4),...le(sz,4),...le(fn.length,2),0,0,0,0,0,0,0,0,0,0,0,0,...le(0,4),...fn];
+  const end=[...le(0x06054b50,4),0,0,0,0,1,0,1,0,...le(central.length,4),...le(local.length+sz,4),0,0];
+  const out=new Uint8Array(local.length+sz+central.length+end.length); let o=0;
+  for(const part of [local,data,central,end]){ out.set(part,o); o+=part.length; } return out;
+}
+async function exportMidi(){
+  try{
+    const data=buildMidi(), name=(S.name||"groove").replace(/[\\/:*?"<>|]+/g,"").trim()||"groove";
+    const dl=window.claude&&window.claude.use?await window.claude.use("downloads"):null;
+    if(dl){ // claude.ai only allows certain file types, so the .mid travels inside a .zip
+      try{ await dl.save({filename:name+".zip",data:new Blob([zipOne(name+".mid",data)])}); toast("MIDI saved (inside a .zip)"); }catch(e){ if(e&&e.code!=="declined") toast("Couldn't save the MIDI file."); }
+    } else {
+      const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([data],{type:"audio/midi"})); a.download=name+".mid"; document.body.append(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1000);
+    }
+  }catch(e){ console.error(e); toast("MIDI export failed."); }
+}
+function midiDialog(){
+  const pref=midiPref(); let cur=pref.map in MAPS?pref.map:"gm";
+  const sel=el("select",{class:"sel",id:"midiMap",style:"width:100%;font-family:var(--f-body)"},Object.entries(MAPS).map(([k2,v])=>el("option",{value:k2},v.name)));
+  sel.value=cur;
+  const desc=el("div",{style:"font-size:12px;color:var(--muted)"});
+  const table=el("div",{style:"display:grid;grid-template-columns:1fr auto auto;gap:4px 10px;align-items:center;max-height:44vh;overflow:auto;padding-right:4px"});
+  const notesOf=()=>cur==="custom"?pref.custom:MAPS[cur].notes;
+  const draw=()=>{
+    desc.textContent=MAPS[cur].desc; table.innerHTML="";
+    for(const ins of INSTR){ const n=notesOf()[ins.id]??MAPS.gm.notes[ins.id];
+      const inp=el("input",{type:"number",min:0,max:127,value:n,"aria-label":"MIDI note for "+ins.name,style:"width:62px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-family:var(--f-mono)"});
+      const nm=el("span",{style:"font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:34px"},noteName(n));
+      inp.addEventListener("input",()=>{ const v=Math.max(0,Math.min(127,+inp.value||0));
+        if(cur!=="custom"){ pref.custom={...notesOf()}; cur="custom"; sel.value="custom"; desc.textContent=MAPS.custom.desc; }
+        pref.custom[ins.id]=v; nm.textContent=noteName(v); });
+      table.append(el("span",{style:"font-size:13px"},ins.name),inp,nm);
+    }
+  };
+  sel.addEventListener("change",()=>{ cur=sel.value; if(cur==="custom"&&!pref.custom) pref.custom={...MAPS.gm.notes}; draw(); });
+  draw();
+  const box=el("div",{class:"modal",onclick:e=>{ if(e.target===box) closeModal(); }},
+    el("div",{class:"mbox",role:"dialog","aria-modal":"true",style:"width:min(420px,100%)"},
+      el("h3",{},"Export MIDI"),
+      el("label",{},"Drum map",sel), desc, table,
+      el("div",{style:"font-size:11.5px;color:var(--faint)"},"Note names follow Ableton (C3 = 60, kick on C1 = 36)."),
+      el("div",{class:"mrow"}, el("button",{class:"btn ghost",onclick:closeModal},"Cancel"),
+        el("button",{class:"btn primary",onclick:()=>{ pref.map=cur; saveMidiPref(pref); GM={...MAPS.gm.notes,...(cur==="custom"?pref.custom:MAPS[cur].notes)}; closeModal(); exportMidi(); }},"Export"))));
+  $("#modalRoot").append(box);
+}
+$("#bMidi").onclick=midiDialog;
 
 /* ---------- Swing, feel, patterns ---------- */
 function tempoText(){ let t=UNIT_SYM[tsi().unit]+" = "+S.bpm; if(S.swing>50&&swingAvail()) t+="   Swing "+(S.swingUnit==="8"?"8ths":"16ths"); return t; }
@@ -1310,6 +1416,21 @@ function renderPatterns(){
 }
 document.querySelectorAll(".pseg button").forEach(b=>b.addEventListener("click",()=>{ S.lead=b.dataset.lead; renderPatterns(); }));
 renderPatterns();
+
+/* ---------- Import a notefy PDF ---------- */
+function readGrooveFromPdf(buf){
+  const bytes=new Uint8Array(buf); let txt=""; for(let i=0;i<bytes.length;i+=8192) txt+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));
+  const m=txt.match(/notefy-groove:([A-Za-z0-9+\/=]+):end/); if(!m) return null;
+  try{ const d=JSON.parse(decodeURIComponent(escape(atob(m[1])))); return d&&d.app==="notefy"&&Array.isArray(d.measures)&&TS[d.ts]?d:null; }catch(e){ return null; }
+}
+$("#bImport").onclick=()=>$("#importFile").click();
+$("#importFile").addEventListener("change",async e=>{
+  const f=e.target.files&&e.target.files[0]; e.target.value=""; if(!f) return;
+  let d=null; try{ d=readGrooveFromPdf(await f.arrayBuffer()); }catch(err){}
+  if(!d){ toast("This PDF has no notefy groove inside. For now only PDFs exported from notefy can be imported."); return; }
+  const go=()=>{ stop(); applyBeat({...d,id:null,folder:"",sel:0}); S.dirty=true; saveDraft(); updateHeader(); updateSwingUI(); renderGrid(); renderScore(); closeDrawer(); toast("Imported: "+(d.name||"groove")+" – save it to keep it in your library"); };
+  if(S.dirty) confirmBox("Discard unsaved changes?","This groove has changes that are not saved.","Discard and import",go); else go();
+});
 
 /* ---------- Built-in example grooves ---------- */
 function exBar(sub,fn){ const m={sub,hits:{},stick:{},orn:{}};
@@ -1356,11 +1477,12 @@ function openExample(e){
 
 /* ---------- Boot ---------- */
 const pr=loadPrefs();
-if(pr){ S.onlyUsed=!!pr.onlyUsed; S.repeat=!!pr.repeat; S.metro=!!pr.metro; if(pr.mix!=null) S.mix=+pr.mix; }
+if(pr){ S.onlyUsed=!!pr.onlyUsed; S.repeat=!!pr.repeat; S.follow=!!pr.follow; S.metro=!!pr.metro; if(pr.mix!=null) S.mix=+pr.mix; }
 $("#mix").value=S.mix;
 $("#mix").addEventListener("input",e=>{ S.mix=+e.target.value; applyMix(); savePrefs(); });
-const d=loadDraft();
-applyBeat(d||demo(), true);
+let d=loadDraft();
+if(d&&/^(Example – rock groove|Ukázka – rock groove)/.test(d.name||"")) d=null; // retire the old rock demo
+applyBeat(d||{...clone(EXAMPLES[0]),id:null,folder:""}, true);
 if(!d) S.dirty=false;
 updateHeader(); updateSwingUI(); updateTransport(); renderGrid(); renderScore();
 Store.init();
