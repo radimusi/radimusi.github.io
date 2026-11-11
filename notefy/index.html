@@ -37,7 +37,7 @@ button{cursor:pointer}
 /* top bar */
 .top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:16px 4px}
 .brand{font-family:"Syne",var(--f-display);font-weight:700;font-size:22px;letter-spacing:0;white-space:nowrap;line-height:1}
-.brand svg{width:.74em;height:1.2em;vertical-align:-.2em}
+.brand svg{height:1.2em;vertical-align:-.2em;overflow:visible}
 .title-in{flex:1;min-width:150px;display:flex;align-items:center;gap:8px}
 #beatName{background:transparent;border:1px solid transparent;border-radius:6px;padding:5px 8px;font-size:15px;font-weight:500;color:#e6c57f;width:12ch;max-width:100%;min-width:4ch}
 #beatName:hover{border-color:var(--line)}
@@ -79,6 +79,11 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .mi-a{background:#f1f1ee;box-shadow:0 0 6px rgba(255,255,255,.7)}
 .mi-g{border:1px solid #9aa0aa}
 .mi-e{border:1px dashed var(--faint)}
+.metrogrp{display:flex;align-items:center;gap:10px}
+.tleft{display:flex;align-items:center;gap:10px}
+.mixbox .gi{display:none;width:16px;height:16px;color:var(--muted);flex:none}
+.toggle.ico{display:inline-grid;place-items:center;width:36px;height:32px;padding:0}
+.toggle.ico svg{width:17px;height:17px}
 .toggle{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 10px;font-size:12.5px;color:var(--muted)}
 .toggle[aria-pressed="true"]{color:var(--fg);border-color:#4a4f59;background:var(--raised)}
 
@@ -87,7 +92,7 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .section-h h2{font-family:var(--f-display);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0}
 .section-h .meta{font-size:12px;color:var(--faint)}
 .section-h .meta b{color:var(--fg);font-weight:500}
-.gridbox{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden}
+.gridbox{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;overflow:clip}
 .grid{min-width:0;display:grid;grid-template-columns:var(--label-w) 1fr;user-select:none;-webkit-user-select:none;touch-action:pan-y}
 .labels{border-right:1px solid var(--line);min-width:0}
 .lab,.lab-h{height:var(--row-h);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--line-soft);white-space:nowrap;overflow:hidden}
@@ -114,7 +119,7 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .pgt[aria-selected="true"]{background:rgba(214,178,98,.16);border-color:rgba(214,178,98,.55);color:#f1dfa8}
 .pager button{border:1px solid var(--line);background:var(--bg);border-radius:6px;width:26px;height:26px;color:var(--fg);padding:0}
 .pager button:disabled{opacity:.3}
-.tracks{position:relative;min-width:0;overflow:hidden}
+.tracks{position:relative;min-width:0;overflow:hidden;overflow:clip}
 .hrow{height:52px;display:flex;border-bottom:1px solid var(--line)}
 .hbeat{display:flex;flex-direction:column;border-left:1px solid #3a3e46;min-width:0}
 .hbeat:first-child{border-left-color:transparent}
@@ -171,7 +176,12 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .feelpop .sc{display:flex;justify-content:space-between;font-size:11px;color:var(--faint)}
 .feelpop input[type=range],.swingbox input[type=range]{accent-color:#d6b262;width:100%}
 .mixbox{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
-.mixbox input[type=range]{width:90px;accent-color:#d6b262}
+.mixbox input[type=range]{width:96px;-webkit-appearance:none;appearance:none;background:transparent;height:26px;margin:0;cursor:pointer}
+.mixbox input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:linear-gradient(90deg,#4a4e57,#d6b262)}
+.mixbox input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:linear-gradient(90deg,#4a4e57,#d6b262)}
+.mixbox input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:24px;margin-top:-10.5px;border:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 24'%3E%3Crect x='6' y='0' width='2' height='24' rx='1' fill='%23e8e6e1'/%3E%3Cpath d='M1 7h12l-2.2 8.5H3.2z' fill='%23e4a853'/%3E%3C/svg%3E") center/contain no-repeat}
+.mixbox input[type=range]::-moz-range-thumb{width:14px;height:24px;border:none;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 24'%3E%3Crect x='6' y='0' width='2' height='24' rx='1' fill='%23e8e6e1'/%3E%3Cpath d='M1 7h12l-2.2 8.5H3.2z' fill='%23e4a853'/%3E%3C/svg%3E") center/contain no-repeat}
+.mixbox input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px} /* metronome-pendulum handle */
 .swingbox{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
 .swingbox input[type=range]{width:110px}
 .swingbox .val{font-family:var(--f-mono);color:var(--fg);min-width:34px}
@@ -184,7 +194,7 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .pbtn.ico svg{width:16px;height:16px}
 
 /* paper score section */
-.paper{background:var(--paper);color:var(--paper-ink);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+.paper{background:var(--paper);color:var(--paper-ink);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;overflow:clip}
 .ptools{display:flex;flex-direction:column;gap:10px;padding:14px 16px 12px;border-bottom:1px solid var(--paper-line)}
 .prow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .paper h2{font-family:var(--f-display);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-muted);margin:0}
@@ -198,10 +208,13 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .paper .play{background:var(--paper-ink);color:var(--paper)}
 .paper .play.on{background:var(--paper-ink);color:var(--paper);box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--paper-ink)}
 .paper .play-lab{color:var(--paper-ink);font-size:12.5px;font-weight:500}
+.phead{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;width:100%;background:#fbfaf6;border:1px solid var(--paper-line);border-radius:12px;padding:8px 10px}
+.ph-l{justify-self:start}.ph-r{justify-self:end}.ph-c{position:relative;display:flex;align-items:center}
+.ph-c .play-lab{position:absolute;left:100%;margin-left:10px;white-space:nowrap} /* label hangs off to the side so the button stays centred */
 .psep{width:1px;align-self:stretch;background:var(--paper-line);margin:2px 6px}
 .plab{font-size:12px;color:var(--paper-muted)}
 select.psel{background:transparent;border:1px solid var(--paper-line);border-radius:8px;padding:6px 8px;font-size:12.5px;color:var(--paper-ink);color-scheme:light;max-width:100%}
-.sheet{padding:16px 14px 10px;overflow:hidden}
+.sheet{padding:16px 14px 10px;overflow:hidden;overflow:clip}
 .sheet svg{display:block}
 .sheet-title{font-family:var(--f-display);font-size:17px;font-weight:600;padding:0 8px 2px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .sheet-title small{font-family:var(--f-mono);font-size:12px;font-weight:400;color:var(--paper-muted);white-space:nowrap}
@@ -244,25 +257,40 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
 
 /* phone */
 @media (max-width:640px){
-  :root{--label-w:122px;--row-h:40px}
+  :root{--label-w:94px;--row-h:40px}
   body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--bg)}
   .top{padding-block:12px 0;gap:8px}
   .btn .lbl{display:none}
   .btn{padding:8px 10px}
-  .lab{font-size:11.5px;padding:0 6px 0 8px;gap:5px;white-space:normal}
+  .lab{font-size:11px;padding:0 4px 0 7px;gap:4px;white-space:normal}
+  .lab .dot{width:6px;height:6px}
+  .lab-h{padding:0 7px;font-size:10px}
   .lab .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.15;overflow:hidden;word-break:break-word}
   .fb{font-size:9.5px;padding:0 3px}
-  .fb.zero{font-size:0;padding:0 5px}.fb.zero::after{content:"±";font-size:11px}
+  .fb{padding:0 2px}
+  .fb.zero{font-size:0;padding:0 4px}.fb.zero::after{content:"±";font-size:10.5px}
   section>.hint{display:none}
   .ptools .pbtn.q{padding:6px 6px;font-size:12px}
+  .ph-c .play-lab{display:none}
   .subbtn{min-width:20px;padding:0 3px}
   .hsub{gap:2px;padding:0 3px}
   .lab .pv{display:none}
   .grid{min-width:0}
   .pager{display:flex}
-  .lab-h .tk{display:none}
   .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;gap:8px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
   .bar .play-lab,.bar .sep,.bar .fl{display:none}
+  /* phones: tempo + time sig | play (always centred) | metronome + balance; input modes below */
+  .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:8px;row-gap:8px;padding:8px}
+  .bar .tleft{grid-column:1;grid-row:1;justify-content:space-evenly;gap:4px;min-width:0}
+  .bar #bPlay{grid-column:2;grid-row:1}
+  .bar .metrogrp{grid-column:3;grid-row:1;min-width:0;gap:6px;justify-content:space-evenly}
+  .bar .seg{grid-column:1/-1;grid-row:2}
+  .bar .num button{width:22px}.bar .num input{width:32px;font-size:13px}
+  .bar select.sel{padding:6px 2px 6px 5px;font-size:12px}
+  .bar .play{width:38px;height:38px}
+  .bar .toggle.ico{width:32px;flex:none}
+  .mixbox{flex:1;min-width:0;gap:4px}.mixbox .ml{display:none}.mixbox .gi{display:block}
+  .mixbox input[type=range]{width:auto;flex:1;min-width:40px}
   .bar .spacer{display:none}
   .seg{width:100%;order:9}
   .seg button{flex:1;justify-content:center;padding:7px 4px}
@@ -274,13 +302,28 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
   .ptools{padding:12px}
   .sheet{padding:12px 6px 8px}
 }
+.nbar{display:none}
+@media (max-width:640px){
+  /* phones: when the score fills the screen, the top bar turns into the notation bar */
+  .nbar{display:flex;flex-direction:column;gap:8px;position:fixed;top:0;left:0;right:0;z-index:17;background:var(--paper);color:var(--paper-ink);
+    padding:calc(8px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px));
+    border-bottom:1px solid var(--paper-line);box-shadow:0 8px 24px rgba(0,0,0,.35);opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .18s,transform .18s}
+  body.notectx .nbar{opacity:1;transform:none;pointer-events:auto}
+  body.notectx .bar{visibility:hidden}
+  .nbar .nrow{display:flex;align-items:center;gap:5px}
+  .nbar .pbtn{padding:6px 9px;font-size:12px}.nbar .pbtn.st{min-width:30px;padding:6px 6px}
+  .nbar .nb-bar{font-size:12.5px;color:var(--paper-muted)}.nbar .nb-bar b{color:var(--paper-ink);font-weight:600}
+  .nbar .play{background:var(--paper-ink);color:var(--paper)}
+  .paper .phead{display:none}
+}
+@media (prefers-reduced-motion:reduce){.nbar{transition:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="brand" role="img" aria-label="notefy">n<svg viewBox="0 0 74 120" aria-hidden="true"><ellipse cx="37" cy="75" rx="33" ry="24" transform="rotate(-20 37 75)" fill="var(--accent)"/></svg>tefy</div>
+    <div class="brand" role="img" aria-label="notefy"><svg viewBox="0 0 63 120" aria-hidden="true" style="width:.63em"><path d="M12.5 100V75.5A19 19 0 0 1 50.5 75.5V100" fill="none" stroke="currentColor" stroke-width="13"/></svg><svg viewBox="0 0 74 120" aria-hidden="true" style="width:.74em"><ellipse cx="37" cy="75" rx="33" ry="24" transform="rotate(-20 37 75)" fill="var(--accent)"/></svg>tefy</div>
     <div class="title-in">
       <input id="beatName" aria-label="Groove name" maxlength="80">
       <button class="dirty" id="dirty" hidden title="This groove has unsaved changes – click to save">Unsaved</button>
@@ -300,14 +343,18 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
     <button class="play" id="bPlay" title="Loop current bar (Space)" aria-label="Loop current bar"></button>
     <span class="play-lab">Loop bar</span>
     <span class="sep"></span>
+    <div class="tleft">
     <div class="field"><span class="fl">BPM</span>
       <div class="num"><button id="bpmDn" aria-label="Slower">−</button><input id="bpm" type="number" min="30" max="300" inputmode="numeric" aria-label="Tempo in BPM"><button id="bpmUp" aria-label="Faster">+</button></div>
     </div>
     <div class="field"><span class="fl">Time sig.</span>
       <select class="sel" id="tsig" aria-label="Time signature"></select>
     </div>
-    <button class="toggle" id="bMetro" aria-pressed="false" title="Click track during playback">Metronome</button>
-    <div class="mixbox" title="Balance between metronome and groove"><span>Click</span><input type="range" id="mix" min="0" max="100" step="1" aria-label="Balance: metronome versus groove"><span>Groove</span></div>
+    </div>
+    <div class="metrogrp">
+      <button class="toggle ico" id="bMetro" aria-pressed="false" aria-label="Metronome" title="Metronome – click track during playback"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M6 2h4l2.6 11.5H3.4z"/><path d="M3.4 13.5h9.2"/><path d="M8 11 11.2 4.6"/><circle cx="10.4" cy="6.2" r="1.1" fill="currentColor" stroke="none"/></svg></button>
+      <div class="mixbox" title="Balance between metronome and groove"><span class="ml">Click</span><input type="range" id="mix" min="0" max="100" step="1" aria-label="Balance: metronome versus groove"><span class="ml">Groove</span><svg class="gi" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><ellipse cx="8" cy="6" rx="5.5" ry="2"/><path d="M2.5 6v4.5c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2V6"/><path d="M6 1.5 8.5 5M11.5 1.5 9 5" stroke-linecap="round"/></svg></div>
+    </div>
     <span class="spacer"></span>
     <div class="seg" id="modes" role="group" aria-label="Input mode">
       <button data-mode="n" aria-pressed="true" title="Normal stroke"><span class="mode-ico mi-n"></span>Normal<kbd>N</kbd></button>
@@ -341,11 +388,14 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
         <button class="pbtn q" id="bDel">Delete bar</button>
       </div>
       <div class="prow">
-        <button class="play" id="bPlayAll" aria-label="Play groove" title="Play the whole groove"></button>
-        <span class="play-lab">Play groove</span>
-        <button class="pbtn ico" id="bRepeat" aria-pressed="false" aria-label="Loop" title="Loop – start again from the top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.2V6.5A2.5 2.5 0 0 1 5.5 4H12M10 2l2 2-2 2M13 8.8v.7A2.5 2.5 0 0 1 10.5 12H4M6 14l-2-2 2-2"/></svg></button>
-        <button class="pbtn ico" id="bFollow" aria-pressed="false" aria-label="Follow playback" title="Follow – keep the playing line in view while the groove plays"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="1.6" fill="currentColor" stroke="none"/><path d="M8 1v2.2M8 12.8V15M1 8h2.2M12.8 8H15"/></svg><span style="margin-left:5px">Follow</span></button>
-        <span class="psep"></span>
+<div class="phead">
+          <div class="ph-l"><button class="pbtn ico" id="bRepeat" aria-pressed="false" aria-label="Loop" title="Loop – start again from the top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.2V6.5A2.5 2.5 0 0 1 5.5 4H12M10 2l2 2-2 2M13 8.8v.7A2.5 2.5 0 0 1 10.5 12H4M6 14l-2-2 2-2"/></svg></button></div>
+          <div class="ph-c"><button class="play" id="bPlayAll" aria-label="Play groove" title="Play the whole groove"></button><span class="play-lab">Play groove</span></div>
+          <div class="ph-r"><button class="pbtn ico" id="bFollow" aria-pressed="false" aria-label="Follow playback" title="Follow – keep the playing line in view while the groove plays"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="1.6" fill="currentColor" stroke="none"/><path d="M8 1v2.2M8 12.8V15M1 8h2.2M12.8 8H15"/></svg><span style="margin-left:5px">Follow</span></button></div>
+        </div>
+      </div>
+      <div class="prow">
+        
         <span class="plab">Sticking</span>
         <button class="pbtn st" data-st="R" title="Right hand (R key)">R</button>
         <button class="pbtn st" data-st="L" title="Left hand (L key)">L</button>
@@ -369,6 +419,14 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
 </div>
 
 <input type="file" id="importFile" accept=".pdf,application/pdf,.mid,.midi,audio/midi,audio/x-midi" hidden>
+<div id="nbar" class="nbar" role="toolbar" aria-label="Notation playback">
+  <div class="phead">
+    <div class="ph-l"><button class="pbtn ico" id="nbRepeat" aria-pressed="false" aria-label="Loop" title="Loop – start again from the top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.2V6.5A2.5 2.5 0 0 1 5.5 4H12M10 2l2 2-2 2M13 8.8v.7A2.5 2.5 0 0 1 10.5 12H4M6 14l-2-2 2-2"/></svg></button></div>
+    <div class="ph-c"><button class="play" id="nbPlay" aria-label="Play groove" title="Play the whole groove"></button></div>
+    <div class="ph-r"><button class="pbtn ico" id="nbFollow" aria-pressed="false" aria-label="Follow playback" title="Follow – keep the playing line in view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="1.6" fill="currentColor" stroke="none"/><path d="M8 1v2.2M8 12.8V15M1 8h2.2M12.8 8H15"/></svg><span style="margin-left:5px">Follow</span></button></div>
+  </div>
+  <div class="nrow"><button class="pbtn st nbst" data-st="R" title="Right hand">R</button><button class="pbtn st nbst" data-st="L" title="Left hand">L</button><button class="pbtn st nbst" data-st="" title="Clear sticking">–</button><span class="spacer"></span><button class="pbtn" id="nbDup">Duplicate bar</button><button class="pbtn" id="nbClear">Clear bar</button></div>
+</div>
 <div id="drawerRoot"></div>
 <div id="modalRoot"></div>
 <div id="toastRoot"></div>
@@ -616,6 +674,7 @@ function updateTransport(){
   const loop=P.on&&P.mode==="loop", all=P.on&&P.mode==="all";
   const a=$("#bPlay"); a.innerHTML=loop?ICON_STOP:ICON_PLAY; a.classList.toggle("on",loop); a.setAttribute("aria-label",loop?"Stop":"Loop current bar");
   const b=$("#bPlayAll"); b.innerHTML=all?ICON_STOP:ICON_PLAY; b.classList.toggle("on",all); b.setAttribute("aria-label",all?"Stop":"Play groove");
+  const c=$("#nbPlay"); if(c){ c.innerHTML=P.on?ICON_STOP:ICON_PLAY; c.setAttribute("aria-label",P.on?"Stop":"Play groove"); } // stops whatever is playing
 }
 
 /* ---------- Grid ---------- */
@@ -1118,7 +1177,7 @@ function updateHeader(){
   $("#folderTag").textContent=S.folder?("in "+S.folder):"";
   $("#bpm").value=S.bpm; $("#tsig").value=S.ts;
   $("#bDel").disabled=S.measures.length<2;
-  $("#bRepeat").setAttribute("aria-pressed",S.repeat); $("#bFollow").setAttribute("aria-pressed",S.follow); $("#bMetro").setAttribute("aria-pressed",S.metro);
+  $("#bRepeat").setAttribute("aria-pressed",S.repeat); $("#nbRepeat").setAttribute("aria-pressed",S.repeat); $("#nbFollow").setAttribute("aria-pressed",S.follow); $("#bFollow").setAttribute("aria-pressed",S.follow); $("#bMetro").setAttribute("aria-pressed",S.metro);
 }
 let fitCtx=null;
 function fitName(){ // the input is as wide as its text, so "Unsaved" sits right after the name
@@ -1134,6 +1193,19 @@ $("#bpmDn").onclick=()=>setBpm(S.bpm-1); $("#bpmUp").onclick=()=>setBpm(S.bpm+1)
 $("#tsig").addEventListener("change",e=>changeTs(e.target.value));
 $("#bMetro").onclick=()=>{ S.metro=!S.metro; savePrefs(); updateHeader(); };
 $("#bRepeat").onclick=()=>{ S.repeat=!S.repeat; savePrefs(); updateHeader(); };
+$("#nbRepeat").onclick=()=>$("#bRepeat").click();
+$("#nbFollow").onclick=()=>$("#bFollow").click();
+$("#nbPlay").onclick=()=>{ if(P.on) stop(); else start("all"); };
+$("#nbDup").onclick=()=>$("#bDup").click();
+document.querySelectorAll(".nbst").forEach(x=>x.addEventListener("click",()=>applySticking(x.dataset.st)));
+$("#nbClear").onclick=()=>$("#bClear").click();
+let ctxOn=false;
+function updCtx(){ // switch the phone top bar to the notation bar when the score fills most of the screen
+  const r=$(".paper").getBoundingClientRect(), vh=window.innerHeight;
+  const on=isNarrow()&&(ctxOn? r.top<200 : r.top<110)&&r.bottom>vh*.3; // only once the notation section reaches the top of the screen
+  if(on!==ctxOn){ ctxOn=on; document.body.classList.toggle("notectx",on); }
+}
+window.addEventListener("scroll",updCtx,{passive:true}); window.addEventListener("resize",updCtx);
 $("#bFollow").onclick=()=>{ S.follow=!S.follow; savePrefs(); updateHeader(); if(S.follow){ followAt=0; followLine(); } };
 function setMode(md){ S.mode=md; document.querySelectorAll("#modes button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===md)); }
 $("#modes").addEventListener("click",e=>{ const b=e.target.closest("button"); if(b) setMode(b.dataset.mode); });
@@ -1343,12 +1415,12 @@ function textImg(doc,text,x,y,w,size,font,color,align){ // canvas text keeps any
   g.fillText(text,align==="center"?w/2:0,size*.2,w);
   doc.addImage(c.toDataURL("image/png"),"PNG",align==="center"?x-w/2:x,y,w,size*1.6);
 }
-function brandImg(doc,x,y,h){ // "notefy" wordmark with an orange notehead as the o, drawn on canvas so the Syne font is kept
+function brandImg(doc,x,y,h){ // "notefy" wordmark: arch n, notehead o, Syne "tefy" – drawn on canvas so the Syne font is kept
   const kk=6, fs=h*.9, w=h*4.2, c=document.createElement("canvas"); c.width=Math.ceil(w*kk); c.height=Math.ceil(h*kk);
-  const g=c.getContext("2d"); g.scale(kk,kk); g.font="700 "+fs+"px Syne, Sora, sans-serif"; g.fillStyle="#1b1b1d"; g.textBaseline="alphabetic";
-  const base=h*.82; g.fillText("n",0,base); const nx=g.measureText("n").width;
-  g.save(); g.translate(nx+fs*.37,base-fs*.25); g.rotate(-20*Math.PI/180); g.fillStyle="#e4a853"; g.beginPath(); g.ellipse(0,0,fs*.33,fs*.24,0,0,Math.PI*2); g.fill(); g.restore();
-  g.fillText("tefy",nx+fs*.74,base);
+  const g=c.getContext("2d"); g.scale(kk,kk); const base=h*.82, u=fs/100, ink="#1b1b1d";
+  g.save(); g.translate(0,base-100*u); g.scale(u,u); g.strokeStyle=ink; g.lineWidth=13; g.lineCap="butt"; g.stroke(new Path2D("M12.5 100V75.5A19 19 0 0 1 50.5 75.5V100")); g.restore();
+  let cx=63*u; g.save(); g.translate(cx+37*u,base-25*u); g.rotate(-20*Math.PI/180); g.fillStyle="#e4a853"; g.beginPath(); g.ellipse(0,0,33*u,24*u,0,0,Math.PI*2); g.fill(); g.restore();
+  cx+=74*u; g.font="700 "+fs+"px Syne, Sora, sans-serif"; g.fillStyle=ink; g.textBaseline="alphabetic"; g.fillText("tefy",cx,base);
   doc.addImage(c.toDataURL("image/png"),"PNG",x,y,w,h);
 }
 async function exportPdf(){
