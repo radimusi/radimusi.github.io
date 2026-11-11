@@ -87,7 +87,7 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .section-h h2{font-family:var(--f-display);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0}
 .section-h .meta{font-size:12px;color:var(--faint)}
 .section-h .meta b{color:var(--fg);font-weight:500}
-.gridbox{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gridbox{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden}
 .grid{min-width:0;display:grid;grid-template-columns:var(--label-w) 1fr;user-select:none;-webkit-user-select:none;touch-action:pan-y}
 .labels{border-right:1px solid var(--line);min-width:0}
 .lab,.lab-h{height:var(--row-h);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--line-soft);white-space:nowrap;overflow:hidden}
@@ -201,7 +201,7 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .psep{width:1px;align-self:stretch;background:var(--paper-line);margin:2px 6px}
 .plab{font-size:12px;color:var(--paper-muted)}
 select.psel{background:transparent;border:1px solid var(--paper-line);border-radius:8px;padding:6px 8px;font-size:12.5px;color:var(--paper-ink);color-scheme:light;max-width:100%}
-.sheet{padding:16px 14px 10px;overflow-x:auto}
+.sheet{padding:16px 14px 10px;overflow:hidden}
 .sheet svg{display:block}
 .sheet-title{font-family:var(--f-display);font-size:17px;font-weight:600;padding:0 8px 2px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .sheet-title small{font-family:var(--f-mono);font-size:12px;font-weight:400;color:var(--paper-muted);white-space:nowrap}
@@ -474,7 +474,8 @@ const isNarrow=()=>narrowMQ.matches;
 /* ---------- Audio (synthesised kit) ---------- */
 let AC=null, master=null, grooveBus=null, clickBus=null, noiseBuf=null, openHat=null;
 function audio(){
-  if(AC){ if(AC.state==="suspended") AC.resume(); return AC; }
+  if(AC){ if(AC.state!=="running"&&AC.state!=="closed") AC.resume().catch(()=>{}); return AC; }
+  try{ if(navigator.audioSession) navigator.audioSession.type="playback"; }catch(e){} // iOS: play even with the silent switch on
   AC=new (window.AudioContext||window.webkitAudioContext)();
   const comp=AC.createDynamicsCompressor(); comp.threshold.value=-6; comp.ratio.value=2.5;
   master=AC.createGain(); master.gain.value=.8; master.connect(comp); comp.connect(AC.destination);
@@ -561,15 +562,36 @@ function tick(){
     if(it) it.tn=cellTime();
   }
 }
+/* iOS treats Web Audio as "ambient" sound that the silent switch mutes. A silent, looping
+   <audio> element playing alongside switches the page to "media" playback, so the groove is
+   heard whenever the volume is up – like a video would be. */
+let mediaKeep=null;
+function silentWav(){ const n=800, buf=new ArrayBuffer(44+n*2), v=new DataView(buf), w=(o,str)=>{ for(let i=0;i<str.length;i++) v.setUint8(o+i,str.charCodeAt(i)); };
+  w(0,"RIFF"); v.setUint32(4,36+n*2,true); w(8,"WAVE"); w(12,"fmt "); v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,8000,true); v.setUint32(28,16000,true); v.setUint16(32,2,true); v.setUint16(34,16,true); w(36,"data"); v.setUint32(40,n*2,true);
+  let bin=""; const u=new Uint8Array(buf); for(let i=0;i<u.length;i++) bin+=String.fromCharCode(u[i]); return "data:audio/wav;base64,"+btoa(bin); }
+function mediaOn(){ try{ if(!mediaKeep){ mediaKeep=new Audio(silentWav()); mediaKeep.loop=true; mediaKeep.setAttribute("playsinline",""); mediaKeep.volume=.01; } const pr=mediaKeep.play(); if(pr&&pr.catch) pr.catch(()=>{}); }catch(e){} }
+function mediaOff(){ try{ mediaKeep&&mediaKeep.pause(); }catch(e){} }
+function unlockAudio(){ // iOS / mobile browsers start audio only from a tap: play one silent sample
+  const ac=audio(); try{ const b=ac.createBuffer(1,1,22050), src=ac.createBufferSource(); src.buffer=b; src.connect(ac.destination); src.start(0); }catch(e){}
+}
+["touchend","click","keydown"].forEach(t=>document.addEventListener(t,()=>{ if(!AC||AC.state!=="running") unlockAudio(); },{capture:true,passive:true}));
 function start(mode){
-  stop(); audio();
+  stop(); mediaOn(); unlockAudio();
+  if(AC.state!=="running"){
+    let done=false; const t=setTimeout(()=>{ if(!done) toast("The browser hasn't started sound yet – tap Play once more."); },1200);
+    AC.resume().then(()=>{ done=true; clearTimeout(t); if(!P.on) begin(mode); }).catch(()=>{ done=true; clearTimeout(t); toast("Sound is blocked by the browser – tap Play again."); });
+    return; }
+  begin(mode);
+}
+function begin(mode){
   P.on=true; P.mode=mode; P.mi=mode==="all"?0:S.sel; P.b=0; P.c=0; P.mStart=AC.currentTime+.08; P.queue=[]; P.ending=null; P.last=null;
   if(mode==="all"&&S.sel!==0){ S.sel=0; S.page=0; renderGrid(); renderScore(); }
   tick(); P.timer=setInterval(tick,25);
   P.raf=requestAnimationFrame(frame); updateTransport();
 }
 function stop(){
-  if(P.timer) clearInterval(P.timer); P.timer=null; cancelAnimationFrame(P.raf);
+  if(P.timer) clearInterval(P.timer); P.timer=null; cancelAnimationFrame(P.raf); if(P.on) mediaOff();
   P.on=false; P.mode=null; P.queue=[]; P.last=null; showPlayhead(null); scoreLine(null); updateTransport();
 }
 function frame(){
@@ -745,7 +767,7 @@ function removeMod(id,b,c,md){
   if(md==="a"||md==="g"){ if(sub(m.hits,id,key)) m.hits[id][key]=1; } else setIn(m,"orn",id,key,"");
   if(sub(m.auto,id,key)&&sub(m.hits,id,key)===1&&!sub(m.orn,id,key)) setHit(id,b,c,0);
 }
-function previewHit(id,v,o){ if(P.on) return; const t=audio().currentTime+.07; playNote(id,t,v,o); }
+function previewHit(id,v,o){ if(P.on) return; mediaOn(); clearTimeout(previewHit._t); previewHit._t=setTimeout(()=>{ if(!P.on) mediaOff(); },2500); const t=audio().currentTime+.07; playNote(id,t,v,o); }
 function applyPaint(id,b,c){
   const m=cur(), key=k(b,c), has=!!sub(m.hits,id,key);
   if(paint.kind==="erase"){ if(has){ setHit(id,b,c,0); return true; } return false; }
@@ -1145,7 +1167,6 @@ grid.addEventListener("pointermove",e=>{
     const el2=document.elementFromPoint(Math.min(r.right-2,Math.max(r.left+2,e.clientX)),r.top+r.height/2); if(el2) onCellEnter(el2); return; }
   if(Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>10){ tap.ok=false; clearTimeout(tap.timer); }
 });
-grid.addEventListener("touchmove",e=>{ if(tap&&tap.painting) e.preventDefault(); },{passive:false}); // no scrolling while painting
 const endTouch=e=>{
   if(e.pointerType==="mouse") return; touches.delete(e.pointerId);
   if(!tap||e.pointerId!==tap.id) return; const t=tap; tap=null; clearTimeout(t.timer);
