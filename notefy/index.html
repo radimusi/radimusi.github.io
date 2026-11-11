@@ -1,5 +1,13 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>notefy</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="notefy – a drum sequencer that writes real drum notation. Click a groove into the grid, hear it, export PDF or MIDI.">
+<meta name="theme-color" content="#111215">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111215'/%3E%3Cellipse cx='32' cy='33' rx='20' ry='14' transform='rotate(-20 32 33)' fill='%23e4a853'/%3E%3C/svg%3E">
+<style>*,*::before,*::after{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>notefy – drum notation sequencer</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Syne:wght@700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -17,6 +25,7 @@
   color-scheme:dark;
 }
 html,body{background:var(--bg);color:var(--fg)}
+.top,.bar,section:not(.paper),.ptools,button,select,input{touch-action:manipulation} /* no double-tap zoom on controls and the sequencer; the score itself keeps double-tap and pinch zoom */
 body{font-family:var(--f-body);font-size:14px;line-height:1.45;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
 *{box-sizing:border-box}
 button,input,select{font:inherit;color:inherit}
@@ -30,7 +39,7 @@ button{cursor:pointer}
 .brand{font-family:"Syne",var(--f-display);font-weight:700;font-size:22px;letter-spacing:0;white-space:nowrap;line-height:1}
 .brand svg{width:.74em;height:1.2em;vertical-align:-.2em}
 .title-in{flex:1;min-width:150px;display:flex;align-items:center;gap:8px}
-#beatName{background:transparent;border:1px solid transparent;border-radius:6px;padding:5px 8px;font-size:15px;font-weight:500;color:#e6c57f;width:100%;max-width:360px;min-width:0}
+#beatName{background:transparent;border:1px solid transparent;border-radius:6px;padding:5px 8px;font-size:15px;font-weight:500;color:#e6c57f;width:12ch;max-width:100%;min-width:4ch}
 #beatName:hover{border-color:var(--line)}
 #beatName:focus{border-color:var(--line);background:var(--panel);outline:none}
 .folder-tag{font-size:12px;color:var(--muted);white-space:nowrap}
@@ -152,6 +161,10 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .fb:hover{border-color:#d6b262}
 .fb.zero{color:var(--faint);background:transparent;border-color:#2f323a}
 .fb.zero:hover{color:var(--muted);border-color:#454952}
+.menu{position:fixed;z-index:26;width:250px;background:var(--raised);border:1px solid #3a3e47;border-radius:12px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:2px}
+.menu button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:transparent;border:none;border-radius:8px;padding:9px 10px;color:var(--fg)}
+.menu button:hover,.menu button:focus-visible{background:rgba(255,255,255,.06)}
+.menu b{font-weight:500;font-size:13px}.menu span{font-size:11.5px;color:var(--muted)}
 .feelpop{position:fixed;z-index:25;background:var(--raised);border:1px solid #3a3e47;border-radius:12px;padding:12px 14px;width:260px;box-shadow:0 12px 30px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:8px}
 .feelpop h4{margin:0;font-size:13px;font-weight:600;display:flex;justify-content:space-between}
 .feelpop h4 span{font-family:var(--f-mono);font-weight:500;color:#e3c27a}
@@ -263,7 +276,8 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-
+</head>
+<body>
 <div class="wrap">
   <header class="top">
     <div class="brand" role="img" aria-label="notefy">n<svg viewBox="0 0 74 120" aria-hidden="true"><ellipse cx="37" cy="75" rx="33" ry="24" transform="rotate(-20 37 75)" fill="var(--accent)"/></svg>tefy</div>
@@ -275,9 +289,9 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
     <div class="actions">
       <button class="btn ghost" id="bNew" title="New groove"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg><span class="lbl">New</span></button>
       <button class="btn" id="bLib" title="Library"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4.5h4l1.5 1.5H14v6.5H2z"/></svg><span class="lbl">Library</span></button>
-      <button class="btn" id="bImport" title="Import a PDF exported from notefy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 10.5v-8M4.5 6 8 2.5 11.5 6M3 13.5h10"/></svg><span class="lbl">Import</span></button>
+      <button class="btn" id="bImport" title="Import a PDF exported from notefy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 10.5v-8M4.5 6 8 2.5 11.5 6M3 13.5h10"/></svg><span class="lbl">Import PDF</span></button>
       <button class="btn" id="bSave" title="Save"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2.5h8l2 2v9H3z M5.5 2.5v3.5h5v-3.5 M5.5 13.5v-4h5v4"/></svg><span class="lbl">Save</span></button>
-      <button class="btn" id="bMidi" title="Export MIDI – for Ableton, Logic, GarageBand…"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5.5 3v6M8 3v6M10.5 3v6"/></svg><span class="lbl">MIDI</span></button>
+      <button class="btn" id="bMidi" title="MIDI – import or export" aria-haspopup="menu"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5.5 3v6M8 3v6M10.5 3v6"/></svg><span class="lbl">MIDI</span></button>
       <button class="btn primary" id="bPdf" title="Export PDF"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg><span class="lbl">Export PDF</span></button>
     </div>
   </header>
@@ -354,7 +368,7 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
   </section>
 </div>
 
-<input type="file" id="importFile" accept=".pdf,application/pdf" hidden>
+<input type="file" id="importFile" accept=".pdf,application/pdf,.mid,.midi,audio/midi,audio/x-midi" hidden>
 <div id="drawerRoot"></div>
 <div id="modalRoot"></div>
 <div id="toastRoot"></div>
@@ -1077,14 +1091,21 @@ function addMeasure(){ S.measures.push(newMeasure()); S.sel=S.measures.length-1;
 /* ---------- Header / controls ---------- */
 $("#tsig").append(...TS_ORDER.map(t=>el("option",{value:t},t)));
 function updateHeader(){
-  const n=$("#beatName"); if(document.activeElement!==n) n.value=S.name;
+  const n=$("#beatName"); if(document.activeElement!==n) n.value=S.name; fitName();
   $("#dirty").hidden=!S.dirty;
   $("#folderTag").textContent=S.folder?("in "+S.folder):"";
   $("#bpm").value=S.bpm; $("#tsig").value=S.ts;
   $("#bDel").disabled=S.measures.length<2;
   $("#bRepeat").setAttribute("aria-pressed",S.repeat); $("#bFollow").setAttribute("aria-pressed",S.follow); $("#bMetro").setAttribute("aria-pressed",S.metro);
 }
-$("#beatName").addEventListener("input",e=>{ S.name=e.target.value; touch(); $("#sheetName").textContent=S.name||"Untitled"; });
+let fitCtx=null;
+function fitName(){ // the input is as wide as its text, so "Unsaved" sits right after the name
+  const n=$("#beatName"); fitCtx=fitCtx||document.createElement("canvas").getContext("2d");
+  const cs=getComputedStyle(n); fitCtx.font=cs.fontWeight+" "+cs.fontSize+" "+cs.fontFamily;
+  n.style.width=Math.ceil(fitCtx.measureText(n.value||"Untitled").width+20)+"px";
+}
+document.fonts&&document.fonts.ready.then(fitName);
+$("#beatName").addEventListener("input",e=>{ S.name=e.target.value; fitName(); touch(); $("#sheetName").textContent=S.name||"Untitled"; });
 function setBpm(v){ v=Math.round(Math.min(300,Math.max(30,+v||S.bpm))); if(v!==S.bpm){ S.bpm=v; touch(); } $("#bpm").value=S.bpm; $("#sheetTempo").textContent=tempoText(); renderGrid(); }
 $("#bpm").addEventListener("change",e=>setBpm(e.target.value));
 $("#bpmDn").onclick=()=>setBpm(S.bpm-1); $("#bpmUp").onclick=()=>setBpm(S.bpm+1);
@@ -1441,7 +1462,20 @@ function midiDialog(){
         el("button",{class:"btn primary",onclick:()=>{ pref.map=cur; saveMidiPref(pref); GM={...MAPS.gm.notes,...(cur==="custom"?pref.custom:MAPS[cur].notes)}; closeModal(); exportMidi(); }},"Export"))));
   $("#modalRoot").append(box);
 }
-$("#bMidi").onclick=midiDialog;
+let midiMenu=null;
+function closeMidiMenu(){ if(midiMenu){ midiMenu.remove(); midiMenu=null; } }
+$("#bMidi").onclick=e=>{
+  if(midiMenu){ closeMidiMenu(); return; }
+  const r=$("#bMidi").getBoundingClientRect();
+  midiMenu=el("div",{class:"menu",role:"menu"},
+    el("button",{role:"menuitem",onclick:()=>{ closeMidiMenu(); const f=$("#importFile"); f.accept=MIDI_ACCEPT; f.click(); }},el("b",{},"Import MIDI"),el("span",{},"Load a drum MIDI file into the grid")),
+    el("button",{role:"menuitem",onclick:()=>{ closeMidiMenu(); midiDialog(); }},el("b",{},"Export MIDI"),el("span",{},"For Ableton, Logic, GarageBand…")));
+  document.body.append(midiMenu);
+  const w=250; midiMenu.style.top=(r.bottom+6)+"px"; midiMenu.style.left=Math.max(8,Math.min(window.innerWidth-w-8,r.right-w))+"px";
+};
+document.addEventListener("pointerdown",e=>{ if(midiMenu&&!midiMenu.contains(e.target)&&!e.target.closest("#bMidi")) closeMidiMenu(); },true);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeMidiMenu(); });
+window.addEventListener("scroll",closeMidiMenu,{passive:true});
 
 /* ---------- Swing, feel, patterns ---------- */
 function tempoText(){ let t=UNIT_SYM[tsi().unit]+" = "+S.bpm; if(S.swing>50&&swingAvail()) t+="   Swing "+(S.swingUnit==="8"?"8ths":"16ths"); return t; }
@@ -1482,17 +1516,95 @@ function renderPatterns(){
 document.querySelectorAll(".pseg button").forEach(b=>b.addEventListener("click",()=>{ S.lead=b.dataset.lead; renderPatterns(); }));
 renderPatterns();
 
+/* ---------- Import MIDI (drum notes → grid, quantised) ---------- */
+function parseMidi(buf){
+  const d=new DataView(buf); let p=0;
+  const str=n=>{ let s2=""; for(let i=0;i<n;i++) s2+=String.fromCharCode(d.getUint8(p+i)); p+=n; return s2; };
+  const u32=()=>{ const v=d.getUint32(p); p+=4; return v; }, u16=()=>{ const v=d.getUint16(p); p+=2; return v; };
+  const vlqr=()=>{ let v=0,b; do{ b=d.getUint8(p++); v=(v<<7)|(b&0x7f); }while(b&0x80); return v; };
+  if(str(4)!=="MThd") throw {userMsg:"This is not a MIDI file."};
+  const hl=u32(); u16(); const ntr=u16(), div=u16(); p+=hl-6;
+  if(div&0x8000) throw {userMsg:"This MIDI file uses SMPTE timing, which isn't supported."};
+  const notes=[], tempos=[], sigs=[];
+  for(let t=0;t<ntr&&p<buf.byteLength;t++){
+    const id=str(4), len=u32(), end=p+len; if(id!=="MTrk"){ p=end; continue; }
+    let tick=0, run=0;
+    while(p<end){
+      tick+=vlqr(); let st=d.getUint8(p);
+      if(st<0x80){ st=run; } else { p++; if(st<0xf0) run=st; }
+      if(st===0xff){ const ty=d.getUint8(p++), l=vlqr();
+        if(ty===0x51&&l===3) tempos.push({tick,us:(d.getUint8(p)<<16)|(d.getUint8(p+1)<<8)|d.getUint8(p+2)});
+        if(ty===0x58&&l>=2) sigs.push({tick,num:d.getUint8(p),den:1<<d.getUint8(p+1)});
+        p+=l; }
+      else if(st===0xf0||st===0xf7){ p+=vlqr(); }
+      else { const hi=st&0xf0, ch=st&0x0f, a=d.getUint8(p++), b2=(hi===0xc0||hi===0xd0)?0:d.getUint8(p++);
+        if(hi===0x90&&b2>0) notes.push({tick,note:a,vel:b2,ch}); }
+    }
+    p=end;
+  }
+  return {ppq:div,notes,tempos,sigs};
+}
+const MIDI_IN={35:"kick",36:"kick",37:"xs",38:"sn",40:"rs",39:"sn",42:"hh",44:"hhf",46:"hho",49:"crash",57:"crash2",52:"crash2",55:"crash2",51:"ride",59:"rcr",53:"bell",48:"t1",50:"t1",45:"t2",47:"t2",41:"ft",43:"ft"};
+function grooveFromMidi(buf,name){
+  const M=parseMidi(buf);
+  let notes=M.notes.filter(n=>n.ch===9); if(!notes.length) notes=M.notes; // drums live on channel 10
+  // the user's MIDI-export map wins, then General MIDI
+  const pref=midiPref(), mine=pref.map==="custom"?pref.custom:(MAPS[pref.map]&&MAPS[pref.map].notes)||{};
+  const rev={...MIDI_IN}; for(const [id2,n] of Object.entries(mine)) if(!/r$/.test(id2)||id2==="snr") rev[n]=rev[n]&&mine[rev[n]]===n?rev[n]:id2;
+  notes=notes.filter(n=>rev[n.note]); if(!notes.length) throw {userMsg:"No drum notes found in this MIDI file."};
+  // quiet strokes just before a louder one on the same drum are grace notes: 1 = flam, 2 = drag
+  notes.sort((x,y)=>x.tick-y.tick);
+  const tpsI=M.ppq*(M.tempos.length?60e6/M.tempos[0].us:120)/60, graceT=tpsI*.075;
+  for(const n of notes){ if(n.grace) continue;
+    const main=notes.find(o=>o!==n&&!o.grace&&o.note===n.note&&o.tick>n.tick&&o.tick-n.tick<=graceT&&n.vel<o.vel*.75);
+    if(main){ n.grace=true; main.graces=(main.graces||0)+1; } }
+  notes=notes.filter(n=>!n.grace);
+  const sig=M.sigs[0]||{num:4,den:4}, tsKey=sig.num+"/"+sig.den, ts=TS[tsKey]?tsKey:"4/4", T=TS[ts];
+  const qbpm=M.tempos.length?60e6/M.tempos[0].us:120, uq=T.unit==="q"?1:T.unit==="qd"?1.5:.5;
+  const E=M.ppq/2, st=starts(T.groups), barE=T.groups.reduce((a,b)=>a+b,0), barT=barE*E;
+  const t0=Math.floor(Math.min(...notes.map(n=>n.tick))/barT)*barT; // start at the bar of the first note
+  const vels=notes.map(n=>n.vel).sort((a,b)=>a-b), med=vels[Math.floor(vels.length/2)];
+  const lastBar=Math.min(63,Math.floor((Math.max(...notes.map(n=>n.tick))-t0)/barT));
+  const bars=[]; for(let i=0;i<=lastBar;i++) bars.push({sub:T.groups.map(L=>T.den===4?4:2*L),hits:{},stick:{},orn:{}});
+  // place each note in its bar / beat as a fraction of the beat
+  const items=notes.map(n=>{ const rel=n.tick-t0, bi=Math.floor(rel/barT), e=(rel-bi*barT)/E; let b=0; while(b<T.groups.length-1&&st[b+1]<=e+1e-9) b++; return {n,bi,b,f:(e-st[b])/T.groups[b]}; }).filter(x=>x.bi<=lastBar);
+  // choose a subdivision per beat that fits its notes best (coarser wins ties)
+  bars.forEach((m,bi)=>T.groups.forEach((L,b)=>{
+    const fs=items.filter(x=>x.bi===bi&&x.b===b).map(x=>x.f); if(!fs.length) return;
+    // simplest grid whose cells all notes sit close to (tolerates swing / feel); else the best fit
+    const pref2=T.den===4?[4,3,8,6]:[2*L,L,4*L], tol=.07;
+    const maxErr=n=>Math.max(...fs.map(f=>Math.abs(f*n-Math.round(f*n))/n));
+    let best=pref2.find(n=>maxErr(n)<=tol); if(!best) best=pref2.reduce((a,n)=>maxErr(n)<maxErr(a)?n:a,pref2[0]);
+    m.sub[b]=best;
+  }));
+  for(const x of items){
+    let bi=x.bi, b=x.b, n=bars[bi].sub[b], c=Math.round(x.f*n);
+    if(c>=n){ c=0; b++; if(b>=T.groups.length){ b=0; bi++; } if(bi>lastBar) continue; }
+    const id2=rev[x.n.note], v=x.n.vel>=Math.min(127,med+18)?2:x.n.vel<=med-30?3:1, key=k(b,c), m=bars[bi];
+    const prev=m.hits[id2]&&m.hits[id2][key]; if(prev&&prev!==3&&v===3) continue; // keep the stronger of duplicates
+    for(const o of INSTR) if(o.id!==id2&&o.line===IBY[id2].line&&m.hits[o.id]) delete m.hits[o.id][key];
+    (m.hits[id2]=m.hits[id2]||{})[key]=v;
+    if(x.n.graces&&IBY[id2].voice==="up") (m.orn[id2]=m.orn[id2]||{})[key]=x.n.graces>=2?"d":"f";
+  }
+  return {app:"notefy",name:name||"Imported MIDI",bpm:Math.round(Math.min(300,Math.max(30,qbpm/uq))),ts,swing:50,swingUnit:"16",feel:{},measures:bars};
+}
+
 /* ---------- Import a notefy PDF ---------- */
 function readGrooveFromPdf(buf){
   const bytes=new Uint8Array(buf); let txt=""; for(let i=0;i<bytes.length;i+=8192) txt+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));
   const m=txt.match(/notefy-groove:([A-Za-z0-9+\/=]+):end/); if(!m) return null;
   try{ const d=JSON.parse(decodeURIComponent(escape(atob(m[1])))); return d&&d.app==="notefy"&&Array.isArray(d.measures)&&TS[d.ts]?d:null; }catch(e){ return null; }
 }
-$("#bImport").onclick=()=>$("#importFile").click();
+const PDF_ACCEPT=".pdf,application/pdf", MIDI_ACCEPT=".mid,.midi,audio/midi,audio/x-midi";
+$("#bImport").onclick=()=>{ const f=$("#importFile"); f.accept=PDF_ACCEPT; f.click(); };
 $("#importFile").addEventListener("change",async e=>{
   const f=e.target.files&&e.target.files[0]; e.target.value=""; if(!f) return;
-  let d=null; try{ d=readGrooveFromPdf(await f.arrayBuffer()); }catch(err){}
-  if(!d){ toast("This PDF has no notefy groove inside. For now only PDFs exported from notefy can be imported."); return; }
+  let d=null, buf=null; try{ buf=await f.arrayBuffer(); }catch(err){}
+  if(!buf){ toast("Couldn't read the file."); return; }
+  const u8=new Uint8Array(buf), isMidi=u8[0]===0x4d&&u8[1]===0x54&&u8[2]===0x68&&u8[3]===0x64;
+  if(isMidi){ try{ d=grooveFromMidi(buf,f.name.replace(/\.(midi?|MID|MIDI)$/,"")); }catch(err){ console.error(err); toast(err&&err.userMsg||"Couldn't read this MIDI file."); return; } }
+  else { try{ d=readGrooveFromPdf(buf); }catch(err){}
+    if(!d){ toast("This PDF has no notefy groove inside. For now only PDFs exported from notefy (or MIDI files) can be imported."); return; } }
   const go=()=>{ stop(); applyBeat({...d,id:null,folder:"",sel:0}); S.dirty=true; saveDraft(); updateHeader(); updateSwingUI(); renderGrid(); renderScore(); closeDrawer(); toast("Imported: "+(d.name||"groove")+" – save it to keep it in your library"); };
   if(S.dirty) confirmBox("Discard unsaved changes?","This groove has changes that are not saved.","Discard and import",go); else go();
 });
@@ -1554,5 +1666,5 @@ Store.init();
 window.__notefy={S,exportPdf,changeTs,setSub};
 })();
 </script>
-
-</body></html>
+</body>
+</html>
