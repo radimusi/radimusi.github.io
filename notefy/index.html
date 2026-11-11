@@ -92,6 +92,17 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .group-top{border-top:1px solid var(--line)}
 .pager{display:none;align-items:center;gap:2px;margin-left:auto}
 .grid.paged .pager{display:flex}
+#barbar{display:flex;align-items:center;gap:6px;padding:8px;border-bottom:1px solid var(--line)}
+#barbar .bl{font-size:13px;color:var(--muted);padding:0 4px;white-space:nowrap}
+#barbar .bl b{color:var(--fg);font-weight:500}
+#barbar .bb{border:1px solid var(--line);background:var(--bg);border-radius:8px;height:32px;padding:0 10px;font-size:12.5px;color:var(--fg);white-space:nowrap}
+#barbar .bb:disabled{opacity:.3}
+#pagerbar:not(:empty){display:flex;align-items:center;gap:6px;padding:8px 8px;border-bottom:1px solid var(--line)}
+.pgb{width:34px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:18px;line-height:1;flex:none}
+.pgb:disabled{opacity:.3}
+.pgtabs{flex:1;display:flex;gap:4px;min-width:0}
+.pgt{flex:1;border:1px solid transparent;background:transparent;border-radius:8px;padding:6px 4px;font-size:12px;color:var(--muted);white-space:nowrap;min-width:0}
+.pgt[aria-selected="true"]{background:rgba(214,178,98,.16);border-color:rgba(214,178,98,.55);color:#f1dfa8}
 .pager button{border:1px solid var(--line);background:var(--bg);border-radius:6px;width:26px;height:26px;color:var(--fg);padding:0}
 .pager button:disabled{opacity:.3}
 .tracks{position:relative;min-width:0;overflow:hidden}
@@ -302,7 +313,7 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
       <div class="swingbox"><label for="swing">Swing</label><input type="range" id="swing" min="50" max="75" step="1"><span class="val" id="swingVal"></span>
         <div class="seg mini" id="swingUnit" role="group" aria-label="Swing subdivision"><button data-u="8">8ths</button><button data-u="16">16ths</button></div></div>
     </div>
-    <div class="gridbox"><div class="grid" id="grid"></div><div id="chips"></div></div>
+    <div class="gridbox"><div id="barbar"></div><div id="pagerbar"></div><div class="grid" id="grid"></div><div id="chips"></div></div>
     <span class="hint">Normal: click = add / remove · Accent, Ghost, Flam, Drag: click = add or remove that marking (the note stays) · drag = paint · right-click = erase · click an instrument name = listen · ms button = microtiming</span>
   </section>
 
@@ -614,10 +625,21 @@ function renderGrid(){
   const vis=visibleGroups();
   const labels=el("div",{class:"labels"}), tracks=el("div",{class:"tracks"});
   const pages=paged()?pagesFor(m):[vis]; g.classList.toggle("paged",paged());
-  const pager=el("div",{class:"pager"},
-    el("button",{"aria-label":"Previous beats",disabled:S.page<=0?"":null,onclick:()=>{S.page--; renderGrid();}},"‹"),
-    el("button",{"aria-label":"Next beats",disabled:S.page>=pages.length-1?"":null,onclick:()=>{S.page++; renderGrid();}},"›"));
-  labels.append(el("div",{class:"lab-h"},el("span",{class:"tk"},"Bar "),el("span",{},String(S.sel+1)),pager));
+  labels.append(el("div",{class:"lab-h"},el("span",{class:"tk"},"Bar "),el("span",{},String(S.sel+1))));
+  const bbx=$("#barbar"); bbx.innerHTML="";
+  bbx.append(el("button",{class:"pgb","aria-label":"Previous bar",disabled:S.sel<=0?"":null,onclick:()=>{ S.sel--; S.page=0; renderGrid(); renderScore(); saveDraft(); }},"‹"),
+    el("span",{class:"bl"},"Bar ",el("b",{},String(S.sel+1))," of "+S.measures.length),
+    el("button",{class:"pgb","aria-label":"Next bar",disabled:S.sel>=S.measures.length-1?"":null,onclick:()=>{ S.sel++; S.page=0; renderGrid(); renderScore(); saveDraft(); }},"›"),
+    el("span",{class:"spacer"}),
+    el("button",{class:"bb",onclick:()=>addMeasure(),title:"Add an empty bar at the end"},"+ Bar"),
+    el("button",{class:"bb",onclick:()=>$("#bDup").click(),title:"Duplicate this bar"},"Duplicate"));
+  const pb=$("#pagerbar"); pb.innerHTML="";
+  if(paged()){
+    const lbl=p=>{ const a=p[0]+1, z=p[p.length-1]+1; return a===z?"Beat "+a:"Beats "+a+"–"+z; };
+    pb.append(el("button",{class:"pgb","aria-label":"Previous beats",disabled:S.page<=0?"":null,onclick:()=>{S.page--; renderGrid();}},"‹"),
+      el("div",{class:"pgtabs",role:"tablist"}, pages.map((p,i)=>el("button",{class:"pgt",role:"tab","aria-selected":String(i===S.page),onclick:()=>{S.page=i; renderGrid();}},lbl(p)))),
+      el("button",{class:"pgb","aria-label":"Next beats",disabled:S.page>=pages.length-1?"":null,onclick:()=>{S.page++; renderGrid();}},"›"));
+  }
   const hrow=el("div",{class:"hrow"});
   for(const b of vis){
     const n=m.sub[b], L=t.groups[b];
@@ -735,11 +757,12 @@ function onCellDown(e){
     if((S.mode==="f"||S.mode==="d")&&IBY[id].voice!=="up"){ toast("Flams and drags are hand techniques – use them on drums or cymbals."); return; }
     paint={kind:"mod",mode:S.mode,add:!(has&&hasMod(m,id,key,S.mode))};
   }
+  paint.row=id; // painting stays in the row where it started
   if(applyPaint(id,b,c)) afterEdit();
 }
 function onCellEnter(target){
   if(!paint) return; const cell=target.closest&&target.closest(".cell"); if(!cell) return;
-  if(applyPaint(cell.dataset.i,+cell.dataset.b,+cell.dataset.c)) afterEdit();
+  if(applyPaint(paint.row||cell.dataset.i,+cell.dataset.b,+cell.dataset.c)) afterEdit(); // columns line up across rows
 }
 function afterEdit(){ touch(); renderGrid(); scheduleScore(); }
 function remapKeys(obj,b,oldN,newN){
@@ -1020,14 +1043,24 @@ const scoreEl=$("#score");
 scoreEl.addEventListener("pointerdown",e=>{
   const t=e.target;
   if(!(t.classList&&t.classList.contains("stk"))) return;
+  if(e.pointerType!=="mouse"){ stTap={id:t.dataset.id,x:e.clientX,y:e.clientY}; return; } // touch handled on a clean tap (pointerup)
   e.preventDefault(); const id=t.dataset.id, slot=stickSlots.find(s=>s.id===id);
-  if(e.pointerType!=="mouse"){ if(stSel.has(id)) stSel.delete(id); else stSel.add(id); stAnchor=id; } // touch: tap toggles membership
+  if(false){}
   else if(e.shiftKey&&stAnchor){ rangeSelect(stAnchor,id); return; }
   else if(stSel.size===1&&stSel.has(id)){ // click again on the only selected note cycles R → L → nic
     const m=S.measures[slot.mi], nx={"":"R",R:"L",L:""}[m.stick[slot.key]||""]; if(nx) m.stick[slot.key]=nx; else delete m.stick[slot.key]; touch(); renderScore(); return;
   } else { stSel.clear(); stSel.add(id); stAnchor=id; stDrag=true; }
   if(slot&&slot.mi!==S.sel){ S.sel=slot.mi; S.page=0; renderGrid(); renderScore(); } else paintStickSel();
 });
+let stTap=null;
+scoreEl.addEventListener("pointerup",e=>{
+  if(e.pointerType==="mouse"||!stTap) return; const t=stTap; stTap=null;
+  if(Math.hypot(e.clientX-t.x,e.clientY-t.y)>10) return;
+  const id=t.id, slot=stickSlots.find(s=>s.id===id); if(!slot) return;
+  if(stSel.has(id)) stSel.delete(id); else stSel.add(id); stAnchor=id;
+  if(slot.mi!==S.sel){ S.sel=slot.mi; S.page=0; renderGrid(); renderScore(); } else paintStickSel();
+});
+scoreEl.addEventListener("pointercancel",()=>{ stTap=null; });
 scoreEl.addEventListener("pointerover",e=>{ if(stDrag&&e.target.classList&&e.target.classList.contains("stk")) rangeSelect(stAnchor,e.target.dataset.id); });
 window.addEventListener("pointerup",()=>{ stDrag=false; paint=null; });
 scoreEl.addEventListener("click",e=>{
@@ -1072,9 +1105,41 @@ $("#bNew").onclick=()=>{
 };
 
 const grid=$("#grid");
-grid.addEventListener("pointerdown",e=>{ if(e.pointerType!=="mouse"||e.button===0||e.button===2) onCellDown(e); });
-grid.addEventListener("pointerover",e=>onCellEnter(e.target));
-grid.addEventListener("pointermove",e=>{ if(!paint||e.pointerType==="mouse") return; const t=document.elementFromPoint(e.clientX,e.clientY); if(t) onCellEnter(t); });
+/* Mouse: press = write, drag = paint. Touch / pen: only a clean tap writes, so scrolling and
+   pinch-zooming never add notes; a horizontal swipe flips to the next / previous beats. */
+const touches=new Map(); let tap=null;
+grid.addEventListener("pointerdown",e=>{
+  if(e.pointerType==="mouse"){ if(e.button===0||e.button===2) onCellDown(e); return; }
+  touches.set(e.pointerId,1);
+  if(tap&&tap.timer) clearTimeout(tap.timer);
+  tap= touches.size===1 ? {id:e.pointerId,x:e.clientX,y:e.clientY,t:performance.now(),target:e.target,ok:true,painting:false} : null;
+  if(tap){ const t=tap; t.timer=setTimeout(()=>{ // press and hold = paint mode: then slide to write more notes
+    if(tap!==t||!t.ok||!t.target.closest(".cell")) return;
+    t.painting=true; onCellDown({target:t.target,pointerType:"touch",button:0,preventDefault(){}}); try{ navigator.vibrate&&navigator.vibrate(12); }catch(e){} },300); }
+});
+grid.addEventListener("pointermove",e=>{
+  if(!tap||e.pointerId!==tap.id) return;
+  if(tap.painting){ // follow the finger horizontally, but stay in the row where painting began
+    const row=paint&&document.querySelector('.row[data-i="'+paint.row+'"]'); if(!row) return; const r=row.getBoundingClientRect();
+    const el2=document.elementFromPoint(Math.min(r.right-2,Math.max(r.left+2,e.clientX)),r.top+r.height/2); if(el2) onCellEnter(el2); return; }
+  if(Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>10){ tap.ok=false; clearTimeout(tap.timer); }
+});
+grid.addEventListener("touchmove",e=>{ if(tap&&tap.painting) e.preventDefault(); },{passive:false}); // no scrolling while painting
+const endTouch=e=>{
+  if(e.pointerType==="mouse") return; touches.delete(e.pointerId);
+  if(!tap||e.pointerId!==tap.id) return; const t=tap; tap=null; clearTimeout(t.timer);
+  if(t.painting){ paint=null; return; }
+  if(e.type==="pointercancel") return;
+  const dx=e.clientX-t.x, dy=e.clientY-t.y;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){ // swipe: next / previous beats, then on to the next / previous bar
+    const n=paged()?pagesFor(cur()).length:1;
+    if(dx<0){ if(S.page<n-1) S.page++; else if(S.sel<S.measures.length-1){ S.sel++; S.page=0; renderScore(); } else return; }
+    else { if(S.page>0) S.page--; else if(S.sel>0){ S.sel--; S.page=paged()?pagesFor(cur()).length-1:0; renderScore(); } else return; }
+    renderGrid(); return; }
+  if(t.ok&&performance.now()-t.t<600){ onCellDown({target:t.target,pointerType:"touch",button:0,preventDefault(){}}); paint=null; }
+};
+grid.addEventListener("pointerup",endTouch); grid.addEventListener("pointercancel",endTouch);
+grid.addEventListener("pointerover",e=>{ if(e.pointerType==="mouse") onCellEnter(e.target); });
 grid.addEventListener("contextmenu",e=>e.preventDefault());
 
 document.addEventListener("keydown",e=>{
