@@ -1631,7 +1631,7 @@ const EXAMPLES=[
       a.put("t1",2,0,2); a.orn("t1",2,0,"d"); a.put("t1",2,1); a.put("t2",2,2);
       a.put("ft",3,0,2); a.put("ft",3,1); a.put("sn",3,2,2); a.put("sn",3,3); a.put("kick",3,0); a.put("hhf",3,2);
       [["R",1,0],["L",1,2],["R",1,3],["R",2,0],["L",2,1],["R",2,2],["R",3,0],["L",3,1],["R",3,2],["L",3,3]].forEach(([h,b,c])=>a.st(b,c,h)); }),
-    exBar([4,4,4,4],a=>{ a.put("crash2",0,0,2); a.put("kick",0,0); for(let b=1;b<4;b++){ a.put("hh",b,0,2); a.put("hh",b,2); } funkBase(a); }),
+    exBar([4,4,4,4],a=>{ a.put("crash",0,0,2); a.put("kick",0,0); for(let b=1;b<4;b++){ a.put("hh",b,0,2); a.put("hh",b,2); } funkBase(a); }),
    ]},
   {name:"6/8 ballad", desc:"6/8 · 58 BPM (♩.) · ride bell, cross-stick, crash on the downbeat",
    bpm:58, ts:"6/8", swing:50, swingUnit:"16", feel:{},
@@ -1659,6 +1659,8 @@ $("#mix").value=S.mix;
 $("#mix").addEventListener("input",e=>{ S.mix=+e.target.value; applyMix(); savePrefs(); });
 let d=loadDraft();
 if(d&&/^(Example – rock groove|Ukázka – rock groove)/.test(d.name||"")) d=null; // retire the old rock demo
+const exNow=d&&!d.id&&!d.dirty&&EXAMPLES.find(e=>e.name===d.name); // an untouched example always opens in its latest version
+if(exNow) d={...clone(exNow),id:null,folder:"",sel:d.sel||0,dirty:false};
 applyBeat(d||{...clone(EXAMPLES[0]),id:null,folder:""}, true);
 if(!d) S.dirty=false;
 updateHeader(); updateSwingUI(); updateTransport(); renderGrid(); renderScore();
