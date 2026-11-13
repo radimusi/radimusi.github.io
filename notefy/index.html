@@ -236,7 +236,7 @@ body.selecting #modes button[aria-pressed="true"]{background:transparent;box-sha
 .pbtn[aria-pressed="true"]{background:var(--paper-ink);color:var(--paper);border-color:var(--paper-ink)}
 .pbtn.st{font-family:var(--f-mono);font-weight:500;min-width:32px;padding:6px 8px}
 .paper .play{background:var(--paper-ink);color:var(--paper)}
-.paper .play.on,.phd .play.on{background:var(--paper-ink);color:var(--paper);box-shadow:0 0 0 3px #fbfaf6,0 0 0 4px var(--paper-ink)}
+.paper .play.on,.phd .play.on{background:#8a877e;color:#fbfaf6} /* playing: grey in the black-and-white part, like the yellow up top */
 .paper .play-lab{color:var(--paper-ink);font-size:12.5px;font-weight:500}
 .phead{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;width:100%;background:#fbfaf6;border:1px solid var(--paper-line);border-radius:12px;padding:8px 10px}
 .ph-l{justify-self:start}.ph-r{justify-self:end}.ph-c{position:relative;display:flex;align-items:center}
@@ -292,7 +292,7 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
   :root{--label-w:94px;--row-h:40px}
   .top{padding-block:12px 0;gap:8px;grid-template-columns:auto minmax(0,1fr) auto}
   .top .actions{flex-wrap:nowrap;gap:4px}
-  .top #bNew,.top #bImport,.top #bSave,.top #bMidi,.top #bPdf{display:none}
+  .top #bNew,.top #bImport,.top #bSave,.top #bMidi,.top #bPdf,.top #bShare{display:none}
   .btn.more{display:inline-flex}
   #beatName{max-width:100%;text-overflow:ellipsis;padding:5px 4px}
   .title-in{gap:4px}.folder-tag{display:none}
@@ -413,6 +413,7 @@ body.notectx .phd{box-shadow:0 8px 24px rgba(0,0,0,.35);border-radius:0 0 12px 1
       <button class="btn" id="bImport" title="Import a PDF exported from notefy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 10.5v-8M4.5 6 8 2.5 11.5 6M3 13.5h10"/></svg><span class="lbl">Import PDF</span></button>
       <button class="btn" id="bSave" title="Save"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2.5h8l2 2v9H3z M5.5 2.5v3.5h5v-3.5 M5.5 13.5v-4h5v4"/></svg><span class="lbl">Save</span></button>
       <button class="btn" id="bMidi" title="MIDI – import or export" aria-haspopup="menu"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5.5 3v6M8 3v6M10.5 3v6"/></svg><span class="lbl">MIDI</span></button>
+      <button class="btn" id="bShare" title="Share – copy a link to this groove"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="8" r="1.8"/><circle cx="12" cy="3.8" r="1.8"/><circle cx="12" cy="12.2" r="1.8"/><path d="M5.6 7.1 10.4 4.7M5.6 8.9l4.8 2.4"/></svg><span class="lbl">Share</span></button>
       <button class="btn more" id="bMore" title="More" aria-label="More actions" aria-haspopup="menu"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="3.5" cy="8" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="12.5" cy="8" r="1.4"/></svg></button>
       <button class="btn primary" id="bPdf" title="Export PDF"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg><span class="lbl">Export PDF</span></button>
     </div>
@@ -863,7 +864,12 @@ function shownInstr(){
   const f=INSTR.filter(i=>u.has(i.id)||S.pinned.has(i.id)); return f.length?f:base;
 }
 
-function renderGrid(){
+function renderGrid(){ // rebuilds the grid without moving the page: hold the box height and the scroll position
+  const gbx=document.querySelector(".gridbox"), y0=window.scrollY; if(gbx) gbx.style.minHeight=gbx.offsetHeight+"px";
+  renderGridInner();
+  if(gbx) gbx.style.minHeight=""; if(Math.abs(window.scrollY-y0)>1) window.scrollTo(0,y0);
+}
+function renderGridInner(){
   if(nsel.size&&nselBar!==S.sel) nsel.clear();
   { const mm=cur(); for(const x of [...nsel]){ const [id,b,c]=x.split("|"); if(!sub(mm.hits,id,k(b,c))) nsel.delete(x); } }
   const m=cur(), t=tsi(), g=$("#grid"); g.style.minHeight=g.offsetHeight+"px"; g.innerHTML=""; // hold height so the page never jumps
@@ -1884,7 +1890,7 @@ $("#bMidi").onclick=e=>openMenu(e.currentTarget,[menuItem("Import MIDI","Load a 
 $("#bMore").onclick=e=>openMenu(e.currentTarget,[
   menuItem("New groove","",()=>$("#bNew").click()), menuItem("Save","",()=>saveDialog(false)), menuItem("Save as new…","",()=>saveDialog(true)),
   menuItem("Import PDF","A PDF exported from notefy",()=>$("#bImport").click()), menuItem("Import MIDI","Load a drum MIDI file",importMidi),
-  menuItem("Export MIDI","For Ableton, Logic, GarageBand…",midiDialog), menuItem("Export PDF","A4 sheet",exportPdf)]);
+  menuItem("Export MIDI","For Ableton, Logic, GarageBand…",midiDialog), menuItem("Export PDF","A4 sheet",exportPdf), menuItem("Share link","Copy a link to this groove",shareDialog)]);
 document.addEventListener("pointerdown",e=>{ if(midiMenu&&!midiMenu.contains(e.target)&&!(menuAnchor&&menuAnchor.contains(e.target))) closeMidiMenu(); },true);
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeMidiMenu(); });
 window.addEventListener("scroll",closeMidiMenu,{passive:true});
@@ -2064,6 +2070,61 @@ function openExample(e){
   if(S.dirty) confirmBox("Discard unsaved changes?","This groove has changes that are not saved.","Discard and open",go); else go();
 }
 
+/* ---------- Share by link: the whole groove travels inside the URL (#g=…), no server needed ---------- */
+const SHARE_BASE="https://radimusi.github.io/notefy/";
+function shareBase(){ try{ if(/^https?:$/.test(location.protocol)&&!/claude|anthropic/i.test(location.hostname)) return location.origin+location.pathname; }catch(e){} return SHARE_BASE; }
+function b64u(u8){ let s=""; for(let i=0;i<u8.length;i+=0x8000) s+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000)); return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+function unb64u(s){ s=s.replace(/-/g,"+").replace(/_/g,"/"); while(s.length%4) s+="="; const b=atob(s), u=new Uint8Array(b.length); for(let i=0;i<b.length;i++) u[i]=b.charCodeAt(i); return u; }
+async function pipeStream(u8,Stream){ const s=new Blob([u8]).stream().pipeThrough(new Stream("deflate-raw")); return new Uint8Array(await new Response(s).arrayBuffer()); }
+async function encodeGroove(){
+  const raw=new TextEncoder().encode(JSON.stringify({v:1,name:S.name,bpm:S.bpm,ts:S.ts,swing:S.swing,swingUnit:S.swingUnit,feel:S.feel,measures:S.measures}));
+  if(window.CompressionStream){ try{ return "z"+b64u(await pipeStream(raw,CompressionStream)); }catch(e){} }
+  return "j"+b64u(raw);
+}
+async function decodeGroove(s){
+  const u=unb64u(s.slice(1)), raw=s[0]==="z"?await pipeStream(u,DecompressionStream):u;
+  return JSON.parse(new TextDecoder().decode(raw));
+}
+function cleanShared(d){ // accept only what notefy itself would write
+  if(!d||!Array.isArray(d.measures)) return null;
+  const ts=TS[d.ts]?d.ts:"4/4", t=TS[ts], obj=x=>x&&typeof x==="object"&&!Array.isArray(x);
+  const okSub=L=>t.den===4?[3,4,6,8]:[L,2*L,4*L];
+  const ms=d.measures.filter(m=>obj(m)&&Array.isArray(m.sub)&&m.sub.length===t.groups.length&&obj(m.hits)).map(m=>{
+    const hits={}, orn={}, stick={};
+    for(const id in m.hits) if(IBY[id]&&obj(m.hits[id])){ hits[id]={}; for(const c in m.hits[id]) if([1,2,3].includes(m.hits[id][c])) hits[id][c]=m.hits[id][c]; }
+    if(obj(m.orn)) for(const id in m.orn) if(IBY[id]&&obj(m.orn[id])){ orn[id]={}; for(const c in m.orn[id]) if(m.orn[id][c]==="f"||m.orn[id][c]==="d") orn[id][c]=m.orn[id][c]; }
+    if(obj(m.stick)) for(const c in m.stick) if(m.stick[c]==="R"||m.stick[c]==="L") stick[c]=m.stick[c];
+    return {sub:m.sub.map((n,b)=>okSub(t.groups[b]).includes(n)?n:okSub(t.groups[b])[1]),hits,orn,stick};
+  });
+  if(!ms.length) return null;
+  const feel={}; if(obj(d.feel)) for(const id in d.feel) if(IBY[id]&&isFinite(+d.feel[id])) feel[id]=Math.max(-60,Math.min(60,+d.feel[id]));
+  return {name:String(d.name||"Shared groove").slice(0,80),bpm:Math.round(Math.min(300,Math.max(30,+d.bpm||90))),ts,swing:d.swing,swingUnit:d.swingUnit,feel,measures:ms};
+}
+async function shareDialog(){
+  let url; try{ url=shareBase()+"#g="+await encodeGroove(); }catch(e){ toast("Couldn't create the link."); return; }
+  const inp=el("input",{value:url,readonly:"","aria-label":"Share link",style:"font-family:var(--f-mono)",onfocus:e=>e.target.select()});
+  const copy=async()=>{ let ok=false; try{ await navigator.clipboard.writeText(url); ok=true; }catch(e){}
+    if(!ok){ inp.focus(); inp.select(); try{ ok=document.execCommand("copy"); }catch(e){} }
+    if(ok){ closeModal(); toast("Link copied – paste it anywhere"); } else toast("Select the link and copy it"); };
+  const native=navigator.share?el("button",{class:"btn",onclick:async()=>{ try{ await navigator.share({title:(S.name||"Groove")+" · notefy",url}); closeModal(); }catch(e){} }},"Send…"):null;
+  const box=el("div",{class:"modal",onclick:e=>{ if(e.target===box) closeModal(); }},
+    el("div",{class:"mbox",role:"dialog","aria-modal":"true"}, el("h3",{},"Share this groove"),
+      el("div",{style:"color:var(--muted);font-size:13px"},"Anyone with the link can open “"+(S.name||"this groove")+"” in notefy, play it and save their own copy. The link holds the groove as it is now – after more changes, share a new link."),
+      el("label",{},"Link",inp),
+      el("div",{class:"mrow"}, el("button",{class:"btn ghost",onclick:closeModal},"Close"), native, el("button",{class:"btn primary",onclick:copy},"Copy link"))));
+  $("#modalRoot").append(box); if(!isNarrow()) setTimeout(()=>{ inp.focus(); inp.select(); },30);
+}
+$("#bShare").onclick=shareDialog;
+async function openSharedFromHash(){
+  const m=/^#g=([zj][A-Za-z0-9_-]+)$/.exec(location.hash||""); if(!m) return;
+  let d=null; try{ d=cleanShared(await decodeGroove(m[1])); }catch(e){}
+  try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+  if(!d){ toast("This share link is broken or incomplete."); return; }
+  const go=()=>{ stop(); applyBeat({...d,id:null,folder:"",sel:0}); S.dirty=true; saveDraft(); updateHeader(); updateSwingUI(); renderGrid(); renderScore(); closeDrawer(); toast("Opened shared groove: "+d.name+" – save it to keep it in your library"); };
+  if(S.dirty) confirmBox("Open the shared groove?","Your current groove has unsaved changes. Opening the shared one replaces it.","Open shared groove",go); else go();
+}
+window.addEventListener("hashchange",openSharedFromHash);
+
 /* ---------- Boot ---------- */
 const pr=loadPrefs();
 if(pr){ S.onlyUsed=!!pr.onlyUsed; S.loop=["all","bar","off"].includes(pr.loop)?pr.loop:"all"; S.metroSub=pr.metroSub==="8"?"8":"q"; S.follow=!!pr.follow; S.metro=!!pr.metro; if(pr.mix!=null) S.mix=+pr.mix; }
@@ -2077,6 +2138,7 @@ applyBeat(d||{...clone(EXAMPLES[0]),id:null,folder:""}, true);
 if(!d) S.dirty=false;
 updateHeader(); updateSwingUI(); updateTransport(); renderGrid(); renderScore();
 Store.init();
+openSharedFromHash();
 window.__notefy={hl:()=>hist.length,S,P,exportPdf,changeTs,setSub,renderScore,kit:()=>KIT};
 })();
 </script>
