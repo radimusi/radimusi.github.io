@@ -291,6 +291,37 @@ input[type=range]{accent-color:var(--accent)}
 .gover>div{display:grid;gap:10px;justify-items:center;max-width:46ch}
 .gover p{color:var(--muted)}
 .citywrap{background:#141018}
+html.playing,html.playing body{overflow:hidden}
+.csetup{display:grid;gap:14px}
+.cintro{color:var(--muted);max-width:75ch;font-size:.95rem}
+.cstart{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cstart .cgo{padding:14px 28px;font-size:1.1rem}
+.cbest{color:var(--muted)}.cbest b{color:var(--fg);font-family:var(--f-mono)}
+.cityplay{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;gap:6px;padding:max(6px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+.cp-hud{display:flex;align-items:stretch;gap:6px;min-height:0}
+.cp-hud>div{background:var(--sunk);border-radius:10px;padding:4px 12px;display:grid;align-content:center}
+.cp-hud small{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cp-hud .gstat b{font-family:var(--f-mono);font-size:1.05rem}
+.cp-hud .gtarget{background:color-mix(in srgb,var(--c-root) 18%,var(--sunk))}
+.cp-hud .gtn{display:flex;align-items:center;flex-wrap:wrap;row-gap:2px}
+.cp-hud .gtn .jb{font-size:1.5rem}.cp-hud .gtn .jb.jstr{font-size:1.1rem}
+.cp-hud .gsub{display:inline-block;margin-left:6px;font-size:.7rem;color:var(--muted)}
+.cp-hud .gsub .dp{display:inline-block;margin:0 3px 0 0;padding:0 6px;border-radius:99px;border:1.5px solid var(--c);color:var(--c);font:700 .72rem var(--f-mono)}
+.cp-hud .gsub .dp.on{background:var(--c);color:#141018}.cp-hud .gsub .dp.cur{box-shadow:0 0 0 2px var(--fg)}
+.cp-hud .gmsg{flex:1;min-width:0;margin:0;align-self:center;font-size:.85rem;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cp-x{flex:none;align-self:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);font-size:1rem}
+.cp-main{flex:1;min-height:0;display:flex;align-items:center;gap:10px}
+.cp-main .gstage{flex:1;min-width:0}
+.cp-side{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.cp-side .act{padding:16px 22px;font-size:1rem;min-width:110px}
+.cityplay .dpad{grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,50px);gap:6px}
+.cityplay .dpad button{font-size:1.1rem;touch-action:none}
+.cp-rotate{position:absolute;inset:0;z-index:5;background:var(--bg);display:none;place-items:center;text-align:center;padding:24px}
+.cp-rotate>div{display:grid;gap:10px;justify-items:center;max-width:32ch}
+.cp-rotate p{color:var(--muted)}
+@media (orientation:portrait) and (max-width:760px){.cityplay:not(.forced) .cp-rotate{display:grid}
+  .cityplay.forced .cp-main{flex-direction:column}.cityplay.forced .cp-main .gstage{width:100%;flex:none}.cityplay.forced .cp-side{flex-direction:row}.cityplay.forced .cp-hud{flex-wrap:wrap}.cityplay.forced .cp-best{display:none}}
+@media (max-height:480px){.cp-best{display:none}.cityplay .dpad{grid-template-columns:repeat(3,46px);grid-template-rows:repeat(2,44px)}}
 .citycv{display:block;width:100%;touch-action:none}
 .cityact{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .cityact .act{padding:12px 22px}
@@ -1229,15 +1260,24 @@ G.city=(el)=>{
   const DIR={u:{dx:0,ds:1},d:{dx:0,ds:-1},l:{dx:-1,ds:0},r:{dx:1,ds:0}};
   if(!o.mode)o.mode='mix';if(!Array.isArray(o.str)||!o.str.length)o.str=[0,1,2,3,4,5];
   const strOn=s=>o.str.includes(s);
-  el.innerHTML=optsHTML(o)+`<div class="ctrls gopts"><div class="grp gm"><label>${t('Mise','Mission')}</label>${chips([['notes',t('1 · Kurýr – tóny','1 · Courier – notes')],['intervals',t('2 · Taxík – intervaly','2 · Taxi – intervals')],['chords',t('3 · Sanitka – akordy','3 · Ambulance – chords')],['scales',t('4 · Hasiči – stupnice','4 · Fire – scales')],['doubles',t('5 · Policie – dvojhmaty','5 · Police – double stops')],['prog',t('6 · Autobus – postupy','6 · Bus – progressions')],['race',t('7 · Závod','7 · Race')],['mix',t('Vše dohromady','Everything')]],o.mode)}</div>
-   <div class="grp gs"><label>${t('Struny','Strings')}</label>${[0,1,2,3,4,5].map(s=>`<button class="chip ${o.str.includes(s)?'on':''}" data-s="${s}" type="button">${SN[s]}</button>`).join('')}</div></div>`+`<div class="ghud"><div class="gtarget"><small class="jobk">${t('Mise','Job')}</small><b class="gtn">–</b></div>
-    <div class="gstat"><small>${t('Peníze','Cash')}</small><b class="gsc">$0</b></div>
-    <div class="gstat"><small>${t('Směna','Shift')}</small><b class="gclock">90</b></div>
-    <div class="gstat"><small>${t('Rekord','Best')}</small><b class="gbest">$0</b></div><p class="gmsg"></p></div>
-   <div class="gstage"><div class="gboard citywrap"><canvas class="citycv"></canvas></div></div>
-   <div class="gctl"><div class="dpad"><button data-d="u" type="button" aria-label="${t('Nahoru','Up')}">▲</button><button data-d="l" type="button" aria-label="${t('Doleva','Left')}">◀</button><button data-d="r" type="button" aria-label="${t('Doprava','Right')}">▶</button><button data-d="d" type="button" aria-label="${t('Dolů','Down')}">▼</button></div>
-   <div class="cityact"><button class="btn act" type="button"></button><button class="chip gps" type="button">GPS (−$10)</button></div></div>
-   <p class="src">${t('Ovládání: šipky nebo WASD (drž pro jízdu), mezerník = zastavit a doručit / vyzvednout. Každé ťuknutí na šipku posune auto o kousek: z parkovacího místa (tónu) na křižovatku a dál. Na jinou strunu odbočíš jen na křižovatce. Podržením šipky jedeš plynule.','Controls: arrows or WASD (hold to drive), Space = deliver / pick up. Each arrow tap moves the car one step: from a parking spot (note) to a crossing and on. You can only turn onto another string at a crossing. Hold an arrow to drive smoothly.')}</p>`;
+  el.innerHTML=`<div class="csetup">`+optsHTML(o)+`<div class="ctrls gopts"><div class="grp gm"><label>${t('Mise','Mission')}</label>${chips([['notes',t('1 · Kurýr – tóny','1 · Courier – notes')],['intervals',t('2 · Taxík – intervaly','2 · Taxi – intervals')],['chords',t('3 · Sanitka – akordy','3 · Ambulance – chords')],['scales',t('4 · Hasiči – stupnice','4 · Fire – scales')],['doubles',t('5 · Policie – dvojhmaty','5 · Police – double stops')],['prog',t('6 · Autobus – postupy','6 · Bus – progressions')],['race',t('7 · Závod','7 · Race')],['mix',t('Vše dohromady','Everything')]],o.mode)}</div>
+   <div class="grp gs"><label>${t('Struny','Strings')}</label>${[0,1,2,3,4,5].map(s=>`<button class="chip ${o.str.includes(s)?'on':''}" data-s="${s}" type="button">${SN[s]}</button>`).join('')}</div></div>
+   <p class="cintro">${t('Město je hmatník: šest hlavních ulic jsou struny (E, A, D, G, B, e) a osvětlené příčné ulice jsou pražce. Tóny jsou parkovací místa mezi pražci – jako na kytaře. Ulice B má žluté čáry posunuté o půl pražce a značku ½: struna B je naladěná o půltón jinak, takže se na ní tvary posouvají. Červené sedlové střechy jsou značky z hmatníku: na 3., 5., 7., 9. a 12. pražci mezi ulicemi D a G (na 12. dvě). Rozvážej balíky a vozí zákazníky – každá zakázka přidá čas do směny.','The city is a fretboard: six main streets are the strings (E, A, D, G, B, e) and the lit cross streets are frets. Notes are parking spots between frets – like on a guitar. B street’s yellow lane marks are shifted half a fret and carry a ½ sign: the B string is tuned a half step differently, so shapes shift there. Red gabled rooftops are the fretboard inlays: at frets 3, 5, 7, 9 and 12 between D and G streets (two at the 12th). Deliver parcels and drive passengers – every job adds time to your shift.')}</p>
+   <div class="cstart"><button class="btn cgo" type="button">▶ ${t('Spustit hru','Start game')}</button><span class="cbest">${t('Rekord','Best')}: <b class="cbestv">$0</b></span></div>
+   <p class="src">${t('Ovládání: šipky nebo WASD (drž pro jízdu), mezerník = zastavit a doručit / vyzvednout. Každé ťuknutí na šipku posune auto o kousek: z parkovacího místa (tónu) na křižovatku a dál. Na jinou strunu odbočíš jen na křižovatce. Podržením šipky jedeš plynule.','Controls: arrows or WASD (hold to drive), Space = deliver / pick up. Each arrow tap moves the car one step: from a parking spot (note) to a crossing and on. You can only turn onto another string at a crossing. Hold an arrow to drive smoothly.')}</p></div>
+   <div class="cityplay" hidden>
+    <div class="cp-hud"><div class="gtarget"><small class="jobk">${t('Mise','Job')}</small><b class="gtn">–</b></div>
+     <div class="gstat"><small>${t('Peníze','Cash')}</small><b class="gsc">$0</b></div>
+     <div class="gstat"><small>${t('Směna','Shift')}</small><b class="gclock">90</b></div>
+     <div class="gstat cp-best"><small>${t('Rekord','Best')}</small><b class="gbest">$0</b></div><p class="gmsg"></p>
+     <button class="cp-x" type="button" aria-label="${t('Zpět do menu','Back to menu')}">✕</button></div>
+    <div class="cp-main"><div class="cp-side"><div class="dpad"><button data-d="u" type="button" aria-label="${t('Nahoru','Up')}">▲</button><button data-d="l" type="button" aria-label="${t('Doleva','Left')}">◀</button><button data-d="r" type="button" aria-label="${t('Doprava','Right')}">▶</button><button data-d="d" type="button" aria-label="${t('Dolů','Down')}">▼</button></div></div>
+     <div class="gstage"><div class="gboard citywrap"><canvas class="citycv"></canvas></div></div>
+     <div class="cp-side"><button class="btn act" type="button"></button><button class="chip gps" type="button">GPS (−$10)</button></div></div>
+    <div class="cp-rotate"><div><svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true"><rect x="14" y="6" width="20" height="34" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M38 30 a12 12 0 0 1 -12 12" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M27 38 l-2 4 4 1" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+     <b>${t('Otoč telefon na šířku','Turn your phone sideways')}</b><p>${t('Fret City se hraje naležato – hmatník je pak dost velký.','Fret City is played in landscape – the fretboard gets big enough.')}</p><button class="chip cp-force" type="button">${t('Hrát i tak','Play anyway')}</button></div></div>
+   </div>`;
+  const play=el.querySelector('.cityplay');
   const stage=el.querySelector('.gstage'),wrap=el.querySelector('.citywrap'),cv=el.querySelector('.citycv'),ctx=cv.getContext('2d');
   let M={};let city=null;
   const C={ground:'#141018',road:'#2A2431',dash:'#5C5168',walk:'#1E1925',b:['#2E2638','#372C44','#41334F','#2B3442','#3A2C3A','#30283F'],win:'#F3C76B',win2:'#9B7BFF',park:'#1C3329',water:'#4EA3F5',sign:'#EEE8F4',car:'#F39237',roof:'#9B7BFF',ok:'#36C48C',bad:'#FF6B52',pass:'#9B7BFF',glow:'rgba(243,146,55,.22)'};
@@ -1445,20 +1485,26 @@ G.city=(el)=>{
     ctx.restore();
     // popups
     st.pops=st.pops.filter(p=>now-p.t<1100);st.pops.forEach(p=>{const k=(now-p.t)/1100;ctx.globalAlpha=1-k;ctx.fillStyle=p.col;ctx.font=`700 ${Math.max(12,u*.3)}px Poppins, sans-serif`;ctx.textAlign='center';ctx.fillText(p.text,X(p.f),Y(p.s)-u*.35-k*u*.5);ctx.globalAlpha=1;});}
-  function loop(){const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;if(st&&st.running)update(dt);draw();raf=requestAnimationFrame(loop);}
+  const portraitMQ=window.matchMedia('(orientation:portrait) and (max-width:760px)');
+  function loop(){const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;const paused=portraitMQ.matches&&!play.classList.contains('forced');if(st&&st.running&&!paused)update(dt);draw();raf=requestAnimationFrame(loop);}
   function start(){CURLVL=o.lvl==='easy'?'':'-'+o.lvl;st={car:{x:.5,y:2,mode:'stop',hdir:1,ang:0},cash:0,time:LVL(o,150,90,60),done:0,streak:0,pops:[],marks:[],reveal:null,running:true,job:null};cash(0);newJob();last=performance.now();}
   function end(){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();st.running=false;setBest('city',st.cash);el.querySelector('.gbest').textContent='$'+BEST('city');
-    overlay(stage,t('Konec směny','Shift over'),t(`Vydělala jsi <b>$${st.cash}</b> a dokončila ${st.done} zakázek.`,`You earned <b>$${st.cash}</b> and finished ${st.done} jobs.`),t('Další směna','Next shift'),start);}
+    overlay(stage,t('Konec směny','Shift over'),t(`Vydělala jsi <b>$${st.cash}</b> a dokončila ${st.done} zakázek.`,`You earned <b>$${st.cash}</b> and finished ${st.done} jobs.`),t('Další směna','Next shift'),start);const ov=stage.querySelector('.gover>div');if(ov){const mb=document.createElement('button');mb.className='btn ghost';mb.type='button';mb.textContent=t('Menu','Menu');mb.onclick=exitPlay;ov.appendChild(mb);}}
   const KEYS={ArrowUp:'u',ArrowDown:'d',ArrowLeft:'l',ArrowRight:'r',w:'u',s:'d',a:'l',d:'r',W:'u',S:'d',A:'l',D:'r'};
   const kd=e=>{if(!st||!st.running)return;if(e.target.matches&&e.target.matches('input,select,textarea'))return;const k=KEYS[e.key];if(k){e.preventDefault();order=order.filter(x=>x!==k);order.push(k);st.car.tap={d:DIR[k],t:performance.now()};}else if(e.key===' '||e.key==='Enter'){e.preventDefault();if(!e.repeat)action();}};
   const ku=e=>{const k=KEYS[e.key];if(k)order=order.filter(x=>x!==k);};
   window.addEventListener('keydown',kd);window.addEventListener('keyup',ku);
   el.querySelectorAll('.dpad button').forEach(b=>{const k=b.dataset.d;b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture&&b.setPointerCapture(e.pointerId);order=order.filter(x=>x!==k);order.push(k);if(st)st.car.tap={d:DIR[k],t:performance.now()};};const up=()=>{order=order.filter(x=>x!==k);};b.onpointerup=up;b.onpointercancel=up;b.onlostpointercapture=up;b.oncontextmenu=e=>e.preventDefault();});
   el.querySelector('.act').onclick=action;el.querySelector('.gps').onclick=gps;el.querySelector('.act').textContent=t('Doručit','Deliver');
-  function setup(){cancelAnimationFrame(raf);if(ro)ro.disconnect();st=null;resize();ro=new ResizeObserver(()=>{resize();});ro.observe(wrap);CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.gbest').textContent='$'+BEST('city');el.querySelector('.gclock').textContent=LVL(o,150,90,60);el.querySelector('.gsc').textContent='$0';setJob('–','',t('Mise','Job'));msg('');
-    last=performance.now();loop();
-    overlay(stage,'Fret City',t('Město je hmatník: šest hlavních ulic jsou struny (E, A, D, G, B, e) a osvětlené příčné ulice jsou pražce. Tóny jsou parkovací místa mezi pražci – jako na kytaře. Ulice B má žluté čáry posunuté o půl pražce a značku ½: struna B je naladěná o půltón jinak, takže se na ní tvary posouvají. Červené sedlové střechy jsou značky z hmatníku: na 3., 5., 7., 9. a 12. pražci mezi ulicemi D a G (na 12. dvě). Rozvážej balíky a vozí zákazníky – každá zakázka přidá čas do směny.','The city is a fretboard: six main streets are the strings (E, A, D, G, B, e) and the lit cross streets are frets. Notes are parking spots between frets – like on a guitar. B street’s yellow lane marks are shifted half a fret and carry a ½ sign: the B string is tuned a half step differently, so shapes shift there. Red gabled rooftops are the fretboard inlays: at frets 3, 5, 7, 9 and 12 between D and G streets (two at the 12th). Deliver parcels and drive passengers – every job adds time to your shift.'),t('▶ Začít směnu','▶ Start shift'),start);}
-  el._stop=()=>{cancelAnimationFrame(raf);if(ro)ro.disconnect();window.removeEventListener('keydown',kd);window.removeEventListener('keyup',ku);};
+  function setup(){cancelAnimationFrame(raf);if(ro)ro.disconnect();st=null;CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.cbestv').textContent='$'+BEST('city');el.querySelector('.gbest').textContent='$'+BEST('city');el.querySelector('.gclock').textContent=LVL(o,150,90,60);el.querySelector('.gsc').textContent='$0';setJob('–','',t('Mise','Job'));msg('');}
+  function enterPlay(){ac();play.hidden=false;document.documentElement.classList.add('playing');
+    try{const fe=document.documentElement;if(fe.requestFullscreen&&!document.fullscreenElement)fe.requestFullscreen().then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{});}catch(e){}}).catch(()=>{});}catch(e){}
+    if(ro)ro.disconnect();ro=new ResizeObserver(()=>resize());ro.observe(wrap);
+    requestAnimationFrame(()=>{resize();CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.gbest').textContent='$'+BEST('city');start();cancelAnimationFrame(raf);last=performance.now();loop();});}
+  function exitPlay(){if(st){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();st.running=false;}cancelAnimationFrame(raf);if(ro)ro.disconnect();play.hidden=true;play.classList.remove('forced');stage.querySelectorAll('.gover').forEach(x=>x.remove());document.documentElement.classList.remove('playing');
+    try{if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});}catch(e){}el.querySelector('.cbestv').textContent='$'+BEST('city');}
+  el.querySelector('.cgo').onclick=enterPlay;el.querySelector('.cp-x').onclick=exitPlay;el.querySelector('.cp-force').onclick=()=>play.classList.add('forced');
+  el._stop=()=>{exitPlay();window.removeEventListener('keydown',kd);window.removeEventListener('keyup',ku);};
   el._dbg=()=>st;
   bindChips(el,'.gm',v=>{o.mode=v;save('gt-gopt-city',o);setup();});
   el.querySelectorAll('.gs .chip').forEach(b=>b.onclick=()=>{const v=+b.dataset.s;if(o.str.includes(v)){if(o.str.length===1)return;o.str=o.str.filter(x=>x!==v);}else o.str=[...o.str,v].sort();b.classList.toggle('on',o.str.includes(v));save('gt-gopt-city',o);setup();});
