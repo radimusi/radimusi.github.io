@@ -4,45 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="neofy – interaktivní cesta teorií pro elektrickou kytaru od intervalů po neo-soulové akordy.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141217'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='.5' stop-color='%232CC793'/%3E%3Cstop offset='.5' stop-color='%239B7BFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='18' fill='url(%23g)'/%3E%3C/svg%3E">
-<style>body{margin:0;font-size:14px}[hidden]{display:none!important}img{max-width:100%}</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141217'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='.5' stop-color='%23F39237'/%3E%3Cstop offset='.5' stop-color='%239B7BFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='18' fill='url(%23g)'/%3E%3C/svg%3E">
+<style>body{margin:0;font-size:14px;background:#16121B}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>neofy</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
 /* Layout: sticky top bar + lesson rail (desktop) / content column; the fretboard is the hero of every lesson */
 :root{
-  --bg:#F5F2F7; --surface:#FFFFFF; --sunk:#ECE7F0; --fg:#1F1828; --muted:#6A6075; --line:#DCD4E3;
-  --accent:#6B3FC4; --accent-ink:#FFFFFF; --brass:#A86A12;
-  --wood:#E9DCC8; --wood-2:#DCCBB1; --fret:#9E907E; --string:#7D7365; --inlay:#C8B79D;
-  --c-root:#E2550A; --c-3:#7B4BE0; --c-5:#1F77D0; --c-7:#0C9A70; --c-t:#C98F00; --c-o:#8E8698;
-  --ok:#0C8A5E; --bad:#C2341B;
-  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+--bg:#16121B; --surface:#201A28; --sunk:#2A2333; --fg:#EEE8F4; --muted:#A79DB3; --line:#3A3145;
+  --accent:#A07BF0; --accent-ink:#16121B; --brass:#F5A04A;
+  --wood:#3A2E24; --wood-2:#2F251D; --fret:#8C7D6A; --string:#B5A894; --inlay:#5A4A3A;
+  --c-root:#F39237; --c-3:#9E7BFF; --c-5:#4EA3F5; --c-7:#2CC793; --c-t:#F0C93A; --c-o:#7E7589;
+  --ok:#36C48C; --bad:#FF6B52; color-scheme:dark;
+  --f-display:"Poppins", "Avenir Next", system-ui, sans-serif;
   --f-body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   --r:10px;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#16121B; --surface:#201A28; --sunk:#2A2333; --fg:#EEE8F4; --muted:#A79DB3; --line:#3A3145;
-  --accent:#A07BF0; --accent-ink:#16121B; --brass:#E0A54A;
-  --wood:#3A2E24; --wood-2:#2F251D; --fret:#8C7D6A; --string:#B5A894; --inlay:#5A4A3A;
-  --c-root:#FF7A33; --c-3:#9E7BFF; --c-5:#4EA3F5; --c-7:#2CC793; --c-t:#F0B530; --c-o:#7E7589;
-  --ok:#36C48C; --bad:#FF6B52; color-scheme:dark;
-}}
-:root[data-theme="dark"]{
-  --bg:#16121B; --surface:#201A28; --sunk:#2A2333; --fg:#EEE8F4; --muted:#A79DB3; --line:#3A3145;
-  --accent:#A07BF0; --accent-ink:#16121B; --brass:#E0A54A;
-  --wood:#3A2E24; --wood-2:#2F251D; --fret:#8C7D6A; --string:#B5A894; --inlay:#5A4A3A;
-  --c-root:#FF7A33; --c-3:#9E7BFF; --c-5:#4EA3F5; --c-7:#2CC793; --c-t:#F0B530; --c-o:#7E7589;
-  --ok:#36C48C; --bad:#FF6B52; color-scheme:dark;
+:root[data-theme="light"]{
+  --bg:#F5F2F7; --surface:#FFFFFF; --sunk:#ECE7F0; --fg:#1F1828; --muted:#6A6075; --line:#DCD4E3;
+  --accent:#6B3FC4; --accent-ink:#FFFFFF; --brass:#B5560A;
+  --wood:#E9DCC8; --wood-2:#DCCBB1; --fret:#9E907E; --string:#7D7365; --inlay:#C8B79D;
+  --c-root:#D9620F; --c-3:#7B4BE0; --c-5:#1F77D0; --c-7:#0C9A70; --c-t:#A88400; --c-o:#8E8698;
+  --ok:#0C8A5E; --bad:#C2341B;; color-scheme:light;
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
 h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
-h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;letter-spacing:-.02em}
-h2{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;letter-spacing:-.03em}
+h2{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:700;letter-spacing:-.02em}
 h3{font-size:1.15rem;font-weight:700}
 p{margin:0}
 a{color:var(--accent)}
@@ -53,10 +46,10 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 /* top bar */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
 .top-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:16px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:1.15rem;text-decoration:none;color:var(--fg)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:1.15rem;text-decoration:none;color:var(--fg)}
 .brand svg{flex:none}
 .brand{font-family:'Poppins',var(--f-display);font-weight:700;letter-spacing:-.02em;font-size:1.45rem;align-items:baseline;gap:0;line-height:1}
-.brand .o{display:inline-block;width:.56em;height:.56em;border-radius:50%;background:linear-gradient(135deg,var(--c-7) 50%,var(--c-3) 50%);margin:0 .035em}
+.brand .o{display:inline-block;width:.56em;height:.56em;border-radius:50%;background:linear-gradient(135deg,var(--c-root) 50%,var(--c-3) 50%);margin:0 .035em}
 .nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
 .nav a{text-decoration:none;color:var(--muted);padding:6px 12px;border-radius:999px;font-weight:600;font-size:.94rem}
 .nav a:hover{color:var(--fg);background:var(--sunk)}
@@ -142,7 +135,7 @@ input[type=range]{accent-color:var(--accent)}
 .deg .d{font-family:var(--f-mono);font-weight:700;color:#fff;border-radius:999px;padding:1px 9px;font-size:.9rem}
 .deg .n{font-family:var(--f-display);font-weight:700;font-size:1.2rem}
 .deg .s{font-size:.72rem;color:var(--muted)}
-.chordname{font-family:var(--f-display);font-weight:800;font-size:2rem;line-height:1}
+.chordname{font-family:var(--f-display);font-weight:700;font-size:2rem;line-height:1}
 .chordhead{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline}
 .chordhead p{color:var(--muted);max-width:60ch}
 
@@ -172,14 +165,14 @@ input[type=range]{accent-color:var(--accent)}
 .hc:hover{border-color:var(--fg)}
 .hc.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 .hc .rn{font-family:var(--f-mono);font-weight:700;color:var(--brass);font-size:.95rem}
-.hc .cn{font-family:var(--f-display);font-weight:800;font-size:1.25rem}
+.hc .cn{font-family:var(--f-display);font-weight:700;font-size:1.25rem}
 .hc .q{font-size:.78rem;color:var(--muted)}
 
 /* ladder */
 .ladder{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px}
 .rung{flex:none;width:52px;border-radius:8px;background:var(--sunk);padding:8px 4px;text-align:center;opacity:.45;transition:opacity .15s}
 .rung.lit{opacity:1;color:#fff}
-.rung .n{font-family:var(--f-display);font-weight:800;font-size:1.1rem;display:block}
+.rung .n{font-family:var(--f-display);font-weight:700;font-size:1.1rem;display:block}
 .rung .d{font-family:var(--f-mono);font-size:.78rem}
 
 /* progressions */
@@ -208,7 +201,7 @@ input[type=range]{accent-color:var(--accent)}
 .tbtn{border:1px solid var(--line);background:var(--sunk);border-radius:10px;padding:12px 4px;display:grid;justify-items:center;gap:2px}
 .tbtn:hover{border-color:var(--fg)}
 .tbtn.on{background:var(--c-root);border-color:var(--c-root);color:#fff}
-.tbtn .tn{font-family:var(--f-display);font-weight:800;font-size:1.5rem}
+.tbtn .tn{font-family:var(--f-display);font-weight:700;font-size:1.5rem}
 .tbtn .ts{font-size:.7rem;opacity:.8}
 .mrow{display:flex;align-items:center;justify-content:center;gap:18px}
 .mbpm{display:grid;justify-items:center}
@@ -221,6 +214,61 @@ input[type=range]{accent-color:var(--accent)}
 .mdots i.on{background:var(--accent);border-color:var(--accent)}
 .mdots i.a.on{background:var(--c-root)}
 .lng,.snd{flex-wrap:nowrap}
+/* practice bar */
+.bar2{border-top:1px solid var(--line)}
+.bar2-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px 16px;padding-block:6px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar2 .sp{flex:1}
+.pbar{display:flex;align-items:center;gap:12px}
+.mm{display:flex;align-items:center;gap:4px;background:var(--sunk);border-radius:999px;padding:3px 10px 3px 3px}
+.mmplay{width:30px;height:30px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);font-size:.8rem;display:grid;place-items:center}
+.mmplay.on{background:var(--c-root);color:#fff}
+.mmbeat{width:10px;height:10px;border-radius:50%;background:var(--line);margin:0 4px;transition:background .05s}
+.mmbeat.a{background:var(--c-root)}.mmbeat.b{background:var(--accent)}
+.mmstep{width:26px;height:26px;border-radius:50%;border:0;background:transparent;font-size:1.05rem;line-height:1}
+.mmstep:hover{background:var(--line)}
+.mmbpm{border:0;background:transparent;font-weight:700;font-size:1rem;min-width:2.4em;text-align:center;padding:2px 0;font-variant-numeric:tabular-nums}
+.mmlab{font-size:.7rem;letter-spacing:.1em;color:var(--muted)}
+.tw{position:relative}
+.tunpop{position:absolute;top:calc(100% + 8px);left:0;z-index:20;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:8px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.tunrow{display:flex;gap:4px}
+.tsb{width:44px;height:48px;border-radius:8px;border:1px solid var(--line);background:var(--sunk);display:grid;place-items:center;line-height:1.05;padding:4px 0}
+.tsb b{font-family:var(--f-display);font-size:1.05rem}.tsb small{font-size:.65rem;color:var(--muted)}
+.tsb.on{background:var(--c-root);border-color:var(--c-root);color:#fff}.tsb.on small{color:#fff}
+/* header tools */
+.tools{display:flex;align-items:center;gap:6px;margin-left:10px}
+.tg{display:inline-grid;place-items:center;width:34px;height:32px;padding:0;border:1px solid var(--line);background:transparent;border-radius:8px;color:var(--muted);transition:background .06s,border-color .06s}
+.tg svg{width:17px;height:17px;overflow:visible}
+.mmviz{width:auto;padding:0 8px}
+.viz{position:relative;display:block;height:22px}
+.viz .d{position:absolute;bottom:3px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .1s,transform .1s}
+.viz .d.first{width:6px;height:6px;margin-left:-3px;bottom:2px;background:var(--c-root);opacity:1}
+.viz .d.hit{opacity:1;transform:scale(1.5)}
+.viz .bx{position:absolute;left:0;bottom:9px;width:0;height:0}
+.viz .ball{position:absolute;left:-2.5px;bottom:0;width:5px;height:5px;border-radius:50%;background:currentColor}
+.tg[aria-pressed="true"] .viz .ball{background:var(--fg)}
+.viz .ball.hop{animation:hop var(--dur,.75s) linear}
+@keyframes hop{0%{transform:translateY(0);animation-timing-function:cubic-bezier(.25,.6,.45,1)}50%{transform:translateY(calc(var(--h,9px) * -1));animation-timing-function:cubic-bezier(.55,0,.75,.4)}100%{transform:translateY(0)}}
+.tg:hover,.tg[aria-expanded="true"]{color:var(--fg);border-color:var(--muted)}
+.tg[aria-pressed="true"]{color:var(--c-root);border-color:color-mix(in srgb,var(--c-root) 55%,transparent);background:color-mix(in srgb,var(--c-root) 14%,transparent)}
+.tg[aria-pressed="true"].flash{background:color-mix(in srgb,var(--c-root) 30%,transparent)}
+.tg[aria-pressed="true"].flash.a{background:color-mix(in srgb,var(--c-3) 40%,transparent);border-color:var(--c-3);color:var(--fg)}
+.num{display:flex;align-items:center;height:32px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.num button{width:24px;height:100%;border:0;background:transparent;color:var(--muted);font-size:15px;line-height:1;padding:0}
+.num button:hover{color:var(--fg);background:var(--sunk)}
+.num input{width:34px;height:100%;border:0;background:transparent;color:var(--fg);text-align:center;font:600 13px var(--f-mono);padding:0}
+.tw{position:relative}
+.pop{position:absolute;right:0;top:calc(100% + 8px);z-index:30;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:10px;box-shadow:0 12px 32px rgba(0,0,0,.4);min-width:max-content}
+.pophead{font-size:.75rem;color:var(--muted)}
+.tunrow{display:flex;gap:4px}
+.tsb{width:42px;height:46px;border-radius:8px;border:1px solid var(--line);background:var(--sunk);display:grid;place-items:center;line-height:1.05;padding:4px 0}
+.tsb b{font-family:var(--f-display);font-size:1rem}.tsb small{font-size:.65rem;color:var(--muted)}
+.tsb.on{background:color-mix(in srgb,var(--c-root) 22%,var(--sunk));border-color:var(--c-root)}
+.pop .grp{flex-wrap:nowrap}
+.pop .lab{min-width:4.2em}
+@media (max-width:860px){
+  .nav{order:3;width:100%;margin-left:0;flex-wrap:wrap}
+  .tools{margin-left:auto}
+}
 @media (max-width:900px){
   .lesson{grid-template-columns:minmax(0,1fr)}
   .rail{display:none}
@@ -239,13 +287,17 @@ input[type=range]{accent-color:var(--accent)}
   .brand svg{width:22px;height:22px}
   .lng,.snd{gap:3px}
   .plist{grid-auto-flow:column;grid-auto-columns:minmax(190px,70%);overflow-x:auto;padding-bottom:4px}
-  .nav{order:3;width:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .nav::-webkit-scrollbar{display:none}
-  .nav a{white-space:nowrap;flex:none}
-  .lng{margin-left:auto}
-  .snd .lab{display:none}
+  .nav{gap:2px 0}
+  .nav{justify-content:space-between}
+  .nav a{white-space:nowrap;padding:5px 8px;font-size:.82rem}
+  .tools{margin-left:auto}
   .lng .chip,.snd .chip{padding:2px 8px;font-size:.78rem}
   .fb-hint{display:block}
+  .bar2-in{gap:6px 10px}
+  .pbar{gap:8px}
+  .mm{padding-right:6px}
+  .mmlab{display:none}
+  .tunpop{left:auto;right:0}
   .wrap{padding-block:18px 48px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -262,10 +314,19 @@ input[type=range]{accent-color:var(--accent)}
     <a href="#akordy" data-v="akordy" data-cs="Akordy" data-en="Chords">Akordy</a>
     <a href="#postupy" data-v="postupy" data-cs="Postupy" data-en="Progressions">Postupy</a>
     <a href="#trenink" data-v="trenink" data-cs="Trénink" data-en="Practice">Trénink</a>
-    <a href="#nastroje" data-v="nastroje" data-cs="Ladička a metronom" data-en="Tuner &amp; metronome">Ladička a metronom</a>
+    <a href="#nastroje" data-v="nastroje" data-cs="Nástroje" data-en="Tools">Nástroje</a>
   </nav>
-  <div class="grp lng" aria-label="Language"><button class="chip" data-v="cs">CZ</button><button class="chip" data-v="en">EN</button></div>
-  <div class="grp snd" aria-label="Guitar sound"><span class="lab" data-cs="Zvuk" data-en="Sound">Zvuk</span><button class="chip" data-v="jazz">Jazz</button><button class="chip" data-v="clean">Clean</button></div>
+  <div class="tools" id="tools">
+    <button class="tg mmviz" id="mmPlay" type="button" aria-pressed="false"><span class="viz" aria-hidden="true"><span class="dots"></span><span class="bx"><span class="ball"></span></span></span></button>
+    <div class="num"><button id="mmDn" type="button" aria-label="−1 BPM">−</button><input id="mmBpm" type="text" inputmode="numeric" maxlength="3" autocomplete="off" aria-label="Tempo (BPM)"><button id="mmUp" type="button" aria-label="+1 BPM">+</button></div>
+    <div class="tw"><button class="tg" id="tunBtn" type="button" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M5.5 1.5v5a2.5 2.5 0 0 0 5 0v-5"/><path d="M8 9v5.5"/></svg></button>
+      <div class="pop" id="tunPop" hidden><div class="pophead" id="tunHead"></div><div class="tunrow"><button class="tsb" data-i="0" type="button"><b>E</b><small>6</small></button><button class="tsb" data-i="1" type="button"><b>A</b><small>5</small></button><button class="tsb" data-i="2" type="button"><b>D</b><small>4</small></button><button class="tsb" data-i="3" type="button"><b>G</b><small>3</small></button><button class="tsb" data-i="4" type="button"><b>B</b><small>2</small></button><button class="tsb" data-i="5" type="button"><b>e</b><small>1</small></button></div><button class="chip trep" id="tRep" type="button"></button></div></div>
+    <div class="tw"><button class="tg" id="setBtn" type="button" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/><circle cx="5" cy="4" r="1.6" fill="var(--surface)"/><circle cx="10.5" cy="8" r="1.6" fill="var(--surface)"/><circle cx="6.5" cy="12" r="1.6" fill="var(--surface)"/></svg></button>
+      <div class="pop" id="setPop" hidden>
+        <div class="grp lng" aria-label="Language"><span class="lab" data-cs="Jazyk" data-en="Language">Jazyk</span><button class="chip" data-v="cs">CZ</button><button class="chip" data-v="en">EN</button></div>
+        <div class="grp snd" aria-label="Guitar sound"><span class="lab" data-cs="Zvuk" data-en="Sound">Zvuk</span><button class="chip" data-v="jazz">Jazz</button><button class="chip" data-v="clean">Clean</button></div>
+      </div></div>
+  </div>
 </div></header>
 <main class="wrap" id="app"></main>
 
@@ -870,7 +931,7 @@ function viewHome(){
     <li><b>Simon Pratt &amp; Kristof Neyens – The Neo-Soul Guitar Book, s Markem Lettierim</b> (Fundamental Changes): voicingy, ozdoby, dvojhmaty, techniky a skladby (lekce 7–9).</li>
     <li><b>Pickup Music</b>: video kurzy a cesty pro neo-soul a jazz – skvělé jako navazující praxe.</li></ul>`;
   app.innerHTML=`<section class="hero"><span class="eyebrow">${t('Teorie pro elektrickou kytaru · jazz &amp; neo-soul','Theory for electric guitar · jazz &amp; neo-soul')}</span>
-   <h1>${t('Od pentatoniky k&nbsp;maj9.','From pentatonic to&nbsp;maj9.')}</h1>
+   <h1>${t('Z pentatoniky do neo-soulu.','From pentatonic to neo-soul.')}</h1>
    <p class="lead">${t('Devět lekcí v pořadí, ve kterém na sebe navazují. Každá má krátký výklad, interaktivní hmatník se zvukem a úkoly na kytaru. Začni lekcí 1, i když ti bude připadat jednoduchá – na ní stojí všechno ostatní.','Nine lessons in the order they build on each other. Each has a short explanation, an interactive fretboard with sound and tasks for your guitar. Start with lesson 1 even if it looks easy – everything else stands on it.')}</p>
    <div class="progress"><div class="bar"><i style="width:${n/LESSONS.length*100}%"></i></div>${t(`${n} z ${LESSONS.length} lekcí hotovo`,`${n} of ${LESSONS.length} lessons done`)}</div>${legend()}</section>
    <div class="path">${LEVELS.map((L,li)=>`<div class="level"><h3>${t('Úroveň','Level')} ${li+1} · ${L}</h3><div class="cards">${LESSONS.map((l,i)=>l.lv!==li?'':`<a class="lcard ${DONE.has(i)?'done':''}" href="#lekce-${i+1}"><span class="lnum">${DONE.has(i)?'✓':i+1}</span><b>${l.t}</b><small>${l.s}</small></a>`).join('')}</div></div>`).join('')}
@@ -910,30 +971,74 @@ W.tuner=(el)=>{
   el._stop=()=>clearInterval(timer);};
 
 /* Metronome */
-W.metro=(el)=>{
-  let bpm=load('gt-bpm',80),beats=4,accent=true,on=false,next=0,beat=0,tmr=null,taps=[];
-  el.innerHTML=`<div style="display:grid;gap:6px"><h3>${t('Metronom','Metronome')}</h3></div>
-   <div class="mrow"><button class="mstep" data-d="-1" type="button" aria-label="−1">−</button><div class="mbpm"><span class="mono bv">${bpm}</span><small>BPM</small></div><button class="mstep" data-d="1" type="button" aria-label="+1">+</button></div>
-   <input id="mbpm" type="range" min="40" max="220" value="${bpm}" style="width:100%">
-   <div class="mdots"></div>
-   <div class="ctrls"><div class="grp mb"><label>${t('Doby','Beats')}</label>${chips([['2','2'],['3','3'],['4','4'],['6','6']],'4')}</div>
-    <button class="chip acc on" type="button">${t('Přízvuk na 1','Accent on 1')}</button><button class="chip tap" type="button">Tap tempo</button></div>
-   <div><button class="btn go" type="button">▶ Start</button></div>`;
-  const dots=()=>{el.querySelector('.mdots').innerHTML=Array.from({length:beats},(_,i)=>`<i class="${i===0&&accent?'a':''}"></i>`).join('');};
-  const setB=v=>{bpm=Math.max(40,Math.min(220,Math.round(v)));el.querySelector('.bv').textContent=bpm;el.querySelector('#mbpm').value=bpm;save('gt-bpm',bpm);};
-  function click(time,first){const c=AC;const o=c.createOscillator(),g=c.createGain();o.frequency.value=first?1650:1050;g.gain.setValueAtTime(first?.9:.55,time);g.gain.exponentialRampToValueAtTime(.001,time+.05);o.connect(g);g.connect(c.destination);o.start(time);o.stop(time+.06);}
-  function sched(){const c=AC;while(next<c.currentTime+.12){const b=beat;click(next,accent&&b===0);const d=(next-c.currentTime)*1000;setTimeout(()=>{el.querySelectorAll('.mdots i').forEach((x,j)=>x.classList.toggle('on',j===b));},Math.max(0,d));next+=60/bpm;beat=(beat+1)%beats;}}
-  const start=()=>{ac();on=true;beat=0;next=AC.currentTime+.06;tmr=setInterval(sched,25);el.querySelector('.go').textContent='■ Stop';};
-  const stop=()=>{on=false;clearInterval(tmr);el.querySelector('.go').textContent='▶ Start';el.querySelectorAll('.mdots i').forEach(x=>x.classList.remove('on'));};
-  el.querySelector('.go').onclick=()=>on?stop():start();
-  el.querySelector('#mbpm').oninput=e=>setB(+e.target.value);
-  el.querySelectorAll('.mstep').forEach(b=>b.onclick=()=>setB(bpm+ +b.dataset.d));
-  bindChips(el,'.mb',v=>{beats=+v;beat=0;dots();});
-  const ab=el.querySelector('.acc');ab.onclick=()=>{accent=!accent;ab.classList.toggle('on',accent);dots();};
-  el.querySelector('.tap').onclick=()=>{const n=performance.now();taps=taps.filter(x=>n-x<2500);taps.push(n);if(taps.length>1){const iv=(taps[taps.length-1]-taps[0])/(taps.length-1);setB(60000/iv);}};
-  el._stop=stop;dots();};
+/* Global metronome engine (keeps running across pages) */
+const METRO={bpm:load('gt-bpm',80),beats:4,accent:true,on:false,next:0,beat:0,tmr:null,subs:new Set(),
+  emit(type,b){this.subs.forEach(f=>{try{f(type,b);}catch(e){}});},
+  click(time,first){const c=AC;const o=c.createOscillator(),g=c.createGain();o.frequency.value=first?1650:1050;g.gain.setValueAtTime(first?.9:.55,time);g.gain.exponentialRampToValueAtTime(.001,time+.05);o.connect(g);g.connect(c.destination);o.start(time);o.stop(time+.06);},
+  sched(){const c=AC;while(this.next<c.currentTime+.12){const b=this.beat;this.click(this.next,this.accent&&b===0);const d=(this.next-c.currentTime)*1000;setTimeout(()=>{if(this.on)this.emit('beat',b);},Math.max(0,d));this.next+=60/this.bpm;this.beat=(this.beat+1)%this.beats;}},
+  start(){ac();this.on=true;this.beat=0;this.next=AC.currentTime+.06;clearInterval(this.tmr);this.tmr=setInterval(()=>this.sched(),25);this.emit('state');},
+  stop(){this.on=false;clearInterval(this.tmr);this.emit('state');},
+  toggle(){this.on?this.stop():this.start();},
+  setBpm(v){this.bpm=Math.max(40,Math.min(220,Math.round(v)));save('gt-bpm',this.bpm);this.emit('bpm');},
+  setBeats(n){this.beats=n;this.beat=0;this.emit('beats');},
+  setAccent(a){this.accent=a;this.emit('beats');},
+  sub(fn){this.subs.add(fn);return()=>this.subs.delete(fn);}};
+let TAPS=[];function tapTempo(){const n=performance.now();TAPS=TAPS.filter(x=>n-x<2500);TAPS.push(n);if(TAPS.length>1){METRO.setBpm(60000/((TAPS[TAPS.length-1]-TAPS[0])/(TAPS.length-1)));}}
 
-function route(){stopAll();applyLang();const hsh=location.hash.replace('#','')||'cesta';let v=hsh;
+W.metro=(el)=>{
+  el.innerHTML=`<div style="display:grid;gap:6px"><h3>${t('Metronom','Metronome')}</h3><p class="readout">${t('Metronom běží dál, i když přejdeš jinam. Ovládáš ho i z horní lišty.','The metronome keeps running when you switch pages. You can also control it from the top bar.')}</p></div>
+   <div class="mrow"><button class="mstep" data-d="-1" type="button" aria-label="−1">−</button><div class="mbpm"><span class="mono bv"></span><small>BPM</small></div><button class="mstep" data-d="1" type="button" aria-label="+1">+</button></div>
+   <input id="mbpm" type="range" min="40" max="220" style="width:100%">
+   <div class="mdots"></div>
+   <div class="ctrls"><div class="grp mb"><label>${t('Doby','Beats')}</label>${chips([['2','2'],['3','3'],['4','4'],['6','6']],String(METRO.beats))}</div>
+    <button class="chip acc ${METRO.accent?'on':''}" type="button">${t('Přízvuk na 1','Accent on 1')}</button><button class="chip tap" type="button">Tap tempo</button></div>
+   <div><button class="btn go" type="button"></button></div>`;
+  const dots=()=>{el.querySelector('.mdots').innerHTML=Array.from({length:METRO.beats},(_,i)=>`<i class="${i===0&&METRO.accent?'a':''}"></i>`).join('');};
+  const sync=()=>{el.querySelector('.bv').textContent=METRO.bpm;el.querySelector('#mbpm').value=METRO.bpm;el.querySelector('.go').textContent=METRO.on?'■ Stop':'▶ Start';if(!METRO.on)el.querySelectorAll('.mdots i').forEach(x=>x.classList.remove('on'));};
+  const off=METRO.sub((type,b)=>{if(type==='beat')el.querySelectorAll('.mdots i').forEach((x,j)=>x.classList.toggle('on',j===b));else if(type==='beats')dots();else sync();});
+  el.querySelector('.go').onclick=()=>METRO.toggle();
+  el.querySelector('#mbpm').oninput=e=>METRO.setBpm(+e.target.value);
+  el.querySelectorAll('.mstep').forEach(b=>b.onclick=()=>METRO.setBpm(METRO.bpm+ +b.dataset.d));
+  bindChips(el,'.mb',v=>METRO.setBeats(+v));
+  const ab=el.querySelector('.acc');ab.onclick=()=>{METRO.setAccent(!METRO.accent);ab.classList.toggle('on',METRO.accent);};
+  el.querySelector('.tap').onclick=tapTempo;
+  el._stop=off;dots();sync();};
+
+/* Header tools: metronome, tuner, settings (decent icon buttons) */
+const TSTR=[[40,'E','6'],[45,'A','5'],[50,'D','4'],[55,'G','3'],[59,'B','2'],[64,'e','1']];
+function initBar(){
+  const play=$('#mmPlay'),inp=$('#mmBpm');
+  const sync=()=>{play.setAttribute('aria-pressed',String(METRO.on));const lab=METRO.on?t('Metronom zapnutý – klikni pro vypnutí','Metronome on – click to stop'):t('Metronom vypnutý – klikni pro zapnutí','Metronome off – click to start');play.title=lab;play.setAttribute('aria-label',lab);if(document.activeElement!==inp)inp.value=METRO.bpm;};
+  const viz=play.querySelector('.viz'),dotsEl=viz.querySelector('.dots'),bx=viz.querySelector('.bx'),ball=viz.querySelector('.ball');
+  const X=i=>5+i*12;
+  const build=()=>{viz.style.width=(10+(METRO.beats-1)*12)+'px';dotsEl.innerHTML=Array.from({length:METRO.beats},(_,i)=>`<i class="d${i===0&&METRO.accent?' first':''}" style="left:${X(i)}px"></i>`).join('');rest();};
+  const rest=()=>{bx.style.transition='transform .25s ease-out';bx.style.transform=`translateX(${X(0)}px)`;ball.classList.remove('hop');};
+  METRO.sub((type,b)=>{if(type==='beat'){const dur=60/METRO.bpm,nx=(b+1)%METRO.beats;
+      const d=dotsEl.children[b];if(d){d.classList.add('hit');setTimeout(()=>d.classList.remove('hit'),140);}
+      if(b===0&&METRO.accent){play.classList.add('flash','a');setTimeout(()=>play.classList.remove('flash','a'),120);}
+      bx.style.transition=`transform ${dur}s linear`;bx.style.transform=`translateX(${X(nx)}px)`;
+      ball.style.setProperty('--dur',dur+'s');ball.style.setProperty('--h',(nx===0&&METRO.beats>2?13:9)+'px');ball.classList.remove('hop');void ball.offsetWidth;ball.classList.add('hop');}
+    else if(type==='beats'){build();}
+    else{if(type==='state'&&!METRO.on)rest();sync();}});
+  build();
+  play.onclick=()=>METRO.toggle();
+  $('#mmDn').onclick=()=>METRO.setBpm(METRO.bpm-1);$('#mmUp').onclick=()=>METRO.setBpm(METRO.bpm+1);
+  const commit=()=>{const v=parseInt(inp.value,10);if(!isNaN(v))METRO.setBpm(v);inp.value=METRO.bpm;};
+  inp.onchange=commit;inp.onkeydown=e=>{if(e.key==='Enter'){commit();inp.blur();}else if(e.key==='ArrowUp'){e.preventDefault();METRO.setBpm(METRO.bpm+1);}else if(e.key==='ArrowDown'){e.preventDefault();METRO.setBpm(METRO.bpm-1);}};
+  // popovers
+  const pops=[['#tunBtn','#tunPop'],['#setBtn','#setPop']];
+  const closeAll=except=>pops.forEach(([b,p])=>{if(b===except)return;$(p).hidden=true;$(b).setAttribute('aria-expanded','false');});
+  pops.forEach(([b,p])=>{$(b).onclick=e=>{e.stopPropagation();const pop=$(p);const open=pop.hidden;closeAll(b);pop.hidden=!open;$(b).setAttribute('aria-expanded',String(open));if(!open&&b==='#tunBtn')clearInterval(timer);};});
+  document.addEventListener('click',e=>{if(!e.target.closest('.tw')){closeAll();clearInterval(timer);}});
+  // tuner
+  const pop=$('#tunPop'),rep=$('#tRep');let cur=null,loop=false,timer=null;
+  const hit=i=>{cur=i;pop.querySelectorAll('.tsb').forEach((x,j)=>x.classList.toggle('on',j===i));playNote(TSTR[i][0],0,.8,3.5);};
+  pop.querySelectorAll('.tsb').forEach(b=>b.onclick=()=>{hit(+b.dataset.i);clearInterval(timer);if(loop)timer=setInterval(()=>hit(cur),4000);});
+  rep.onclick=()=>{loop=!loop;rep.classList.toggle('on',loop);clearInterval(timer);if(loop&&cur!==null)timer=setInterval(()=>hit(cur),4000);};
+  const label=()=>{$('#tunBtn').title=t('Ladička','Tuner');$('#tunBtn').setAttribute('aria-label',t('Ladička','Tuner'));$('#setBtn').title=t('Jazyk a zvuk','Language & sound');$('#setBtn').setAttribute('aria-label',t('Jazyk a zvuk','Language & sound'));rep.textContent=t('Opakovat tón','Repeat note');$('#tunHead').textContent=t('Referenční tóny – standardní ladění','Reference notes – standard tuning');sync();};
+  label();$('#tools')._label=label;}
+
+function route(){stopAll();applyLang();if($('#tools')._label)$('#tools')._label();const hsh=location.hash.replace('#','')||'cesta';let v=hsh;
   const m=/^lekce-(\d+)$/.exec(hsh);
   if(m&&LESSONS[+m[1]-1]){viewLesson(+m[1]-1);v='cesta';}
   else if(hsh==='hmatnik')viewTool(t('Stupnice na hmatníku','Scales on the fretboard'),t('Vyber kořen a stupnici. Pozice omezí zobrazení na pět pražců, aby sis ji mohl(a) propojit s CAGED tvary.','Pick a root and a scale. Position limits the view to five frets so you can connect it with your CAGED shapes.'),[['scales',{def:'major',cmpList:['majpent','minpent','major'],id:'t1'}]]);
@@ -945,6 +1050,7 @@ function route(){stopAll();applyLang();const hsh=location.hash.replace('#','')||
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));window.scrollTo(0,0);}
 document.querySelectorAll('.snd .chip').forEach(b=>{b.classList.toggle('on',b.dataset.v===INSTR);b.onclick=()=>{document.querySelectorAll('.snd .chip').forEach(x=>x.classList.toggle('on',x===b));setInstr(b.dataset.v);playChord([48,55,59,64,67].map(x=>x),0,.04);};});
 document.querySelectorAll('.lng .chip').forEach(b=>b.onclick=()=>{LANG=b.dataset.v;try{localStorage.setItem('gt-lang',LANG);}catch(e){}route();});
+initBar();
 window.addEventListener('hashchange',route);route();
 </script>
 
