@@ -17,7 +17,7 @@
 --bg:#0B0A0C; --surface:#141117; --sunk:#1C1820; --fg:#F4E9EF; --muted:#A99BC9; --line:#2E2634;
   --accent:#F0629A; --accent-ink:#0B0A0C; --brass:#E8402E; --frame:#F0629A; --ink:#141018;
   --wood:#120F15; --wood-2:#0E0B10; --fret:#4A3D5C; --string:#8E80AE; --inlay:#3A3045;
-  --c-root:#E8402E; --c-3:#F0629A; --c-5:#EDE4D3; --c-7:#9F8CFF; --c-t:#F2C14E; --c-o:#7E7589;
+  --c-root:#FFD23F; --c-3:#E8705F; --c-5:#7FD8A6; --c-7:#9F8CFF; --c-t:#7CC8F2;--c-t2:#7CC8F2;--c-t4:#F59BC9;--c-t6:#FFB38A; --c-o:#7E7589;
   --ok:#36C48C; --bad:#FF5A4A; color-scheme:dark;
   --f-display:"Archivo", "Avenir Next", system-ui, sans-serif;
   --f-body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -28,7 +28,7 @@
   --bg:#F5F2F7; --surface:#FFFFFF; --sunk:#ECE7F0; --fg:#1F1828; --muted:#6A6075; --line:#DCD4E3;
   --accent:#6B3FC4; --accent-ink:#FFFFFF; --brass:#B5560A;
   --wood:#E9DCC8; --wood-2:#DCCBB1; --fret:#9E907E; --string:#7D7365; --inlay:#C8B79D;
-  --c-root:#D9620F; --c-3:#7B4BE0; --c-5:#1F77D0; --c-7:#0C9A70; --c-t:#A88400; --c-o:#8E8698;
+  --c-root:#D9620F; --c-3:#7B4BE0; --c-5:#1F77D0; --c-7:#0C9A70; --c-t:#1F77D0;--c-t2:#1F77D0;--c-t4:#C2407E;--c-t6:#B5560A; --c-o:#8E8698;
   --ok:#0C8A5E; --bad:#C2341B;; color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -185,7 +185,7 @@ input[type=range]{accent-color:var(--accent)}
 .prog-grid{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:16px}
 
 /* quiz */
-.qcard{display:grid;gap:14px}
+.qcard{display:grid;gap:14px;min-width:0}.qcard>*,.qx{min-width:0}
 .qq{font-family:var(--f-display);font-weight:700;font-size:1.35rem}
 .qopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
 .qopt{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px;font-weight:600;text-align:left}
@@ -201,7 +201,7 @@ input[type=range]{accent-color:var(--accent)}
 .tstr{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .tbtn{border:1px solid var(--line);background:var(--sunk);border-radius:10px;padding:12px 4px;display:grid;justify-items:center;gap:2px}
 .tbtn:hover{border-color:var(--fg)}
-.tbtn.on{background:var(--c-root);border-color:var(--c-root);color:#fff}
+.tbtn.on{background:var(--brass);border-color:var(--brass);color:#fff}
 .tbtn .tn{font-family:var(--f-display);font-weight:700;font-size:1.5rem}
 .tbtn .ts{font-size:.7rem;opacity:.8}
 .mrow{display:flex;align-items:center;justify-content:center;gap:18px}
@@ -211,9 +211,9 @@ input[type=range]{accent-color:var(--accent)}
 .mstep{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:1.4rem}
 .mdots{display:flex;justify-content:center;gap:12px}
 .mdots i{width:18px;height:18px;border-radius:50%;background:var(--sunk);border:2px solid var(--line)}
-.mdots i.a{border-color:var(--c-root)}
+.mdots i.a{border-color:var(--brass)}
 .mdots i.on{background:var(--accent);border-color:var(--accent)}
-.mdots i.a.on{background:var(--c-root)}
+.mdots i.a.on{background:var(--brass)}
 .lng,.snd{flex-wrap:nowrap}
 /* practice bar */
 .bar2{border-top:1px solid var(--line)}
@@ -222,9 +222,9 @@ input[type=range]{accent-color:var(--accent)}
 .pbar{display:flex;align-items:center;gap:12px}
 .mm{display:flex;align-items:center;gap:4px;background:var(--sunk);border-radius:999px;padding:3px 10px 3px 3px}
 .mmplay{width:30px;height:30px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);font-size:.8rem;display:grid;place-items:center}
-.mmplay.on{background:var(--c-root);color:#fff}
+.mmplay.on{background:var(--brass);color:#fff}
 .mmbeat{width:10px;height:10px;border-radius:50%;background:var(--line);margin:0 4px;transition:background .05s}
-.mmbeat.a{background:var(--c-root)}.mmbeat.b{background:var(--accent)}
+.mmbeat.a{background:var(--brass)}.mmbeat.b{background:var(--accent)}
 .mmstep{width:26px;height:26px;border-radius:50%;border:0;background:transparent;font-size:1.05rem;line-height:1}
 .mmstep:hover{background:var(--line)}
 .mmbpm{border:0;background:transparent;font-weight:700;font-size:1rem;min-width:2.4em;text-align:center;padding:2px 0;font-variant-numeric:tabular-nums}
@@ -234,7 +234,7 @@ input[type=range]{accent-color:var(--accent)}
 .tunrow{display:flex;gap:4px}
 .tsb{width:44px;height:48px;border-radius:8px;border:1px solid var(--line);background:var(--sunk);display:grid;place-items:center;line-height:1.05;padding:4px 0}
 .tsb b{font-family:var(--f-display);font-size:1.05rem}.tsb small{font-size:.65rem;color:var(--muted)}
-.tsb.on{background:var(--c-root);border-color:var(--c-root);color:#fff}.tsb.on small{color:#fff}
+.tsb.on{background:var(--brass);border-color:var(--brass);color:#fff}.tsb.on small{color:#fff}
 /* header tools */
 .tools{display:flex;align-items:center;gap:6px;margin-left:10px}
 .tg{display:inline-grid;place-items:center;width:34px;height:32px;padding:0;border:1px solid var(--line);background:transparent;border-radius:8px;color:var(--muted);transition:background .06s,border-color .06s}
@@ -242,7 +242,7 @@ input[type=range]{accent-color:var(--accent)}
 .mmviz{width:auto;padding:0 8px}
 .viz{position:relative;display:block;height:22px}
 .viz .d{position:absolute;bottom:3px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .1s,transform .1s}
-.viz .d.first{width:6px;height:6px;margin-left:-3px;bottom:2px;background:var(--c-root);opacity:1}
+.viz .d.first{width:6px;height:6px;margin-left:-3px;bottom:2px;background:var(--brass);opacity:1}
 .viz .d.hit{opacity:1;transform:scale(1.5)}
 .viz .bx{position:absolute;left:0;bottom:9px;width:0;height:0}
 .viz .ball{position:absolute;left:-2.5px;bottom:0;width:5px;height:5px;border-radius:50%;background:currentColor}
@@ -250,8 +250,8 @@ input[type=range]{accent-color:var(--accent)}
 .viz .ball.hop{animation:hop var(--dur,.75s) linear}
 @keyframes hop{0%{transform:translateY(0);animation-timing-function:cubic-bezier(.25,.6,.45,1)}50%{transform:translateY(calc(var(--h,9px) * -1));animation-timing-function:cubic-bezier(.55,0,.75,.4)}100%{transform:translateY(0)}}
 .tg:hover,.tg[aria-expanded="true"]{color:var(--fg);border-color:var(--muted)}
-.tg[aria-pressed="true"]{color:var(--c-root);border-color:color-mix(in srgb,var(--c-root) 55%,transparent);background:color-mix(in srgb,var(--c-root) 14%,transparent)}
-.tg[aria-pressed="true"].flash{background:color-mix(in srgb,var(--c-root) 30%,transparent)}
+.tg[aria-pressed="true"]{color:var(--brass);border-color:color-mix(in srgb,var(--brass) 55%,transparent);background:color-mix(in srgb,var(--brass) 14%,transparent)}
+.tg[aria-pressed="true"].flash{background:color-mix(in srgb,var(--brass) 30%,transparent)}
 .tg[aria-pressed="true"].flash.a{background:color-mix(in srgb,var(--c-3) 40%,transparent);border-color:var(--c-3);color:var(--fg)}
 .num{display:flex;align-items:center;height:32px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .num button{width:24px;height:100%;border:0;background:transparent;color:var(--muted);font-size:15px;line-height:1;padding:0}
@@ -263,7 +263,7 @@ input[type=range]{accent-color:var(--accent)}
 .tunrow{display:flex;gap:4px}
 .tsb{width:42px;height:46px;border-radius:8px;border:1px solid var(--line);background:var(--sunk);display:grid;place-items:center;line-height:1.05;padding:4px 0}
 .tsb b{font-family:var(--f-display);font-size:1rem}.tsb small{font-size:.65rem;color:var(--muted)}
-.tsb.on{background:color-mix(in srgb,var(--c-root) 22%,var(--sunk));border-color:var(--c-root)}
+.tsb.on{background:color-mix(in srgb,var(--brass) 22%,var(--sunk));border-color:var(--brass)}
 .pop .grp{flex-wrap:nowrap}
 .pop .lab{min-width:4.2em}
 /* games */
@@ -277,12 +277,12 @@ input[type=range]{accent-color:var(--accent)}
 .ghud>div{background:var(--sunk);border-radius:10px;padding:6px 14px;display:grid;align-content:center;min-width:76px}
 .ghud small{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .ghud b{font-family:var(--f-mono);font-size:1.2rem;font-variant-numeric:tabular-nums}
-.gtarget{background:color-mix(in srgb,var(--c-root) 18%,var(--sunk))!important}
+.gtarget{background:color-mix(in srgb,var(--brass) 18%,var(--sunk))!important}
 .gtarget .gtn{font-family:var(--f-display);font-size:1.9rem;line-height:1.05;color:var(--fg)}
 .ghud .gsub{display:block;font-family:var(--f-body);font-size:.75rem;text-transform:none;letter-spacing:0;color:var(--muted);font-weight:500}
 .glives{display:flex;gap:4px;align-items:center;height:1.6em}
 .glives i{width:12px;height:12px;border-radius:50%;background:var(--line)}
-.glives i.on{background:var(--c-root)}
+.glives i.on{background:var(--brass)}
 .gmsg b{font-family:inherit;font-size:inherit}
 .gmsg{flex:1 1 220px;align-self:center;margin:0;color:var(--muted);font-size:.95rem;min-height:1.4em}
 .gstage{position:relative;min-width:0}
@@ -303,7 +303,7 @@ html.playing,html.playing body{overflow:hidden}
 .cp-hud>div{background:var(--sunk);border-radius:10px;padding:4px 12px;display:grid;align-content:center}
 .cp-hud small{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .cp-hud .gstat b{font-family:var(--f-mono);font-size:1.05rem}
-.cp-hud .gtarget{background:color-mix(in srgb,var(--c-root) 18%,var(--sunk))}
+.cp-hud .gtarget{background:color-mix(in srgb,var(--brass) 18%,var(--sunk))}
 .cp-hud .gtn{display:flex;align-items:center;flex-wrap:wrap;row-gap:2px}
 .cp-hud .gtn .jb{font-size:1.5rem}.cp-hud .gtn .jb.jstr{font-size:1.1rem}
 .cp-hud .gsub{display:inline-block;margin-left:6px;font-size:.7rem;color:var(--muted)}
@@ -317,7 +317,7 @@ html.playing,html.playing body{overflow:hidden}
 .cp-side .act{padding:16px 0;font-size:1rem;width:128px;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cp-gps{flex:none;align-self:center;display:flex;align-items:center;gap:4px;height:34px;padding:0 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font:600 .8rem var(--f-mono)}
 .cp-gps:hover{color:var(--fg)}
-.wallet{font-family:var(--f-mono);color:var(--muted)}.wallet b{color:var(--c-root)}
+.wallet{font-family:var(--f-mono);color:var(--muted)}.wallet b{color:var(--brass)}
 .chip.locked{opacity:.55}
 .cform{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:14px 22px;align-items:start;padding-bottom:6px;border-bottom:1px solid var(--line)}
 .crow{display:contents}
@@ -330,15 +330,15 @@ html.playing,html.playing body{overflow:hidden}
 @media (max-width:600px){.cform{grid-template-columns:minmax(0,1fr);gap:6px}.clab{padding-top:10px}}
 .mhint{margin-top:-4px}
 .sitem.flash{animation:sflash 1.2s ease}
-@keyframes sflash{0%,60%{box-shadow:0 0 0 3px var(--c-root)}100%{box-shadow:none}}
+@keyframes sflash{0%,60%{box-shadow:0 0 0 3px var(--brass)}100%{box-shadow:none}}
 .garage{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--sunk)}
 .garage summary{cursor:pointer;font-family:var(--f-display);font-weight:700}
-.garage summary b{color:var(--c-root);font-family:var(--f-mono)}
+.garage summary b{color:var(--brass);font-family:var(--f-mono)}
 .gshop{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:10px}
 .gshop h4{margin:0 0 6px;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
 .gshop>div{display:grid;gap:6px;align-content:start}
 .sitem{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;font-size:.88rem;text-align:left;color:var(--fg)}
-.sitem b{font-family:var(--f-mono);color:var(--c-root)}
+.sitem b{font-family:var(--f-mono);color:var(--brass)}
 .sitem:disabled{opacity:.45;cursor:not-allowed}
 .sitem.own{color:var(--ok);background:transparent}
 .skins{display:flex;flex-wrap:wrap;gap:8px}
@@ -356,7 +356,7 @@ html.playing,html.playing body{overflow:hidden}
 .citycv{display:block;width:100%;touch-action:none}
 .cityact{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .cityact .act{padding:12px 22px}
-.gtn .jb{font-family:var(--f-display);font-size:2.1rem;font-weight:800;color:var(--c-root);line-height:1}
+.gtn .jb{font-family:var(--f-display);font-size:2.1rem;font-weight:800;color:var(--brass);line-height:1}
 .gtn .jb.js{color:var(--c-3)}
 .gtarget .gtn:has(.jb){display:flex;align-items:center;flex-wrap:wrap;row-gap:4px}
 .ghud .gsub .dp{display:inline-block;margin:4px 4px 0 0;padding:1px 7px;border-radius:99px;border:1.5px solid var(--c);color:var(--c);font:700 .78rem var(--f-mono);text-transform:none;letter-spacing:0}
@@ -538,6 +538,73 @@ h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;font-weig
 .cmode{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:-6px}
 .cmode .lab{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-right:4px}
 .cmode .chip{padding:3px 9px;font-size:.75rem}
+.deg[data-d]{cursor:pointer;transition:border-color .15s}.deg[data-d]:hover{border-color:var(--accent)}.deg.ping{animation:dping .35s ease-out}@keyframes dping{0%{transform:scale(.94)}100%{transform:scale(1)}}
+/* tool widgets: pick → read → neck */
+.panel.tw{gap:26px}
+.tw-s{display:grid;gap:12px;min-width:0}
+.slab{display:flex;align-items:center;gap:10px;font:800 .7rem "Archivo",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.slab span{display:grid;place-items:center;width:20px;height:20px;border:1.5px solid var(--muted);font-size:.7rem;letter-spacing:0}
+.slab::after{content:"";flex:1;height:1px;background:rgba(169,155,201,.2)}
+.prow{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;align-items:center}
+.plab,.gname{font-size:.78rem;color:var(--muted);line-height:1.2}
+.rootrow{display:flex;overflow-x:auto;scrollbar-width:none;padding-left:1px}.rootrow::-webkit-scrollbar{display:none}
+.rootrow button{flex:none;min-width:40px;height:34px;border:1px solid rgba(169,155,201,.3);margin-left:-1px;background-color:rgba(18,15,21,.62);font-weight:600;padding:0 6px}
+.rootrow button.on{background:var(--accent);border-color:var(--accent);color:var(--ink);position:relative}
+.tgrp{display:grid;grid-template-columns:110px minmax(0,1fr);gap:6px 10px;align-items:start}
+.tgrp.solo{grid-template-columns:minmax(0,1fr)}
+.tgrp .gname{padding-top:6px}
+.types{display:flex;flex-wrap:wrap;gap:4px}
+.types button{border:1px solid rgba(169,155,201,.3);background-color:rgba(18,15,21,.62);font-weight:600;font-size:.86rem;padding:4px 10px;min-width:42px}
+.types button:hover,.rootrow button:hover{border-color:var(--accent)}
+.types button.on{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.fbx{position:relative;border:1.5px solid var(--frame);background:rgba(18,15,21,.55);display:grid;min-width:0}
+.fbx>*,.tw-s>*{min-width:0}
+.fbx-name{float:right;margin:-12px -14px 6px 14px;background:var(--accent);color:var(--ink);font:900 .95rem/1 "Archivo",sans-serif;font-variation-settings:"wdth" 110;padding:7px 11px;max-width:60%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbx-bar{display:block;padding:12px 14px 2px;border-bottom:1px solid rgba(169,155,201,.18)}
+.fbx-bar>.seg,.fbx-bar>.btn{display:inline-flex;vertical-align:middle;margin:0 18px 10px 0}
+.fbx-bar::after{content:"";display:block;clear:both}
+.seg{display:flex;align-items:center;gap:8px;min-width:0}
+.seg small{font:800 .62rem "Archivo",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.seg>div{display:flex;flex-wrap:wrap}
+.seg button{border:1px solid rgba(169,155,201,.3);background-color:rgba(18,15,21,.62);font-size:.78rem;font-weight:600;padding:4px 9px;margin:0 0 0 -1px;white-space:nowrap}
+.seg button.on{background:var(--fg);border-color:var(--fg);color:var(--ink);position:relative}
+.vwrap{padding:12px 14px 0;display:grid;gap:8px}.vwrap[hidden]{display:none}
+.vlab{font-size:.75rem;color:var(--muted)}
+.fbx .fbh{padding:10px 8px 0}
+.fbx .readout{padding:0 14px;margin:0;font-size:.85rem}
+.fbx-leg{display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 14px 12px;border-top:1px solid rgba(169,155,201,.18);font-size:.8rem;color:var(--muted)}
+.fbx-leg span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:opacity .2s}
+.fbx-leg span.off{opacity:.3}
+.fbx-leg i+i{margin-left:-3px}
+.fbx-leg i.hol{background:transparent;box-shadow:inset 0 0 0 1.5px #6E6381;color:#8E80AE}
+.pscl{color:var(--muted);font-size:.9rem;margin-top:4px!important}.pscl b{color:var(--fg)}
+.fbx-leg i{min-width:18px;height:18px;padding:0 4px;border-radius:99px;background:var(--c);color:var(--ink);font:700 .64rem/18px var(--f-mono);font-style:normal;text-align:center}
+.tw .chordhead p{margin:0}
+.vc .rn{font-family:"Archivo",sans-serif;color:var(--fg)}
+.fn{display:inline-block;font:800 .68rem/1 "Archivo",sans-serif;padding:2px 5px;border:1.5px solid currentColor}
+.fn-T{color:#7FD1A8}.fn-S{color:#9F8CFF}.fn-D{color:#F0629A}.fn-xDx{color:#F2C14E}
+.fnleg{font-size:.82rem;color:var(--muted);line-height:2;margin:0}
+@media (max-width:700px){.prow,.tgrp{grid-template-columns:minmax(0,1fr);gap:6px}.tgrp .gname{padding-top:0}.tgrp+.tgrp{margin-top:6px}
+ .rootrow{flex-wrap:wrap;overflow:visible}.rootrow button{flex:1 0 calc(100%/6 - 1px);margin-top:-1px}
+ .fbx-leg{flex-wrap:nowrap;justify-content:space-between;gap:4px;font-size:.7rem;padding:9px 10px 11px}.fbx-leg i{min-width:16px;height:16px;font-size:.58rem;line-height:16px}
+ .fbx-leg span:last-child{overflow:hidden;text-overflow:ellipsis}
+ .fbx-bar{padding:10px 10px 0}.fbx-bar>.seg,.fbx-bar>.btn{margin:0 10px 8px 0}.fbx-name{margin:-10px -10px 6px 10px}.seg small{min-width:58px}}
+/* lessons in small steps */
+.stepdots{display:flex;gap:6px;flex-wrap:wrap}
+.sd{width:26px;height:6px;border:0;padding:0;background:rgba(169,155,201,.25);cursor:pointer}
+.sd.seen{background:rgba(240,98,154,.55)}.sd.on{background:var(--accent)}
+.sd-ex{height:6px;background:rgba(127,216,166,.3)}.sd-ex.seen{background:rgba(127,216,166,.7)}.sd-ex.on{background:#7FD8A6}
+.step{display:grid;gap:14px;min-width:0;animation:stepin .25s ease-out}.step[hidden]{display:none}.step>*{min-width:0}
+@keyframes stepin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.stephead{display:grid;gap:4px}.stepn{font:800 .7rem "Archivo",sans-serif;letter-spacing:.14em;color:var(--muted)}
+.stephead h3{font-size:1.25rem;text-transform:none}
+.stepbody{display:grid;gap:14px;min-width:0}.stepbody>*{min-width:0}
+.stepbody .prose{font-size:1.05rem}.lead2{font-size:1.15rem;line-height:1.55;max-width:60ch}
+.lesson-body{align-content:start}
+.stepnav{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid rgba(169,155,201,.18);padding-top:16px}
+.ex .exq{font-size:1.05rem;max-width:62ch}.ex .exq b{color:var(--fg)}
+.exrow{display:flex;justify-content:space-between;align-items:center;gap:10px}.exc{font:800 1rem "Archivo",sans-serif;color:var(--money)}
+.panel.ex.solved{border-color:#7FD8A6}
 /* see-through controls get a soft backing so the grain doesn't eat them */
 .chip,.tg,.num,.btn.ghost,.deg,.sitem,.why,.cp-gps,.cp-x,.progress .bar,.lnum,.rail a.on,.nav a.on,select{background-color:rgba(18,15,21,.62)}
 /* grain: light + dark specks, visible on any screen */
@@ -633,8 +700,8 @@ function parseDeg(d){const m=/^(bb|b|#)?(\d+)$/.exec(d);const acc={bb:-2,b:-1,'#
 function spell(root,deg){const{num,semis}=parseDeg(deg);const li=(LETTERS.indexOf(root[0])+num-1)%7;const target=(pcOf(root)+semis+120)%12;let diff=((target-NAT[li]+18)%12)-6;return LETTERS[li]+(diff>0?'#'.repeat(diff):'b'.repeat(-diff));}
 function pretty(n){return n.replace(/bb/g,'𝄫').replace(/b/g,'♭').replace(/#/g,'♯');}
 function prettyDeg(d){return d.replace(/^bb/,'𝄫').replace(/^b/,'♭').replace(/^#/,'♯');}
-function degFamily(d){const{num}=parseDeg(d);if(num===1||num===8)return 'root';if(num===3)return '3';if(num===5)return '5';if(num===7)return '7';return 't';}
-const FAM_VAR={root:'--c-root','3':'--c-3','5':'--c-5','7':'--c-7',t:'--c-t',o:'--c-o'};
+function degFamily(d){const{num}=parseDeg(d);if(num===1||num===8)return 'root';if(num===3)return '3';if(num===5)return '5';if(num===7)return '7';return num===2||num===9?'t2':num===4||num===11?'t4':'t6';}
+const FAM_VAR={root:'--c-root','3':'--c-3','5':'--c-5','7':'--c-7',t:'--c-t',t2:'--c-t2',t4:'--c-t4',t6:'--c-t6',o:'--c-o'};
 let CMODE=(()=>{try{return localStorage.getItem('gt-cmode')||'full';}catch(e){return 'full';}})();
 function famColor(f){if(CMODE==='root'&&f!=='root')f='o';else if(CMODE==='triad'&&!['root','3','5'].includes(f))f='o';return `var(${FAM_VAR[f]||'--c-o'})`;}
 
@@ -691,28 +758,28 @@ const CHORDS={
 
 // movable voicings: offsets from root fret per string (0=6.struna … 5=1.struna), rs = string with root
 const VOICINGS={
- maj:[{rs:0,o:[0,2,2,1,0,0],n:'tvar E (kořen na 6.)'},{rs:1,o:[null,0,2,2,2,0],n:'tvar A (kořen na 5.)'}],
- m:[{rs:0,o:[0,2,2,0,0,0],n:'tvar Em (kořen na 6.)'},{rs:1,o:[null,0,2,2,1,0],n:'tvar Am (kořen na 5.)'}],
- dim:[{rs:1,o:[null,0,1,2,1,null],n:'kořen na 5.'}],
- aug:[{rs:1,o:[null,0,-1,-2,-2,null],n:'kořen na 5.'}],
- sus2:[{rs:1,o:[null,0,2,2,0,0],n:'kořen na 5.'}],
- sus4:[{rs:1,o:[null,0,2,2,3,0],n:'kořen na 5.'}],
- maj7:[{rs:0,o:[0,null,1,1,0,null],n:'kořen na 6.'},{rs:1,o:[null,0,2,1,2,null],n:'kořen na 5.'},{rs:2,o:[null,null,0,2,2,2],n:'kořen na 4.'}],
- '7':[{rs:0,o:[0,null,0,1,0,null],n:'kořen na 6.'},{rs:1,o:[null,0,2,0,2,null],n:'kořen na 5.'},{rs:2,o:[null,null,0,2,1,2],n:'kořen na 4.'}],
- m7:[{rs:0,o:[0,null,0,0,0,null],n:'kořen na 6.'},{rs:1,o:[null,0,2,0,1,null],n:'kořen na 5.'},{rs:2,o:[null,null,0,2,1,1],n:'kořen na 4.'}],
- m7b5:[{rs:0,o:[0,null,0,0,-1,null],n:'kořen na 6.'},{rs:1,o:[null,0,1,0,1,null],n:'kořen na 5.'},{rs:2,o:[null,null,0,1,1,1],n:'kořen na 4.'}],
- dim7:[{rs:0,o:[0,null,-1,0,-1,null],n:'kořen na 6.'},{rs:1,o:[null,0,1,-1,1,null],n:'kořen na 5.'}],
- '6':[{rs:0,o:[0,null,-1,1,0,null],n:'kořen na 6.'},{rs:1,o:[null,0,2,2,2,2],n:'kořen na 5.'}],
- m6:[{rs:1,o:[null,0,-2,-1,-2,null],n:'kořen na 5.'}],
- add9:[{rs:1,o:[null,0,-1,-3,0,null],n:'kořen na 5. (roztažený)'}],
- maj9:[{rs:0,o:[0,null,1,1,0,2],n:'kořen na 6.'},{rs:1,o:[null,0,-1,1,0,null],n:'kořen na 5.'}],
- '9':[{rs:0,o:[0,-1,0,-1,0,null],n:'kořen na 6.'},{rs:1,o:[null,0,-1,0,0,0],n:'kořen na 5.'}],
- m9:[{rs:0,o:[0,null,0,0,0,2],n:'kořen na 6.'},{rs:1,o:[null,0,-2,0,0,null],n:'kořen na 5.'}],
- m11:[{rs:0,o:[0,null,0,0,-2,-2],n:'kořen na 6.'},{rs:1,o:[null,0,0,0,1,null],n:'kořen na 5.'}],
- '13':[{rs:0,o:[0,null,0,1,2,null],n:'kořen na 6.'},{rs:1,o:[null,0,null,0,2,2],n:'kořen na 5.'}],
- '7#9':[{rs:1,o:[null,0,-1,0,1,null],n:'kořen na 5.'}],
- '69':[{rs:1,o:[null,0,-1,-1,0,0],n:'kořen na 5.'}],
- 'maj7#11':[{rs:0,o:[0,null,1,1,-1,null],n:'kořen na 6.'}]};
+ maj:[{rs:0,o:[0,2,2,1,0,0],n:'tvar E (základ na 6.)'},{rs:1,o:[null,0,2,2,2,0],n:'tvar A (základ na 5.)'}],
+ m:[{rs:0,o:[0,2,2,0,0,0],n:'tvar Em (základ na 6.)'},{rs:1,o:[null,0,2,2,1,0],n:'tvar Am (základ na 5.)'}],
+ dim:[{rs:1,o:[null,0,1,2,1,null],n:'základ na 5.'}],
+ aug:[{rs:1,o:[null,0,-1,-2,-2,null],n:'základ na 5.'}],
+ sus2:[{rs:1,o:[null,0,2,2,0,0],n:'základ na 5.'}],
+ sus4:[{rs:1,o:[null,0,2,2,3,0],n:'základ na 5.'}],
+ maj7:[{rs:0,o:[0,null,1,1,0,null],n:'základ na 6.'},{rs:1,o:[null,0,2,1,2,null],n:'základ na 5.'},{rs:2,o:[null,null,0,2,2,2],n:'základ na 4.'}],
+ '7':[{rs:0,o:[0,null,0,1,0,null],n:'základ na 6.'},{rs:1,o:[null,0,2,0,2,null],n:'základ na 5.'},{rs:2,o:[null,null,0,2,1,2],n:'základ na 4.'}],
+ m7:[{rs:0,o:[0,null,0,0,0,null],n:'základ na 6.'},{rs:1,o:[null,0,2,0,1,null],n:'základ na 5.'},{rs:2,o:[null,null,0,2,1,1],n:'základ na 4.'}],
+ m7b5:[{rs:0,o:[0,null,0,0,-1,null],n:'základ na 6.'},{rs:1,o:[null,0,1,0,1,null],n:'základ na 5.'},{rs:2,o:[null,null,0,1,1,1],n:'základ na 4.'}],
+ dim7:[{rs:0,o:[0,null,-1,0,-1,null],n:'základ na 6.'},{rs:1,o:[null,0,1,-1,1,null],n:'základ na 5.'}],
+ '6':[{rs:0,o:[0,null,-1,1,0,null],n:'základ na 6.'},{rs:1,o:[null,0,2,2,2,2],n:'základ na 5.'}],
+ m6:[{rs:1,o:[null,0,-2,-1,-2,null],n:'základ na 5.'}],
+ add9:[{rs:1,o:[null,0,-1,-3,0,null],n:'základ na 5. (roztažený)'}],
+ maj9:[{rs:0,o:[0,null,1,1,0,2],n:'základ na 6.'},{rs:1,o:[null,0,-1,1,0,null],n:'základ na 5.'}],
+ '9':[{rs:0,o:[0,-1,0,-1,0,null],n:'základ na 6.'},{rs:1,o:[null,0,-1,0,0,0],n:'základ na 5.'}],
+ m9:[{rs:0,o:[0,null,0,0,0,2],n:'základ na 6.'},{rs:1,o:[null,0,-2,0,0,null],n:'základ na 5.'}],
+ m11:[{rs:0,o:[0,null,0,0,-2,-2],n:'základ na 6.'},{rs:1,o:[null,0,0,0,1,null],n:'základ na 5.'}],
+ '13':[{rs:0,o:[0,null,0,1,2,null],n:'základ na 6.'},{rs:1,o:[null,0,null,0,2,2],n:'základ na 5.'}],
+ '7#9':[{rs:1,o:[null,0,-1,0,1,null],n:'základ na 5.'}],
+ '69':[{rs:1,o:[null,0,-1,-1,0,0],n:'základ na 5.'}],
+ 'maj7#11':[{rs:0,o:[0,null,1,1,-1,null],n:'základ na 6.'}]};
 
 function rootFretFor(v,rootPc){const offs=v.o.filter(x=>x!==null);const mn=Math.min(...offs),mx=Math.max(...offs);let rf=(rootPc-TUNING[v.rs]%12+12)%12;if(rf+mn<0)rf+=12;if(rf+mx>15&&rf-12+mn>=0)rf-=12;return rf;}
 function realize(v,root,q){const rp=pcOf(root);const rf=rootFretFor(v,rp);const ch=CHORDS[q];const map={};ch.deg.forEach(d=>{map[(parseDeg(d).semis)%12]=d;});
@@ -728,7 +795,7 @@ const CH_EN={maj:['major triad','Major 3rd + minor 3rd. Bright and stable.'],m:[
 for(const k in CH_EN){CHORDS[k].nameEn=CH_EN[k][0];CHORDS[k].descEn=CH_EN[k][1];}
 function sname(k){return t(SCALES[k].name,SCALES[k].en);}
 function cname(q){return t(CHORDS[q].name,CHORDS[q].nameEn);}
-function vn(n){return LANG==='en'?n.replace(/tvar (\S+) \(kořen na (\d)\.\)/,'$1 shape (root on $2)').replace(/kořen na (\d)\./,(m,d)=>'root on '+d+({'4':'th','5':'th','6':'th'}[d]||'')).replace('(roztažený)','(stretch)'):n;}
+function vn(n){return LANG==='en'?n.replace(/tvar (\S+) \(základ na (\d)\.\)/,'$1 shape (root on $2)').replace(/základ na (\d)\./,(m,d)=>'root on '+d+({'4':'th','5':'th','6':'th'}[d]||'')).replace('(roztažený)','(stretch)'):n;}
 </script>
 
 <script>
@@ -766,7 +833,7 @@ function playSeq(midis,step=.3){midis.forEach((m,i)=>playNote(m,i*step));}
 /* ---------- STORAGE ---------- */
 function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
 function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-let DONE=new Set(load('gt-done',[]));
+let DONE=new Set(load('gt-done',[]));if(!load('gt-done-v2',false)){DONE=new Set([...DONE].map(i=>i<4?i:i<6?i+1:i+2));save('gt-done',[...DONE]);save('gt-done-v2',true);}if(!load('gt-done-v3',false)){DONE=new Set([...DONE].map(i=>i<9?i:i+1));save('gt-done',[...DONE]);save('gt-done-v3',true);};
 
 /* ---------- HELPERS ---------- */
 const $=(s,r=document)=>r.querySelector(s);
@@ -795,10 +862,12 @@ function Fretboard(host,{frets=15,onClick}={}){
   host.innerHTML=`<div class="fb-scroll">${svg}</div><p class="fb-hint">${t('← Hmatník posuneš prstem do strany →','← Swipe sideways to see the whole neck →')}</p>`;
   const g=host.querySelector('.marks');
   host.querySelectorAll('.hit').forEach(r=>r.addEventListener('click',()=>{const s=+r.dataset.s,f=+r.dataset.f;onClick?onClick(s,f,TUNING[s]+f):playNote(TUNING[s]+f);}));
-  return{set(marks){g.innerHTML=marks.map(m=>{const x=cx(m.f),y=sy(m.s);const col=m.color||famColor(m.fam||'o');const r=m.small?9:13;
+  return{set(marks){g.innerHTML=marks.map(m=>{const x=cx(m.f),y=sy(m.s);const col=m.dim?'var(--c-o)':(m.color||famColor(m.fam||'o'));const r=m.small?9:13;
       const ring=m.ring?`<circle cx="${x}" cy="${y}" r="${r+4}" fill="none" stroke="var(--fg)" stroke-width="2" stroke-dasharray="3 3"/>`:'';
-      const op=m.dim?' opacity=".28"':'';
-      return `<g${op}>${ring}<circle cx="${x}" cy="${y}" r="${r}" fill="${m.hollow?'var(--surface)':col}" stroke="${col}" stroke-width="${m.hollow?2.5:0}"/>${m.label!=null?`<text x="${x}" y="${y+4.2}" text-anchor="middle" font-size="${String(m.label).length>2?9.5:11.5}" fill="${m.hollow?col:'var(--ink)'}">${m.label}</text>`:''}</g>`;}).join('');},cx,sy};
+      const op=m.dim?' opacity=".4"':'';
+      const rr=m.fam==='root'&&!m.hollow&&!m.color&&!m.dim?`<circle cx="${x}" cy="${y}" r="${r+3}" fill="none" stroke="var(--fg)" stroke-width="1.6"/>`:'';
+      return `<g${op}>${ring}${rr}<circle cx="${x}" cy="${y}" r="${r}" fill="${m.hollow?'var(--surface)':col}" stroke="${col}" stroke-width="${m.hollow?2.5:0}"/>${m.label!=null?`<text x="${x}" y="${y+4.2}" text-anchor="middle" font-size="${String(m.label).length>2?9.5:11.5}" fill="${m.hollow?col:'var(--ink)'}">${m.label}</text>`:''}</g>`;}).join('');const sc=host.querySelector('.fb-scroll');requestAnimationFrame(()=>{if(!sc||sc.scrollWidth<=sc.clientWidth+4)return;const act=marks.filter(m=>!m.dim);if(!act.length)return;const k=sc.scrollWidth/W;const xs=act.map(m=>cx(m.f)*k);const mn=Math.min(...xs),mx=Math.max(...xs);
+      const left=mx-mn+60>sc.clientWidth?mn-40:(mn+mx)/2-sc.clientWidth/2;sc.scrollTo({left:Math.max(0,left),behavior:'smooth'});});},cx,sy};
 }
 // pitch-class marks across the board
 function pcMarks(rootPc,degs,{labelMode='deg',root='C',from=0,to=15,extraVs=null,frets=15}={}){
@@ -846,75 +915,115 @@ W.notes=(el)=>{
 /* 2 · Intervals */
 W.intervals=(el)=>{
   let rs=0,rf=5,only=null;
-  el.innerHTML=`<div class="ctrls"><div class="grp"><label>${t('Kořen na struně','Root on string')}</label>${chips([['0','6. (E)'],['1','5. (A)'],['2','4. (D)']],'0')}</div>
+  el.innerHTML=`<div class="ctrls"><div class="grp"><label>${t('Základ na struně','Root on string')}</label>${chips([['0','6. (E)'],['1','5. (A)'],['2','4. (D)']],'0')}</div>
     <div class="grp"><label for="ifr">${t('Pražec','Fret')}</label><input id="ifr" type="range" min="1" max="10" value="5"><span class="mono rn"></span></div></div>
-    <div class="fbh"></div><p class="readout">${t('Klikni na barevný bod: zazní kořen, pak druhý tón, pak oba spolu.','Click a coloured dot: you hear the root, then the second note, then both together.')}</p>
+    <div class="fbh"></div><p class="readout">${t('Klikni na barevný bod: zazní základní tón, pak druhý tón, pak oba spolu.','Click a coloured dot: you hear the root, then the second note, then both together.')}</p>
     <div class="itab-wrap"><table class="itab"><thead><tr>${t('<th>Půltóny</th><th>Značka</th><th>Název</th><th>Anglicky</th><th>Příklad</th><th>Jak zní</th>','<th>Semitones</th><th>Symbol</th><th>Name</th><th>Czech</th><th>Example</th><th>Sound</th>')}</tr></thead><tbody></tbody></table></div>`;
   const rootMidi=()=>TUNING[rs]+rf;
   const fb=Fretboard(el.querySelector('.fbh'),{onClick:(s,f,m)=>{const iv=m-rootMidi();if(f<rf-1||f>rf+4||s<rs){playNote(m);return;}hear(iv);}});
   function hear(iv){const r=rootMidi();playNote(r,0);playNote(r+iv,.55);playNote(r,1.15,.22);playNote(r+iv,1.15,.22);
     const I=INTERVALS[iv];const name=pretty(ROOTS[r%12]);
-    el.querySelector('.readout').innerHTML=iv===0?`<b>${t('Kořen','Root')}</b> ${name}`:`<b>${I.k} · ${t(I.cz,I.en)}</b> = ${iv} ${t('půltónů','semitones')} (${name} → ${PC_NAME[(r+iv)%12]})`;}
+    el.querySelector('.readout').innerHTML=iv===0?`<b>${t('Prima','Root')}</b> ${name}`:`<b>${I.k} · ${t(I.cz,I.en)}</b> = ${iv} ${t('půltónů','semitones')} (${name} → ${PC_NAME[(r+iv)%12]})`;}
   function draw(){el.querySelector('.rn').textContent=`${rf} → ${PC_NAME[rootMidi()%12]}`;const r=rootMidi(),marks=[];
     for(let s=rs;s<6;s++)for(let f=Math.max(0,rf-1);f<=Math.min(15,rf+4);f++){const iv=TUNING[s]+f-r;if(iv<0||iv>12)continue;const d=iv===12?'8':INT_DEG[iv];
-      if(only!==null&&iv!==only&&iv!==0)continue;marks.push({s,f,label:iv===0?'R':prettyDeg(d),fam:iv===0||iv===12?'root':degFamily(d==='b5'?'b5':d)});}
+      if(only!==null&&iv!==only&&iv!==0)continue;marks.push({s,f,label:iv===0?'1':prettyDeg(d),fam:iv===0||iv===12?'root':degFamily(d==='b5'?'b5':d)});}
     fb.set(marks);
     el.querySelector('tbody').innerHTML=INTERVALS.map(I=>{const d=I.s===12?'8':INT_DEG[I.s];const fam=I.s%12===0?'root':degFamily(d);
-      return `<tr data-i="${I.s}" class="${only===I.s?'on':''}"><td class="mono">${I.s}</td><td><span class="pill" style="background:${famColor(fam)}">${I.s===0?'R':I.k}</span></td><td>${t(I.cz,I.en)}</td><td>${t(I.en,I.cz)}</td><td>${PC_NAME[r%12].split('/')[0]} → ${PC_NAME[(r+I.s)%12]}</td><td style="color:var(--muted)">${t(I.feel,I.feelEn)}</td></tr>`;}).join('');
+      return `<tr data-i="${I.s}" class="${only===I.s?'on':''}"><td class="mono">${I.s}</td><td><span class="pill" style="background:${famColor(fam)}">${I.s===0?'1':I.k}</span></td><td>${t(I.cz,I.en)}</td><td>${t(I.en,I.cz)}</td><td>${PC_NAME[r%12].split('/')[0]} → ${PC_NAME[(r+I.s)%12]}</td><td style="color:var(--muted)">${t(I.feel,I.feelEn)}</td></tr>`;}).join('');
     el.querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>{const i=+tr.dataset.i;only=only===i?null:i;draw();hear(i);});}
   bindChips(el,'.grp:first-child',v=>{rs=+v;draw();});
   el.querySelector('#ifr').oninput=e=>{rf=+e.target.value;draw();};
   draw();};
 
 /* 3 · Scale explorer */
+/* ---------- shared picker / fretboard-block helpers ---------- */
+const CM_DRAW=new Set();
+function setCMode(v){CMODE=v;try{localStorage.setItem('gt-cmode',v);}catch(e){}CM_DRAW.forEach(f=>{if(!f.el||!f.el.isConnected)CM_DRAW.delete(f);else f();});}
+function rootRow(cur){return `<div class="rootrow" role="group">${ROOTS.map(r=>`<button type="button" class="${r===cur?'on':''}" data-v="${r}">${pretty(r)}</button>`).join('')}</div>`;}
+function groupRows(groups,list,cur,lab){let gs=groups.map(([n,items])=>[n,items.filter(x=>list.includes(x))]).filter(g=>g[1].length);const rest=list.filter(x=>!groups.some(g=>g[1].includes(x)));if(rest.length)gs.push([t('Další','More'),rest]);
+  return gs.map(([n,items])=>`<div class="tgrp${gs.length>1?'':' solo'}">${gs.length>1?`<div class="gname">${n}</div>`:''}<div class="types">${items.map(k=>`<button type="button" class="${k===cur?'on':''}" data-v="${k}">${lab(k)}</button>`).join('')}</div></div>`).join('');}
+function seg(cls,label,items,cur){return `<div class="seg ${cls}"><small>${label}</small><div>${items.map(([v,l])=>`<button type="button" class="${String(v)===String(cur)?'on':''}" data-v="${v}">${l}</button>`).join('')}</div></div>`;}
+function bindBtns(el,sel,fn){const bs=el.querySelectorAll(sel+' button');bs.forEach(b=>b.onclick=()=>{bs.forEach(x=>x.classList.toggle('on',x===b));fn(b.dataset.v);});}
+function cmodeSeg(){return seg('cms',t('Barvy','Colours'),[['full',t('Všechny tóny','All notes')],['root',t('Prima','Root')],['triad','1·3·5']],CMODE);}
+function fbLegend(kind){const vis=f=>CMODE==='root'?f==='root':CMODE==='triad'?['root','3','5'].includes(f):true;
+  const it=[['root','1',t('prima','root')],['3','3',t('tercie','3rd')],['5','5',t('kvinta','5th')],['7','7',t('septima','7th')],kind==='scale'?['T','2·4·6',t('ostatní','others')]:['T','9·11·13',t('tenze','tensions')]];
+  return it.map(([f,n,l])=>f==='T'?`<span class="${vis('t')?'':'off'}">${n.split('·').map((x,i)=>`<i style="--c:var(${['--c-t2','--c-t4','--c-t6'][i]})">${x}</i>`).join('')}${l}</span>`:`<span class="${vis(f)?'':'off'}"><i style="--c:var(${FAM_VAR[f]})">${n}</i>${l}</span>`).join('');}
+function stepLab(n,txt){return `<div class="slab"><span>${n}</span>${txt}</div>`;}
+const SCALE_GROUPS=()=>[[t('Pentatoniky a blues','Pentatonics & blues'),['minpent','majpent','blues']],[t('Dur a módy','Major & modes'),['major','dorian','mixolydian','lydian']],[t('Moll','Minor'),['aeolian','melmin']]];
+const CHORD_GROUPS=()=>[[t('Triády','Triads'),['maj','m','dim','aug','sus2','sus4']],[t('Septakordy','Sevenths'),['maj7','7','m7','m7b5','dim7','6','m6']],[t('Tenze · neo-soul','Extended · neo-soul'),['add9','maj9','9','m9','m11','13','7#9','69','maj7#11']]];
+const shortScale=k=>sname(k).replace(/\s*\(.*\)/,'');
+
+/* 3 · Scale explorer */
 W.scales=(el,o={})=>{
   const list=o.list||Object.keys(SCALES);let sc=o.def||list[0],root=o.root||'C',mode='deg',win=null,cmp=o.cmp||null;
-  el.innerHTML=`<div class="ctrls"><div class="grp"><label>${t('Kořen','Root')}</label><select class="rsel">${ROOTS.map(r=>`<option value="${r}" ${r===root?'selected':''}>${pretty(r)}</option>`).join('')}</select></div>
-     <div class="grp sc"><label>${t('Stupnice','Scale')}</label>${chips(list.map(k=>[k,sname(k)]),sc)}</div></div>
-   <div class="ctrls"><div class="grp lm"><label>${t('Popisky','Labels')}</label>${chips([['deg',t('Stupně','Degrees')],['note',t('Tóny','Notes')]],'deg')}</div>
-     <div class="grp"><label for="win-${o.id||'x'}">${t('Pozice','Position')}</label><select class="win" id="win-${o.id||'x'}"><option value="">${t('celý hmatník','whole neck')}</option>${[0,2,3,5,7,8,10,12].map(f=>`<option value="${f}">${t('pražce','frets')} ${f}–${f+4}</option>`).join('')}</select></div>
-     ${o.cmpList?`<div class="grp cmp"><label>${t('Porovnat s','Compare with')}</label>${chips([['',t('nic','none')],...o.cmpList.map(k=>[k,sname(k)])],cmp||'')}</div>`:''}
-     <button class="btn play">▶ ${t('Přehrát','Play')}</button></div>
-   <div class="formula"></div><div class="fbh"></div><p class="readout"></p>`;
+  el.classList.add('tw');
+  el.innerHTML=`<section class="tw-s">${stepLab(1,t('Vyber','Pick'))}
+     <div class="prow"><span class="plab">${t('Základní tón','Root')}</span>${rootRow(root)}</div>
+     <div class="sc">${groupRows(SCALE_GROUPS(),list,sc,k=>shortScale(k))}</div></section>
+   <section class="tw-s">${stepLab(2,t('Co to je','What it is'))}
+     <div class="chordhead"><span class="chordname"></span><span class="cdesc"></span></div>
+     <div class="formula"></div><div class="ctrls"><button class="btn play" type="button">▶ ${t('Zahrát','Play')}</button></div></section>
+   <section class="tw-s">${stepLab(3,t('Na hmatníku','On the neck'))}
+     <div class="fbx">
+      <div class="fbx-bar"><div class="fbx-name"></div>${seg('win',t('Pozice','Position'),[['',t('Celý krk','Whole neck')],...[0,2,3,5,7,8,10,12].map(f=>[f,`${f}–${f+4}`])],'')}
+        ${seg('lm',t('Popisky','Labels'),[['deg',t('Stupně','Degrees')],['note',t('Tóny','Notes')]],'deg')}${cmodeSeg()}
+        ${o.cmpList?seg('cmp',t('Porovnat s','Compare with'),[['','—'],...o.cmpList.map(k=>[k,shortScale(k)])],cmp||''):''}</div>
+      <div class="fbh"></div><p class="readout"></p><div class="fbx-leg"></div></div></section>`;
   const fb=Fretboard(el.querySelector('.fbh'),{onClick:(s,f,m)=>{playNote(m);const iv=(m-pcOf(root)+120)%12;const d=SCALES[sc].deg.find(x=>parseDeg(x).semis%12===iv);el.querySelector('.readout').innerHTML=d?`<b>${pretty(spell(root,d))}</b> – ${t(prettyDeg(d)+'. stupeň','degree '+prettyDeg(d))}`:`${PC_NAME[m%12]} (${t('mimo stupnici','outside the scale')})`;}});
   function draw(){const S=SCALES[sc];const rp=pcOf(root);const ext=cmp?new Set(SCALES[cmp].deg.map(d=>parseDeg(d).semis%12)):null;
+    el.querySelector('.chordname').textContent=`${pretty(root)} ${shortScale(sc).toLowerCase()}`;el.querySelector('.fbx-name').textContent=`${pretty(root)} ${shortScale(sc).toLowerCase()}`;
+    el.querySelector('.cdesc').innerHTML=`<p>${S.deg.length} ${t('tónů','notes')} · ${S.deg.map(prettyDeg).join(' ')}</p>`;
     el.querySelector('.formula').innerHTML=S.deg.map((d,i)=>{const nx=S.deg[i+1]?parseDeg(S.deg[i+1]).semis:12;const step=nx-parseDeg(d).semis;const isExtra=ext&&!ext.has(parseDeg(d).semis%12);
-      return `<div class="deg" style="${isExtra?'box-shadow:inset 0 0 0 2px var(--fg)':''}"><span class="d" style="background:${famColor(degFamily(d))}">${prettyDeg(d)}</span><span class="n">${pretty(spell(root,d))}</span><span class="s">${step===1?t('→ půltón','→ half step'):step===2?t('→ celý tón','→ whole step'):'→ '+step+t(' půlt.',' st.')}</span></div>`;}).join('');
+      return `<div class="deg" data-r="${root}" data-d="${d}" role="button" tabindex="0" style="${isExtra?'box-shadow:inset 0 0 0 2px var(--fg)':''}"><span class="d" style="background:${famColor(degFamily(d))}">${prettyDeg(d)}</span><span class="n">${pretty(spell(root,d))}</span><span class="s">${step===1?t('→ půltón','→ half step'):step===2?t('→ celý tón','→ whole step'):'→ '+step+t(' půlt.',' st.')}</span></div>`;}).join('');
     fb.set(pcMarks(rp,S.deg,{labelMode:mode,root,from:win===null?0:win,to:win===null?15:win+4,extraVs:ext}));
-    el.querySelector('.readout').innerHTML=cmp?t(`Tóny s <b>čárkovaným kroužkem</b> má ${sname(sc).toLowerCase()} navíc oproti stupnici ${sname(cmp).toLowerCase()}.`,`Notes with a <b>dashed ring</b> are in the ${sname(sc).toLowerCase()} scale but not in the ${sname(cmp).toLowerCase()}.`):t('Klikni na tón na hmatníku a uslyšíš ho.','Click a note on the neck to hear it.');}
-  el.querySelector('.rsel').onchange=e=>{root=e.target.value;draw();};
-  bindChips(el,'.sc',v=>{sc=v;draw();});bindChips(el,'.lm',v=>{mode=v;draw();});
-  if(o.cmpList)bindChips(el,'.cmp',v=>{cmp=v||null;draw();});
-  el.querySelector('.win').onchange=e=>{win=e.target.value===''?null:+e.target.value;draw();};
+    el.querySelector('.fbx-leg').innerHTML=fbLegend('scale');
+    el.querySelector('.readout').innerHTML=cmp?t(`Tóny s <b>čárkovaným kroužkem</b> má ${sname(sc).toLowerCase()} navíc oproti stupnici ${sname(cmp).toLowerCase()}.`,`Notes with a <b>dashed ring</b> are in the ${sname(sc).toLowerCase()} scale but not in the ${sname(cmp).toLowerCase()}.`):t('Klikni na tón na hmatníku nebo na kartičku a uslyšíš ho.','Tap a note on the neck or a card to hear it.');}
+  draw.el=el;CM_DRAW.add(draw);
+  bindBtns(el,'.rootrow',v=>{root=v;draw();});bindBtns(el,'.sc',v=>{sc=v;draw();});bindBtns(el,'.lm',v=>{mode=v;draw();});
+  bindBtns(el,'.win',v=>{win=v===''?null:+v;draw();});if(o.cmpList)bindBtns(el,'.cmp',v=>{cmp=v||null;draw();});bindBtns(el,'.cms',v=>setCMode(v));
   el.querySelector('.play').onclick=()=>{const base=40+((pcOf(root)-4+12)%12);const up=SCALES[sc].deg.map(d=>base+parseDeg(d).semis);playSeq([...up,base+12,...up.slice().reverse()],Math.max(.3,Math.min(.9,60/METRO.bpm)));};
   draw();};
 
 /* 4 · Chord explorer */
 W.chords=(el,o={})=>{
-  const list=o.list||Object.keys(CHORDS);let q=o.def||list[0],root=o.root||'C',all=false,vi=0;
-  el.innerHTML=`<div class="ctrls"><div class="grp"><label>${t('Kořen','Root')}</label><select class="rsel">${ROOTS.map(r=>`<option value="${r}" ${r===root?'selected':''}>${pretty(r)}</option>`).join('')}</select></div>
-     <div class="grp qs"><label>${t('Typ','Type')}</label>${chips(list.map(k=>[k,k==='maj'?t('dur','maj'):k==='m'?t('moll','min'):CHORDS[k].sym]),q)}</div></div>
-   <div class="chordhead"><span class="chordname"></span><span class="cdesc"></span></div>
-   <div class="formula"></div>
-   <div class="ctrls"><button class="btn strum">▶ ${t('Zahrát akord','Play chord')}</button><button class="btn ghost arp">${t('Rozložit (arpeggio)','Arpeggio')}</button><button class="chip allb">${t('Akordové tóny po celém hmatníku','Chord tones across the neck')}</button></div>
-   <div><div class="lab" style="margin-bottom:6px">${t('Hmaty · klikni pro poslech','Voicings · click to hear')}</div><div class="voicings"></div></div>
-   <div class="fbh"></div>`;
+  const list=o.list||Object.keys(CHORDS);let q=o.def||list[0],root=o.root||'C',all=false,vi=0,mode='deg',psc=true;
+  const qlab=k=>k==='maj'?t('dur','maj'):k==='m'?t('moll','min'):CHORDS[k].sym;
+  el.classList.add('tw');
+  el.innerHTML=`<section class="tw-s">${stepLab(1,t('Vyber','Pick'))}
+     <div class="prow"><span class="plab">${t('Základní tón','Root')}</span>${rootRow(root)}</div>
+     <div class="qs">${groupRows(CHORD_GROUPS(),list,q,qlab)}</div></section>
+   <section class="tw-s">${stepLab(2,t('Co to je','What it is'))}
+     <div class="chordhead"><span class="chordname"></span><span class="cdesc"></span></div>
+     <div class="formula"></div>
+     <div class="ctrls"><button class="btn strum" type="button">▶ ${t('Zahrát','Play')}</button><button class="btn ghost arp" type="button">${t('Arpeggio','Arpeggio')}</button></div></section>
+   <section class="tw-s">${stepLab(3,t('Na hmatníku','On the neck'))}
+     <div class="fbx">
+      <div class="fbx-bar"><div class="fbx-name"></div>${seg('shw',t('Ukázat','Show'),[['v',t('Hmat','Voicing')],['all',t('Celý krk','Whole neck')]],'v')}${seg('lm',t('Popisky','Labels'),[['deg',t('Stupně','Degrees')],['note',t('Tóny','Notes')]],'deg')}${cmodeSeg()}${seg('psc',t('Stupnice','Scale'),[['1',t('Ano','On')],['0',t('Ne','Off')]],'1')}</div>
+      <div class="vwrap"><div class="vlab">${t('Hmaty · ťukni pro poslech','Voicings · tap to hear')}</div><div class="voicings"></div></div>
+      <div class="fbh"></div><div class="fbx-leg"></div></div></section>`;
   const fb=Fretboard(el.querySelector('.fbh'));
   function cur(){const vs=VOICINGS[q]||[];return vs.length?realize(vs[Math.min(vi,vs.length-1)],root,q):null;}
-  function draw(){const C=CHORDS[q];el.querySelector('.chordname').textContent=chordName(root,q);
+  function draw(){const C=CHORDS[q];const nm=chordName(root,q);el.querySelector('.chordname').textContent=nm;el.querySelector('.fbx-name').textContent=nm;
     el.querySelector('.cdesc').innerHTML=`<p><b>${t(C.name,C.nameEn)}</b> · ${t(C.desc,C.descEn)}</p>`;
-    let prev=0;el.querySelector('.formula').innerHTML=C.deg.map(d=>{const s=parseDeg(d).semis;const gap=s-prev;prev=s;return `<div class="deg"><span class="d" style="background:${famColor(degFamily(d))}">${prettyDeg(d)}</span><span class="n">${pretty(spell(root,d))}</span><span class="s">${d==='1'?t('kořen','root'):'+'+gap+t(' půlt.',' st.')}</span></div>`;}).join('');
-    const vs=VOICINGS[q]||[];const box=el.querySelector('.voicings');
+    let prev=0;el.querySelector('.formula').innerHTML=C.deg.map(d=>{const s=parseDeg(d).semis;const gap=s-prev;prev=s;return `<div class="deg" data-r="${root}" data-d="${d}" role="button" tabindex="0"><span class="d" style="background:${famColor(degFamily(d))}">${prettyDeg(d)}</span><span class="n">${pretty(spell(root,d))}</span><span class="s">${d==='1'?t('prima','root'):'+'+gap+t(' půlt.',' st.')}</span></div>`;}).join('');
+    const vs=VOICINGS[q]||[];const box=el.querySelector('.voicings');el.querySelector('.vwrap').hidden=all;
     box.innerHTML=vs.length?vs.map((v,i)=>diagram(realize(v,root,q),{sub:vn(v.n),cur:i===vi})).join(''):`<p class="readout">${t('Pro tento akord tu zatím hmat není – tóny vidíš na hmatníku.','No voicing for this chord yet – see its notes on the neck.')}</p>`;
     box.querySelectorAll('.vc').forEach((b,i)=>b.onclick=()=>{vi=i;draw();playChord(realMidis(cur()));});
-    const r=cur();
-    if(all||!r){fb.set(pcMarks(pcOf(root),C.deg,{root}));}
-    else fb.set(r.notes.filter(Boolean).map(n=>({s:n.s,f:n.f,fam:n.deg?degFamily(n.deg):'o',label:n.deg?prettyDeg(n.deg):'?'})));}
-  el.querySelector('.rsel').onchange=e=>{root=e.target.value;draw();};
-  bindChips(el,'.qs',v=>{q=v;vi=0;draw();const r=cur();if(r)playChord(realMidis(r));});
+    const r=cur();let cm;
+    if(all||!r){cm=pcMarks(pcOf(root),C.deg,{root,labelMode:mode});}
+    else cm=r.notes.filter(Boolean).map(n=>({s:n.s,f:n.f,fam:n.deg?degFamily(n.deg):'o',label:n.deg?(mode==='note'?pretty(spell(root,n.deg)):prettyDeg(n.deg)):'?'}));
+    const PS=parentOf(q);let bg=[];
+    if(psc&&PS){const fs=cm.map(m=>m.f);const lo=all||!r?0:Math.max(0,Math.min(...fs)-1),hi=all||!r?15:Math.max(...fs)+1;const cpc=new Set(C.deg.map(d=>parseDeg(d).semis%12));
+      for(let s2=0;s2<6;s2++)for(let f=lo;f<=hi;f++){const iv=(TUNING[s2]+f-pcOf(root)+120)%12;const d=PS.deg.find(z=>parseDeg(z).semis%12===iv);if(!d||cpc.has(iv)||cm.some(m=>m.s===s2&&m.f===f))continue;bg.push({s:s2,f,small:true,hollow:true,color:'#6E6381',label:mode==='note'?pretty(spell(root,d)):prettyDeg(d)});}}
+    fb.set([...bg,...cm]);
+    el.querySelector('.cdesc').innerHTML+=PS?`<p class="pscl">${t('Vychází ze stupnice','Comes from the scale')}: <b>${pretty(root)} ${t(PS.name,PS.en||PS.name).replace(/\s*\(.*\)/,'').toLowerCase()}</b></p>`:'';
+    el.querySelector('.fbx-leg').innerHTML=fbLegend('chord')+(psc&&PS?`<span><i class="hol">·</i>${t('stupnice','scale')} ${pretty(root)} ${t(PS.name,PS.en||PS.name).replace(/\s*\(.*\)/,'').toLowerCase()}</span>`:'');}
+  draw.el=el;CM_DRAW.add(draw);
+  bindBtns(el,'.rootrow',v=>{root=v;draw();});
+  bindBtns(el,'.qs',v=>{q=v;vi=0;draw();const r=cur();if(r)playChord(realMidis(r));});
+  bindBtns(el,'.shw',v=>{all=v==='all';draw();});bindBtns(el,'.psc',v=>{psc=v==='1';draw();});bindBtns(el,'.lm',v=>{mode=v;draw();});bindBtns(el,'.cms',v=>setCMode(v));
   el.querySelector('.strum').onclick=()=>{const r=cur();if(r)playChord(realMidis(r));else{const b=48+pcOf(root);playChord(CHORDS[q].deg.map(d=>b+parseDeg(d).semis));}};
   el.querySelector('.arp').onclick=()=>{const b=48+pcOf(root)-(pcOf(root)>7?12:0);playSeq(CHORDS[q].deg.map(d=>b+parseDeg(d).semis),.3);};
-  const ab=el.querySelector('.allb');ab.onclick=()=>{all=!all;ab.classList.toggle('on',all);draw();};
   draw();};
 
 /* 5 · Thirds ladder */
@@ -988,14 +1097,15 @@ const PROGS=[
  {id:'m251',name:'ii – V – i v mollu',tag:'jazz',key:'A',minor:true,ch:[[2,'m7b5'],[7,'7#9'],[0,'m9'],[0,'m9']],tagEn:'jazz',noteEn:'The minor version: a half-diminished chord, a sharp 7♯9 dominant and a resolution to m9.',note:'Mollová verze: polozmenšený akord, ostrá dominanta 7♯9 a rozvedení do m9.'}];
 W.progressions=(el,o={})=>{
   const list=o.ids?PROGS.filter(p=>o.ids.includes(p.id)):PROGS;let P=list[0],key=P.key,bpm=80,playing=false,timer=null,step=0;
-  el.innerHTML=`<div class="prog-grid"><div class="plist">${list.map((p,i)=>`<button class="pitem ${i===0?'on':''}" data-i="${i}"><b>${p.name}</b><span>${t(p.tag,p.tagEn)}</span></button>`).join('')}</div>
+  el.innerHTML=`<div class="prog-grid"><div class="plist">${list.map((p,i)=>`<button class="pitem ${i===0?'on':''}" data-i="${i}"><b>${t(p.name,p.name.replace(' s barvami',' with extensions').replace(' v mollu',' in minor'))}</b><span>${t(p.tag,p.tagEn)}</span></button>`).join('')}</div>
    <div style="display:grid;gap:14px;min-width:0"><div class="ctrls"><div class="grp"><label>${t('Tónina','Key')}</label><select class="rsel">${ROOTS.map(r=>`<option value="${r}">${pretty(r)}</option>`).join('')}</select></div>
      <div class="grp"><label for="bpm-${o.id||'p'}">Tempo</label><input id="bpm-${o.id||'p'}" type="range" min="50" max="120" value="80"><span class="mono bv">80</span></div>
-     <button class="btn go">${t('▶ Přehrávat dokola','▶ Loop')}</button></div><p class="pnote"></p><div class="voicings"></div></div></div>`;
+     <button class="btn go">${t('▶ Přehrávat dokola','▶ Loop')}</button></div><p class="pnote"></p><div class="voicings"></div><p class="fnleg"></p></div></div>`;
   function chordsOf(){return P.ch.map(([off,q])=>{const r=ROOTS[(pcOf(key)+off)%12];const rr=spellRoot(key,off,P.minor);return{r:rr,q};});}
   function draw(){el.querySelector('.rsel').value=ROOTS.find(r=>pcOf(r)===pcOf(key));el.querySelector('.pnote').innerHTML=`<b>${pretty(key)}${P.minor?t(' moll',' minor'):t(' dur',' major')}:</b> ${chordsOf().map(c=>chordName(c.r,c.q)).join(' → ')}<br><span style="color:var(--muted)">${t(P.note,P.noteEn)}</span>`;
     const cs=chordsOf();const box=el.querySelector('.voicings');let last=5;
-    box.innerHTML=cs.map((c,i)=>{const v=bestVoicing(c.r,c.q,last);last=v?v.rf:last;return diagram(v,{title:chordName(c.r,c.q),cur:playing&&i===step});}).join('');
+    box.innerHTML=cs.map((c,i)=>{const v=bestVoicing(c.r,c.q,last);last=v?v.rf:last;const [off,q]=P.ch[i];const f=fnOf(off,q,P.minor);return diagram(v,{title:chordName(c.r,c.q),sub:`<b class="rn">${rnOf(off,q,P.minor)}</b>${f?` · <span class="fn fn-${f.replace(/[()]/g,'x')}">${f}</span>`:''}`,cur:playing&&i===step});}).join('');
+    el.querySelector('.fnleg').innerHTML=fnLegend();
     box.querySelectorAll('.vc').forEach((b,i)=>b.onclick=()=>{const c=cs[i];playChord(realMidis(bestVoicing(c.r,c.q)));});}
   function tick(){const cs=chordsOf();const c=cs[step];let last=5;const vs=cs.map(x=>{const v=bestVoicing(x.r,x.q,last);last=v.rf;return v;});
     const beat=60/bpm;playChord(realMidis(vs[step]),0,.03);playChord(realMidis(vs[step]).slice(-4),beat*2.5,.02);playNote(realMidis(vs[step])[0]-12,0,.28);
@@ -1006,6 +1116,145 @@ W.progressions=(el,o={})=>{
   el.querySelector('input[type=range]').oninput=e=>{bpm=+e.target.value;el.querySelector('.bv').textContent=bpm;};
   el.querySelector('.go').onclick=()=>{if(playing){stop();return;}ac();playing=true;step=0;el.querySelector('.go').textContent='■ Stop';tick();};
   el._stop=stop;draw();};
+const DOMQ=['7','9','13','7#9'],MINQ=['m','m7','m9','m11','m6','m7b5','dim','dim7'];
+function rnOf(off,q,minor){const N={0:'I',1:'♭II',2:'II',3:'♭III',4:'III',5:'IV',6:'♯IV',7:'V',8:'♭VI',9:'VI',10:'♭VII',11:'VII'}[off];const low=MINQ.includes(q);const sym=(CHORDS[q]?CHORDS[q].sym:'').replace(/^m(?!aj)/,'').replace('b5','♭5').replace('#','♯');return (low?N.toLowerCase():N)+sym;}
+function fnOf(off,q,minor){const T=minor?[0,3]:[0,4,9],S=minor?[2,5,8]:[2,5],D=minor?[7,10,11]:[7,11];let f=T.includes(off)?'T':S.includes(off)?'S':D.includes(off)?'D':'';if(DOMQ.includes(q)&&f!=='D')f='(D)';return f;}
+function fnLegend(){return `<span class="fn fn-T">T</span> ${t('tónika – domov, klid','tonic – home, rest')} · <span class="fn fn-S">S</span> ${t('subdominanta – odchod z domova','subdominant – moving away')} · <span class="fn fn-D">D</span> ${t('dominanta – napětí, chce domů','dominant – tension, wants home')} · <span class="fn fn-xDx">(D)</span> ${t('vedlejší dominanta – míří na jiný akord než tóniku','secondary dominant – points to a chord other than the tonic')}`;}
+/* CAGED: five shapes of one major chord */
+const CAGED_T={C:{s:1,n:[[1,0,'1'],[2,-1,'3'],[3,-3,'5'],[4,-2,'1'],[5,-3,'3']]},A:{s:1,n:[[1,0,'1'],[2,2,'5'],[3,2,'1'],[4,2,'3'],[5,0,'5']]},G:{s:0,n:[[0,0,'1'],[1,-1,'3'],[2,-3,'5'],[3,-3,'1'],[4,-3,'3'],[5,0,'1']]},E:{s:0,n:[[0,0,'1'],[1,2,'5'],[2,2,'1'],[3,1,'3'],[4,0,'5'],[5,0,'1']]},D:{s:2,n:[[2,0,'1'],[3,2,'5'],[4,3,'1'],[5,2,'3']]}};
+function cagedShape(k,root){const T=CAGED_T[k];let r=(pcOf(root)-TUNING[T.s]%12+120)%12;const lo=Math.min(...T.n.map(x=>x[1]));if(r+lo<0)r+=12;return T.n.map(([s,o,d])=>({s,f:r+o,d}));}
+W.caged=(el,o={})=>{let root=o.root||'C',sh='C',pent=false;el.classList.add('tw');
+  el.innerHTML=`<div class="prow"><span class="plab">${t('Akord','Chord')}</span>${rootRow(root)}</div>
+   <div class="fbx"><div class="fbx-bar"><div class="fbx-name"></div>${seg('shp',t('Tvar','Shape'),[['C','C'],['A','A'],['G','G'],['E','E'],['D','D'],['all',t('Všech pět','All five')]],'C')}${seg('pt',t('Pentatonika','Pentatonic'),[['0',t('Ne','Off')],['1',t('Ano','On')]],'0')}<button class="btn ghost cplay" type="button">▶ ${t('Zahrát tvar','Play shape')}</button></div>
+    <div class="fbh"></div><p class="readout"></p><div class="fbx-leg"></div></div>`;
+  const fb=Fretboard(el.querySelector('.fbh'));
+  const order=()=>['C','A','G','E','D'].map(k=>({k,n:cagedShape(k,root)})).map(x=>({...x,lo:Math.min(...x.n.map(y=>y.f)),hi:Math.max(...x.n.map(y=>y.f))}));
+  function draw(){const S=order();el.querySelector('.fbx-name').textContent=`${pretty(root)} · ${sh==='all'?t('CAGED','CAGED'):t('tvar ','shape ')+sh}`;let marks=[];
+    if(sh==='all'){const cols=['#E8402E','#F0629A','#EDE4D3','#9F8CFF','#F2C14E'];S.forEach((x,i)=>x.n.forEach(n=>{if(n.f<=15&&!marks.some(m=>m.s===n.s&&m.f===n.f))marks.push({s:n.s,f:n.f,color:cols[i],label:x.k});}));
+      el.querySelector('.readout').innerHTML=t(`Tvary jdou po krku za sebou: <b>${S.slice().sort((a,b)=>a.lo-b.lo).map(x=>x.k).join(' → ')}</b>. Písmeno v tečce říká, ke kterému tvaru tón patří; sousední tvary sdílejí tóny.`,`The shapes follow each other up the neck: <b>${S.slice().sort((a,b)=>a.lo-b.lo).map(x=>x.k).join(' → ')}</b>. The letter in a dot tells you which shape the note belongs to; neighbouring shapes share notes.`);}
+    else{const x=S.find(y=>y.k===sh);const lo=Math.max(0,x.lo-1),hi=x.hi+1;
+      if(pent){const P=SCALES.majpent.deg;for(let s=0;s<6;s++)for(let f=lo;f<=hi;f++){const iv=(TUNING[s]+f-pcOf(root)+120)%12;const d=P.find(z=>parseDeg(z).semis%12===iv);if(d&&!x.n.some(n=>n.s===s&&n.f===f))marks.push({s,f,small:true,fam:degFamily(d),label:prettyDeg(d)});}}
+      x.n.forEach(n=>marks.push({s:n.s,f:n.f,fam:degFamily(n.d),label:n.d}));
+      const rs=x.n.filter(n=>n.d==='1').map(n=>(LANG==='en'?SN_EN:SN_CZ)[n.s]).join(t(' a ',' and '));
+      el.querySelector('.readout').innerHTML=t(`Tvar <b>${sh}</b> pro ${pretty(root)} dur leží kolem pražců <b>${x.lo}–${x.hi}</b>. Prima je na ${rs.includes(' a ')?'strunách':'struně'} ${rs}.${pent?' Malé tečky doplňují durovou pentatoniku (2 a 6).':''}`,`The <b>${sh}</b> shape for ${pretty(root)} major sits around frets <b>${x.lo}–${x.hi}</b>. The root is on the ${rs} string${rs.includes(' and ')?'s':''}.${pent?' Small dots add the major pentatonic (2 and 6).':''}`);}
+    fb.set(marks);el.querySelector('.fbx-leg').innerHTML=sh==='all'?'':fbLegend('scale');}
+  draw.el=el;CM_DRAW.add(draw);
+  bindBtns(el,'.rootrow',v=>{root=v;draw();});bindBtns(el,'.shp',v=>{sh=v;draw();});bindBtns(el,'.pt',v=>{pent=v==='1';draw();});
+  el.querySelector('.cplay').onclick=()=>{const S=order();const xs=sh==='all'?S.sort((a,b)=>a.lo-b.lo):[S.find(y=>y.k===sh)];xs.forEach((x,i)=>playChord(x.n.slice().sort((a,b)=>a.s-b.s).map(n=>TUNING[n.s]+n.f),i*1.1,.05));};
+  draw();};
+const SN_CZ=['6. (E)','5. (A)','4. (D)','3. (G)','2. (B)','1. (e)'],SN_EN=['6th (E)','5th (A)','4th (D)','3rd (G)','2nd (B)','1st (e)'];
+
+/* Guide tones: ii–V–I, 7th falls to the next 3rd */
+W.guide=(el,o={})=>{let key=o.root||'C',step=0;el.classList.add('tw');
+  el.innerHTML=`<div class="prow"><span class="plab">${t('Tónina','Key')}</span>${rootRow(key)}</div>
+   <div class="fbx"><div class="fbx-bar"><div class="fbx-name"></div><div class="seg gst"><small>${t('Akord','Chord')}</small><div></div></div><button class="btn gplay" type="button">▶ ${t('Přehrát II–V–I','Play ii–V–I')}</button></div>
+    <div class="fbh"></div><p class="readout"></p><div class="fbx-leg"></div></div>`;
+  const fb=Fretboard(el.querySelector('.fbh'));
+  function chords(){const k=pcOf(key);const fA=r=>{let f=(r-9+120)%12;if(f<3)f+=12;return f;},fE=r=>{let f=(r-4+120)%12;if(f<3)f+=12;return f;};
+    const ii=(k+2)%12,V=(k+7)%12;const a=fA(ii),e=fE(V),c=fA(k);
+    return [{nm:chordName(spell(key,'2'),'m7'),rn:'ii7',fn:'S',n:[{s:1,f:a,d:'1'},{s:2,f:a-2,d:'b3'},{s:3,f:a,d:'b7'}]},
+            {nm:chordName(spell(key,'5'),'7'),rn:'V7',fn:'D',n:[{s:0,f:e,d:'1'},{s:2,f:e,d:'b7'},{s:3,f:e+1,d:'3'}]},
+            {nm:chordName(key,'maj7'),rn:'Imaj7',fn:'T',n:[{s:1,f:c,d:'1'},{s:2,f:c-1,d:'3'},{s:3,f:c+1,d:'7'}]}];}
+  const mid=n=>TUNING[n.s]+n.f;
+  function draw(){const C=chords();const c=C[step],p=C[step-1];el.querySelector('.fbx-name').textContent=c.nm;
+    const box=el.querySelector('.gst div');box.innerHTML=C.map((x,i)=>`<button type="button" class="${i===step?'on':''}" data-v="${i}">${x.nm} <span class="fn fn-${x.fn}">${x.fn}</span></button>`).join('');
+    box.querySelectorAll('button').forEach(b=>b.onclick=()=>{step=+b.dataset.v;draw();playChord(C[step].n.map(mid));});
+    const marks=[];if(p)p.n.filter(n=>n.d!=='1').forEach(n=>marks.push({s:n.s,f:n.f,fam:'o',label:prettyDeg(n.d),dim:true}));
+    c.n.forEach(n=>marks.push({s:n.s,f:n.f,fam:degFamily(n.d),label:prettyDeg(n.d)}));fb.set(marks);
+    const sp=(d,ch)=>pretty(spell(ch.root,d));
+    let txt;if(step===0)txt=t(`<b>${c.nm}</b> (ii7, subdominanta): základ, tercie a septima. Klikni na další akord a sleduj šedé tečky – ukazují, odkud tóny přišly.`,`<b>${c.nm}</b> (ii7, subdominant): root, 3rd and 7th. Click the next chord and watch the grey dots – they show where the notes came from.`);
+    else{const pr=p,cu=c;const s7=pr.n.find(n=>n.d.includes('7')),s3=cu.n.find(n=>n.d==='3'||n.d==='b3');const n7=PC_NAME[mid(s7)%12],n3=PC_NAME[mid(s3)%12];
+      txt=t(`Septima <b>${pr.nm}</b> (${n7}) klesne o půltón na tercii <b>${cu.nm}</b> (${n3}). ${step===1?'G7 je dominanta – mezi jeho tercií a septimou je tritón, který chce domů.':'Napětí se rozvedlo – jsme doma na tónice.'}`,`The 7th of <b>${pr.nm}</b> (${n7}) falls a half step to the 3rd of <b>${cu.nm}</b> (${n3}). ${step===1?'This is the dominant – its 3rd and 7th form a tritone that wants to go home.':'The tension resolves – we are home on the tonic.'}`);}
+    el.querySelector('.readout').innerHTML=txt;el.querySelector('.fbx-leg').innerHTML=`<span><i style="--c:var(--c-root)">1</i>${t('základ','root')}</span><span><i style="--c:var(--c-3)">3</i>${t('tercie','3rd')}</span><span><i style="--c:var(--c-7)">7</i>${t('septima','7th')}</span><span><i style="--c:var(--c-o)">·</i>${t('předchozí akord','previous chord')}</span>`;}
+  draw.el=el;CM_DRAW.add(draw);
+  bindBtns(el,'.rootrow',v=>{key=v;draw();});
+  el.querySelector('.gplay').onclick=()=>{const C=chords();C.forEach((x,i)=>setTimeout(()=>{if(!el.isConnected)return;step=i;draw();playChord(x.n.map(mid),0,.04);playNote(mid(x.n[0])-12,0,.3);},i*1300));};
+  draw();};
+
+/* Triads & inversions on three adjacent strings, optionally over a bass note */
+W.triads=(el,o={})=>{let root=o.root||'C',q='maj',set='345',inv='all',bass='';el.classList.add('tw');
+  const SETS={'345':[3,4,5],'234':[2,3,4],'123':[1,2,3]};
+  const BASS={maj:[['',t('Bez basu','No bass')],['3','m7'],['7',t('maj9 (bez 3)','maj9 (no 3)')],['10','11']],m:[['',t('Bez basu','No bass')],['4','maj7'],['7',t('9 (bez 3)','9 (no 3)')]]};
+  el.innerHTML=`<div class="prow"><span class="plab">${t('Triáda','Triad')}</span>${rootRow(root)}</div>
+   <div class="fbx"><div class="fbx-bar"><div class="fbx-name"></div>${seg('tq',t('Druh','Type'),[['maj',t('dur','major')],['m',t('moll','minor')]],'maj')}${seg('ts',t('Struny','Strings'),[['345','G-B-e'],['234','D-G-B'],['123','A-D-G']],'345')}${seg('ti',t('Obrat','Inversion'),[['0',t('Základní','Root pos.')],['1',t('1. obrat','1st inv.')],['2',t('2. obrat','2nd inv.')],['all',t('Všechny','All')]],'all')}<div class="seg tb"><small>${t('Nad basem','Over bass')}</small><div></div></div><button class="btn ghost tplay" type="button">▶ ${t('Zahrát','Play')}</button></div>
+    <div class="fbh"></div><p class="readout"></p><div class="fbx-leg"></div></div>`;
+  const fb=Fretboard(el.querySelector('.fbh'));
+  const degs=()=>q==='maj'?['1','3','5']:['1','b3','5'];
+  function voicings(){const ss=SETS[set],rp=pcOf(root),D=degs(),pcs=D.map(d=>(rp+parseDeg(d).semis)%12);const out=[[],[],[]];
+    for(let a=0;a<=15;a++){const da=pcs.indexOf((TUNING[ss[0]]+a)%12);if(da<0)continue;for(let b=Math.max(0,a-4);b<=Math.min(15,a+4);b++){const db=pcs.indexOf((TUNING[ss[1]]+b)%12);if(db<0||db===da)continue;for(let c=Math.max(0,a-4);c<=Math.min(15,a+4);c++){const dc=pcs.indexOf((TUNING[ss[2]]+c)%12);if(dc<0||dc===da||dc===db)continue;const fs=[a,b,c];const nz=fs.filter(x=>x>0);if(nz.length&&Math.max(...nz)-Math.min(...nz)>3)continue;if(fs.includes(0)&&nz.length&&Math.max(...nz)>4)continue;out[da].push({n:[{s:ss[0],f:a,d:D[da]},{s:ss[1],f:b,d:D[db]},{s:ss[2],f:c,d:D[dc]}],lo:Math.min(...fs)});}}}
+    // inversion index = which chord tone is lowest (0 root, 1 third, 2 fifth); keep the lowest position of each, and order them up the neck
+    return out.map((l,i)=>({i,v:l.sort((x,y)=>x.lo-y.lo)[0]})).filter(x=>x.v);}
+  const mid=n=>TUNING[n.s]+n.f;
+  function bassNote(V){if(bass==='')return null;const bp=(pcOf(root)-(+bass)+120)%12;const lo=Math.min(...V.flatMap(v=>v.v.n.map(n=>n.f)));let best=null;[0,1].forEach(s=>{for(let f=0;f<=15;f++)if((TUNING[s]+f)%12===bp){const d=Math.abs(f-lo);if(!best||d<best.d)best={s,f,d};}});return best;}
+  function draw(){const tb=el.querySelector('.tb div');const BL=BASS[q];if(!BL.some(b=>b[0]===bass))bass='';
+    tb.innerHTML=BL.map(([v,l])=>`<button type="button" class="${v===bass?'on':''}" data-v="${v}">${v===''?l:pretty(ROOTS[(pcOf(root)-(+v)+120)%12])+l}</button>`).join('');
+    tb.querySelectorAll('button').forEach(b=>b.onclick=()=>{bass=b.dataset.v;draw();play();});
+    let V=voicings();if(inv!=='all')V=V.filter(x=>String(x.i)===inv);const B=bassNote(voicings());
+    const bp=B?(TUNING[B.s]+B.f)%12:null;const lab=d=>{if(bp===null)return prettyDeg(d);const iv=(pcOf(root)+parseDeg(d).semis-bp+120)%12;return ({0:'1',2:'9',3:'♭3',4:'3',5:'11',7:'5',10:'♭7',11:'7'})[iv]||'?';};
+    const famB=d=>{const l=lab(d).replace('♭','');return l==='1'?'root':l==='3'?'3':l==='5'?'5':l==='7'?'7':l==='9'?'t2':l==='11'?'t4':'t6';};
+    const marks=[];V.forEach(x=>x.v.n.forEach(n=>marks.push({s:n.s,f:n.f,fam:bp===null?degFamily(n.d):famB(n.d),label:lab(n.d)})));
+    if(B)marks.push({s:B.s,f:B.f,fam:'root',label:'1'});fb.set(marks);
+    const nm=chordName(root,q);const bn=B?pretty(ROOTS[bp]):'';const full=B?`${bn}${BL.find(b=>b[0]===bass)[1].replace(/ \(.*\)/,'')}`:nm;
+    el.querySelector('.fbx-name').textContent=B?`${nm}/${bn} = ${full}`:nm;
+    const IN=[t('základní tvar – dole je prima','root position – the root is at the bottom'),t('1. obrat – dole je tercie','1st inversion – the 3rd is at the bottom'),t('2. obrat – dole je kvinta','2nd inversion – the 5th is at the bottom')];
+    el.querySelector('.readout').innerHTML=(inv==='all'?t(`Tři obraty ${nm} na stejných strunách, zdola nahoru po krku. Každý má dole jiný tón akordu.`,`Three inversions of ${nm} on the same strings, going up the neck. Each has a different chord tone at the bottom.`):`<b>${IN[+inv]}</b>.`)+(B?' '+t(`Bas <b>${bn}</b> pod triádou ${nm} udělá z tónů ${degs().map(lab).join(', ')} akord <b>${full}</b> – kytara hraje jen malý tvar, bas doplní primu.`,`The bass <b>${bn}</b> under ${nm} turns its notes into ${degs().map(lab).join(', ')} – a <b>${full}</b> chord. The guitar plays a small shape, the bass adds the root.`):'');
+    el.querySelector('.fbx-leg').innerHTML=B?`<span><i style="--c:var(--c-root)">1</i>${t('bas','bass')} ${bn}</span>`+fbLegend('chord').replace(/^<span[^]*?<\/span>/,''):fbLegend('chord');}
+  function play(){const V=voicings();const sel=inv==='all'?V:V.filter(x=>String(x.i)===inv);const B=bassNote(V);sel.forEach((x,i)=>{playChord(x.v.n.map(mid),i*1.1,.04);if(B)playNote(mid(B)-12,i*1.1,.45,1.2);});}
+  draw.el=el;CM_DRAW.add(draw);
+  bindBtns(el,'.rootrow',v=>{root=v;draw();});bindBtns(el,'.tq',v=>{q=v;draw();});bindBtns(el,'.ts',v=>{set=v;draw();});bindBtns(el,'.ti',v=>{inv=v;draw();});
+  el.querySelector('.tplay').onclick=play;draw();};
+
+/* ---------- lesson exercises (one or two small checks per lesson) ---------- */
+const EX_CS=[
+ [{type:'find',q:'Najdi všechna <b>G</b> v pražcích 0–5. Jsou na čtyřech místech.',notes:['G'],str:[0,1,2,3,4,5],from:0,to:5},{type:'quiz',q:'Kolik půltónů je mezi E a F?',o:['1','2','3'],a:0,why:'Mezi E–F a B–C není křížek, takže je to jen půltón.'},{type:'quiz',q:'Jak se jinak jmenuje C♯?',o:['D♭','B♯','D'],a:0,why:'Je to stejný tón – o půltón výš než C, o půltón níž než D.'}],
+ [{type:'find',q:'Prima je <b>C</b> na 5. struně (3. pražec). Najdi <b>velkou tercii E</b> na 4. struně.',notes:['E'],str:[2],from:0,to:5},{type:'find',q:'Od stejné primy najdi <b>kvintu G</b> na 4. struně.',notes:['G'],str:[2],from:0,to:7},{type:'quiz',q:'Kolik půltónů má malá tercie?',o:['2','3','4'],a:1,why:'Malá tercie = 3 půltóny, velká tercie = 4.'}],
+ [{type:'quiz',q:'Jaký je vzorec durové stupnice?',o:['celý – celý – půl – celý – celý – celý – půl','celý – půl – celý – celý – půl – celý – celý','půl – celý – celý – celý – půl – celý – celý'],a:0,why:'C–C–P–C–C–C–P. Půltóny jsou mezi 3.–4. a 7.–8. stupněm.'},{type:'find',q:'7. stupeň G dur je <b>F♯</b>. Najdi ho na 4. a 3. struně (pražce 0–12).',notes:['F#'],str:[2,3],from:0,to:12}],
+ [{type:'find',q:'Najdi všechny tóny akordu <b>C dur (C, E, G)</b> na strunách G, B a e v pražcích 0–5.',notes:['C','E','G'],str:[3,4,5],from:0,to:5},{type:'quiz',q:'Jakou tercii má mollový kvintakord?',o:['malou','velkou','zvětšenou'],a:0,why:'Moll = malá tercie (♭3), dur = velká tercie (3).'}],
+ [{type:'quiz',q:'Na které struně má prima tvar A?',o:['na 6.','na 5.','na 4.'],a:1,why:'Tvary A a C mají primu na 5. struně, E a G na 6., D na 4.'},{type:'find',q:'Najdi primu <b>C</b> pro tvar E – je na 6. struně.',notes:['C'],str:[0],from:1,to:12}],
+ [{type:'quiz',q:'Který septakord má vzorec 1 3 5 ♭7?',o:['maj7','dominantní 7','m7'],a:1,why:'Velká tercie a malá septima = dominantní septakord, třeba G7.'},{type:'find',q:'Najdi malou septimu akordu C7 – tón <b>B♭</b> – na 3. struně (G).',notes:['Bb'],str:[3],from:0,to:12}],
+ [{type:'quiz',q:'Jaký akord je ii v tónině C dur?',o:['Dm7','D7','Dmaj7'],a:0,why:'Na 2. stupni C dur vzniká z tónů stupnice mollový septakord Dm7.'},{type:'quiz',q:'Jaký akord je V7 v tónině F dur?',o:['C7','Cmaj7','B♭7'],a:0,why:'5. stupeň F dur je C, dominantní septakord je C7.'}],
+ [{type:'quiz',q:'Na jaký tón se posune septima G7 (F), když přijde Cmaj7?',o:['E','G','D'],a:0,why:'F klesne o půltón na E – tercii Cmaj7. To je vedení hlasů 7 → 3.'},{type:'quiz',q:'Jakou funkci má akord IV?',o:['tónika','subdominanta','dominanta'],a:1,why:'IV a ii jsou subdominanty – odchod z domova.'}],
+ [{type:'quiz',q:'Cm9 je Cm7 a k tomu tón…',o:['D','F','A'],a:0,why:'Nóna je o oktávu výš položená sekunda – od C je to D.'},{type:'find',q:'Najdi nónu akordu C – tón <b>D</b> – na 2. struně (B).',notes:['D'],str:[4],from:0,to:12}],
+ [{type:'quiz',q:'Co je dole v 1. obratu triády?',o:['prima','tercie','kvinta'],a:1,why:'Základní tvar = prima dole, 1. obrat = tercie dole, 2. obrat = kvinta dole.'},{type:'quiz',q:'Jak zní E♭ dur triáda nad basem C?',o:['Cm7','Cmaj7','C7'],a:0,why:'E♭, G a B♭ jsou od C malá tercie, kvinta a malá septima = Cm7.'}],
+ [{type:'quiz',q:'Kterým tónem se dórská liší od přirozené moll?',o:['velkou sextou','malou tercií','velkou septimou'],a:0,why:'Dórská má velkou sextu (6), přirozená moll malou (♭6).'},{type:'find',q:'V A dórské najdi <b>velkou sextu F♯</b> na 2. struně (B).',notes:['F#'],str:[4],from:0,to:12}],
+ [{type:'quiz',q:'Které dva tóny nejvíc určují, jaký akord zní?',o:['1 a 5','3 a 7','5 a 9'],a:1,why:'Tercie říká dur/moll, septima maj7/7. Proto dvojhmaty z 3 a 7 stačí.'},{type:'find',q:'Najdi tercii akordu Am7 – tón <b>C</b> – na 2. struně (B).',notes:['C'],str:[4],from:0,to:12}]];
+const EX_EN=[
+ [{q:'Find every <b>G</b> on frets 0–5. There are four.'},{q:'How many half steps are between E and F?',why:'There is no sharp between E–F and B–C, so it is just a half step.'},{q:'What is another name for C♯?',why:'It is the same note – a half step above C, a half step below D.'}],
+ [{q:'The root is <b>C</b> on the 5th string (3rd fret). Find the <b>major 3rd E</b> on the 4th string.'},{q:'From the same root, find the <b>5th G</b> on the 4th string.'},{q:'How many half steps is a minor 3rd?',why:'Minor 3rd = 3 half steps, major 3rd = 4.'}],
+ [{q:'What is the major scale formula?',o:['whole – whole – half – whole – whole – whole – half','whole – half – whole – whole – half – whole – whole','half – whole – whole – whole – half – whole – whole'],why:'W–W–H–W–W–W–H. The half steps are between degrees 3–4 and 7–8.'},{q:'The 7th degree of G major is <b>F♯</b>. Find it on the 4th and 3rd strings (frets 0–12).'}],
+ [{q:'Find every note of <b>C major (C, E, G)</b> on the G, B and e strings, frets 0–5.'},{q:'Which 3rd does a minor triad have?',o:['minor','major','augmented'],why:'Minor = minor 3rd (♭3), major = major 3rd (3).'}],
+ [{q:'Which string is the root on in the A shape?',o:['6th','5th','4th'],why:'The A and C shapes have the root on the 5th string, E and G on the 6th, D on the 4th.'},{q:'Find the root <b>C</b> for the E shape – it is on the 6th string.'}],
+ [{q:'Which seventh chord has the formula 1 3 5 ♭7?',o:['maj7','dominant 7','m7'],why:'Major 3rd plus minor 7th = dominant seventh, e.g. G7.'},{q:'Find the minor 7th of C7 – the note <b>B♭</b> – on the 3rd string (G).'}],
+ [{q:'Which chord is the ii in C major?',why:'On the 2nd degree of C major the scale notes build the minor seventh Dm7.'},{q:'Which chord is the V7 in F major?',why:'The 5th degree of F major is C, its dominant seventh is C7.'}],
+ [{q:'Where does the 7th of G7 (F) go when Cmaj7 arrives?',why:'F falls a half step to E – the 3rd of Cmaj7. That is 7 → 3 voice leading.'},{q:'What is the function of the IV chord?',o:['tonic','subdominant','dominant'],why:'IV and ii are subdominants – leaving home.'}],
+ [{q:'Cm9 is Cm7 plus the note…',why:'The 9th is the 2nd an octave higher – from C that is D.'},{q:'Find the 9th of C – the note <b>D</b> – on the 2nd string (B).'}],
+ [{q:'What is at the bottom of a triad’s 1st inversion?',o:['the root','the 3rd','the 5th'],why:'Root position = root at the bottom, 1st inversion = 3rd, 2nd inversion = 5th.'},{q:'How does an E♭ major triad sound over a C bass?',why:'E♭, G and B♭ are the minor 3rd, 5th and minor 7th of C = Cm7.'}],
+ [{q:'Which note makes Dorian different from natural minor?',o:['major 6th','minor 3rd','major 7th'],why:'Dorian has a major 6th (6), natural minor a minor 6th (♭6).'},{q:'In A Dorian, find the <b>major 6th F♯</b> on the 2nd string (B).'}],
+ [{q:'Which two notes say the most about which chord is sounding?',o:['1 and 5','3 and 7','5 and 9'],why:'The 3rd tells major/minor, the 7th maj7/7. That is why 3–7 double stops are enough.'},{q:'Find the 3rd of Am7 – the note <b>C</b> – on the 2nd string (B).'}]];
+const exFor=i=>(EX_CS[i]||[]).map((e,k)=>LANG==='en'?{...e,...((EX_EN[i]||[])[k]||{})}:e);
+
+/* quiz / fretboard-find widgets used inside lesson steps */
+W.mq=(el,e)=>{el.classList.add('ex');el.innerHTML=`<div class="exq">${e.q}</div><div class="qopts">${e.o.map((x,i)=>`<button class="qopt" type="button" data-i="${i}">${x}</button>`).join('')}</div><p class="readout exfb"></p>`;let done=false;
+  el.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{if(done)return;const ok=+b.dataset.i===e.a;b.classList.add(ok?'right':'wrong');if(ok){done=true;el.querySelector('.exfb').innerHTML=`<b style="color:var(--ok)">${t('Správně.','Correct.')}</b> ${e.why||''}`;el.classList.add('solved');}else el.querySelector('.exfb').innerHTML=`<b style="color:var(--bad)">${t('Ještě jednou.','Try again.')}</b>`;});};
+W.find=(el,e)=>{el.classList.add('ex');const want=new Set(e.notes.map(n=>pcOf(n)));const targets=[];e.str.forEach(s=>{for(let f=e.from;f<=e.to;f++)if(want.has((TUNING[s]+f)%12))targets.push(s+':'+f);});const got=new Set();let wrong=null;
+  el.innerHTML=`<div class="exq">${e.q}</div><div class="fbh"></div><div class="exrow"><span class="exc"></span><button class="chip exshow" type="button">${t('Ukázat řešení','Show answer')}</button></div><p class="readout exfb">${t('Ťukni na hmatník.','Tap the fretboard.')}</p>`;
+  const nm=m=>pretty(ROOTS[m%12]);
+  const fb=Fretboard(el.querySelector('.fbh'),{onClick:(s,f,m)=>{playNote(m);const k=s+':'+f;if(targets.includes(k)){got.add(k);wrong=null;}else{wrong={s,f};setTimeout(()=>{wrong=null;draw();},700);el.querySelector('.exfb').innerHTML=`<b style="color:var(--bad)">${nm(m)}</b> ${t(e.str.includes(s)?'– tohle není hledaný tón.':'– tahle struna nepatří k úkolu.',e.str.includes(s)?'– not the note you are looking for.':'– this string is not part of the task.')}`;}draw();}});
+  function draw(show=false){const marks=[];for(let s=0;s<6;s++)if(!e.str.includes(s))for(let f=e.from;f<=e.to;f++)marks.push({s,f,small:true,hollow:true,color:'#3A3045'});
+    (show?targets:[...got]).forEach(k=>{const [s,f]=k.split(':').map(Number);marks.push({s,f,fam:got.has(k)?'5':'o',label:nm(TUNING[s]+f)});});if(wrong)marks.push({s:wrong.s,f:wrong.f,color:'var(--bad)',label:'✕'});
+    fb.set(marks.filter(m=>!m.hollow||e.str.length<6));el.querySelector('.exc').textContent=`${got.size} / ${targets.length}`;
+    if(got.size===targets.length&&targets.length){el.classList.add('solved');el.querySelector('.exfb').innerHTML=`<b style="color:var(--ok)">${t('Výborně, máš všechno.','Great, you found them all.')}</b>`;}else if(!wrong&&got.size)el.querySelector('.exfb').innerHTML=`<b style="color:var(--ok)">${t('Ano!','Yes!')}</b> ${t('Hledej dál.','Keep looking.')}`;}
+  el.querySelector('.exshow').onclick=()=>draw(true);draw();};
+
+/* split a lesson body into small steps */
+function bodySteps(html){const d=document.createElement('div');d.innerHTML=html;const out=[];let cur=null;
+  [...d.children].forEach(n=>{const tx=n.textContent.trim();const join=cur&&(n.tagName==='UL'||n.tagName==='OL'||(cur.endsWith(':</p>'))||tx.length<70);if(join)cur+=n.outerHTML;else{if(cur)out.push(cur);cur=n.outerHTML;}});if(cur)out.push(cur);return out;}
+
+/* parent scale of a chord (shown grey behind it) */
+const PARENT={maj:'major',maj7:'major','6':'major','69':'major',add9:'major',maj9:'major',sus2:'major',sus4:'major','maj7#11':'lydian','7':'mixolydian','9':'mixolydian','13':'mixolydian','7#9':'mixolydian',m:'aeolian',m7:'dorian',m9:'dorian',m11:'dorian',m6:'dorian',m7b5:'locrian',dim:'locrian',dim7:'dimhw',aug:'whole'};
+const XSCALES={locrian:{name:'Lokrická',en:'Locrian',deg:['1','b2','b3','4','b5','b6','b7']},dimhw:{name:'Zmenšená (celý–půl)',en:'Diminished (whole–half)',deg:['1','2','b3','4','b5','b6','6','7']},whole:{name:'Celotónová',en:'Whole tone',deg:['1','2','3','#4','#5','b7']}};
+const parentOf=q=>{const k=PARENT[q];return k?(SCALES[k]||XSCALES[k]):null;};
+
 function spellRoot(key,off,minor){const degMap=minor?{0:'1',2:'2',3:'b3',5:'4',7:'5',8:'b6',10:'b7',4:'3',9:'6'}:{0:'1',2:'2',4:'3',5:'4',7:'5',9:'6',11:'7',3:'b3',10:'b7',8:'b6'};const d=degMap[off];return d?spell(key,d):ROOTS[(pcOf(key)+off)%12];}
 
 /* 9 · Quiz */
@@ -1022,8 +1271,8 @@ W.quiz=(el)=>{
       if(mode==='ear'){const r=rnd([45,47,48,50,52,53,55]);cur={ans:name(iv),play:()=>{playNote(r);playNote(r+iv,.6);}};el.querySelector('.qq').textContent=t('Jaký interval slyšíš?','Which interval do you hear?');x.innerHTML=`<button class="btn ghost rep">↻ ${t('Přehrát znovu','Play again')}</button>`;x.querySelector('.rep').onclick=cur.play;if(auto&&AC&&AC.state==='running')cur.play();}
       else{let s,f,s2,f2,tries=0;do{s=rnd([0,1,2]);f=1+Math.floor(Math.random()*9);s2=s+Math.floor(Math.random()*3);const m2=TUNING[s]+f+iv;f2=m2-TUNING[s2];tries++;if(f2>=0&&f2<=15&&Math.abs(f2-f)<=4)break;}while(tries<50);
         if(tries>=50){s2=s;f2=f+iv;}
-        cur={ans:name(iv),play:()=>{playNote(TUNING[s]+f);playNote(TUNING[s2]+f2,.6);}};el.querySelector('.qq').textContent=t('Jaký interval tvoří tyto dva tóny? (oranžový = kořen)','Which interval do these two notes make? (orange = root)');
-        const host=document.createElement('div');x.appendChild(host);const fb=Fretboard(host,{onClick:(a,b,m)=>playNote(m)});fb.set([{s,f,fam:'root',label:'R'},{s:s2,f:f2,fam:'o',label:'?'}]);}
+        cur={ans:name(iv),play:()=>{playNote(TUNING[s]+f);playNote(TUNING[s2]+f2,.6);}};el.querySelector('.qq').textContent=t('Jaký interval tvoří tyto dva tóny? (žlutý = prima)','Which interval do these two notes make? (yellow = root)');
+        const host=document.createElement('div');x.appendChild(host);const fb=Fretboard(host,{onClick:(a,b,m)=>playNote(m)});fb.set([{s,f,fam:'root',label:'1'},{s:s2,f:f2,fam:'o',label:'?'}]);}
       const all=POOL.map(name);renderOpts(opts(cur.ans,all));}
     else if(mode==='spell'){const root=rnd(['C','D','E','F','G','A','Bb','Eb']);const qs=['maj7','7','m7','m7b5','maj','m','m9','maj9'];const q=rnd(qs);const t=c=>CHORDS[c].deg.map(d=>pretty(spell(root,d))).join(' ');
       cur={ans:t(q),play:()=>{const b=bestVoicing(root,q);if(b)playChord(realMidis(b));}};el.querySelector('.qq').textContent=t(`Které tóny tvoří ${chordName(root,q)}?`,`Which notes make ${chordName(root,q)}?`);
@@ -1054,16 +1303,16 @@ const LESSONS_CS=[
  <p><b>Výjimka:</b> mezi E–F a B–C je jen půltón, takže tam žádný tón navíc není.</p>`,
  tip:'V češtině se tón B tradičně jmenuje H a B znamená B♭. Aplikace používá mezinárodní značení (B, B♭), stejně jako všechny anglické učebnice a Pickup Music.',
  w:['notes'],
- tasks:['Vyber tón G a najdi ho na každé struně. Pak to zkus bez obrazovky, do 30 sekund.','Projdi 6. a 5. strunu a nahlas jmenuj přirozené tóny na pražcích 0–12. Tyto dvě struny jsou kořeny tvých barré akordů z CAGED.','Oktávový tvar: tón na 6. struně najdeš znovu o dvě struny výš a o dva pražce dál (např. A: 6. struna 5. pražec → 4. struna 7. pražec). Zkontroluj to na hmatníku.'],
+ tasks:['Vyber tón G a najdi ho na každé struně. Pak to zkus bez obrazovky, do 30 sekund.','Projdi 6. a 5. strunu a nahlas jmenuj přirozené tóny na pražcích 0–12. Na těchto dvou strunách leží základní tóny tvých barré akordů z CAGED.','Oktávový tvar: tón na 6. struně najdeš znovu o dvě struny výš a o dva pražce dál (např. A: 6. struna 5. pražec → 4. struna 7. pražec). Zkontroluj to na hmatníku.'],
  src:'Do hloubky: James Shipway – No Bull Music Theory for Guitarists (tóny, půltóny, enharmonie).'},
 {lv:0,t:'Intervaly',s:'Vzdálenost mezi tóny – stavební kameny všeho',
- why:'Akord i stupnice jsou jen seznam intervalů od kořene. Když řekneš „m7 = 1 ♭3 5 ♭7“, mluvíš v intervalech. Kdo je zná, nemusí se akordy učit nazpaměť – umí si je postavit.',
- body:`<p>Interval měříme v <b>půltónech</b> od kořene (R). Každý má jméno a značku podle stupně: <b>3</b> = velká tercie (4 půltóny), <b>♭3</b> = malá tercie (3 půltóny) a tak dál.</p>
- <p>Na kytaře je výhoda, že <b>tvar intervalu je všude stejný</b>, kdekoli kořen posuneš. Jediná výjimka: když tvar přechází přes strunu G → B, posune se o jeden pražec výš (B struna je laděná o půltón jinak).</p>
+ why:'Akord i stupnice jsou jen seznam intervalů od základního tónu. Když řekneš „m7 = 1 ♭3 5 ♭7“, mluvíš v intervalech. Kdo je zná, nemusí se akordy učit nazpaměť – umí si je postavit.',
+ body:`<p>Interval měříme v <b>půltónech</b> od základního tónu (1). Každý má jméno a značku podle stupně: <b>3</b> = velká tercie (4 půltóny), <b>♭3</b> = malá tercie (3 půltóny) a tak dál.</p>
+ <p>Na kytaře je výhoda, že <b>tvar intervalu je všude stejný</b>, kdekoli základní tón posuneš. Jediná výjimka: když tvar přechází přes strunu G → B, posune se o jeden pražec výš (B struna je laděná o půltón jinak).</p>
  <p>Pentatoniku, kterou už umíš, tvoří intervaly <b>1 ♭3 4 5 ♭7</b> – takže intervaly už hraješ, jen jsi jim tak neříkal(a).</p>`,
  tip:'Nejdůležitější pro jazz a neo-soul jsou tercie (♭3 / 3) a septimy (♭7 / 7). Ty rozhodují, jestli je akord durový, mollový nebo dominantní.',
  w:['intervals'],
- tasks:['Klikej v tabulce na intervaly jeden po druhém a poslouchej. Každý si zazpívej.','Zapamatuj si tři tvary od kořene na 6. struně: velká tercie (o strunu výš, o 1 pražec zpět), kvinta (o strunu výš, o 2 pražce dál), oktáva (o 2 struny výš, o 2 pražce dál).','V záložce Trénink zkus režim „Interval po sluchu“ – cíl je 8 z 10.'],
+ tasks:['Klikej v tabulce na intervaly jeden po druhém a poslouchej. Každý si zazpívej.','Zapamatuj si tři tvary od základního tónu na 6. struně: velká tercie (o strunu výš, o 1 pražec zpět), kvinta (o strunu výš, o 2 pražce dál), oktáva (o 2 struny výš, o 2 pražce dál).','V záložce Trénink zkus režim „Interval po sluchu“ – cíl je 8 z 10.'],
  src:'Do hloubky: James Shipway – No Bull Music Theory for Guitarists, kapitoly o intervalech.'},
 {lv:0,t:'Durová stupnice',s:'Vzorec, ze kterého se odvozuje skoro všechno',
  why:'Čísla stupňů (1, 3, 5, 7, 9…) se vždy počítají podle durové stupnice. Z ní vznikají akordy, harmonizace i módy.',
@@ -1072,25 +1321,36 @@ const LESSONS_CS=[
  <p><b>Most od pentatoniky:</b> durová pentatonika je 1 2 3 5 6. Přidej <b>4</b> a <b>7</b> a máš durovou stupnici. Takže každý tvar pentatoniky z CAGED + dva tóny = tvar durové stupnice ve stejné pozici.</p>`,
  tip:'Přepni „Porovnat s → Durová pentatonika“ a zvol pozici (např. pražce 7–11). Čárkovaně označené tóny jsou ty dva, které k pentatonice přidáváš.',
  w:[['scales',{list:['major','majpent'],def:'major',root:'G',cmpList:['majpent'],cmp:'majpent',id:'l3'}]],
- tasks:['Zahraj G dur v pozici, kde znáš tvar pentatoniky. Nejdřív pentatoniku, pak ji „doplň“ o 4 a 7.','Zpívej stupně nahlas při hraní: „jedna, dva, tři…“. Tvoje ucho se učí, jak zní každý stupeň.','Zahraj stupnici z kořene na 6. i 5. struně a porovnej tvary.'],
+ tasks:['Zahraj G dur v pozici, kde znáš tvar pentatoniky. Nejdřív pentatoniku, pak ji „doplň“ o 4 a 7.','Zpívej stupně nahlas při hraní: „jedna, dva, tři…“. Tvoje ucho se učí, jak zní každý stupeň.','Zahraj stupnici z základního tónu na 6. i 5. struně a porovnej tvary.'],
  src:'Do hloubky: Shipway – No Bull Music Theory (durová stupnice) a Music Theory for Guitarists Vol. 2 (stupnice na hmatníku).'},
 {lv:1,t:'Jak se staví akordy',s:'Kvintakordy: vrstvení tercií',
  why:'Když víš, z čeho akord je, najdeš si ho kdekoli a umíš ho ozdobit – a to je přesně to, co dělá neo-soulovou kytaru.',
- body:`<p>Akord vzniká <b>vrstvením tercií</b>: vezmeš kořen, přidáš tercii a na ni další tercii. Výsledek je 1 – 3 – 5.</p>
+ body:`<p>Akord vzniká <b>vrstvením tercií</b>: vezmeš základní tón, přidáš tercii a na ni další tercii. Výsledek je 1 – 3 – 5.</p>
  <ul><li><b>dur</b> = 1 3 5 (velká + malá tercie)</li><li><b>moll</b> = 1 ♭3 5 (malá + velká)</li><li><b>zmenšený</b> = 1 ♭3 ♭5, <b>zvětšený</b> = 1 3 ♯5</li><li><b>sus2 / sus4</b> – tercii nahradí 2 nebo 4</li></ul>
  <p>Rozdíl mezi dur a moll je <b>jediný tón</b>: tercie o půltón níž.</p>`,
- tip:'Podívej se na barvy v hmatech: oranžová je kořen, fialová tercie, modrá kvinta. Ve svých CAGED tvarech najdi, kterým prstem hraješ tercii – tu budeš později ozdobovat.',
+ tip:'Podívej se na barvy v hmatech: žlutá je prima, červená tercie, zelená kvinta. Ve svých CAGED tvarech najdi, kterým prstem hraješ tercii – tu budeš později ozdobovat.',
  w:[['chords',{list:['maj','m','dim','aug','sus2','sus4'],def:'maj',root:'A',id:'l4'}]],
  tasks:['Zahraj A dur (tvar E na 5. pražci) a posuň jen tercii o pražec níž → A moll. Poslouchej rozdíl.','Zkus sus4 → dur a sus2 → dur: hraj sus akord a pak „spadni“ do tercie. To je první neo-soulová ozdoba.','Najdi tercii ve tvarech C, A, G, E a D akordu C dur.'],
  src:'Do hloubky: Shipway – No Bull Music Theory (stavba akordů).'},
+{lv:1,t:'CAGED systém',s:'Pět tvarů jednoho akordu po celém krku',
+ why:'Každý durový akord se dá na kytaře zahrát v pěti tvarech, které vycházejí z otevřených akordů C, A, G, E a D. Když je propojíš, nezůstaneš zavřená v jedné poloze a uvidíš celý krk jako souvislou mapu.',
+ body:`<p>Vezmi pět otevřených akordů <b>C, A, G, E a D</b>. Když jejich tvar posuneš po krku (prst nahradí nultý pražec), dostaneš stejný akord pokaždé v jiné poloze. Pro C dur: tvar C kolem 0.–3. pražce, tvar A kolem 3.–5., tvar G kolem 5.–8., tvar E kolem 8.–10. a tvar D kolem 10.–13.</p>
+ <p>Tvary na sebe <b>navazují v pořadí C – A – G – E – D</b> a pak znovu od C o oktávu výš. Konec jednoho tvaru je začátek dalšího – sdílejí tóny.</p>
+ <p>V každém tvaru hledej <b>primu</b> (žlutou). Podle ní tvar najdeš v jakékoli tónině: tvary E a G mají primu na 6. struně, A a C na 5. struně, D na 4. struně.</p>
+ <p>Každý tvar má svou <b>pentatonickou polohu</b>. Zapni pentatoniku a uvidíš, že durová pentatonika je jen akord a k němu dva tóny (2 a 6).</p>`,
+ tip:'Nemusíš hned umět všech pět. Začni tvary E a A – to jsou barré akordy, které už znáš – a pak mezi ně doplň tvar G.',
+ w:[['caged',{root:'C'}]],
+ tasks:['Zahraj C dur ve všech pěti tvarech zdola nahoru: C – A – G – E – D. U každého řekni nahlas, na které struně je prima.','Totéž v G dur. Kde začíná tvar E? (3. pražec) A kde tvar A? (10. pražec)','Vyber jeden tvar, zapni pentatoniku a zahraj ji. Pak zahraj akord a hned k němu melodii ze stejné polohy.'],
+ src:'Navazuje na: lekce 4 (stavba akordů) a lekce 6 (septakordy se základem na 6. a 5. struně jsou tvary E a A).'},
 {lv:1,t:'Septakordy',s:'Čtyři akordy, na kterých stojí jazz',
  why:'V jazzu a neo-soulu se skoro nehrají holé kvintakordy. Základní jednotka je septakord – přidaná septima dává akordu barvu a směr.',
  body:`<p>K trojzvuku přidáš další tercii a dostaneš <b>septimu</b>. Čtyři hlavní typy:</p>
  <ul><li><b>maj7</b> = 1 3 5 7 – snový, klidný</li><li><b>7</b> (dominantní) = 1 3 5 ♭7 – napětí, chce se rozvést</li><li><b>m7</b> = 1 ♭3 5 ♭7 – měkký, groovy</li><li><b>m7♭5</b> = 1 ♭3 ♭5 ♭7 – tmavý, „přípravný“</li></ul>
- <p>Nejdůležitější tóny jsou <b>3 a 7</b>. Kvintu klidně vynech – jazzoví kytaristi často hrají jen 1-3-7 („shell voicings“). Hmaty „kořen na 6.“ a „kořen na 5.“ níže jsou přesně tyto skořápky.</p>`,
- tip:'Hmaty s kořenem na 6. a 5. struně jsou z CAGED tvarů E a A. Odpovídají barré akordům, které už znáš, jen bez zbytečných tónů.',
+ <p>Nejdůležitější tóny jsou <b>3 a 7</b>. Kvintu klidně vynech – jazzoví kytaristi často hrají jen 1-3-7 („shell voicings“). Hmaty „základ na 6.“ a „základ na 5.“ níže jsou přesně tyto skořápky.</p>
+ <p><b>dim7</b> (zmenšený septakord) = 1 ♭3 ♭5 <b>♭♭7</b>. Septima je tu <b>zmenšená</b> – o půltón nižší než malá, tedy 9 půltónů od primy. Zní stejně jako velká sexta, ale píše se jako septima, protože je to čtvrtý tón akordu postaveného z tercií: Cdim7 = C E♭ G♭ B♭♭ (zní jako A).</p>`,
+ tip:'Hmaty se základem na 6. a 5. struně jsou z CAGED tvarů E a A. Odpovídají barré akordům, které už znáš, jen bez zbytečných tónů.',
  w:[['chords',{list:['maj7','7','m7','m7b5','dim7','6','m6'],def:'maj7',root:'C',id:'l5'}]],
- tasks:['Nauč se 4 hlavní typy s kořenem na 6. struně a pak na 5. struně. Celkem 8 hmatů.','Hraj Gmaj7 → G7 → Gm7 → Gm7♭5 a sleduj, který tón se pokaždé pohne o půltón.','Zahraj stejný akord ve všech 12 tóninách (kořen hledej podle lekce 1).'],
+ tasks:['Nauč se 4 hlavní typy se základem na 6. struně a pak na 5. struně. Celkem 8 hmatů.','Hraj Gmaj7 → G7 → Gm7 → Gm7♭5 a sleduj, který tón se pokaždé pohne o půltón.','Zahraj stejný akord ve všech 12 tóninách (základní tón hledej podle lekce 1).'],
  src:'Do hloubky: Shipway – Music Theory for Guitarists Vol. 2 (septakordy na hmatníku).'},
 {lv:1,t:'Akordy v tónině',s:'Harmonizace stupnice a II–V–I',
  why:'Díky tomu víš, proč akordy v písni k sobě patří, a umíš číst postupy jako „ii–V–I“ v jakékoli tónině.',
@@ -1100,17 +1360,38 @@ const LESSONS_CS=[
  <p>Nejdůležitější postup jazzu je <b>II – V – I</b> (v C dur Dm7 – G7 – Cmaj7). Neo-soul často začíná na IV nebo ii a k tónice vůbec nedojde.</p>`,
  tip:'Dominanta (V7) obsahuje tritón mezi 3 a ♭7. Ten je nestabilní a „táhne“ k tónice. Proto zní II–V–I tak přirozeně.',
  w:['harmony'],
- tasks:['V C dur projeď všech 7 akordů a zahraj je na kytaře. Pak totéž v G a F.','Zahraj II–V–I v pěti tóninách: kořen ii na 5. struně, V na 6. struně, I na 5. struně. Ruka se skoro nehýbe.','Najdi oblíbenou píseň a zkus její akordy přepsat na římské číslice.'],
+ tasks:['V C dur projeď všech 7 akordů a zahraj je na kytaře. Pak totéž v G a F.','Zahraj II–V–I v pěti tóninách: základní tón ii na 5. struně, V na 6. struně, I na 5. struně. Ruka se skoro nehýbe.','Najdi oblíbenou píseň a zkus její akordy přepsat na římské číslice.'],
  src:'Do hloubky: Shipway – No Bull Music Theory (harmonizace stupnice, akordové postupy).'},
+{lv:1,t:'Jak fungují postupy',s:'Funkce T – S – D, II–V–I a vedení hlasů',
+ why:'Postupy nejsou náhodné řady akordů. Když víš, jakou roli má každý akord, přeneseš postup do jiné tóniny, odhadneš, kam píseň půjde, a umíš improvizovat přes změny akordů.',
+ body:`<p>Každý akord v tónině má jednu ze tří <b>funkcí</b>:</p>
+ <ul><li><b>T – tónika</b> (I, vi, iii): domov, klid. Tady postup končí.</li><li><b>S – subdominanta</b> (IV, ii): odchod z domova, pohyb dál.</li><li><b>D – dominanta</b> (V7, vii°): napětí, které chce zpátky domů.</li></ul>
+ <p>Typický příběh je <b>T → S → D → T</b>. Jazz ho zkracuje na <b>ii – V – I</b>: ii7 (S) připraví, V7 (D) napne, Imaj7 (T) rozvede. V C dur: Dm7 – G7 – Cmaj7.</p>
+ <p>Proč dominanta tak táhne? V G7 je mezi tercií (B) a septimou (F) <b>tritón</b>. Při přechodu na C se oba tóny posunou o půltón: B → C a F → E.</p>
+ <p>Tomu se říká <b>vedení hlasů</b>: septima jednoho akordu klesne o půltón na tercii dalšího. Dm7 → G7: C (♭7) → B (3). G7 → Cmaj7: F (♭7) → E (3). Stačí hrát jen základ, 3 a 7 (shell akordy) a postup zní celý.</p>
+ <p><b>Vedlejší dominanta</b> je dominanta, která nemíří na tóniku, ale na jiný akord. V „Just the Two of Us“ je III7 dominantou pro vi7 – proto tam tak táhne.</p>`,
+ tip:'Při improvizaci míř na tercie a septimy akordů. To jsou tóny, které říkají, jaký akord právě zní.',
+ w:['guide',['progressions',{ids:['251','251c','jt2u'],id:'l8p'}]],
+ tasks:['Zahraj II–V–I v C jen jako shell akordy (základ, 3 a 7) a poslouchej, jak septima klesá na tercii.','Totéž v F a B♭. Tvary zůstávají stejné, posune se jen poloha.','V postupu „Just the Two of Us“ najdi vedlejší dominantu a řekni, na který akord míří.'],
+ src:'Do hloubky: Shipway – No Bull Music Theory (funkce akordů a kadence).'},
 {lv:2,t:'Rozšířené akordy',s:'9, 11, 13 – zvuk neo-soulu',
  why:'maj9, m9, m11, 13 jsou typickým zvukem neo-soulu. Jsou to septakordy, ke kterým jen pokračuješ ve vrstvení tercií.',
- body:`<p>Po septimě vrstvíš dál: <b>9</b> (= 2 o oktávu výš), <b>11</b> (= 4) a <b>13</b> (= 6). Žluté body na hmatníku jsou tyto „barvy“.</p>
- <p>Na kytaře nemáš dost prstů na všech 6–7 tónů, takže se tóny <b>vynechávají</b>: nejdřív kvinta, často i kořen (ten hraje basák). Vždy nech <b>3 a 7</b> a přidej barvu.</p>
+ body:`<p>Po septimě vrstvíš dál: <b>9</b> (= 2 o oktávu výš), <b>11</b> (= 4) a <b>13</b> (= 6). Na hmatníku je poznáš podle modré (9), růžové (11) a broskvové (13) barvy – říká se jim <b>tenze</b>.</p>
+ <p>Na kytaře nemáš dost prstů na všech 6–7 tónů, takže se tóny <b>vynechávají</b>: nejdřív kvinta, často i základní tón (ten hraje basák). Vždy nech <b>3 a 7</b> a přidej barvu.</p>
  <ul><li><b>maj9</b> – I a IV stupeň místo maj7</li><li><b>m9 / m11</b> – ii a vi stupeň, mollové vampy</li><li><b>9 / 13</b> – dominanta místo 7</li></ul>`,
  tip:'Rychlá cesta k neo-soulovému zvuku: kdekoli je v písni m7, zkus m9 nebo m11. Místo maj7 hraj maj9, místo 7 zkus 13.',
  w:['ladder',['chords',{list:['maj9','m9','m11','9','13','69','add9','7#9','maj7#11'],def:'maj9',root:'C',id:'l7'}]],
- tasks:['Nauč se maj9, m9 a 13 s kořenem na 5. struně. Jsou to hmaty, které uslyšíš v každé neo-soulové skladbě.','Zahraj II–V–I jako Dm9 – G13 – Cmaj9 (v záložce Postupy: „II–V–I s barvami“).','Hraj Cmaj7 a prstem přidávej/ubírej nonu (D). Poslouchej, jak se zvuk otevře.'],
+ tasks:['Nauč se maj9, m9 a 13 se základem na 5. struně. Jsou to hmaty, které uslyšíš v každé neo-soulové skladbě.','Zahraj II–V–I jako Dm9 – G13 – Cmaj9 (v záložce Postupy: „II–V–I s barvami“).','Hraj Cmaj7 a prstem přidávej/ubírej nonu (D). Poslouchej, jak se zvuk otevře.'],
  src:'Do hloubky: The Neo-Soul Guitar Book (Simon Pratt, Kristof Neyens, s Markem Lettierim) – kapitoly o voicingách a jejich ozdobách.'},
+{lv:2,t:'Triády a obraty',s:'Malé tvary, velký zvuk neo-soulu',
+ why:'V neo-soulu se akordy skoro nehrají přes šest strun. Kytara hraje malé tvary na třech strunách – snadno se posouvají, ozdobují a nepřekáží basovce.',
+ body:`<p><b>Triáda</b> = prima, tercie a kvinta na třech sousedních strunách. Nejčastěji na strunách G-B-e nebo D-G-B.</p>
+ <p>Jedna triáda má na stejných strunách <b>tři obraty</b> podle toho, který tón je dole: základní tvar (dole prima), 1. obrat (dole tercie) a 2. obrat (dole kvinta). Hraj ten, který je nejblíž předchozímu akordu.</p>
+ <p>Hlavní trik: <b>triáda nad jiným basem</b> zní jako bohatší akord. E♭ dur nad basem C = Cm7, G dur nad C = Cmaj9 (bez tercie), F dur nad G = G11.</p>`,
+ tip:'Na triádě dělej ozdoby: hammer-on z 2 na 3 nebo z 4 na 3. Přesně tak zní neo-soulové kytarové party.',
+ w:[['triads',{root:'C'}]],
+ tasks:['Zahraj C dur triádu na strunách G-B-e ve všech třech obratech zdola nahoru.','Totéž na strunách D-G-B. Které prsty se v tvarech opakují?','Zapni „Nad basem“ a poslouchej, jak se z E♭ dur nad C stane Cm7. Pak si bas C nahraj a hraj nad ním triádu sama.','Na 1. obratu C dur přidej hammer-on z D na E (2 → 3).'],
+ src:'Do hloubky: The Neo-Soul Guitar Book (triády, obraty a ozdoby).'},
 {lv:2,t:'Módy a pentatonika',s:'Dórská, mixolydická, lydická – jako barvy',
  why:'Nemusíš se učit 7 módů nazpaměť. Pro jazz a neo-soul ti stačí tři barvy a vědět, nad jaký akord patří.',
  body:`<p>Mód = stupnice, která zní jinak díky jednomu nebo dvěma odlišným tónům. Mysli na ně jako na <b>barvy</b>:</p>
@@ -1126,7 +1407,7 @@ const LESSONS_CS=[
  <ul><li><b>Ozdoby akordu:</b> v hmatu akordu udělej hammer-on ze sus2 nebo sus4 do tercie, nebo přidej/uber nonu. Melodie se pohybuje uvnitř akordu.</li><li><b>Dvojhmaty</b> v terciích a sextách ze stupnice tóniny – dva tóny nad sebou, které se posouvají po stupnici.</li><li><b>Pentatonika + barvy:</b> mollová pentatonika s přidanou 9 a 6, slidy a hammer-ony do akordových tónů.</li></ul>`,
  tip:'Sexty na strunách G + e jsou nejtypičtější soulový dvojhmat (Curtis Mayfield, Jimi Hendrix a celá neo-soulová scéna). Hraj je prsty nebo hybrid pickingem, prostřední struna B ztlumená.',
  w:['doubles',['progressions',{id:'l9'}]],
- tasks:['Zahraj sexty v D dur nahoru a dolů po stupnici. Pak mezi nimi dělej slidy o půltón zespodu.','Pusť „IVmaj7 – iii7 – vi7“ a místo akordů zkus hrát jen sexty z D dur, které obsahují tóny daného akordu.','Vezmi hmat Cmaj9 (kořen na 5.) a hraj na 2. struně hammer-on mezi tóny akordu – vytvoř krátkou melodii uvnitř akordu.'],
+ tasks:['Zahraj sexty v D dur nahoru a dolů po stupnici. Pak mezi nimi dělej slidy o půltón zespodu.','Pusť „IVmaj7 – iii7 – vi7“ a místo akordů zkus hrát jen sexty z D dur, které obsahují tóny daného akordu.','Vezmi hmat Cmaj9 (základ na 5.) a hraj na 2. struně hammer-on mezi tóny akordu – vytvoř krátkou melodii uvnitř akordu.'],
  src:'Do hloubky: The Neo-Soul Guitar Book (Pratt, Neyens, s Markem Lettierim) – licky, techniky a 5 skladeb včetně dvou od Marka Lettieriho. Pickup Music – Neo-Soul pathway s videi.'}];
 
 const LESSONS_EN=[
@@ -1140,7 +1421,7 @@ const LESSONS_EN=[
  src:'Go deeper: James Shipway – No Bull Music Theory for Guitarists (notes, half steps, enharmonics).'},
 {t:'Intervals',s:'The distance between notes – the building blocks of everything',
  why:'Every chord and scale is just a list of intervals from the root. When you say “m7 = 1 ♭3 5 ♭7”, you are speaking in intervals. If you know them, you don’t have to memorise chords – you can build them.',
- body:`<p>An interval is measured in <b>half steps</b> from the root (R). Each has a name and a symbol based on the scale degree: <b>3</b> = major 3rd (4 half steps), <b>♭3</b> = minor 3rd (3 half steps) and so on.</p>
+ body:`<p>An interval is measured in <b>half steps</b> from the root (1). Each has a name and a symbol based on the scale degree: <b>3</b> = major 3rd (4 half steps), <b>♭3</b> = minor 3rd (3 half steps) and so on.</p>
  <p>The great thing about guitar: <b>an interval’s shape is the same everywhere</b>, wherever you move the root. The only exception: when a shape crosses from the G to the B string, it shifts one fret up (the B string is tuned a half step differently).</p>
  <p>The pentatonic you already know is made of the intervals <b>1 ♭3 4 5 ♭7</b> – so you already play intervals, you just haven’t called them that.</p>`,
  tip:'The most important intervals for jazz and neo-soul are the 3rds (♭3 / 3) and 7ths (♭7 / 7). They decide whether a chord is major, minor or dominant.',
@@ -1159,14 +1440,24 @@ const LESSONS_EN=[
  body:`<p>A chord is made by <b>stacking 3rds</b>: take the root, add a 3rd and another 3rd on top. The result is 1 – 3 – 5.</p>
  <ul><li><b>major</b> = 1 3 5 (major + minor 3rd)</li><li><b>minor</b> = 1 ♭3 5 (minor + major)</li><li><b>diminished</b> = 1 ♭3 ♭5, <b>augmented</b> = 1 3 ♯5</li><li><b>sus2 / sus4</b> – the 3rd is replaced by the 2 or 4</li></ul>
  <p>Major and minor differ by <b>a single note</b>: the 3rd a half step lower.</p>`,
- tip:'Look at the colours in the voicings: orange is the root, purple the 3rd, blue the 5th. In your CAGED shapes, find which finger plays the 3rd – that’s the note you’ll decorate later.',
+ tip:'Look at the colours in the voicings: yellow is the root, red the 3rd, green the 5th. In your CAGED shapes, find which finger plays the 3rd – that’s the note you’ll decorate later.',
  tasks:['Play A major (E shape at fret 5) and move only the 3rd one fret down → A minor. Listen to the difference.','Try sus4 → major and sus2 → major: play the sus chord, then “fall” into the 3rd. That’s your first neo-soul embellishment.','Find the 3rd in the C, A, G, E and D shapes of C major.'],
  src:'Go deeper: Shipway – No Bull Music Theory (chord construction).'},
+{t:'The CAGED system',s:'Five shapes of one chord across the neck',
+ why:'Every major chord can be played on the guitar in five shapes that come from the open C, A, G, E and D chords. Once you connect them, you are no longer stuck in one position – the whole neck becomes one connected map.',
+ body:`<p>Take the five open chords <b>C, A, G, E and D</b>. Slide a shape up the neck (a finger replaces the open strings) and you get the same chord in a different position each time. For C major: the C shape around frets 0–3, the A shape around 3–5, the G shape around 5–8, the E shape around 8–10 and the D shape around 10–13.</p>
+ <p>The shapes <b>link up in the order C – A – G – E – D</b> and then start again from C an octave higher. The end of one shape is the start of the next – they share notes.</p>
+ <p>In each shape find the <b>root</b> (yellow). It lets you find the shape in any key: the E and G shapes have the root on the 6th string, A and C on the 5th string, D on the 4th string.</p>
+ <p>Every shape has its own <b>pentatonic position</b>. Turn on the pentatonic and you will see that the major pentatonic is just the chord plus two notes (2 and 6).</p>`,
+ tip:'You don’t need all five right away. Start with the E and A shapes – the barre chords you already know – and then fill in the G shape between them.',
+ tasks:['Play C major in all five shapes from low to high: C – A – G – E – D. For each one say out loud which string the root is on.','Same in G major. Where does the E shape start? (3rd fret) And the A shape? (10th fret)','Pick one shape, turn on the pentatonic and play it. Then play the chord and straight away a melody from the same position.'],
+ src:'Builds on: lesson 4 (how chords are built) and lesson 6 (the seventh-chord voicings with roots on the 6th and 5th strings are the E and A shapes).'},
 {t:'Seventh chords',s:'The four chords jazz is built on',
  why:'Jazz and neo-soul rarely use plain triads. The basic unit is the seventh chord – the added 7th gives the chord colour and direction.',
  body:`<p>Add one more 3rd to a triad and you get the <b>7th</b>. The four main types:</p>
  <ul><li><b>maj7</b> = 1 3 5 7 – dreamy, calm</li><li><b>7</b> (dominant) = 1 3 5 ♭7 – tension, wants to resolve</li><li><b>m7</b> = 1 ♭3 5 ♭7 – soft, groovy</li><li><b>m7♭5</b> = 1 ♭3 ♭5 ♭7 – dark, “preparing”</li></ul>
- <p>The most important notes are <b>3 and 7</b>. Feel free to leave out the 5th – jazz guitarists often play just 1-3-7 (“shell voicings”). The “root on 6th” and “root on 5th” voicings below are exactly these shells.</p>`,
+ <p>The most important notes are <b>3 and 7</b>. Feel free to leave out the 5th – jazz guitarists often play just 1-3-7 (“shell voicings”). The “root on 6th” and “root on 5th” voicings below are exactly these shells.</p>
+ <p><b>dim7</b> (diminished seventh) = 1 ♭3 ♭5 <b>♭♭7</b>. Here the 7th is <b>diminished</b> – a half step below a minor 7th, i.e. 9 half steps from the root. It sounds like a major 6th but is written as a 7th, because it is the fourth note of a chord stacked in 3rds: Cdim7 = C E♭ G♭ B♭♭ (sounds as A).</p>`,
  tip:'The voicings with roots on the 6th and 5th strings come from the CAGED E and A shapes. They match barre chords you already know, minus the extra notes.',
  tasks:['Learn the 4 main types with a root on the 6th string, then on the 5th string. 8 voicings in total.','Play Gmaj7 → G7 → Gm7 → Gm7♭5 and watch which note moves a half step each time.','Play the same chord in all 12 keys (find the root as in lesson 1).'],
  src:'Go deeper: Shipway – Music Theory for Guitarists Vol. 2 (seventh chords on the fretboard).'},
@@ -1179,14 +1470,33 @@ const LESSONS_EN=[
  tip:'The dominant (V7) contains a tritone between 3 and ♭7. It is unstable and “pulls” towards the tonic. That’s why the ii–V–I sounds so natural.',
  tasks:['In C major, go through all 7 chords and play them on guitar. Then the same in G and F.','Play a ii–V–I in five keys: ii with a root on the 5th string, V on the 6th, I on the 5th. Your hand barely moves.','Take a favourite song and rewrite its chords as Roman numerals.'],
  src:'Go deeper: Shipway – No Bull Music Theory (harmonising the scale, chord progressions).'},
+{t:'How progressions work',s:'T – S – D functions, the ii–V–I and voice leading',
+ why:'Progressions aren’t random strings of chords. Once you know the role of each chord, you can move a progression to another key, guess where a song is going and improvise over chord changes.',
+ body:`<p>Every chord in a key has one of three <b>functions</b>:</p>
+ <ul><li><b>T – tonic</b> (I, vi, iii): home, rest. This is where a progression ends.</li><li><b>S – subdominant</b> (IV, ii): leaving home, moving on.</li><li><b>D – dominant</b> (V7, vii°): tension that wants to go back home.</li></ul>
+ <p>The typical story is <b>T → S → D → T</b>. Jazz shortens it to <b>ii – V – I</b>: ii7 (S) sets up, V7 (D) builds tension, Imaj7 (T) resolves. In C major: Dm7 – G7 – Cmaj7.</p>
+ <p>Why does the dominant pull so hard? In G7 there is a <b>tritone</b> between the 3rd (B) and the 7th (F). Moving to C, both notes move a half step: B → C and F → E.</p>
+ <p>This is <b>voice leading</b>: the 7th of one chord falls a half step to the 3rd of the next. Dm7 → G7: C (♭7) → B (3). G7 → Cmaj7: F (♭7) → E (3). Playing just the root, 3 and 7 (shell chords) is enough for the whole progression to sound.</p>
+ <p>A <b>secondary dominant</b> is a dominant that points not to the tonic but to another chord. In “Just the Two of Us” the III7 is the dominant of vi7 – that’s why it pulls so much.</p>`,
+ tip:'When improvising, aim for the 3rds and 7ths of the chords. Those are the notes that say which chord is sounding.',
+ tasks:['Play the ii–V–I in C as shell chords only (root, 3 and 7) and listen to the 7th falling to the 3rd.','Same in F and B♭. The shapes stay the same, only the position moves.','In the “Just the Two of Us” progression find the secondary dominant and say which chord it points to.'],
+ src:'Go deeper: Shipway – No Bull Music Theory (chord functions and cadences).'},
 {t:'Extended chords',s:'9, 11, 13 – the sound of neo-soul',
  why:'maj9, m9, m11 and 13 are the signature sound of neo-soul. They are seventh chords where you simply keep stacking 3rds.',
- body:`<p>After the 7th you keep stacking: <b>9</b> (= the 2 an octave up), <b>11</b> (= 4) and <b>13</b> (= 6). The yellow dots on the neck are these “colours”.</p>
+ body:`<p>After the 7th you keep stacking: <b>9</b> (= the 2 an octave up), <b>11</b> (= 4) and <b>13</b> (= 6). On the neck they are the blue (9), pink (11) and peach (13) dots – they are called <b>tensions</b>.</p>
  <p>On guitar you don’t have enough fingers for all 6–7 notes, so notes get <b>left out</b>: first the 5th, often the root too (the bass player has it). Always keep <b>3 and 7</b> and add a colour.</p>
  <ul><li><b>maj9</b> – on I and IV instead of maj7</li><li><b>m9 / m11</b> – on ii and vi, minor vamps</li><li><b>9 / 13</b> – the dominant instead of 7</li></ul>`,
  tip:'A quick way to the neo-soul sound: wherever a song has m7, try m9 or m11. Instead of maj7 play maj9, instead of 7 try 13.',
  tasks:['Learn maj9, m9 and 13 with a root on the 5th string. You’ll hear these voicings in every neo-soul tune.','Play a ii–V–I as Dm9 – G13 – Cmaj9 (in Progressions: “ii–V–I with colours”).','Play Cmaj7 and add/remove the 9th (D) with a finger. Listen to how the sound opens up.'],
  src:'Go deeper: The Neo-Soul Guitar Book (Simon Pratt, Kristof Neyens, featuring Mark Lettieri) – the chapters on voicings and how to embellish them.'},
+{t:'Triads and inversions',s:'Small shapes, the big neo-soul sound',
+ why:'Neo-soul rarely uses chords across all six strings. The guitar plays small shapes on three strings – they are easy to move, easy to decorate and stay out of the bass player’s way.',
+ body:`<p>A <b>triad</b> = root, 3rd and 5th on three adjacent strings. Most often on the G-B-e or D-G-B strings.</p>
+ <p>One triad has <b>three inversions</b> on the same strings, depending on which note is at the bottom: root position (root at the bottom), 1st inversion (3rd at the bottom) and 2nd inversion (5th at the bottom). Play the one closest to the previous chord.</p>
+ <p>The main trick: <b>a triad over a different bass note</b> sounds like a richer chord. E♭ major over a C bass = Cm7, G major over C = Cmaj9 (no 3rd), F major over G = G11.</p>`,
+ tip:'Decorate the triad: hammer-on from 2 to 3 or from 4 to 3. That is exactly how neo-soul guitar parts sound.',
+ tasks:['Play a C major triad on the G-B-e strings in all three inversions, going up the neck.','Same on the D-G-B strings. Which fingerings repeat?','Turn on “Over bass” and listen to E♭ major over C become Cm7. Then record a C bass yourself and play the triad over it.','On the 1st inversion of C major add a hammer-on from D to E (2 → 3).'],
+ src:'Go deeper: The Neo-Soul Guitar Book (triads, inversions and embellishments).'},
 {t:'Modes and the pentatonic',s:'Dorian, Mixolydian, Lydian – as colours',
  why:'You don’t need to memorise 7 modes. For jazz and neo-soul, three colours are enough – plus knowing which chord each belongs over.',
  body:`<p>A mode is a scale that sounds different because of one or two changed notes. Think of them as <b>colours</b>:</p>
@@ -1209,7 +1519,7 @@ function applyLang(){LESSONS=LANG==='en'?LESSONS_CS.map((l,i)=>({...l,...LESSONS
 const app=$('#app');let activeWidgets=[];
 function stopAll(){activeWidgets.forEach(w=>w._stop&&w._stop());activeWidgets=[];}
 function mount(host,spec){const [name,opts]=Array.isArray(spec)?spec:[spec,{}];const d=document.createElement('div');d.className='panel';host.appendChild(d);W[name](d,opts);activeWidgets.push(d);}
-function legend(){const F='<i class="flat">♭</i>';return `<div class="cmode"><span class="lab">${t('Barvy','Colours')}</span>${chips([['full',t('Plné','Full')],['root',t('Jen kořen','Root only')],['triad','1 · 3 · 5']],CMODE)}</div><div class="legend"><span><i class="dot" style="background:var(--c-root)"></i>${t('kořen','root')} <b>1</b></span><span><i class="dot" style="background:var(--c-3)"></i>${t('tercie','3rd')} <b>3 · ${F}3</b></span><span><i class="dot" style="background:var(--c-5)"></i>${t('kvinta','5th')} <b>5</b></span><span><i class="dot" style="background:var(--c-7)"></i>${t('septima','7th')} <b>7 · ${F}7</b></span><span><i class="dot" style="background:var(--c-t)"></i>${t('barvy','colours')} <b>2/9 · 4/11 · 6/13</b></span></div>`;}
+function legend(){const F='<i class="flat">♭</i>';return `<div class="cmode"><span class="lab">${t('Barvy','Colours')}</span>${chips([['full',t('Všechny tóny','All notes')],['root',t('Prima','Root')],['triad','1 · 3 · 5']],CMODE)}</div><div class="legend"><span><i class="dot" style="background:var(--c-root)"></i>${t('prima','root')} <b>1</b></span><span><i class="dot" style="background:var(--c-3)"></i>${t('tercie','3rd')} <b>3 · ${F}3</b></span><span><i class="dot" style="background:var(--c-5)"></i>${t('kvinta','5th')} <b>5</b></span><span><i class="dot" style="background:var(--c-7)"></i>${t('septima','7th')} <b>7 · ${F}7</b></span><span><i class="dot" style="background:var(--c-t2)"></i><i class="dot" style="background:var(--c-t4);margin-left:-4px"></i><i class="dot" style="background:var(--c-t6);margin-left:-4px"></i>${t('tenze','tensions')} <b>2/9 · 4/11 · 6/13</b></span></div>`;}
 
 /* ---------- HERO ART: grainy glows + hand-drawn grooves (scales with block size) ---------- */
 function drawHeroArt(){const art=document.querySelector('.hero-art');if(!art)return;
@@ -1288,7 +1598,7 @@ function viewHome(){
   const nxt=[...LESSONS.keys()].find(i=>!DONE.has(i));
   app.innerHTML=`<section class="hero"><div class="hero-art" aria-hidden="true"></div><span class="eyebrow">${t('Teorie pro elektrickou kytaru · jazz &amp; neo-soul','Theory for electric guitar · jazz &amp; neo-soul')}</span>
    <h1>${t('Pentatonika','Pentatonic')} <svg class="arr" viewBox="0 0 120 100" aria-hidden="true"><path d="M3 34 H66 V8 L116 50 L66 92 V66 H3 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"/></svg> <em>Neo-soul</em></h1>
-   <p class="lead">${t('Devět lekcí v pořadí, ve kterém na sebe navazují. Každá má krátký výklad, interaktivní hmatník se zvukem a úkoly na kytaru. Začni lekcí 1, i když ti bude připadat jednoduchá – na ní stojí všechno ostatní.','Nine lessons in the order they build on each other. Each has a short explanation, an interactive fretboard with sound and tasks for your guitar. Start with lesson 1 even if it looks easy – everything else stands on it.')}</p>
+   <p class="lead">${t('Dvanáct lekcí v pořadí, ve kterém na sebe navazují. Každá má krátký výklad, interaktivní hmatník se zvukem a úkoly na kytaru. Začni lekcí 1, i když ti bude připadat jednoduchá – na ní stojí všechno ostatní.','Twelve lessons in the order they build on each other. Each has a short explanation, an interactive fretboard with sound and tasks for your guitar. Start with lesson 1 even if it looks easy – everything else stands on it.')}</p>
    <div class="progress"><div class="bar"><i style="width:${n/LESSONS.length*100}%"></i></div>${t(`${n} z ${LESSONS.length} lekcí hotovo`,`${n} of ${LESSONS.length} lessons done`)}</div>
    <div class="cta">${nxt===undefined?`<a class="btn" href="#trenink">▶ ${t('Do tréninku','To practice')}</a>`:`<a class="btn" href="#lekce-${nxt+1}">▶ ${n?t('Pokračovat lekcí','Continue with lesson'):t('Začít lekcí','Start with lesson')} ${nxt+1}</a>`}<a class="btn ghost" href="#hmatnik">${t('Celý hmatník','Whole fretboard')}</a></div></section>${''}
    <div class="path">${LEVELS.map((L,li)=>`<div class="level"><h3>${t('Úroveň','Level')} ${li+1} · ${L}</h3><div class="cards">${LESSONS.map((l,i)=>l.lv!==li?'':`<a class="lcard ${DONE.has(i)?'done':''}" href="#lekce-${i+1}"><span class="lnum">${DONE.has(i)?'✓':i+1}</span><b>${l.t}</b><small>${l.s}</small></a>`).join('')}</div></div>`).join('')}
@@ -1296,22 +1606,51 @@ function viewHome(){
    <div class="level"><h3>${t('Zdroje','Sources')}</h3><div class="prose src" style="max-width:80ch">${src}</div></div></div>`;
   drawHeroArt();}
 
-function viewLesson(i){
+const STEP_T=[[['12 tónů','12 notes'],['Celé tóny a půltóny','Whole and half steps'],['Výjimka E–F a B–C','The E–F and B–C exception']],
+[['Interval = vzdálenost v půltónech','Interval = distance in half steps'],['Tvar je všude stejný','The shape is the same everywhere'],['Intervaly už znáš z pentatoniky','You already know them from the pentatonic']],
+[['Vzorec durové stupnice','The major scale formula'],['Stupně a oktáva výš','Degrees and the octave above'],['Most od pentatoniky','The bridge from the pentatonic']],
+[['Vrstvení tercií','Stacking 3rds']],
+[['Pět otevřených tvarů','Five open shapes'],['Jak tvary navazují','How the shapes link up'],['Hledej primu','Find the root'],['Tvar a pentatonika','Shape and pentatonic']],
+[['Čtyři hlavní septakordy','The four main seventh chords'],['Nejdůležitější jsou 3 a 7','3 and 7 matter most'],['Zmenšená septima','The diminished 7th']],
+[['Akordy z durové stupnice','Chords from the major scale'],['Římské číslice','Roman numerals'],['II – V – I','The ii – V – I']],
+[['Tři funkce akordů','Three chord functions'],['Příběh T → S → D → T','The T → S → D → T story'],['Proč dominanta táhne','Why the dominant pulls'],['Vedení hlasů 7 → 3','Voice leading 7 → 3'],['Vedlejší dominanta','Secondary dominant']],
+[['9, 11 a 13','9, 11 and 13'],['Co vynechat','What to leave out']],
+[['Co je triáda','What a triad is'],['Tři obraty','Three inversions'],['Triáda nad basem','A triad over a bass note']],
+[['Co je mód','What a mode is'],['Most od pentatoniky','The bridge from the pentatonic']],
+[['Techniky neo-soulu','Neo-soul techniques']]];
+function viewLesson(i,startStep=0){
   const L=LESSONS[i];
+  const steps=[{k:'why',h:t('Proč to potřebuješ','Why you need it'),html:`<p class="lead2">${L.why}</p>`}];
+  bodySteps(L.body).forEach((b,k)=>{const T=(STEP_T[i]||[])[k];steps.push({k:'txt',h:T?t(T[0],T[1]):t('Výklad','Explanation'),html:b});});
+  L.w.forEach(w=>steps.push({k:'w',h:t('Vyzkoušej na hmatníku','Try it on the neck'),w}));
+  exFor(i).forEach(e=>steps.push({k:'ex',h:e.type==='find'?t('Cvičení na hmatníku','Fretboard exercise'):t('Rychlá otázka','Quick check'),ex:e}));
+  steps.push({k:'end',h:t('Shrnutí a úkoly na kytaru','Summary and guitar tasks')});
+  let cur=Math.min(startStep,steps.length-1);
   app.innerHTML=`<div class="lesson"><nav class="rail" aria-label="${t('Lekce','Lessons')}">${LEVELS.map((lv,li)=>`<div class="lvl">${lv}</div>`+LESSONS.map((l,j)=>l.lv!==li?'':`<a href="#lekce-${j+1}" class="${j===i?'on':''} ${DONE.has(j)?'done':''}"><span class="n">${DONE.has(j)?'✓':j+1}</span>${l.t}</a>`).join('')).join('')}</nav>
    <article class="lesson-body"><div class="mobile-pick"><select id="lpick" aria-label="${t('Vybrat lekci','Choose a lesson')}">${LESSONS.map((l,j)=>`<option value="${j}" ${j===i?'selected':''}>${j+1}. ${l.t}</option>`).join('')}</select></div>
     <div style="display:grid;gap:8px"><span class="eyebrow">${t('Lekce','Lesson')} ${i+1} ${t('z','of')} ${LESSONS.length} · ${LEVELS[L.lv]}</span><h2>${L.t}</h2></div>
-    <div class="why"><b>${t('Proč to potřebuješ:','Why you need it:')}</b> ${L.why}</div>
-    <div class="prose">${L.body}</div>${legend()}<div class="wh" style="display:grid;gap:16px"></div>
-    <p class="tip"><b>Tip:</b> ${L.tip}</p>
-    <div class="tasks"><h3>${t('Zkus to na kytaře','Try it on your guitar')}</h3><ol>${L.tasks.map(x=>`<li>${x}</li>`).join('')}</ol></div>
-    <p class="src">${L.src}</p>
-    <div class="lfoot">${i>0?`<a class="btn ghost" href="#lekce-${i}">← ${LESSONS[i-1].t}</a>`:'<span></span>'}
-     <button class="btn ghost donebtn">${DONE.has(i)?t('✓ Hotovo','✓ Done'):t('Označit jako hotové','Mark as done')}</button>
-     ${i<LESSONS.length-1?`<a class="btn" href="#lekce-${i+2}">${LESSONS[i+1].t} →</a>`:`<a class="btn" href="#trenink">${t('Do tréninku →','To practice →')}</a>`}</div></article></div>`;
-  const wh=$('.wh');L.w.forEach(s=>mount(wh,s));
+    <div class="stepdots" role="tablist">${steps.map((s,k)=>`<button type="button" class="sd sd-${s.k}" data-k="${k}" aria-label="${k+1}. ${s.h}" title="${s.h}"></button>`).join('')}</div>
+    <div class="steps">${steps.map((s,k)=>`<section class="step" data-k="${k}" hidden><div class="stephead"><span class="stepn">${k+1} / ${steps.length}</span><h3>${s.h}</h3></div><div class="stepbody"></div></section>`).join('')}</div>
+    <div class="stepnav"><button class="btn ghost sprev" type="button">← ${t('Zpět','Back')}</button><button class="btn snext" type="button">${t('Další','Next')} →</button></div>
+    </article></div>`;
+  const secs=[...app.querySelectorAll('.step')];
+  function fill(k){const s=steps[k],box=secs[k].querySelector('.stepbody');if(box._filled)return;box._filled=true;
+    if(s.k==='why'||s.k==='txt')box.innerHTML=`<div class="prose">${s.html}</div>`;
+    else if(s.k==='w'){mount(box,s.w);}
+    else if(s.k==='ex'){const d=document.createElement('div');d.className='panel';box.appendChild(d);W[s.ex.type==='find'?'find':'mq'](d,s.ex);activeWidgets.push(d);}
+    else{box.innerHTML=`<p class="tip"><b>Tip:</b> ${L.tip}</p><div class="tasks"><h3>${t('Zkus to na kytaře','Try it on your guitar')}</h3><ol>${L.tasks.map(x=>`<li>${x}</li>`).join('')}</ol></div><p class="src">${L.src}</p>
+      <div class="lfoot"><button class="btn ghost donebtn" type="button">${DONE.has(i)?t('✓ Hotovo','✓ Done'):t('Označit jako hotové','Mark as done')}</button>${i<LESSONS.length-1?`<a class="btn" href="#lekce-${i+2}">${LESSONS[i+1].t} →</a>`:`<a class="btn" href="#trenink">${t('Do tréninku →','To practice →')}</a>`}</div>`;
+      box.querySelector('.donebtn').onclick=()=>{DONE.has(i)?DONE.delete(i):DONE.add(i);save('gt-done',[...DONE]);viewLesson(i,steps.length-1);};}}
+  function show(k,scroll=true){cur=k;secs.forEach((s,j)=>s.hidden=j!==k);fill(k);
+    app.querySelectorAll('.sd').forEach((b,j)=>{b.classList.toggle('on',j===k);b.classList.toggle('seen',j<k);});
+    const pv=app.querySelector('.sprev'),nx=app.querySelector('.snext');pv.style.visibility=k===0&&i===0?'hidden':'visible';pv.textContent=k===0?(i>0?`← ${LESSONS[i-1].t}`:''):`← ${t('Zpět','Back')}`;
+    nx.hidden=k===steps.length-1;nx.textContent=k===steps.length-2?`${t('Shrnutí','Summary')} →`:`${t('Další','Next')} →`;
+    if(scroll){const h=app.querySelector('.stepdots');const y=h.getBoundingClientRect().top+scrollY-130;if(scrollY>y)window.scrollTo({top:Math.max(0,y),behavior:'smooth'});}}
+  app.querySelector('.snext').onclick=()=>{if(cur<steps.length-1)show(cur+1);};
+  app.querySelector('.sprev').onclick=()=>{if(cur>0)show(cur-1);else if(i>0)go('#lekce-'+i);};
+  app.querySelectorAll('.sd').forEach(b=>b.onclick=()=>show(+b.dataset.k));
   $('#lpick').onchange=e=>go('#lekce-'+(+e.target.value+1));
-  $('.donebtn').onclick=()=>{DONE.has(i)?DONE.delete(i):DONE.add(i);save('gt-done',[...DONE]);viewLesson(i);};}
+  show(cur,false);}
 
 function viewTool(title,lead,specs,showLegend=true){app.innerHTML=`<div style="display:grid;gap:18px"><div style="display:grid;gap:8px"><h2>${title}</h2><p style="color:var(--muted);max-width:70ch">${lead}</p>${showLegend?legend():''}</div><div class="wh" style="display:grid;gap:16px"></div></div>`;specs.forEach(s=>mount($('.wh'),s));}
 
@@ -1539,7 +1878,7 @@ G.city=(el)=>{el._stopping=false;
   if(!Array.isArray(o.str)||!o.str.length)o.str=[0,1,2,3,4,5];
   if(o.career===undefined)o.career=true;
   if(!Array.isArray(o.missions))o.missions=[o.mode&&o.mode!=='mix'?o.mode:'notes'];
-  const MIS=[['notes',t('Kurýr – tóny','Courier – notes'),0],['pent',t('Pentatonika','Pentatonic'),120],['triads',t('Triády','Triads'),200],['intervals',t('Taxík – intervaly','Taxi – intervals'),150],['race',t('Závod','Race'),250],['chords',t('Sanitka – akordy','Ambulance – chords'),300],['scales',t('Hasiči – stupnice','Fire – scales'),450],['doubles',t('Policie – dvojhmaty','Police – double stops'),600],['prog',t('Autobus – postupy','Bus – progressions'),800]];
+  const MIS=[['notes',t('Kurýr – tóny','Courier – notes'),0],['pent',t('Pentatonika','Pentatonic'),120],['triads',t('Triády','Triads'),200],['intervals',t('Taxík – intervaly','Taxi – intervals'),150],['race',t('Závod – jeden tón, celý krk','Race – one note, whole neck'),250],['chords',t('Sanitka – akordy','Ambulance – chords'),300],['scales',t('Hasiči – stupnice','Fire – scales'),450],['doubles',t('Policie – dvojhmaty','Police – double stops'),600],['prog',t('Autobus – postupy','Bus – progressions'),800]];
   const UPS=[['speed',t('Rychlejší auto','Faster car'),[120,250,400]],['time',t('Delší směna (+15 s)','Longer shift (+15 s)'),[150,300,500]],['gps',t('Levnější GPS','Cheaper GPS'),[100,250]],['shield',t('Pojistka – 1. chyba ve směně zdarma','Insurance – 1st mistake per shift free'),[300]]];
   const SKINS=[['orange','#F0629A',0],['purple','#9F8CFF',80],['green','#9ADBB8',80],['yellow','#F2C14E',120],['white','#F4E9EF',150],['pink','#E8402E',150]];
   const CR=Object.assign({wallet:0,lic:['notes'],up:{},skin:'orange',skins:['orange']},load('gt-city-career',{}));CR.up=Object.assign({speed:0,time:0,gps:0,shield:0},CR.up);
@@ -1649,7 +1988,7 @@ G.city=(el)=>{el._stopping=false;
   function pop(text,f,s,col){st.pops.push({text,f,s,col,t:performance.now()});if(typeof actFx==='function'&&(col===C.ok||col===C.bad))actFx(col===C.ok);}
   function pool(){return o.nat?NATS:[...Array(12).keys()];}
   /* ---- extra missions ---- */
-  const DEGC={root:'#E8402E','3':'#F0629A','5':'#EDE4D3','7':'#9F8CFF',t:'#F2C14E'};
+  const DEGC={root:'#FFD23F','3':'#E8705F','5':'#7FD8A6','7':'#9F8CFF',t:'#7CC8F2',t2:'#7CC8F2',t4:'#F59BC9',t6:'#FFB38A'};
   const KEYS_N=['C','D','E','F','G','A'],KEYS_A=['C','Db','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
   const keyPool=()=>o.nat?KEYS_N:KEYS_A;
   const rootPool=()=>o.nat?['C','D','E','F','G','A','B']:KEYS_A;
@@ -1713,7 +2052,7 @@ G.city=(el)=>{el._stopping=false;
     else if(kind==='bus'){const PR=[['ii–V–I',[[1,'m7','ii'],[4,'7','V'],[0,'maj7','I']]],['IV–iii–vi',[[3,'maj7','IV'],[2,'m7','iii'],[5,'m7','vi']]],['I–vi–ii–V',[[0,'maj7','I'],[5,'m7','vi'],[1,'m7','ii'],[4,'7','V']]],['vi–ii–V–I',[[5,'m7','vi'],[1,'m7','ii'],[4,'7','V'],[0,'maj7','I']]]];
       const [name,ch]=rnd(PR);const key=rnd(keyPool());const stops=ch.map(([i,q,rn])=>({root:spell(key,SCALES.major.deg[i]),q,rn}));
       const started=false;st.job={k:'bus',key,name,stops,i:0,started,beats:LVL(o,16,12,8),reward:45};st.job.deadline=performance.now()+st.job.beats*60/METRO.bpm*1000;busCard();
-      msg(t(`Linka ${name} v ${pretty(key)} dur. Na každé zastávce zastav na <b>kořeni</b> akordu dřív, než ujede (${st.job.beats} dob).`,`Line ${name} in ${pretty(key)} major. At each stop park on the chord’s <b>root</b> before the bus leaves (${st.job.beats} beats).`));}
+      msg(t(`Linka ${name} v ${pretty(key)} dur. Na každé zastávce zastav na <b>základním tónu</b> akordu dřív, než ujede (${st.job.beats} dob).`,`Line ${name} in ${pretty(key)} major. At each stop park on the chord’s <b>root</b> before the bus leaves (${st.job.beats} beats).`));}
     else if(kind==='race'){const pc=rnd(pool());const left=spots(0,o.frets,(f,s)=>strOn(s)&&pcAt(s,f)===pc);st.job={k:'race',pc,left,total:left.length,start:performance.now(),reward:20};raceCard();
       msg(t(`Závod! Projeď všechna <b>${NN(pc)}</b> na vybraných strunách co nejrychleji.`,`Race! Hit every <b>${NN(pc)}</b> on the selected strings as fast as you can.`));}}
   function ambCard(){const j=st.job;setJob(`<span class="jb">${chordName(j.root,j.q)}</span><span class="jw">${t(`pražce ${j.a}–${j.b}`,`frets ${j.a}–${j.b}`)}</span>`,j.deg.map(d=>pill(prettyDeg(d),DEGC[degFamily(d)],!!j.done[d])).join(''),t('Sanitka','Ambulance'));}
@@ -1737,7 +2076,7 @@ G.city=(el)=>{el._stopping=false;
       else{const tf=want-TUNING[j.ts];st.reveal={pts:[{f:tf,s:j.ts}],until:performance.now()+1600};failJob(f,s,t(`Tady je ${NN(pcAt(s,f))}. Hledala jsi ${NN(want%12)} na struně ${SN[j.ts]}.`,`This is ${NN(pcAt(s,f))}. You needed ${NN(want%12)} on string ${SN[j.ts]}.`));}return;}
     if(j.k==='bus'){const cur=j.stops[j.i];if(pcAt(s,f)===pcOf(cur.root)){const v=bestVoicing(cur.root,cur.q);if(v)playChord(realMidis(v),0,.03);else playNote(midiAt(f,s));j.i++;
         if(j.i>=j.stops.length){winJob(f,s,j.reward,LVL(o,15,10,6),t('Linka dokončena!','Line complete!'));finishBus();}else{j.deadline=performance.now()+j.beats*60/METRO.bpm*1000;busCard();msg(`<b style="color:var(--ok)">${chordName(cur.root,cur.q)} ✓</b>`);}}
-      else failJob(f,s,t(`Tady není zastávka – hledáš kořen ${o.lvl==='hard'?cur.rn:pretty(cur.root)}.`,`Wrong stop – you need the root of ${o.lvl==='hard'?cur.rn:pretty(cur.root)}.`));return;}
+      else failJob(f,s,t(`Tady není zastávka – hledáš základní tón ${o.lvl==='hard'?cur.rn:pretty(cur.root)}.`,`Wrong stop – you need the root of ${o.lvl==='hard'?cur.rn:pretty(cur.root)}.`));return;}
     if(j.k==='race'){const ix=j.left.findIndex(p=>p.f===f&&p.s===s);if(ix>=0){j.left.splice(ix,1);playNote(midiAt(f,s));mark(f,s,pcAt(s,f));raceCard();
         if(!j.left.length){const sec=(performance.now()-j.start)/1000;const bonus=Math.max(10,Math.round(80-sec*2));winJob(f,s,bonus,LVL(o,15,10,6),t(`Cíl za ${sec.toFixed(1)} s!`,`Finished in ${sec.toFixed(1)} s!`));st.job={k:'wait'};setTimeout(()=>{if(st&&st.running)newJob();},900);}}
       else if(pcAt(s,f)===j.pc)msg(t('Tohle už máš.','Already got this one.'));else failJob(f,s,t(`Tohle je ${NN(pcAt(s,f))}.`,`This is ${NN(pcAt(s,f))}.`));}}
@@ -1943,9 +2282,9 @@ function go(h){HASH=h||'#cesta';try{if(location.hash!==HASH)history.pushState(nu
 function route(){stopAll();applyLang();if($('#tools')._label)$('#tools')._label();const hsh=HASH.replace('#','')||'cesta';let v=hsh;
   const m=/^lekce-(\d+)$/.exec(hsh);
   if(m&&LESSONS[+m[1]-1]){viewLesson(+m[1]-1);v='cesta';}
-  else if(hsh==='hmatnik')viewTool(t('Stupnice na hmatníku','Scales on the fretboard'),t('Vyber kořen a stupnici. Pozice omezí zobrazení na pět pražců, aby sis ji mohl(a) propojit s CAGED tvary.','Pick a root and a scale. Position limits the view to five frets so you can connect it with your CAGED shapes.'),[['scales',{def:'major',cmpList:['majpent','minpent','major'],id:'t1'}]]);
-  else if(hsh==='akordy')viewTool(t('Akordy','Chords'),t('Všechny typy akordů z lekcí na jednom místě: vzorec, tóny, hmaty a rozložení na hmatníku.','Every chord type from the lessons in one place: formula, notes, voicings and layout on the neck.'),[['chords',{def:'m9',id:'t2',list:['maj','m','dim','aug','sus2','sus4','maj7','7','m7','m7b5','dim7','6','m6','add9','maj9','9','m9','m11','13','7#9','69','maj7#11']}]]);
-  else if(hsh==='postupy')viewTool(t('Postupy','Progressions'),t('Jazzové a neo-soulové postupy k poslechu a hraní. Pusť je dokola a hraj s nimi akordy, dvojhmaty nebo improvizuj.','Jazz and neo-soul progressions to listen to and play along with. Loop them and play chords, double stops or improvise.'),[['progressions',{id:'t3'}]]);
+  else if(hsh==='hmatnik')viewTool(t('Stupnice na hmatníku','Scales on the fretboard'),t('Vyber základní tón a stupnici. Pozice omezí zobrazení na pět pražců, aby sis ji mohl(a) propojit s CAGED tvary.','Pick a root and a scale. Position limits the view to five frets so you can connect it with your CAGED shapes.'),[['scales',{def:'major',cmpList:['majpent','minpent','major'],id:'t1'}]],false);
+  else if(hsh==='akordy')viewTool(t('Akordy','Chords'),t('Všechny typy akordů z lekcí na jednom místě: vzorec, tóny, hmaty a rozložení na hmatníku.','Every chord type from the lessons in one place: formula, notes, voicings and layout on the neck.'),[['chords',{def:'m9',id:'t2',list:['maj','m','dim','aug','sus2','sus4','maj7','7','m7','m7b5','dim7','6','m6','add9','maj9','9','m9','m11','13','7#9','69','maj7#11']}]],false);
+  else if(hsh==='postupy')viewTool(t('Postupy','Progressions'),t('Jazzové a neo-soulové postupy k poslechu a hraní. Pusť je dokola a hraj s nimi akordy, dvojhmaty nebo improvizuj.','Jazz and neo-soul progressions to listen to and play along with. Loop them and play chords, double stops or improvise.'),[['progressions',{id:'t3'}]],false);
   else if(hsh==='trenink')viewTool(t('Trénink','Practice'),t('Pět minut denně. Intervaly po sluchu jsou nejtěžší a nejužitečnější.','Five minutes a day. Intervals by ear are the hardest and the most useful.'),['quiz']);
   else if(hsh==='nastroje'){viewTool(t('Ladička a metronom','Tuner and metronome'),t('Nalaď se a cvič s metronomem. Úkoly z lekcí hraj nejdřív pomalu (60–70 BPM) a tempo zvyšuj, až když jdou čistě.','Tune up and practise with the metronome. Play the lesson tasks slowly first (60–70 BPM) and only speed up once they’re clean.'),['tuner','metro'],false);$('.wh').classList.add('tools');}
   else if(hsh==='hry'){viewGames();v='hry';}
@@ -1957,6 +2296,7 @@ document.querySelectorAll('.lng .chip').forEach(b=>b.onclick=()=>{LANG=b.dataset
 initBar();
 document.addEventListener('click',e=>{const b=e.target.closest('.cmode .chip');if(!b)return;CMODE=b.dataset.v;try{localStorage.setItem('gt-cmode',CMODE);}catch(_){}route();});
 window.addEventListener('hashchange',()=>{HASH=location.hash;route();});window.addEventListener('popstate',()=>{HASH=location.hash;route();});
+document.addEventListener('click',e=>{const g=e.target.closest&&e.target.closest('.deg[data-d]');if(!g)return;const r=pcOf(g.dataset.r),m=48+r+(r>=4?0:12)+parseDeg(g.dataset.d).semis;playNote(m,0,.8,1.2);g.classList.remove('ping');void g.offsetWidth;g.classList.add('ping');});
 document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();go(a.getAttribute('href'));},true);
 route();
 </script>
