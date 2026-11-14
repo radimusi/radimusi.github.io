@@ -1,27 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="neofy – interaktivní cesta teorií pro elektrickou kytaru od intervalů po neo-soulové akordy.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141217'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='.5' stop-color='%23F39237'/%3E%3Cstop offset='.5' stop-color='%239B7BFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='18' fill='url(%23g)'/%3E%3C/svg%3E">
-<style>body{margin:0;font-size:14px;background:#16121B}[hidden]{display:none!important}img{max-width:100%}</style>
+<style>body{margin:0;font-size:14px;background:#0B0A0C}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>neofy</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Music&text=%E2%99%AD%E2%99%AF&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Poppins:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
 /* Layout: sticky top bar + lesson rail (desktop) / content column; the fretboard is the hero of every lesson */
 :root{
---bg:#16121B; --surface:#201A28; --sunk:#2A2333; --fg:#EEE8F4; --muted:#A79DB3; --line:#3A3145;
-  --accent:#A07BF0; --accent-ink:#16121B; --brass:#F5A04A;
-  --wood:#3A2E24; --wood-2:#2F251D; --fret:#8C7D6A; --string:#B5A894; --inlay:#5A4A3A;
-  --c-root:#F39237; --c-3:#9E7BFF; --c-5:#4EA3F5; --c-7:#2CC793; --c-t:#F0C93A; --c-o:#7E7589;
-  --ok:#36C48C; --bad:#FF6B52; color-scheme:dark;
-  --f-display:"Poppins", "Avenir Next", system-ui, sans-serif;
+--bg:#0B0A0C; --surface:#141117; --sunk:#1C1820; --fg:#F4E9EF; --muted:#A99BC9; --line:#2E2634;
+  --accent:#F0629A; --accent-ink:#0B0A0C; --brass:#E8402E; --frame:#F0629A; --ink:#141018;
+  --wood:#120F15; --wood-2:#0E0B10; --fret:#4A3D5C; --string:#8E80AE; --inlay:#3A3045;
+  --c-root:#E8402E; --c-3:#F0629A; --c-5:#EDE4D3; --c-7:#9F8CFF; --c-t:#F2C14E; --c-o:#7E7589;
+  --ok:#36C48C; --bad:#FF5A4A; color-scheme:dark;
+  --f-display:"Archivo", "Avenir Next", system-ui, sans-serif;
   --f-body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-  --r:10px;
+  --r:0px;
 }
 :root[data-theme="light"]{
   --bg:#F5F2F7; --surface:#FFFFFF; --sunk:#ECE7F0; --fg:#1F1828; --muted:#6A6075; --line:#DCD4E3;
@@ -313,7 +314,37 @@ html.playing,html.playing body{overflow:hidden}
 .cp-main{flex:1;min-height:0;display:flex;align-items:center;gap:10px}
 .cp-main .gstage{flex:1;min-width:0}
 .cp-side{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-.cp-side .act{padding:16px 22px;font-size:1rem;min-width:110px}
+.cp-side .act{padding:16px 0;font-size:1rem;width:128px;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp-gps{flex:none;align-self:center;display:flex;align-items:center;gap:4px;height:34px;padding:0 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font:600 .8rem var(--f-mono)}
+.cp-gps:hover{color:var(--fg)}
+.wallet{font-family:var(--f-mono);color:var(--muted)}.wallet b{color:var(--c-root)}
+.chip.locked{opacity:.55}
+.cform{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:14px 22px;align-items:start;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.crow{display:contents}
+.clab{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);padding-top:7px}
+.cval{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;min-width:0}
+.cval.cvcol{flex-direction:column;align-items:flex-start}
+.cval .grp{gap:6px}
+.chint{font-size:.8rem;color:var(--muted)}
+.cval .mhint{margin:0}
+@media (max-width:600px){.cform{grid-template-columns:minmax(0,1fr);gap:6px}.clab{padding-top:10px}}
+.mhint{margin-top:-4px}
+.sitem.flash{animation:sflash 1.2s ease}
+@keyframes sflash{0%,60%{box-shadow:0 0 0 3px var(--c-root)}100%{box-shadow:none}}
+.garage{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--sunk)}
+.garage summary{cursor:pointer;font-family:var(--f-display);font-weight:700}
+.garage summary b{color:var(--c-root);font-family:var(--f-mono)}
+.gshop{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:10px}
+.gshop h4{margin:0 0 6px;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.gshop>div{display:grid;gap:6px;align-content:start}
+.sitem{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;font-size:.88rem;text-align:left;color:var(--fg)}
+.sitem b{font-family:var(--f-mono);color:var(--c-root)}
+.sitem:disabled{opacity:.45;cursor:not-allowed}
+.sitem.own{color:var(--ok);background:transparent}
+.skins{display:flex;flex-wrap:wrap;gap:8px}
+.skin{width:44px;height:30px;border-radius:7px;border:2px solid transparent;background:var(--c);font:700 .7rem var(--f-mono);color:#141018}
+.skin.on{border-color:var(--fg)}
+.skin.lock{opacity:.75}.skin:disabled{opacity:.35;cursor:not-allowed}
 .cityplay .dpad{grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,50px);gap:6px}
 .cityplay .dpad button{font-size:1.1rem;touch-action:none}
 .cp-rotate{position:absolute;inset:0;z-index:5;background:var(--bg);display:none;place-items:center;text-align:center;padding:24px}
@@ -356,6 +387,11 @@ html.playing,html.playing body{overflow:hidden}
   .gmsg{grid-column:1/-1;font-size:.88rem}
   .gover p{font-size:.85rem}.gover h3{font-size:1rem}
 }
+/* header: logo + tools always on top, nav below */
+.top-in .nav{order:3;width:100%;margin-left:0;flex-wrap:wrap}
+header .top-in .nav{justify-content:center}
+.top-in .tools{margin-left:auto}
+.rail{top:calc(env(safe-area-inset-top,0px) + 118px)}
 @media (max-width:860px){
   .nav{order:3;width:100%;margin-left:0;flex-wrap:wrap}
   .tools{margin-left:auto}
@@ -391,11 +427,103 @@ html.playing,html.playing body{overflow:hidden}
   .tunpop{left:auto;right:0}
   .wrap{padding-block:18px 48px}
 }
+
+/* =================== NEOFY · PLAKÁT (barvy a textury) =================== */
+:root{--grain-soft:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .45 -.17'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");--logo-o:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='.08' stop-color='%23E8402E'/%3E%3Cstop offset='.55' stop-color='%23F2649D'/%3E%3Cstop offset='.95' stop-color='%23A99BC9'/%3E%3C/linearGradient%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0' result='m'/%3E%3CfeComposite in='SourceGraphic' in2='m' operator='arithmetic' k1='1.5' k2='.45' k3='-.2' k4='0'/%3E%3C/filter%3E%3CclipPath id='c'%3E%3Ccircle cx='50' cy='50' r='50'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg clip-path='url%28%23c%29' filter='url%28%23n%29'%3E%3Crect width='100' height='100' fill='url%28%23g%29'/%3E%3C/g%3E%3C/svg%3E")}
+body{background:var(--grain) 0 0/240px,var(--bg);background-blend-mode:soft-light,normal}
+body::before{background:var(--bg)}
+/* header blends into the page */
+.top{background:transparent;border-bottom:0;transition:background-color .2s,box-shadow .2s}
+.top.stuck{background-color:rgba(11,10,12,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(169,155,201,.14)}
+.brand{font-family:'Poppins',sans-serif;font-size:2rem;color:#F6ECF2}
+.brand .o{background:var(--logo-o) center/cover}
+.nav a{border-radius:0;text-transform:uppercase;font-size:.8rem;letter-spacing:.08em;color:var(--muted)}
+.nav a:hover{background:transparent;color:var(--fg)}
+.nav a.on{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.tg,.num{border-radius:0;border-color:var(--line)}
+.pop,.tunpop{border-radius:0;border-color:var(--frame);background:var(--bg)}
+.tsb,select,.chip,.mm{border-radius:0}
+/* type */
+h1,h2{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;color:var(--accent);letter-spacing:-.005em}
+h2{font-size:clamp(1.6rem,3.6vw,2.6rem)}
+h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;font-weight:800}
+.eyebrow{color:var(--brass)}
+.level h3,.rail .lvl{color:var(--muted);font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:.16em}
+/* hero */
+.hero{position:relative;overflow:hidden;isolation:isolate;border:1.5px solid var(--frame);padding:clamp(22px,3.4vw,40px);background:#110E13;margin:0 0 6px;gap:16px}
+.hero>*:not(.hero-art){position:relative;z-index:2;max-width:640px}
+.hero-art{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-art svg{display:block;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--grain) 0 0/220px;opacity:.22;mix-blend-mode:overlay}
+.hero h1{font-size:clamp(2.1rem,6vw,4.3rem);line-height:1}
+.hero h1 .arr{display:inline-block;width:1.05em;height:.78em;vertical-align:-.02em;color:var(--accent);margin-right:.08em;overflow:visible}
+.hero h1 em{display:inline-block;font-style:normal;background:linear-gradient(90deg,#E8402E,#F2649D 55%,#A99BC9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{color:var(--muted);text-transform:uppercase;font-size:.95rem;letter-spacing:.04em;font-weight:600;max-width:56ch}
+.progress .bar{border-radius:0;height:8px;border:1px solid var(--muted);background:transparent}
+.progress .bar i{background:var(--accent)}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.hero+.legend{margin-bottom:28px}
+/* legend */
+.legend{gap:8px;margin:14px 0 6px}
+.legend span{background:rgba(22,19,26,.45);border:1px solid rgba(169,155,201,.14);padding:5px 12px 5px 9px;color:var(--muted);font-size:.9rem;font-weight:500;gap:8px}
+.legend b{font:700 .82rem var(--f-mono);color:var(--muted)}
+.flat{font-family:"Noto Music",serif;font-style:normal;font-weight:400;font-size:1.55em;line-height:0;vertical-align:-.08em;margin-right:.04em;-webkit-text-stroke:.7px currentColor}
+/* cards & panels: square, pink hairline frame, grain */
+.lcard,.gcard,.panel{border-radius:0;border:1.5px solid var(--frame);background:rgba(18,15,21,.55)}
+.lcard:hover,.gcard:hover{background-color:rgba(240,98,154,.08);border-color:var(--frame)}
+.lcard b,.gcard b{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;font-weight:800;text-transform:uppercase;font-size:1rem;letter-spacing:.01em}
+.lnum{border-radius:0;width:44px;height:44px;background:transparent;border:1.5px solid var(--muted);color:var(--muted);font:800 1.05rem "Archivo",sans-serif}
+.lcard.done .lnum,.rail a.done .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.howto div{border-top:2px solid var(--frame)}
+.howto b{font-family:"Archivo",sans-serif;text-transform:uppercase;font-variation-settings:"wdth" 112;font-weight:800;font-size:.95rem}
+.rail a{border-radius:0}
+.rail a.on{background:transparent;box-shadow:inset 0 0 0 1.5px var(--frame)}
+.rail a .n{border-radius:0}
+.why{border-radius:0;border:1.5px solid var(--muted);background:transparent;color:var(--muted);text-transform:uppercase;font-size:.9rem;letter-spacing:.03em;font-weight:600}
+.why b{color:var(--fg);font-family:inherit}
+.tip{border-left-color:var(--accent)}.tip b{color:var(--accent)}
+/* buttons & chips */
+.btn{border-radius:0;background:var(--grain-soft) 0 0/200px,var(--accent);background-blend-mode:soft-light,normal;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.08em;font-size:.85rem;text-decoration:none;padding:10px 18px}
+.btn.ghost{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1.5px var(--muted)}
+.btn.ghost:hover{color:var(--fg);box-shadow:inset 0 0 0 1.5px var(--fg)}
+.chip{text-transform:uppercase;font-size:.78rem;letter-spacing:.06em;background:transparent;border-color:rgba(169,155,201,.35)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip:hover{border-color:var(--accent)}
+/* widgets */
+.deg{border-radius:0;background:transparent;border:1.5px solid #2A2430}
+.deg .d,.pill{color:var(--ink)}
+.rung{border-radius:0}.rung.lit{color:var(--ink)}
+.vc,.hc,.pitem,.qopt,.tbtn,.ghud>div,.cp-hud>div,.dpad button,.gboard,.gover,.fb-scroll,.mm,.tsb{border-radius:0}
+.vc.cur,.hc.on,.pitem.on{box-shadow:0 0 0 1.5px var(--accent)}
+.hc .rn{color:var(--accent)}
+.tbtn.on,.tsb.on{color:var(--ink)}.tsb.on small{color:var(--ink)}
+.mmplay.on{color:var(--ink)}
+.itab tr.on td,.itab tr:hover td{background:rgba(240,98,154,.08)}
+.fb rect[rx]{rx:0}
+/* games */
+:root{--money:#9ADBB8}
+.gbestc{color:var(--accent)}
+.gtarget{background:rgba(232,64,46,.14)!important}
+.ghud .gsub .dp.on,.cp-hud .gsub .dp.on{color:var(--ink)}
+.gtn .jb.jstr,.cp-hud .gtn .jb.jstr{font-family:var(--f-mono);font-weight:700;color:#F4E9EF;background:#4A2340;border-radius:4px;padding:.18em .5em;font-size:1rem;line-height:1.1}
+.cityplay .gsc,.cityplay .gbest,.cbest b,.wallet b,.garage summary b,.sitem b{color:var(--money)}
+.gtarget,.cp-hud .gtarget{background:#2A1519!important}
+.garage,.sitem,.skin,.cp-gps{border-radius:0}
+.garage{border-color:var(--frame);background:rgba(18,15,21,.55)}
+.sitem{background:transparent;border-color:rgba(169,155,201,.25)}
+.citywrap{background:#0E0B10}
+.cityplay{background:var(--grain) 0 0/240px,var(--bg);background-blend-mode:soft-light,normal}
+.cp-x{border-radius:0}
+.cp-gps{margin-right:14px}
+.nav a.fcl{display:inline-flex;align-items:center;padding-top:3px;padding-bottom:3px}.nav a.fcl svg{display:block;height:26px;width:auto}
+.fclogo{line-height:0}.fclogo svg{max-width:100%;height:auto;width:min(360px,80vw)}
+@media (max-width:700px){.hero p.lead{font-size:.86rem}.brand{font-size:1.6rem}.top-in{padding-block:10px 6px}.wrap{padding-top:8px}}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
+
 </head>
 <body>
-
 
 <header class="top"><div class="top-in">
   <a class="brand" href="#cesta" aria-label="neofy"><span>ne</span><span class="o" aria-hidden="true"></span><span>fy</span></a>
@@ -405,8 +533,8 @@ html.playing,html.playing body{overflow:hidden}
     <a href="#akordy" data-v="akordy" data-cs="Akordy" data-en="Chords">Akordy</a>
     <a href="#postupy" data-v="postupy" data-cs="Postupy" data-en="Progressions">Postupy</a>
     <a href="#trenink" data-v="trenink" data-cs="Trénink" data-en="Practice">Trénink</a>
+    <a href="#hra-fret-city" data-v="city" class="fcl" aria-label="Fret City"><svg class="fcnav" viewBox="0 0 140 26" height="26" aria-hidden="true"><defs><linearGradient id="fcNavG" x1="0" y1="0" x2="1" y2="1"><stop offset=".08" stop-color="#E8402E"/><stop offset=".55" stop-color="#F2649D"/><stop offset=".95" stop-color="#A99BC9"/></linearGradient><filter id="fcNavN" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" result="t"/><feColorMatrix in="t" type="saturate" values="0" result="m"/><feComposite in="SourceGraphic" in2="m" operator="arithmetic" k1="1.4" k2=".5" k3="-.18" k4="0"/></filter></defs><circle cx="13" cy="13" r="10" fill="url(#fcNavG)" filter="url(#fcNavN)"/><rect x="1" y="11" width="4" height="9" fill="#141018"/><rect x="2.5" y="14" width="1.2" height="1.2" fill="#F2C14E"/><rect x="6" y="6" width="4" height="14" fill="#141018"/><rect x="7.5" y="9" width="1.2" height="1.2" fill="#F2C14E"/><rect x="11" y="13" width="4" height="7" fill="#141018"/><rect x="16" y="4" width="4" height="16" fill="#141018"/><rect x="17.5" y="7" width="1.2" height="1.2" fill="#F2C14E"/><rect x="21" y="9" width="4" height="11" fill="#141018"/><rect x="22.5" y="12" width="1.2" height="1.2" fill="#F2C14E"/><text x="32" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="15" style="font-variation-settings:'wdth' 125" textLength="52.3" fill="#F0629A">FRET</text><text x="91.3" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="15" style="font-variation-settings:'wdth' 125" textLength="47.4" fill="url(#fcNavG)">CITY</text><line x1="0" x2="0" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="1.2"/><line x1="24" x2="24" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="46" x2="46" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="66" x2="66" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="84" x2="84" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="100" x2="100" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="114" x2="114" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="126" x2="126" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="138.7" x2="138.7" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="0" x2="138.7" y1="21.30" y2="21.30" stroke="#A99BC9" stroke-width="0.35"/><line x1="0" x2="138.7" y1="22.15" y2="22.15" stroke="#A99BC9" stroke-width="0.41"/><line x1="0" x2="138.7" y1="23.00" y2="23.00" stroke="#A99BC9" stroke-width="0.47"/><line x1="0" x2="138.7" y1="23.85" y2="23.85" stroke="#A99BC9" stroke-width="0.53"/><line x1="0" x2="138.7" y1="24.70" y2="24.70" stroke="#A99BC9" stroke-width="0.59"/><line x1="0" x2="138.7" y1="25.55" y2="25.55" stroke="#A99BC9" stroke-width="0.65"/></svg></a>
     <a href="#hry" data-v="hry" data-cs="Hry" data-en="Games">Hry</a>
-    <a href="#nastroje" data-v="nastroje" data-cs="Nástroje" data-en="Tools">Nástroje</a>
   </nav>
   <div class="tools" id="tools">
     <button class="tg mmviz" id="mmPlay" type="button" aria-pressed="false"><span class="viz" aria-hidden="true"><span class="dots"></span><span class="bx"><span class="ball"></span></span></span></button>
@@ -595,7 +723,7 @@ function Fretboard(host,{frets=15,onClick}={}){
   return{set(marks){g.innerHTML=marks.map(m=>{const x=cx(m.f),y=sy(m.s);const col=m.color||famColor(m.fam||'o');const r=m.small?9:13;
       const ring=m.ring?`<circle cx="${x}" cy="${y}" r="${r+4}" fill="none" stroke="var(--fg)" stroke-width="2" stroke-dasharray="3 3"/>`:'';
       const op=m.dim?' opacity=".28"':'';
-      return `<g${op}>${ring}<circle cx="${x}" cy="${y}" r="${r}" fill="${m.hollow?'var(--surface)':col}" stroke="${col}" stroke-width="${m.hollow?2.5:0}"/>${m.label!=null?`<text x="${x}" y="${y+4.2}" text-anchor="middle" font-size="${String(m.label).length>2?9.5:11.5}" fill="${m.hollow?col:'#fff'}">${m.label}</text>`:''}</g>`;}).join('');},cx,sy};
+      return `<g${op}>${ring}<circle cx="${x}" cy="${y}" r="${r}" fill="${m.hollow?'var(--surface)':col}" stroke="${col}" stroke-width="${m.hollow?2.5:0}"/>${m.label!=null?`<text x="${x}" y="${y+4.2}" text-anchor="middle" font-size="${String(m.label).length>2?9.5:11.5}" fill="${m.hollow?col:'var(--ink)'}">${m.label}</text>`:''}</g>`;}).join('');},cx,sy};
 }
 // pitch-class marks across the board
 function pcMarks(rootPc,degs,{labelMode='deg',root='C',from=0,to=15,extraVs=null,frets=15}={}){
@@ -615,7 +743,7 @@ function diagram(real,{title='',sub='',cur=false}={}){
   real.notes.forEach((n,i)=>{const x=x0+i*dx;if(!n){s+=`<text x="${x}" y="${y0-8}" text-anchor="middle" font-size="10" fill="var(--muted)">×</text>`;return;}
     const fam=n.deg?degFamily(n.deg):'o';const col=famColor(fam);const lab=n.deg?prettyDeg(n.deg):'?';
     if(n.f===0){s+=`<circle cx="${x}" cy="${y0-10}" r="6.5" fill="var(--surface)" stroke="${col}" stroke-width="2"/><text x="${x}" y="${y0-7}" text-anchor="middle" font-size="7.5" fill="${col}">${lab}</text>`;return;}
-    const y=y0+(n.f-base+.5)*dy;s+=`<circle cx="${x}" cy="${y}" r="8" fill="${col}"/><text x="${x}" y="${y+3}" text-anchor="middle" font-size="${lab.length>2?6.5:8}" fill="#fff">${lab}</text>`;});
+    const y=y0+(n.f-base+.5)*dy;s+=`<circle cx="${x}" cy="${y}" r="8" fill="${col}"/><text x="${x}" y="${y+3}" text-anchor="middle" font-size="${lab.length>2?6.5:8}" fill="var(--ink)">${lab}</text>`;});
   s+=`</svg>`;
   return `<button class="vc ${cur?'cur':''}" type="button">${title?`<b>${title}</b>`:''}${s}${sub?`<small>${sub}</small>`:''}</button>`;}
 function bestVoicing(root,q,target=5){const vs=VOICINGS[q]||[];let best=null,bd=99;vs.forEach(v=>{const r=realize(v,root,q);const d=Math.abs(r.rf-target)+(v.rs===2?1.5:0);if(d<bd){bd=d;best=r;}});return best;}
@@ -1006,7 +1134,61 @@ function applyLang(){LESSONS=LANG==='en'?LESSONS_CS.map((l,i)=>({...l,...LESSONS
 const app=$('#app');let activeWidgets=[];
 function stopAll(){activeWidgets.forEach(w=>w._stop&&w._stop());activeWidgets=[];}
 function mount(host,spec){const [name,opts]=Array.isArray(spec)?spec:[spec,{}];const d=document.createElement('div');d.className='panel';host.appendChild(d);W[name](d,opts);activeWidgets.push(d);}
-function legend(){return `<div class="legend"><span><i class="dot" style="background:var(--c-root)"></i>${t('kořen','root')} (1)</span><span><i class="dot" style="background:var(--c-3)"></i>${t('tercie','3rd')} (3, ♭3)</span><span><i class="dot" style="background:var(--c-5)"></i>${t('kvinta','5th')} (5)</span><span><i class="dot" style="background:var(--c-7)"></i>${t('septima','7th')} (7, ♭7)</span><span><i class="dot" style="background:var(--c-t)"></i>${t('barvy','colours')} (2/9, 4/11, 6/13)</span></div>`;}
+function legend(){const F='<i class="flat">♭</i>';return `<div class="legend"><span><i class="dot" style="background:var(--c-root)"></i>${t('kořen','root')} <b>1</b></span><span><i class="dot" style="background:var(--c-3)"></i>${t('tercie','3rd')} <b>3 · ${F}3</b></span><span><i class="dot" style="background:var(--c-5)"></i>${t('kvinta','5th')} <b>5</b></span><span><i class="dot" style="background:var(--c-7)"></i>${t('septima','7th')} <b>7 · ${F}7</b></span><span><i class="dot" style="background:var(--c-t)"></i>${t('barvy','colours')} <b>2/9 · 4/11 · 6/13</b></span></div>`;}
+
+/* ---------- HERO ART: grainy glows + hand-drawn grooves (scales with block size) ---------- */
+function drawHeroArt(){const art=document.querySelector('.hero-art');if(!art)return;
+  const bx=art.getBoundingClientRect(),AW=Math.max(300,bx.width),AH=Math.max(200,bx.height),Wb=1000*AW/AH,Hb=1000,px=1000/AH,K=Math.min(2.2,Math.max(1,AW/520));
+  let sd=11;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;const f=v=>v.toFixed(1);
+  let svg=`<svg viewBox="0 0 ${f(Wb)} ${Hb}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs>
+  <filter id="hInk" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="${(0.0022/px).toFixed(4)}" numOctaves="1" seed="3" result="w"/><feDisplacementMap in="SourceGraphic" in2="w" scale="${f(28*px)}" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency="${(1.1/px/Math.sqrt(K)).toFixed(3)}" numOctaves="1" seed="5" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.8 1.55" result="gA"/><feComposite in="d" in2="gA" operator="in"/></filter>
+  <filter id="hWob" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="${(0.006/px/K).toFixed(4)}" numOctaves="2" seed="2" result="w"/><feDisplacementMap in="SourceGraphic" in2="w" scale="${f(12*px*K)}" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency="${(0.7/px).toFixed(3)}" numOctaves="1" seed="9" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2 1.5" result="gA"/><feComposite in="d" in2="gA" operator="in"/></filter>
+  <radialGradient id="hP"><stop offset="0" stop-color="#F0629A" stop-opacity=".85"/><stop offset=".5" stop-color="#C2407E" stop-opacity=".4"/><stop offset="1" stop-color="#F0629A" stop-opacity="0"/></radialGradient>
+  <radialGradient id="hP2"><stop offset="0" stop-color="#FF7FB0" stop-opacity=".5"/><stop offset="1" stop-color="#FF7FB0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="hL"><stop offset="0" stop-color="#A99BC9" stop-opacity=".6"/><stop offset="1" stop-color="#A99BC9" stop-opacity="0"/></radialGradient>
+  <radialGradient id="hR"><stop offset="0" stop-color="#E8402E" stop-opacity=".9"/><stop offset=".6" stop-color="#E8402E" stop-opacity=".35"/><stop offset="1" stop-color="#E8402E" stop-opacity="0"/></radialGradient></defs>
+  <g filter="url(#hInk)"><ellipse cx="${f(Wb*.74)}" cy="${f(Hb*.12)}" rx="${f(Wb*.62)}" ry="${f(Hb*.95)}" fill="url(#hP)"/><ellipse cx="${f(Wb*.38)}" cy="${f(Hb*1.05)}" rx="${f(Wb*.45)}" ry="${f(Hb*.55)}" fill="url(#hL)"/><ellipse cx="${f(Wb)}" cy="${Hb}" rx="${f(Wb*.28)}" ry="${f(Hb*.5)}" fill="url(#hR)"/></g>
+  <g filter="url(#hInk)" transform="translate(${f(-9*px)} ${f(6*px)})"><ellipse cx="${f(Wb*.8)}" cy="${f(Hb*.22)}" rx="${f(Wb*.3)}" ry="${f(Hb*.45)}" fill="url(#hP2)" style="mix-blend-mode:screen"/></g>`;
+  const gx=Wb*.82,gy=Hb*.62,maxR=Math.max(Wb,Hb)*1.1;let g='';const ph=[rnd()*6.28,rnd()*6.28,rnd()*6.28];
+  for(let r=18*px*K;r<maxR;){const N=90;let d='';const amp=(1+rnd()*2)*px*K*(1+r/(900*K));
+    for(let k=0;k<=N;k++){const a=k/N*Math.PI*2;const rr=r+amp*Math.sin(3*a+ph[0]+r*.004)+amp*.6*Math.sin(5*a+ph[1]-r*.006)+amp*.4*Math.sin(9*a+ph[2]+r*.01);d+=(k?'L':'M')+f(gx+rr*Math.cos(a))+' '+f(gy+rr*Math.sin(a)*.92);}
+    const w=(0.8+rnd()*0.8)*px*Math.sqrt(K),op=(.08+rnd()*.1).toFixed(3);const dash=rnd()<.2?` stroke-dasharray="${f((60+rnd()*400)*px)} ${f((4+rnd()*30)*px)}"`:'';
+    g+=`<path d="${d}Z" fill="none" stroke="${rnd()<.12?'#F0629A':'#B9ABD9'}" stroke-opacity="${op}" stroke-width="${f(w)}"${dash} stroke-linecap="round"/>`;r+=(6+rnd()*3)*px*K;}
+  art.innerHTML=svg+`<g filter="url(#hWob)">${g}</g></svg>`;art._w=Math.round(AW);art._h=Math.round(AH);}
+{let tm=0;addEventListener('resize',()=>{clearTimeout(tm);tm=setTimeout(()=>{const a=document.querySelector('.hero-art');if(a){const r=a.getBoundingClientRect();if(Math.round(r.width)!==a._w||Math.round(r.height)!==a._h)drawHeroArt();}},120);});}
+{const top=document.querySelector('.top');const upd=()=>top.classList.toggle('stuck',scrollY>8);addEventListener('scroll',upd,{passive:true});upd();}
+
+// returns SVG markup for the Fret City logo, variant a|b|c
+function cityLogo(v='a',h=72){
+ const grad=`<linearGradient id="fcG${v}" x1="0" y1="0" x2="1" y2="1"><stop offset=".08" stop-color="#E8402E"/><stop offset=".55" stop-color="#F2649D"/><stop offset=".95" stop-color="#A99BC9"/></linearGradient>`;
+ const grain=`<filter id="fcN${v}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.3" numOctaves="2" result="t"/><feColorMatrix in="t" type="saturate" values="0" result="m"/><feComposite in="SourceGraphic" in2="m" operator="arithmetic" k1="1.4" k2=".5" k3="-.18" k4="0"/></filter>`;
+ const T=(x,y,size,fill,txt,extra='')=>`<text x="${x}" y="${y}" font-family="Archivo, sans-serif" font-weight="900" font-size="${size}" style="font-variation-settings:'wdth' 125" fill="${fill}" ${extra}>${txt}</text>`;
+ if(v==='a'){ // skyline over strings + wordmark
+  let s=`<svg viewBox="0 0 360 120" height="${h}" role="img" aria-label="Fret City" xmlns="http://www.w3.org/2000/svg"><defs>${grad}${grain}</defs>`;
+  s+=`<circle cx="62" cy="54" r="40" fill="url(#fcGa)" filter="url(#fcNa)"/>`;
+  const B=[[8,40],[22,58],[36,30],[50,66],[66,44],[80,74],[96,36],[110,52]];
+  B.forEach(([x,hh])=>{s+=`<rect x="${x}" y="${92-hh}" width="12" height="${hh}" fill="#1B1420"/>`;for(let y=92-hh+6;y<88;y+=8)for(let k=0;k<2;k++)if((x+y+k*3)%5)s+=`<rect x="${x+2+k*5}" y="${y}" width="3" height="3" fill="${(x*y+k)%7?'#F2C14E':'#F0629A'}" opacity=".9"/>`;});
+  for(let i=0;i<6;i++)s+=`<line x1="0" x2="128" y1="${94+i*4}" y2="${94+i*4}" stroke="#A99BC9" stroke-width="${.6+i*.18}" opacity=".7"/>`;
+  [0,30,58,84,108,128].forEach(x=>s+=`<line x1="${x}" x2="${x}" y1="92" y2="116" stroke="#4A3D5C" stroke-width="1.5"/>`);
+  s+=`<rect x="70" y="101.5" width="10" height="5" rx="1.5" fill="#F0629A"/>`;
+  s+=T(140,62,44,'#F0629A','FRET')+T(140,108,44,`url(#fcGa)`,'CITY');
+  return s+'</svg>';}
+ if(v==='b'){ // street sign
+  let s=`<svg viewBox="0 0 360 120" height="${h}" role="img" aria-label="Fret City" xmlns="http://www.w3.org/2000/svg"><defs>${grad}${grain}</defs>`;
+  s+=`<rect x="20" y="96" width="6" height="24" fill="#4A3D5C"/><rect x="334" y="96" width="6" height="24" fill="#4A3D5C"/>`;
+  s+=`<rect x="4" y="10" width="352" height="88" rx="10" fill="#4A2340"/><rect x="10" y="16" width="340" height="76" rx="6" fill="none" stroke="#F4E9EF" stroke-width="2" opacity=".85"/>`;
+  s+=`<text x="180" y="64" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="40" fill="#F4E9EF" letter-spacing="2">FRET CITY</text>`;
+  s+=`<text x="180" y="84" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#A99BC9" letter-spacing="3">0 · 1ST · 2ND · 3RD AVE.</text>`;
+  s+=`<circle cx="346" cy="14" r="13" fill="url(#fcGb)" filter="url(#fcNb)"/><text x="346" y="19" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13" fill="#141018">½</text>`;
+  return s+'</svg>';}
+ // c: framed badge, stacked wordmark, grainy sun behind a fretboard skyline
+ let s=`<svg viewBox="0 0 220 220" height="${h}" role="img" aria-label="Fret City" xmlns="http://www.w3.org/2000/svg"><defs>${grad}${grain}<clipPath id="fcCc"><rect x="14" y="14" width="192" height="112"/></clipPath></defs>`;
+ s+=`<rect x="5" y="5" width="210" height="210" fill="#110E13" stroke="#F0629A" stroke-width="3"/>`;
+ s+=`<g clip-path="url(#fcCc)"><circle cx="110" cy="112" r="64" fill="url(#fcGc)" filter="url(#fcNc)"/>`;
+ const H=[34,58,26,72,44,88,38,64,30,50,22];H.forEach((hh,i)=>{const x=14+i*17.5;s+=`<rect x="${x}" y="${126-hh}" width="15" height="${hh}" fill="#141018"/>`;for(let y=126-hh+6;y<122;y+=9)if((i+y)%3)s+=`<rect x="${x+5}" y="${y}" width="4" height="4" fill="#F2C14E"/>`;});
+ s+=`</g>`;for(let i=0;i<6;i++)s+=`<line x1="14" x2="206" y1="${128+i*3.2}" y2="${128+i*3.2}" stroke="#A99BC9" stroke-width="${.6+i*.15}" opacity=".7"/>`;
+ s+=T(110,178,34,'#F0629A','FRET','text-anchor="middle"')+T(110,206,34,'url(#fcGc)','CITY','text-anchor="middle"');
+ return s+'</svg>';}
 
 function viewHome(){
   const n=DONE.size;
@@ -1022,13 +1204,16 @@ function viewHome(){
     <li><b>James Shipway – Music Theory for Guitarists, Volume 2</b>: koncepty na hmatníku, akordy, stupnice, improvizace (lekce 3, 5, 8).</li>
     <li><b>Simon Pratt &amp; Kristof Neyens – The Neo-Soul Guitar Book, s Markem Lettierim</b> (Fundamental Changes): voicingy, ozdoby, dvojhmaty, techniky a skladby (lekce 7–9).</li>
     <li><b>Pickup Music</b>: video kurzy a cesty pro neo-soul a jazz – skvělé jako navazující praxe.</li></ul>`;
-  app.innerHTML=`<section class="hero"><span class="eyebrow">${t('Teorie pro elektrickou kytaru · jazz &amp; neo-soul','Theory for electric guitar · jazz &amp; neo-soul')}</span>
-   <h1>${t('Z pentatoniky do neo-soulu.','From pentatonic to neo-soul.')}</h1>
+  const nxt=[...LESSONS.keys()].find(i=>!DONE.has(i));
+  app.innerHTML=`<section class="hero"><div class="hero-art" aria-hidden="true"></div><span class="eyebrow">${t('Teorie pro elektrickou kytaru · jazz &amp; neo-soul','Theory for electric guitar · jazz &amp; neo-soul')}</span>
+   <h1>${t('Pentatonika','Pentatonic')} <svg class="arr" viewBox="0 0 120 100" aria-hidden="true"><path d="M3 34 H66 V8 L116 50 L66 92 V66 H3 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"/></svg> <em>Neo-soul</em></h1>
    <p class="lead">${t('Devět lekcí v pořadí, ve kterém na sebe navazují. Každá má krátký výklad, interaktivní hmatník se zvukem a úkoly na kytaru. Začni lekcí 1, i když ti bude připadat jednoduchá – na ní stojí všechno ostatní.','Nine lessons in the order they build on each other. Each has a short explanation, an interactive fretboard with sound and tasks for your guitar. Start with lesson 1 even if it looks easy – everything else stands on it.')}</p>
-   <div class="progress"><div class="bar"><i style="width:${n/LESSONS.length*100}%"></i></div>${t(`${n} z ${LESSONS.length} lekcí hotovo`,`${n} of ${LESSONS.length} lessons done`)}</div>${legend()}</section>
+   <div class="progress"><div class="bar"><i style="width:${n/LESSONS.length*100}%"></i></div>${t(`${n} z ${LESSONS.length} lekcí hotovo`,`${n} of ${LESSONS.length} lessons done`)}</div>
+   <div class="cta">${nxt===undefined?`<a class="btn" href="#trenink">▶ ${t('Do tréninku','To practice')}</a>`:`<a class="btn" href="#lekce-${nxt+1}">▶ ${n?t('Pokračovat lekcí','Continue with lesson'):t('Začít lekcí','Start with lesson')} ${nxt+1}</a>`}<a class="btn ghost" href="#hmatnik">${t('Celý hmatník','Whole fretboard')}</a></div></section>${legend()}
    <div class="path">${LEVELS.map((L,li)=>`<div class="level"><h3>${t('Úroveň','Level')} ${li+1} · ${L}</h3><div class="cards">${LESSONS.map((l,i)=>l.lv!==li?'':`<a class="lcard ${DONE.has(i)?'done':''}" href="#lekce-${i+1}"><span class="lnum">${DONE.has(i)?'✓':i+1}</span><b>${l.t}</b><small>${l.s}</small></a>`).join('')}</div></div>`).join('')}
    <div class="level"><h3>${t('Jak s tím pracovat','How to use it')}</h3><div class="howto">${how.map(([a,b])=>`<div><b>${a}</b><p>${b}</p></div>`).join('')}</div></div>
-   <div class="level"><h3>${t('Zdroje','Sources')}</h3><div class="prose src" style="max-width:80ch">${src}</div></div></div>`;}
+   <div class="level"><h3>${t('Zdroje','Sources')}</h3><div class="prose src" style="max-width:80ch">${src}</div></div></div>`;
+  drawHeroArt();}
 
 function viewLesson(i){
   const L=LESSONS[i];
@@ -1254,33 +1439,56 @@ G.hunt=(el)=>{
   el._stop=()=>cancelAnimationFrame(raf);bindOpts(el,'hunt',o,setup);setup();};
 
 /* 0 · Fret City */
-G.city=(el)=>{
+G.city=(el)=>{el._stopping=false;
   const o=gOpts('city');let st=null,raf=null,last=0,order=[],ro=null;
   const SN=['E','A','D','G','B','e'];
   const DIR={u:{dx:0,ds:1},d:{dx:0,ds:-1},l:{dx:-1,ds:0},r:{dx:1,ds:0}};
-  if(!o.mode)o.mode='mix';if(!Array.isArray(o.str)||!o.str.length)o.str=[0,1,2,3,4,5];
+  if(!Array.isArray(o.str)||!o.str.length)o.str=[0,1,2,3,4,5];
+  if(o.career===undefined)o.career=true;
+  if(!Array.isArray(o.missions))o.missions=[o.mode&&o.mode!=='mix'?o.mode:'notes'];
+  const MIS=[['notes',t('Kurýr – tóny','Courier – notes'),0],['intervals',t('Taxík – intervaly','Taxi – intervals'),150],['race',t('Závod','Race'),250],['chords',t('Sanitka – akordy','Ambulance – chords'),300],['scales',t('Hasiči – stupnice','Fire – scales'),450],['doubles',t('Policie – dvojhmaty','Police – double stops'),600],['prog',t('Autobus – postupy','Bus – progressions'),800]];
+  const UPS=[['speed',t('Rychlejší auto','Faster car'),[120,250,400]],['time',t('Delší směna (+15 s)','Longer shift (+15 s)'),[150,300,500]],['gps',t('Levnější GPS','Cheaper GPS'),[100,250]],['shield',t('Pojistka – 1. chyba ve směně zdarma','Insurance – 1st mistake per shift free'),[300]]];
+  const SKINS=[['orange','#F0629A',0],['purple','#9F8CFF',80],['green','#9ADBB8',80],['yellow','#F2C14E',120],['white','#F4E9EF',150],['pink','#E8402E',150]];
+  const CR=Object.assign({wallet:0,lic:['notes'],up:{},skin:'orange',skins:['orange']},load('gt-city-career',{}));CR.up=Object.assign({speed:0,time:0,gps:0,shield:0},CR.up);
+  const saveCR=()=>save('gt-city-career',CR);
+  const owned=k=>!o.career||CR.lic.includes(k);
+  const upg=k=>o.career?CR.up[k]:0;
+  const activeM=()=>{const a=o.missions.filter(owned);return a.length?a:['notes'];};
+  const carCol=()=>(SKINS.find(x=>x[0]===CR.skin)||SKINS[0])[1];
   const strOn=s=>o.str.includes(s);
-  el.innerHTML=`<div class="csetup">`+optsHTML(o)+`<div class="ctrls gopts"><div class="grp gm"><label>${t('Mise','Mission')}</label>${chips([['notes',t('1 · Kurýr – tóny','1 · Courier – notes')],['intervals',t('2 · Taxík – intervaly','2 · Taxi – intervals')],['chords',t('3 · Sanitka – akordy','3 · Ambulance – chords')],['scales',t('4 · Hasiči – stupnice','4 · Fire – scales')],['doubles',t('5 · Policie – dvojhmaty','5 · Police – double stops')],['prog',t('6 · Autobus – postupy','6 · Bus – progressions')],['race',t('7 · Závod','7 · Race')],['mix',t('Vše dohromady','Everything')]],o.mode)}</div>
-   <div class="grp gs"><label>${t('Struny','Strings')}</label>${[0,1,2,3,4,5].map(s=>`<button class="chip ${o.str.includes(s)?'on':''}" data-s="${s}" type="button">${SN[s]}</button>`).join('')}</div></div>
+  el.innerHTML=`<div class="csetup"><div class="cform">
+   <div class="crow"><span class="clab">${t('Režim','Mode')}</span><div class="cval"><div class="grp gcm">${chips([['1',t('Kariéra','Career')],['0',t('Volná hra','Free play')]],o.career?'1':'0')}</div>${o.career?`<span class="wallet">${t('Peněženka','Wallet')}: <b>$${CR.wallet}</b></span>`:''}</div></div>
+   <div class="crow"><span class="clab">${t('Mise','Missions')}</span><div class="cval cvcol"><div class="grp gm">${MIS.map(([k,n,p],i)=>owned(k)?`<button class="chip ${o.missions.includes(k)?'on':''}" data-m="${k}" type="button">${i+1} · ${n}</button>`:`<button class="chip locked" data-m="${k}" type="button" title="${t('Odemkni v garáži','Unlock in the garage')}"><svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><rect x="2" y="5.5" width="8" height="5.5" rx="1" fill="currentColor"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>${i+1} · ${n} · $${p}</button>`).join('')}<button class="chip gall" type="button">${t('Vše','All')}</button></div>${o.career?`<p class="src mhint">${t('V kariéře máš na začátku jen Kurýra – další mise si odemkneš v garáži za vydělané peníze. Kombinovat můžeš všechny odemčené mise. Ve <b>Volné hře</b> je odemčené všechno hned.','In career you start with Courier only – unlock more missions in the garage with the cash you earn. You can combine any unlocked missions. In <b>Free play</b> everything is unlocked.')}</p>`:''}</div></div>
+   <div class="crow"><span class="clab">${t('Struny','Strings')}</span><div class="cval"><div class="grp gs">${[0,1,2,3,4,5].map(s=>`<button class="chip ${o.str.includes(s)?'on':''}" data-s="${s}" type="button">${SN[s]}</button>`).join('')}</div></div></div>
+   <div class="crow"><span class="clab">${t('Obtížnost','Level')}</span><div class="cval"><div class="grp gl">${chips([['easy','Rookie'],['mid',t('Profík','Pro')],['hard',t('Legenda','Legend')]],o.lvl)}</div></div></div>
+   <div class="crow"><span class="clab">${t('Pražce','Frets')}</span><div class="cval"><div class="grp gf">${chips([['7','0–7'],['12','0–12']],String(o.frets))}</div></div></div>
+   <div class="crow"><span class="clab">${t('Tóny','Notes')}</span><div class="cval"><div class="grp gn">${chips([['1',t('Přirozené','Natural')],['0',t('Všech 12','All 12')]],o.nat?'1':'0')}</div><span class="chint">${t('přirozené = bez křížků a béček','natural = no sharps or flats')}</span></div></div>
+  </div>
+   ${o.career?`<details class="garage"><summary>${t('Garáž','Garage')} · <b>$${CR.wallet}</b></summary>
+     <div class="gshop"><div><h4>${t('Licence na mise','Mission licences')}</h4>${MIS.slice(1).map(([k,n,p])=>CR.lic.includes(k)?`<span class="sitem own">✓ ${n}</span>`:`<button class="sitem" data-buy="lic:${k}:${p}" type="button" ${CR.wallet<p?'disabled':''}>${n}<b>$${p}</b></button>`).join('')}</div>
+      <div><h4>${t('Vylepšení','Upgrades')}</h4>${UPS.map(([k,n,ps])=>{const l=CR.up[k];return l>=ps.length?`<span class="sitem own">✓ ${n} (${l}/${ps.length})</span>`:`<button class="sitem" data-buy="up:${k}:${ps[l]}" type="button" ${CR.wallet<ps[l]?'disabled':''}>${n} (${l}/${ps.length})<b>$${ps[l]}</b></button>`;}).join('')}</div>
+      <div><h4>${t('Auto','Car')}</h4><div class="skins">${SKINS.map(([k,c,p])=>CR.skins.includes(k)?`<button class="skin ${CR.skin===k?'on':''}" data-skin="${k}" type="button" style="--c:${c}" aria-label="${k}"></button>`:`<button class="skin lock" data-buy="skin:${k}:${p}" type="button" style="--c:${c}" ${CR.wallet<p?'disabled':''}>$${p}</button>`).join('')}</div></div></div>
+     <p class="src">${t('Peníze ze směn se v kariéře sčítají. Licence odemykají další mise – kupuj je v pořadí, ve kterém na sebe navazuje teorie.','Career cash carries over between shifts. Licences unlock missions – buy them in the order the theory builds up.')}</p></details>`:''}
    <p class="cintro">${t('Město je hmatník: šest hlavních ulic jsou struny (E, A, D, G, B, e) a osvětlené příčné ulice jsou pražce. Tóny jsou parkovací místa mezi pražci – jako na kytaře. Ulice B má žluté čáry posunuté o půl pražce a značku ½: struna B je naladěná o půltón jinak, takže se na ní tvary posouvají. Červené sedlové střechy jsou značky z hmatníku: na 3., 5., 7., 9. a 12. pražci mezi ulicemi D a G (na 12. dvě). Rozvážej balíky a vozí zákazníky – každá zakázka přidá čas do směny.','The city is a fretboard: six main streets are the strings (E, A, D, G, B, e) and the lit cross streets are frets. Notes are parking spots between frets – like on a guitar. B street’s yellow lane marks are shifted half a fret and carry a ½ sign: the B string is tuned a half step differently, so shapes shift there. Red gabled rooftops are the fretboard inlays: at frets 3, 5, 7, 9 and 12 between D and G streets (two at the 12th). Deliver parcels and drive passengers – every job adds time to your shift.')}</p>
    <div class="cstart"><button class="btn cgo" type="button">▶ ${t('Spustit hru','Start game')}</button><span class="cbest">${t('Rekord','Best')}: <b class="cbestv">$0</b></span></div>
-   <p class="src">${t('Ovládání: šipky nebo WASD (drž pro jízdu), mezerník = zastavit a doručit / vyzvednout. Každé ťuknutí na šipku posune auto o kousek: z parkovacího místa (tónu) na křižovatku a dál. Na jinou strunu odbočíš jen na křižovatce. Podržením šipky jedeš plynule.','Controls: arrows or WASD (hold to drive), Space = deliver / pick up. Each arrow tap moves the car one step: from a parking spot (note) to a crossing and on. You can only turn onto another string at a crossing. Hold an arrow to drive smoothly.')}</p></div>
+   <p class="src">${t('Ovládání: šipky nebo WASD (drž pro jízdu), mezerník = zastavit a doručit / vyzvednout. Nejjednodušší (hlavně na telefonu): ťukni na místo na mapě a auto tam samo dojede, ťukni na něj znovu = doručit. Šipkami jedeš po kouskách, na jinou strunu odbočíš jen na křižovatce.','Controls: arrows or WASD (hold to drive), Space = deliver / pick up. Easiest (especially on phones): tap a spot on the map and the car drives there; tap it again to deliver. Arrows move step by step – you can only turn at crossings.')}</p></div>
    <div class="cityplay" hidden>
     <div class="cp-hud"><div class="gtarget"><small class="jobk">${t('Mise','Job')}</small><b class="gtn">–</b></div>
      <div class="gstat"><small>${t('Peníze','Cash')}</small><b class="gsc">$0</b></div>
      <div class="gstat"><small>${t('Směna','Shift')}</small><b class="gclock">90</b></div>
      <div class="gstat cp-best"><small>${t('Rekord','Best')}</small><b class="gbest">$0</b></div><p class="gmsg"></p>
+     <button class="gps cp-gps" type="button" aria-label="GPS"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14s-4.5-4.2-4.5-7.5a4.5 4.5 0 0 1 9 0C12.5 9.8 8 14 8 14z"/><circle cx="8" cy="6.5" r="1.6"/></svg><span class="gpsc">$10</span></button>
      <button class="cp-x" type="button" aria-label="${t('Zpět do menu','Back to menu')}">✕</button></div>
     <div class="cp-main"><div class="cp-side"><div class="dpad"><button data-d="u" type="button" aria-label="${t('Nahoru','Up')}">▲</button><button data-d="l" type="button" aria-label="${t('Doleva','Left')}">◀</button><button data-d="r" type="button" aria-label="${t('Doprava','Right')}">▶</button><button data-d="d" type="button" aria-label="${t('Dolů','Down')}">▼</button></div></div>
      <div class="gstage"><div class="gboard citywrap"><canvas class="citycv"></canvas></div></div>
-     <div class="cp-side"><button class="btn act" type="button"></button><button class="chip gps" type="button">GPS (−$10)</button></div></div>
+     <div class="cp-side"><button class="btn act" type="button"></button></div></div>
     <div class="cp-rotate"><div><svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true"><rect x="14" y="6" width="20" height="34" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M38 30 a12 12 0 0 1 -12 12" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M27 38 l-2 4 4 1" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
      <b>${t('Otoč telefon na šířku','Turn your phone sideways')}</b><p>${t('Fret City se hraje naležato – hmatník je pak dost velký.','Fret City is played in landscape – the fretboard gets big enough.')}</p><button class="chip cp-force" type="button">${t('Hrát i tak','Play anyway')}</button></div></div>
    </div>`;
   const play=el.querySelector('.cityplay');
   const stage=el.querySelector('.gstage'),wrap=el.querySelector('.citywrap'),cv=el.querySelector('.citycv'),ctx=cv.getContext('2d');
   let M={};let city=null;
-  const C={ground:'#141018',road:'#2A2431',dash:'#5C5168',walk:'#1E1925',b:['#2E2638','#372C44','#41334F','#2B3442','#3A2C3A','#30283F'],win:'#F3C76B',win2:'#9B7BFF',park:'#1C3329',water:'#4EA3F5',sign:'#EEE8F4',car:'#F39237',roof:'#9B7BFF',ok:'#36C48C',bad:'#FF6B52',pass:'#9B7BFF',glow:'rgba(243,146,55,.22)'};
+  const C={ground:'#0E0B10',road:'#221B27',dash:'#5A4A63',walk:'#17121B',b:['#2A2030','#33263A','#3C2C45','#2A2638','#3A2433','#2E2236'],win:'#F2C14E',win2:'#9F8CFF',park:'#1C2A2A',water:'#A99BEA',sign:'#F4E9EF',car:'#F0629A',roof:'#9F8CFF',ok:'#9ADBB8',bad:'#FF5A4A',pass:'#9F8CFF',glow:'rgba(240,98,154,.24)'};
   function resize(){const dpr=window.devicePixelRatio||1;const W=Math.max(300,wrap.clientWidth);const ml=W<500?32:46,mr=14,mt=16,mb=26;const cw=(W-ml-mr-6)/o.frets;const rh=Math.max(28,Math.min(cw*.5,46));const H=mt+mb+rh*5;
     cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cv.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);M={W,H,ml,mt,mb,cw,rh,dpr};buildCity();}
   const X=f=>M.ml+6+(f===0?0:(f-.5)*M.cw),Y=s=>M.mt+(5-s)*M.rh;
@@ -1297,11 +1505,11 @@ G.city=(el)=>{
     const blk=[];
     for(let i=0;i<xs.length-1;i++)for(let j=0;j<ys.length-1;j++){const x0=xs[i]+V/2+3,x1=xs[i+1]-V/2-3;const y0=ys[j]+V/2+4,y1=ys[j+1]-V/2-4;if(x1-x0<4||y1-y0<4)continue;
       c.fillStyle=C.walk;c.fillRect(x0-2,y0-2,x1-x0+4,y1-y0+4);
-      c.fillStyle='#2E2C33';c.fillRect(x0+1.5,y0+1.5,x1-x0-3,y1-y0-3);c.fillStyle='rgba(255,255,255,.05)';c.fillRect(x0+1.5,y0+1.5,x1-x0-3,2);c.strokeStyle='rgba(0,0,0,.35)';c.lineWidth=1;c.strokeRect(x0+2,y0+2,x1-x0-4,y1-y0-4);}
+      c.fillStyle='#1D1822';c.fillRect(x0+1.5,y0+1.5,x1-x0-3,y1-y0-3);c.fillStyle='rgba(255,255,255,.05)';c.fillRect(x0+1.5,y0+1.5,x1-x0-3,2);c.strokeStyle='rgba(0,0,0,.35)';c.lineWidth=1;c.strokeRect(x0+2,y0+2,x1-x0-4,y1-y0-4);}
     // landmark roofs where the guitar has inlays (in the note's space, between D and G; 12th: two)
     const roof=(f,sTop,sBot,kind)=>{if(f>o.frets)return;const x0=WX(f-1)+V/2+4,x1=WX(f)-V/2-4,y0=Y(sTop)+sw(sTop)/2+4,y1=Y(sBot)-sw(sBot)/2-4;if(x1-x0<8||y1-y0<8)return;
       const w=x1-x0,h=y1-y0,cx=(x0+x1)/2,cy=(y0+y1)/2;c.fillStyle=C.walk;c.fillRect(x0-3,y0-3,w+6,h+6);c.save();c.shadowColor='rgba(0,0,0,.6)';c.shadowBlur=8;c.shadowOffsetY=3;
-      if(kind==='gable'){c.fillStyle='#C2643F';c.fillRect(x0,y0,w,h/2);c.fillStyle='#8E4329';c.fillRect(x0,cy,w,h/2);c.restore();c.strokeStyle='rgba(0,0,0,.25)';c.lineWidth=1;for(let xx=x0+4;xx<x1;xx+=5){c.beginPath();c.moveTo(xx,y0);c.lineTo(xx,y1);c.stroke();}c.strokeStyle='#E8A07A';c.lineWidth=2;c.beginPath();c.moveTo(x0,cy);c.lineTo(x1,cy);c.stroke();
+      if(kind==='gable'){c.fillStyle='#B83A5E';c.fillRect(x0,y0,w,h/2);c.fillStyle='#7E2846';c.fillRect(x0,cy,w,h/2);c.restore();c.strokeStyle='rgba(0,0,0,.25)';c.lineWidth=1;for(let xx=x0+4;xx<x1;xx+=5){c.beginPath();c.moveTo(xx,y0);c.lineTo(xx,y1);c.stroke();}c.strokeStyle='#F08FB5';c.lineWidth=2;c.beginPath();c.moveTo(x0,cy);c.lineTo(x1,cy);c.stroke();
         c.fillStyle='#5A5468';c.fillRect(x0+w*.7,y0+h*.12,w*.12,h*.2);}
       else if(kind==='dome'){c.fillStyle='#2B3442';c.fillRect(x0,y0,w,h);c.restore();const r=Math.min(w,h)*.42;const g=c.createRadialGradient(cx-r*.35,cy-r*.35,r*.1,cx,cy,r);g.addColorStop(0,'#BFE3FF');g.addColorStop(.5,'#4EA3F5');g.addColorStop(1,'#1D4E80');c.fillStyle=g;c.beginPath();c.arc(cx,cy,r,0,7);c.fill();c.strokeStyle='rgba(255,255,255,.35)';c.lineWidth=1;for(let a=0;a<4;a++){c.beginPath();c.ellipse(cx,cy,r*Math.abs(Math.cos(a*Math.PI/4)),r,0,0,7);c.stroke();}}
       else if(kind==='heli'){c.fillStyle='#3A4150';c.fillRect(x0,y0,w,h);c.restore();const r=Math.min(w,h)*.36;c.strokeStyle='#F0C93A';c.lineWidth=2;c.beginPath();c.arc(cx,cy,r,0,7);c.stroke();c.fillStyle='#F0C93A';c.font=`800 ${r*1.1}px Poppins, sans-serif`;c.textAlign='center';c.textBaseline='middle';c.fillText('H',cx,cy+1);
@@ -1312,34 +1520,41 @@ G.city=(el)=>{
     [3,5,7,9].forEach(f=>roof(f,3,2,'gable'));roof(12,4,3,'gable');roof(12,2,1,'gable');
     // string streets (B string marked: tuned a half step differently)
     for(let s=0;s<6;s++){const y=Y(s),w=sw(s),x0=WX(0);
-      c.fillStyle='#4E4459';c.fillRect(x0,y-w/2,xEnd-x0,w);
-      c.strokeStyle='rgba(255,224,160,.45)';c.lineWidth=1.2;c.beginPath();c.moveTo(x0,y-w/2+.5);c.lineTo(xEnd,y-w/2+.5);c.moveTo(x0,y+w/2-.5);c.lineTo(xEnd,y+w/2-.5);c.stroke();
-      if(s===4){c.fillStyle='#F3C76B';const dl=M.cw*.42;for(let k=1;k<=o.frets;k++)c.fillRect(WX(k)-dl/2,y-1,dl,2);}
-      else{c.strokeStyle='rgba(255,214,140,.5)';c.setLineDash([4,5]);c.beginPath();c.moveTo(x0,y);c.lineTo(xEnd,y);c.stroke();c.setLineDash([]);}}
+      c.fillStyle='#3E3048';c.fillRect(x0,y-w/2,xEnd-x0,w);
+      c.strokeStyle='rgba(240,160,205,.38)';c.lineWidth=1.2;c.beginPath();c.moveTo(x0,y-w/2+.5);c.lineTo(xEnd,y-w/2+.5);c.moveTo(x0,y+w/2-.5);c.lineTo(xEnd,y+w/2-.5);c.stroke();
+      if(s===4){c.fillStyle='#F2C14E';const dl=M.cw*.42;for(let k=1;k<=o.frets;k++)c.fillRect(WX(k)-dl/2,y-1,dl,2);}
+      else{c.strokeStyle='rgba(240,160,205,.42)';c.setLineDash([4,5]);c.beginPath();c.moveTo(x0,y);c.lineTo(xEnd,y);c.stroke();c.setLineDash([]);}}
     // fret wires = lit cross streets; nut = white bridge
     for(let k=0;k<=o.frets;k++){const x=WX(k),w=V;
-      const gw=w*3.2,g=c.createLinearGradient(x-gw/2,0,x+gw/2,0);g.addColorStop(0,'rgba(255,214,140,0)');g.addColorStop(.5,k===0?'rgba(255,214,140,.12)':'rgba(255,214,140,.2)');g.addColorStop(1,'rgba(255,214,140,0)');c.fillStyle=g;c.fillRect(x-gw/2,yTop,gw,hb-yTop);
-      c.fillStyle=k===0?'#6B5440':'#5C4634';c.fillRect(x-w/2,yTop,w,hb-yTop);c.strokeStyle=k===0?'rgba(255,236,200,.62)':'rgba(255,224,160,.6)';c.lineWidth=1.2;c.beginPath();c.moveTo(x-w/2+.5,yTop);c.lineTo(x-w/2+.5,hb);c.moveTo(x+w/2-.5,yTop);c.lineTo(x+w/2-.5,hb);c.stroke();
-      if(k>0){c.strokeStyle='rgba(255,214,140,.55)';c.setLineDash([4,5]);c.beginPath();c.moveTo(x,yTop);c.lineTo(x,hb);c.stroke();c.setLineDash([]);}}
+      const gw=w*3.2,g=c.createLinearGradient(x-gw/2,0,x+gw/2,0);g.addColorStop(0,'rgba(240,98,154,0)');g.addColorStop(.5,k===0?'rgba(240,98,154,.12)':'rgba(240,98,154,.2)');g.addColorStop(1,'rgba(240,98,154,0)');c.fillStyle=g;c.fillRect(x-gw/2,yTop,gw,hb-yTop);
+      c.fillStyle=k===0?'#5E4466':'#46324F';c.fillRect(x-w/2,yTop,w,hb-yTop);c.strokeStyle=k===0?'rgba(255,220,240,.62)':'rgba(240,160,205,.55)';c.lineWidth=1.2;c.beginPath();c.moveTo(x-w/2+.5,yTop);c.lineTo(x-w/2+.5,hb);c.moveTo(x+w/2-.5,yTop);c.lineTo(x+w/2-.5,hb);c.stroke();
+      if(k>0){c.strokeStyle='rgba(240,160,205,.5)';c.setLineDash([4,5]);c.beginPath();c.moveTo(x,yTop);c.lineTo(x,hb);c.stroke();c.setLineDash([]);}}
     // signs + fret numbers
     c.font=`700 ${Math.max(10,Math.min(13,M.rh*.28))}px "JetBrains Mono", monospace`;c.textAlign='center';c.textBaseline='middle';
-    for(let s=0;s<6;s++){const y=Y(s);c.fillStyle='#3D6B4F';c.beginPath();c.roundRect?c.roundRect(3,y-9,M.ml-8,18,4):c.rect(3,y-9,M.ml-8,18);c.fill();c.fillStyle=C.sign;c.fillText(SN[s],3+(M.ml-8)/2,y+.5);if(s===4){c.save();c.font=`700 ${Math.max(8,Math.min(10,M.rh*.2))}px "JetBrains Mono", monospace`;c.fillStyle='#F39237';c.beginPath();c.arc(M.ml-6,y-9,6,0,7);c.fill();c.fillStyle='#141018';c.fillText('½',M.ml-6,y-8.5);c.restore();}}
+    for(let s=0;s<6;s++){const y=Y(s);c.fillStyle='#4A2340';c.beginPath();c.roundRect?c.roundRect(3,y-9,M.ml-8,18,4):c.rect(3,y-9,M.ml-8,18);c.fill();c.fillStyle=C.sign;c.fillText(SN[s],3+(M.ml-8)/2,y+.5);if(s===4){c.save();c.font=`700 ${Math.max(8,Math.min(10,M.rh*.2))}px "JetBrains Mono", monospace`;c.fillStyle='#F0629A';c.beginPath();c.arc(M.ml-6,y-9,6,0,7);c.fill();c.fillStyle='#141018';c.fillText('½',M.ml-6,y-8.5);c.restore();}}
     const ord=f=>f===0?'0':f+((f%100>=11&&f%100<=13)?'th':({1:'st',2:'nd',3:'rd'}[f%10]||'th'));
     if(M.cw<34)c.font=`700 ${Math.max(8,M.cw*.3)}px "JetBrains Mono", monospace`;
-    for(let f=0;f<=o.frets;f++){const mk=[3,5,7,9,12].includes(f);c.fillStyle=mk?'#E0784C':'#A79DB3';c.fillText(ord(f),X(f),M.H-M.mb/2+2);}
-    c.font=`700 ${Math.max(9,Math.min(11,M.rh*.24))}px "JetBrains Mono", monospace`;c.fillStyle='#7FB394';c.fillText('Ave.',3+(M.ml-8)/2,M.H-M.mb/2+2);
+    // dim strings that are not being practised
+    {const xa=WX(0)-V/2,xb=WX(o.frets)+V/2;c.fillStyle='rgba(12,10,16,.68)';
+     for(let s2=0;s2<6;s2++){if(o.str.includes(s2))continue;const y=Y(s2);c.fillRect(xa,y-V/2-1,xb-xa,V+2);c.fillRect(0,y-11,M.ml-2,22);
+       if(s2<5&&!o.str.includes(s2+1))c.fillRect(xa,Y(s2+1)+V/2,xb-xa,Y(s2)-Y(s2+1)-V);}}
+    c.font=`700 ${Math.max(10,Math.min(13,M.rh*.28))}px "JetBrains Mono", monospace`;
+    for(let f=0;f<=o.frets;f++){const mk=[3,5,7,9,12].includes(f);c.fillStyle=mk?'#F0629A':'#A99BC9';c.fillText(ord(f),X(f),M.H-M.mb/2+2);}
+    c.font=`700 ${Math.max(9,Math.min(11,M.rh*.24))}px "JetBrains Mono", monospace`;c.fillStyle='#A99BC9';c.fillText('Ave.',3+(M.ml-8)/2,M.H-M.mb/2+2);
     city=oc;}
   // game helpers
   const midiAt=(f,s)=>TUNING[s]+f;
   const atCross=()=>st.car.mode==='stop';
   function msg(h){el.querySelector('.gmsg').innerHTML=h;}
   function setJob(big,sub,kind){el.querySelector('.jobk').textContent=kind;el.querySelector('.gtn').innerHTML=`${big}${sub?`<small class="gsub">${sub}</small>`:''}`;}
+  const unrev=(f,s)=>!st.marks.some(m=>m.f===f&&m.s===s);
+  function mapDone(){st.marks=[];cash(50);pop(t('+$50 zmapováno','+$50 mapped'),noteOf(st.car.x),Math.round(st.car.y),C.ok);msg(`<b style="color:var(--ok)">${t('Čtvrť zmapována! +$50 – mapa se čistí.','District mapped! +$50 – map cleared.')}</b>`);}
   function mark(f,s,pc){st.marks=st.marks.filter(m=>!(m.f===f&&m.s===s));st.marks.push({f,s,pc,t:performance.now()});}
   function cash(d){st.cash=Math.max(0,st.cash+d);el.querySelector('.gsc').textContent='$'+st.cash;}
   function pop(text,f,s,col){st.pops.push({text,f,s,col,t:performance.now()});}
   function pool(){return o.nat?NATS:[...Array(12).keys()];}
   /* ---- extra missions ---- */
-  const DEGC={root:'#F39237','3':'#9B7BFF','5':'#4EA3F5','7':'#2CC793',t:'#F0C93A'};
+  const DEGC={root:'#E8402E','3':'#F0629A','5':'#EDE4D3','7':'#9F8CFF',t:'#F2C14E'};
   const KEYS_N=['C','D','E','F','G','A'],KEYS_A=['C','Db','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
   const keyPool=()=>o.nat?KEYS_N:KEYS_A;
   const rootPool=()=>o.nat?['C','D','E','F','G','A','B']:KEYS_A;
@@ -1348,7 +1563,8 @@ G.city=(el)=>{
   function spots(a,b,fn){const r=[];for(let s=0;s<6;s++)for(let f=a;f<=b;f++)if(fn(f,s))r.push({f,s});return r;}
   const ivOf=(f,s,root)=>(pcAt(s,f)-pcOf(root)+12)%12;
   function winJob(f,s,base,add,txt){st.streak++;const r=base+st.streak*5;cash(r);st.time+=add;st.done++;pop('+$'+r,f,s,C.ok);msg(`<b style="color:var(--ok)">${txt}</b> +${add} s`);}
-  function failJob(f,s,txt){st.streak=0;cash(-5);buzz();pop('−$5',f,s,C.bad);msg(`<b style="color:var(--bad)">${txt}</b>`);}
+  function pen(){if(st.shield){st.shield=0;msg(t('Pojistka tě podržela – bez pokuty.','Insurance covered it – no fine.'));return;}cash(-5);}
+  function failJob(f,s,txt){st.streak=0;pen();buzz();pop('−$5',f,s,C.bad);msg(`<b style="color:var(--bad)">${txt}</b>`);}
   const pill=(txt,col,on,cur)=>`<span class="dp${on?' on':''}${cur?' cur':''}" style="--c:${col}">${txt}</span>`;
   function makeJob(kind){
     if(kind==='amb'){const types=LVL(o,['maj','m'],['maj7','m7','7'],['maj7','m7','7','m7b5']);let root,q,a,b,tries=0,ok;
@@ -1403,23 +1619,25 @@ G.city=(el)=>{
   function drawNew(now){const j=st.job;if(!j||!NEWK.includes(j.k))return;const u=Math.min(M.cw,M.rh),r=Math.max(8,u*.3);
     const zoneR=(a,b,col)=>{const x0=M.ml+6+(Math.max(1,a)-1)*M.cw,x1=M.ml+6+b*M.cw,y0=Y(5)-vw(),y1=Y(0)+vw();ctx.fillStyle=col+'18';ctx.fillRect(x0,y0,x1-x0,y1-y0);ctx.setLineDash([6,5]);ctx.strokeStyle=col;ctx.lineWidth=2;ctx.strokeRect(x0+1,y0+1,x1-x0-2,y1-y0-2);ctx.setLineDash([]);};
     const dot=(f,s,fill,label,txtCol='#141018')=>{const x=X(f),y=Y(s);ctx.fillStyle=fill;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.fillStyle=txtCol;ctx.font=`800 ${r*.95}px Poppins, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,x,y+1);};
-    if(j.k==='amb'){zoneR(j.a,j.b,'#FF6B52');j.deg.forEach(d=>{const p=j.done[d];if(p)dot(p.f,p.s,DEGC[degFamily(d)],prettyDeg(d),'#fff');});}
-    if(j.k==='fire'){zoneR(j.a,j.b,'#F39237');j.fires.forEach(fi=>{const x=X(fi.f),y=Y(fi.s);if(!fi.out){for(let k=0;k<3;k++){const fl=Math.sin(now/90+k*2+fi.f)*.15;ctx.fillStyle=['#FF6B52','#F39237','#F0C93A'][k];ctx.beginPath();ctx.ellipse(x,y-r*.2*k,r*(1-k*.25+fl),r*(1.15-k*.25+fl),0,0,7);ctx.fill();}}
-        else if(fi.bad)dot(fi.f,fi.s,'#5A5262','×','#fff');else dot(fi.f,fi.s,'#4EA3F5',prettyDeg(SCALES[j.sc].deg.find(d=>parseDeg(d).semis%12===ivOf(fi.f,fi.s,j.root))||'?'),'#fff');});}
-    if(j.k==='police'){const on=Math.floor(now/180)%2;dot(j.p.f,j.p.s,on?'#FF6B52':'#4EA3F5',NN(pcAt(j.p.s,j.p.f)),'#fff');const y=Y(j.ts);ctx.strokeStyle='rgba(78,163,245,.6)';ctx.lineWidth=2;ctx.strokeRect(1,y-11,M.ml-4,22);}
+    if(j.k==='amb'){zoneR(j.a,j.b,'#FF5A4A');j.deg.forEach(d=>{const p=j.done[d];if(p)dot(p.f,p.s,DEGC[degFamily(d)],prettyDeg(d),'#fff');});}
+    if(j.k==='fire'){zoneR(j.a,j.b,'#F0629A');j.fires.forEach(fi=>{const x=X(fi.f),y=Y(fi.s);if(!fi.out){for(let k=0;k<3;k++){const fl=Math.sin(now/90+k*2+fi.f)*.15;ctx.fillStyle=['#FF6B52','#F39237','#F0C93A'][k];ctx.beginPath();ctx.ellipse(x,y-r*.2*k,r*(1-k*.25+fl),r*(1.15-k*.25+fl),0,0,7);ctx.fill();}}
+        else if(fi.bad)dot(fi.f,fi.s,'#5A5262','×','#fff');else dot(fi.f,fi.s,'#A99BEA',prettyDeg(SCALES[j.sc].deg.find(d=>parseDeg(d).semis%12===ivOf(fi.f,fi.s,j.root))||'?'),'#fff');});}
+    if(j.k==='police'){const on=Math.floor(now/180)%2;dot(j.p.f,j.p.s,on?'#FF5A4A':'#8FA8FF',NN(pcAt(j.p.s,j.p.f)),'#fff');const y=Y(j.ts);ctx.strokeStyle='rgba(78,163,245,.6)';ctx.lineWidth=2;ctx.strokeRect(1,y-11,M.ml-4,22);}
     if(j.k==='bus'){const k=Math.max(0,(j.deadline-now)/(j.beats*60/METRO.bpm*1000));const w=M.W-M.ml-20;ctx.fillStyle='rgba(255,255,255,.12)';ctx.fillRect(M.ml+6,4,w,5);ctx.fillStyle=k<.25?'#FF6B52':'#F0C93A';ctx.fillRect(M.ml+6,4,w*k,5);}}
   function updateNew(){const j=st.job;if(j&&j.k==='bus'&&performance.now()>j.deadline){const cur=j.stops[j.i];failJob(0,2,t(`Autobus ti ujel zastávku ${chordName(cur.root,cur.q)}.`,`You missed the ${chordName(cur.root,cur.q)} stop.`));j.i++;if(j.i>=j.stops.length)finishBus();else{j.deadline=performance.now()+j.beats*60/METRO.bpm*1000;busCard();}}}
   function newJob(){const done=st.done,r=Math.random(),multi=o.str.length>1;let kind;
-    const MK={chords:'amb',scales:'fire',doubles:'police',prog:'bus',race:'race'};
-    if(MK[o.mode]){makeJob(MK[o.mode]);return;}
-    if(o.mode==='intervals')kind='iv';else if(o.mode==='notes')kind=(done>=2&&multi&&r<.35)?'same':'courier';else{if(done<2)kind='courier';else{const all=['courier','courier','iv','amb','fire','police','bus','race'];if(multi)all.push('same');kind=rnd(all);if(NEWK.includes(kind)){makeJob(kind);return;}}}
+    const A=activeM(),MK={chords:['amb'],scales:['fire'],doubles:['police'],prog:['bus'],race:['race'],intervals:['iv','iv'],notes:['courier','courier']};
+    const all=[];A.forEach(k=>all.push(...MK[k]));if(A.includes('notes')&&multi&&done>=2)all.push('same');
+    kind=(A.includes('notes')&&done<2)?'courier':rnd(all);if(NEWK.includes(kind)){makeJob(kind);return;}
     const taxi=kind!=='courier';const cf=noteOf(st.car.x),cs=Math.round(st.car.y);
-    if(kind==='same'){let p,ts,tries=0;do{p={f:Math.floor(Math.random()*(o.frets+1)),s:rnd(o.str)};ts=rnd(o.str.filter(x=>x!==p.s));tries++;}while((Math.abs(p.f-cf)+Math.abs(p.s-cs)<2||!sameT(p,ts).length||!pool().includes(pcAt(p.s,p.f)))&&tries<300);
+    if(kind==='same'){let p,ts,tries=0;do{p={f:Math.floor(Math.random()*(o.frets+1)),s:rnd(o.str)};ts=rnd(o.str.filter(x=>x!==p.s));tries++;}while((Math.abs(p.f-cf)+Math.abs(p.s-cs)<2||!sameT(p,ts).filter(q=>unrev(q.f,q.s)).length||!pool().includes(pcAt(p.s,p.f)))&&tries<300);
       st.job={k:'taxi',kind:'same',phase:'pickup',p,ts,reward:30};setJob(`<span class="jw">${t('Vyzvedni zákazníka','Pick up the passenger')}</span>`,t('fialová postavička na rohu','purple figure on a corner'),t('Taxík','Taxi'));msg(t('Zákazník mává na rohu. Zastav u něj a zmáčkni mezerník.','A passenger is waving on a corner. Stop there and press Space.'));return;}
-    if(!taxi){let s,pc,tries=0;do{s=rnd(o.str);const opts=pool().filter(p=>{for(let f=0;f<=o.frets;f++)if(pcAt(s,f)===p&&!(f===cf&&s===cs))return true;return false;});pc=rnd(opts);tries++;}while((pc===undefined)&&tries<20);
+    if(!taxi){const anyLeft=()=>o.str.some(s2=>{for(let f=0;f<=o.frets;f++)if(pool().includes(pcAt(s2,f))&&unrev(f,s2))return true;return false;});if(!anyLeft())mapDone();
+      let s,pc,tries=0;do{s=rnd(o.str);const opts=pool().filter(p=>{for(let f=0;f<=o.frets;f++)if(pcAt(s,f)===p&&!(f===cf&&s===cs)&&unrev(f,s))return true;return false;});pc=rnd(opts);tries++;}while((pc===undefined)&&tries<40);
+      if(pc===undefined){s=rnd(o.str);pc=pcAt(s,Math.floor(Math.random()*(o.frets+1)));}
       st.job={k:'courier',s,pc,reward:20};setJob(`<span class="jw">${t('Doruč','Deliver')}</span><span class="jb">${NN(pc)}</span><span class="jw">${t('na strunu','to string')}</span><span class="jb jstr">${SN[s]}</span>`,'',t('Kurýr','Courier'));msg(t(`Doruč <b>${NN(pc)}</b> na strunu <b>${SN[s]}</b>. Zaparkuj před správným domem a zmáčkni mezerník.`,`Deliver <b>${NN(pc)}</b> to string <b>${SN[s]}</b>. Park in front of the right house and press Space.`));}
     else{const IV=[7,12,4,3,5,10,11,9,2,8];const ivp=IV.slice(0,Math.min(IV.length,3+Math.floor(done/3)));let p,semi,tries=0;
-      do{p={f:Math.floor(Math.random()*(o.frets+1)),s:rnd(o.str)};semi=rnd(ivp);tries++;}while((Math.abs(p.f-cf)+Math.abs(p.s-cs)<2||!targets(p,semi).filter(q=>strOn(q.s)).length)&&tries<300);
+      do{p={f:Math.floor(Math.random()*(o.frets+1)),s:rnd(o.str)};semi=rnd(ivp);tries++;}while((Math.abs(p.f-cf)+Math.abs(p.s-cs)<2||!targets(p,semi).filter(q=>strOn(q.s)&&unrev(q.f,q.s)).length)&&tries<300);
       st.job={k:'taxi',kind:'iv',phase:'pickup',p,semi,reward:30};setJob(`<span class="jw">${t('Vyzvedni zákazníka','Pick up the passenger')}</span>`,t('fialová postavička na rohu','purple figure on a corner'),t('Taxík','Taxi'));msg(t('Zákazník mává na rohu. Zastav u něj a zmáčkni mezerník.','A passenger is waving on a corner. Stop there and press Space.'));}}
   function sameT(p,ts){const pc=pcAt(p.s,p.f),a=[];for(let f=0;f<=o.frets;f++)if(pcAt(ts,f)===pc)a.push({f,s:ts});return a;}
   const rideT=j=>j.kind==='same'?sameT(j.p,j.ts):targets(j.p,j.semi);
@@ -1430,18 +1648,18 @@ G.city=(el)=>{
     if(j.k==='wait')return;
     if(NEWK.includes(j.k))return newAction(f,s);
     if(j.k==='courier'){if(s===j.s&&pcAt(s,f)===j.pc){st.streak++;const r=j.reward+st.streak*5;const add=LVL(o,12,8,5);cash(r);st.time+=add;st.done++;playNote(midiAt(f,s));pop('+$'+r,f,s,C.ok);mark(f,s,pcAt(s,f));newJob();msg(`<b style="color:var(--ok)">${t('Doručeno!','Delivered!')}</b> ${NN(pcAt(s,f))} = ${t(`pražec ${f}`,`fret ${f}`)}. +${add} s`);}
-      else{st.streak=0;cash(-5);buzz();pop('−$5',f,s,C.bad);msg(`<b style="color:var(--bad)">${t('Špatná adresa.','Wrong address.')}</b> ${t(`Tady je ${NN(pcAt(s,f))} na ulici ${SN[s]}.`,`This is ${NN(pcAt(s,f))} on ${SN[s]} St.`)}`);}}
+      else{st.streak=0;pen();buzz();pop('−$5',f,s,C.bad);msg(`<b style="color:var(--bad)">${t('Špatná adresa.','Wrong address.')}</b> ${t(`Tady je ${NN(pcAt(s,f))} na ulici ${SN[s]}.`,`This is ${NN(pcAt(s,f))} on ${SN[s]} St.`)}`);}}
     else if(j.phase==='pickup'){if(f===j.p.f&&s===j.p.s&&j.kind==='same'){j.phase='ride';playNote(midiAt(f,s));const n=NN(pcAt(s,f));
         setJob(`<span class="jw">${t('Stejný tón','Same note')}</span><span class="jb">${n}</span><span class="jw">${t('na strunu','on string')}</span><span class="jb jstr">${SN[j.ts]}</span>`,t('jakákoli oktáva','any octave'),t('Taxík','Taxi'));
         msg(t(`Zákazník: „Jsem na <b>${n}</b> na struně ${SN[s]}. Hoďte mě na <b>${n}</b> na strunu <b>${SN[j.ts]}</b>.“`,`Passenger: “I’m at <b>${n}</b> on string ${SN[s]}. Take me to <b>${n}</b> on string <b>${SN[j.ts]}</b>.”`));}
       else if(f===j.p.f&&s===j.p.s){j.phase='ride';playNote(midiAt(f,s));const I=INTERVALS[j.semi];setJob(`<span class="jb js">${I.k}</span><span class="jw">${t('nahoru od','up from')}</span><span class="jb">${NN(pcAt(s,f))}</span>`,t(I.cz,I.en),t('Taxík','Taxi'));
         msg(t(`Zákazník: „Jsem na <b>${NN(pcAt(s,f))}</b>. Hoďte mě o <b>${acc(I.cz)}</b> výš.“`,`Passenger: “I’m at <b>${NN(pcAt(s,f))}</b>. Take me a <b>${I.en}</b> up.”`));}
       else msg(t('Zákazník stojí jinde – hledej fialovou postavičku.','The passenger is elsewhere – look for the purple figure.'));}
-    else{const want=midiAt(j.p.f,j.p.s)+(j.semi||0);const ok=j.kind==='same'?(s===j.ts&&pcAt(s,f)===pcAt(j.p.s,j.p.f)):midiAt(f,s)===want;if(ok){st.streak++;const r=j.reward+st.streak*5;const add=LVL(o,15,10,6);cash(r);st.time+=add;st.done++;playNote(midiAt(j.p.f,j.p.s),0,.5);playNote(midiAt(f,s),.3);pop('+$'+r,f,s,C.ok);mark(f,s,pcAt(s,f));msg(`<b style="color:var(--ok)">${t('Spokojený zákazník!','Happy passenger!')}</b> ${NN(pcAt(s,f))} ✓ +${add} s`);newJob();}
-      else{st.streak=0;cash(-5);buzz();pop('−$5',f,s,C.bad);st.reveal={pts:rideT(j),until:performance.now()+1600};msg(`<b style="color:var(--bad)">${t('Tady ne!','Not here!')}</b> ${t(`Tohle je ${NN(pcAt(s,f))}. Zelené kroužky ukazují, kam zákazník chtěl.`,`This is ${NN(pcAt(s,f))}. Green rings show where the passenger wanted to go.`)}`);}}}
-  function gps(){if(!st||!st.running||st.job.k==='wait')return;const j=st.job;let pts=[];if(NEWK.includes(j.k)){cash(-10);st.reveal={pts:newGps(j),until:performance.now()+2000};return;}
+    else{const want=midiAt(j.p.f,j.p.s)+(j.semi||0);const ok=j.kind==='same'?(s===j.ts&&pcAt(s,f)===pcAt(j.p.s,j.p.f)):midiAt(f,s)===want;if(ok){st.streak++;const r=j.reward+st.streak*5;const add=LVL(o,15,10,6);cash(r);st.time+=add;st.done++;playNote(midiAt(j.p.f,j.p.s),0,.5);playNote(midiAt(f,s),.3);pop('+$'+r,f,s,C.ok);mark(f,s,pcAt(s,f));newJob();msg(`<b style="color:var(--ok)">${t('Spokojený zákazník!','Happy passenger!')}</b> ${NN(pcAt(s,f))} ✓ +${add} s`);}
+      else{st.streak=0;pen();buzz();pop('−$5',f,s,C.bad);st.reveal={pts:rideT(j),until:performance.now()+1600};msg(`<b style="color:var(--bad)">${t('Tady ne!','Not here!')}</b> ${t(`Tohle je ${NN(pcAt(s,f))}. Zelené kroužky ukazují, kam zákazník chtěl.`,`This is ${NN(pcAt(s,f))}. Green rings show where the passenger wanted to go.`)}`);}}}
+  function gps(){if(!st||!st.running||st.job.k==='wait')return;const j=st.job;let pts=[];const gc=[10,5,2][upg('gps')];if(NEWK.includes(j.k)){cash(-gc);st.reveal={pts:newGps(j),until:performance.now()+2000};return;}
     if(j.k==='courier'){for(let f=0;f<=o.frets;f++)if(pcAt(j.s,f)===j.pc)pts.push({f,s:j.s});}else if(j.phase==='pickup')pts=[j.p];else pts=rideT(j);
-    cash(-10);st.reveal={pts,until:performance.now()+2000};}
+    cash(-gc);st.reveal={pts,until:performance.now()+2000};}
   function held(){return order.length?DIR[order[order.length-1]]:null;}
   const near=(a,b)=>Math.abs(a-b)<1e-6;
   const isWire=x=>near(x,Math.round(x));
@@ -1450,7 +1668,13 @@ G.city=(el)=>{
   function tryMove(car,d){if(d.dx){const nx=car.x+d.dx*.5;if(!okX(nx))return false;car.mode='h';car.tx=nx;car.ty=car.y;return true;}
     if(!isWire(car.x)){const now=performance.now();if(now-hintT>2500){hintT=now;msg(t('Odbočit můžeš jen na křižovatce – popojeď kousek doleva nebo doprava.','You can only turn at a crossing – move a bit left or right.'));}return false;}
     if(!okY(car.y+d.ds))return false;car.mode='v';car.ty=car.y+d.ds;car.tx=car.x;return true;}
-  function update(dt){const car=st.car,h=held(),sp=3.2;
+  function route(car,gi,gs){const N=o.frets*2;const key=(i,s)=>i*6+s;const si=Math.round(car.x*2),ss=Math.round(car.y);const prev=new Map();const q=[[si,ss]];prev.set(key(si,ss),null);
+    while(q.length){const [i,s2]=q.shift();if(i===gi&&s2===gs)break;const nb=[[i-1,s2],[i+1,s2]];if(i%2===0)nb.push([i,s2-1],[i,s2+1]);for(const [a,b] of nb){if(a<0||a>N||b<0||b>5)continue;const kk=key(a,b);if(prev.has(kk))continue;prev.set(kk,[i,s2]);q.push([a,b]);}}
+    const path=[];let cur=[gi,gs];if(!prev.has(key(gi,gs)))return[];while(cur&&!(cur[0]===si&&cur[1]===ss)){path.unshift(cur);cur=prev.get(key(cur[0],cur[1]));}return path;}
+  function update(dt){const car=st.car,h=held(),sp=3.2*(1+.14*upg('speed'));
+    if(h)car.path=null,st.goal=null;
+    if(car.mode==='stop'&&st.goal){car.path=route(car,st.goal.i,st.goal.s);st.goal=null;}
+    if(car.mode==='stop'&&car.path&&car.path.length&&!h){const [i,s2]=car.path.shift();if(s2!==car.y){car.mode='v';car.ty=s2;car.tx=car.x;}else{car.mode='h';car.tx=i/2;car.ty=car.y;}if(!car.path.length)car.path=null;}
     if(car.mode==='stop'){const tap=(car.tap&&performance.now()-car.tap.t<450)?car.tap.d:null;const d=h||tap;if(d){car.tap=null;tryMove(car,d);}}
     if(car.mode==='h'||car.mode==='v'){
       if(h&&car.mode==='h'&&h.dx&&h.dx===-Math.sign(car.tx-car.x))car.tx-=Math.sign(car.tx-car.x)*.5;
@@ -1462,21 +1686,22 @@ G.city=(el)=>{
     el.querySelector('.gclock').textContent=Math.ceil(st.time);el.querySelector('.gclock').classList.toggle('low',st.time<10);
     el.querySelector('.act').textContent=st.job.k==='taxi'&&st.job.phase==='pickup'?t('Vyzvednout','Pick up'):({amb:t('Ošetřit','Treat'),fire:t('Hasit','Extinguish'),police:t('Zatknout','Arrest'),bus:t('Zastavit','Stop'),race:t('Projet','Check in')})[st.job.k]||t('Doručit','Deliver');}
   function draw(){if(!city)return;ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(city,0,0);ctx.setTransform(M.dpr,0,0,M.dpr,0,0);if(!st)return;const now=performance.now();const u=Math.min(M.cw,M.rh);
-    const j=st.job;if(j&&j.k==='courier'){const y=Y(j.s),pw=.5+.5*Math.sin(now/260);ctx.strokeStyle=`rgba(243,146,55,${.35+.4*pw})`;ctx.lineWidth=2;ctx.strokeRect(1,y-11,M.ml-4,22);ctx.fillStyle='rgba(243,146,55,.85)';ctx.beginPath();ctx.moveTo(M.ml-1,y-6);ctx.lineTo(M.ml+6,y);ctx.lineTo(M.ml-1,y+6);ctx.fill();}
+    const j=st.job;if(j&&j.k==='courier'){const y=Y(j.s),pw=.5+.5*Math.sin(now/260);ctx.strokeStyle=`rgba(240,98,154,${.35+.4*pw})`;ctx.lineWidth=2;ctx.strokeRect(1,y-11,M.ml-4,22);ctx.fillStyle='rgba(240,98,154,.9)';ctx.beginPath();ctx.moveTo(M.ml-1,y-6);ctx.lineTo(M.ml+6,y);ctx.lineTo(M.ml-1,y+6);ctx.fill();}
     if(j&&j.k==='taxi'&&j.phase==='pickup'){const x=X(j.p.f),y=Y(j.p.s),pr=1+.15*Math.sin(now/180);ctx.strokeStyle=C.pass;ctx.lineWidth=2;ctx.globalAlpha=.6;ctx.beginPath();ctx.arc(x,y,u*.32*pr,0,7);ctx.stroke();ctx.globalAlpha=1;
       ctx.fillStyle=C.pass;ctx.beginPath();ctx.arc(x,y-u*.08,u*.07,0,7);ctx.fill();ctx.beginPath();ctx.roundRect?ctx.roundRect(x-u*.07,y-u*.0,u*.14,u*.16,3):ctx.rect(x-u*.07,y,u*.14,u*.16);ctx.fill();
       const wv=Math.sin(now/150)*.5;ctx.strokeStyle=C.pass;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+u*.06,y+u*.02);ctx.lineTo(x+u*.16,y-u*.12+wv*4);ctx.stroke();}
     if(j&&j.k==='taxi'&&j.phase==='ride'){const x=X(j.p.f),y=Y(j.p.s),r=Math.max(8,Math.min(M.cw,M.rh)*.3);ctx.fillStyle='#141018';ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.strokeStyle=C.pass;ctx.lineWidth=2.5;ctx.stroke();ctx.fillStyle=C.pass;ctx.font=`800 ${r}px Poppins, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(NN(pcAt(j.p.s,j.p.f)),x,y+1);}
     drawNew(now);
+    if(st.car.dest&&(st.car.path||st.goal)){const x=X(st.car.dest.f),y=Y(st.car.dest.s),rr=Math.max(7,Math.min(M.cw,M.rh)*.28)*(1+.1*Math.sin(now/150));ctx.strokeStyle='rgba(255,255,255,.75)';ctx.lineWidth=2;ctx.setLineDash([3,3]);ctx.beginPath();ctx.arc(x,y,rr,0,7);ctx.stroke();ctx.setLineDash([]);}
     if(st.reveal&&st.reveal.until>now){ctx.strokeStyle=C.ok;ctx.lineWidth=3;st.reveal.pts.forEach(p=>{ctx.beginPath();ctx.arc(X(p.f),Y(p.s),u*.3,0,7);ctx.stroke();});}
     // delivered houses: the building in front of the spot shows the note
     st.marks.forEach(m=>{const k=Math.min(1,(now-m.t)/300);const x=X(m.f),y=Y(m.s),r=Math.max(8,Math.min(M.cw,M.rh)*.3)*(0.6+0.4*k);
-      ctx.globalAlpha=k;ctx.fillStyle='#F39237';ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.strokeStyle='#141018';ctx.lineWidth=1.5;ctx.stroke();
+      ctx.globalAlpha=k;ctx.fillStyle='#F0629A';ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.strokeStyle='#141018';ctx.lineWidth=1.5;ctx.stroke();
       ctx.fillStyle='#141018';ctx.font=`800 ${r*1.05}px Poppins, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(NN(m.pc),x,y+1);ctx.globalAlpha=1;});
     // car
     const car=st.car,x=PX(car.x),y=Y(0)-car.y*M.rh;const L=Math.max(18,u*.56),Wd=L*.56;ctx.save();ctx.translate(x,y);ctx.rotate(car.ang);
     ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(-L/2+2,-Wd/2+2,L,Wd);
-    ctx.fillStyle=({amb:'#F4F1F6',fire:'#FF6B52',police:'#4EA3F5',bus:'#F0C93A'})[j&&j.k]||C.car;ctx.beginPath();ctx.roundRect?ctx.roundRect(-L/2,-Wd/2,L,Wd,4):ctx.rect(-L/2,-Wd/2,L,Wd);ctx.fill();
+    ctx.fillStyle=({amb:'#F4F1F6',fire:'#FF5A4A',police:'#8FA8FF',bus:'#F2C14E'})[j&&j.k]||carCol();ctx.beginPath();ctx.roundRect?ctx.roundRect(-L/2,-Wd/2,L,Wd,4):ctx.rect(-L/2,-Wd/2,L,Wd);ctx.fill();
     ctx.fillStyle='#1B1622';ctx.fillRect(L*.08,-Wd*.36,L*.18,Wd*.72);ctx.fillRect(-L*.36,-Wd*.32,L*.12,Wd*.64);
     ctx.fillStyle=C.roof;ctx.fillRect(-L*.22,-Wd*.36,L*.28,Wd*.72);
     if(j&&j.k==='taxi'&&j.phase==='ride'){ctx.fillStyle='#FFE08A';ctx.fillRect(-L*.12,-Wd*.16,L*.1,Wd*.32);}
@@ -1487,26 +1712,41 @@ G.city=(el)=>{
     st.pops=st.pops.filter(p=>now-p.t<1100);st.pops.forEach(p=>{const k=(now-p.t)/1100;ctx.globalAlpha=1-k;ctx.fillStyle=p.col;ctx.font=`700 ${Math.max(12,u*.3)}px Poppins, sans-serif`;ctx.textAlign='center';ctx.fillText(p.text,X(p.f),Y(p.s)-u*.35-k*u*.5);ctx.globalAlpha=1;});}
   const portraitMQ=window.matchMedia('(orientation:portrait) and (max-width:760px)');
   function loop(){const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;const paused=portraitMQ.matches&&!play.classList.contains('forced');if(st&&st.running&&!paused)update(dt);draw();raf=requestAnimationFrame(loop);}
-  function start(){CURLVL=o.lvl==='easy'?'':'-'+o.lvl;st={car:{x:.5,y:2,mode:'stop',hdir:1,ang:0},cash:0,time:LVL(o,150,90,60),done:0,streak:0,pops:[],marks:[],reveal:null,running:true,job:null};cash(0);newJob();last=performance.now();}
-  function end(){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();st.running=false;setBest('city',st.cash);el.querySelector('.gbest').textContent='$'+BEST('city');
-    overlay(stage,t('Konec směny','Shift over'),t(`Vydělala jsi <b>$${st.cash}</b> a dokončila ${st.done} zakázek.`,`You earned <b>$${st.cash}</b> and finished ${st.done} jobs.`),t('Další směna','Next shift'),start);const ov=stage.querySelector('.gover>div');if(ov){const mb=document.createElement('button');mb.className='btn ghost';mb.type='button';mb.textContent=t('Menu','Menu');mb.onclick=exitPlay;ov.appendChild(mb);}}
+  function start(){CURLVL=o.lvl==='easy'?'':'-'+o.lvl;st={car:{x:.5,y:2,mode:'stop',hdir:1,ang:0},shield:upg('shield')>0,cash:0,time:LVL(o,150,90,60)+15*upg('time'),done:0,streak:0,pops:[],marks:[],reveal:null,running:true,job:null};cash(0);newJob();last=performance.now();}
+  function bank(){if(o.career&&st&&!st.banked){st.banked=true;CR.wallet+=st.cash;saveCR();}}
+  function end(){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();st.running=false;setBest('city',st.cash);bank();el.querySelector('.gbest').textContent='$'+BEST('city');
+    overlay(stage,t('Konec směny','Shift over'),t(`Vydělala jsi <b>$${st.cash}</b> a dokončila ${st.done} zakázek.`,`You earned <b>$${st.cash}</b> and finished ${st.done} jobs.`)+(o.career?t(` V peněžence máš <b>$${CR.wallet}</b> – v menu si můžeš něco koupit v garáži.`,` Your wallet: <b>$${CR.wallet}</b> – spend it in the garage.`):''),t('Další směna','Next shift'),start);const ov=stage.querySelector('.gover>div');if(ov){const mb=document.createElement('button');mb.className='btn ghost';mb.type='button';mb.textContent=t('Menu','Menu');mb.onclick=exitPlay;ov.appendChild(mb);}}
   const KEYS={ArrowUp:'u',ArrowDown:'d',ArrowLeft:'l',ArrowRight:'r',w:'u',s:'d',a:'l',d:'r',W:'u',S:'d',A:'l',D:'r'};
   const kd=e=>{if(!st||!st.running)return;if(e.target.matches&&e.target.matches('input,select,textarea'))return;const k=KEYS[e.key];if(k){e.preventDefault();order=order.filter(x=>x!==k);order.push(k);st.car.tap={d:DIR[k],t:performance.now()};}else if(e.key===' '||e.key==='Enter'){e.preventDefault();if(!e.repeat)action();}};
   const ku=e=>{const k=KEYS[e.key];if(k)order=order.filter(x=>x!==k);};
   window.addEventListener('keydown',kd);window.addEventListener('keyup',ku);
   el.querySelectorAll('.dpad button').forEach(b=>{const k=b.dataset.d;b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture&&b.setPointerCapture(e.pointerId);order=order.filter(x=>x!==k);order.push(k);if(st)st.car.tap={d:DIR[k],t:performance.now()};};const up=()=>{order=order.filter(x=>x!==k);};b.onpointerup=up;b.onpointercancel=up;b.onlostpointercapture=up;b.oncontextmenu=e=>e.preventDefault();});
   el.querySelector('.act').onclick=action;el.querySelector('.gps').onclick=gps;el.querySelector('.act').textContent=t('Doručit','Deliver');
-  function setup(){cancelAnimationFrame(raf);if(ro)ro.disconnect();st=null;CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.cbestv').textContent='$'+BEST('city');el.querySelector('.gbest').textContent='$'+BEST('city');el.querySelector('.gclock').textContent=LVL(o,150,90,60);el.querySelector('.gsc').textContent='$0';setJob('–','',t('Mise','Job'));msg('');}
+  function setup(){cancelAnimationFrame(raf);if(ro)ro.disconnect();st=null;CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.cbestv').textContent='$'+BEST('city');el.querySelector('.gbest').textContent='$'+BEST('city');el.querySelector('.gclock').textContent=LVL(o,150,90,60);el.querySelector('.gsc').textContent='$0';el.querySelector('.gpsc').textContent='$'+[10,5,2][upg('gps')];setJob('–','',t('Mise','Job'));msg('');}
   function enterPlay(){ac();play.hidden=false;document.documentElement.classList.add('playing');
     try{const fe=document.documentElement;if(fe.requestFullscreen&&!document.fullscreenElement)fe.requestFullscreen().then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{});}catch(e){}}).catch(()=>{});}catch(e){}
     if(ro)ro.disconnect();ro=new ResizeObserver(()=>resize());ro.observe(wrap);
     requestAnimationFrame(()=>{resize();CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.gbest').textContent='$'+BEST('city');start();cancelAnimationFrame(raf);last=performance.now();loop();});}
-  function exitPlay(){if(st){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();st.running=false;}cancelAnimationFrame(raf);if(ro)ro.disconnect();play.hidden=true;play.classList.remove('forced');stage.querySelectorAll('.gover').forEach(x=>x.remove());document.documentElement.classList.remove('playing');
-    try{if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});}catch(e){}el.querySelector('.cbestv').textContent='$'+BEST('city');}
+  function exitPlay(){if(st){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();if(st.running)bank();st.running=false;}cancelAnimationFrame(raf);if(ro)ro.disconnect();play.hidden=true;play.classList.remove('forced');stage.querySelectorAll('.gover').forEach(x=>x.remove());document.documentElement.classList.remove('playing');
+    try{if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});}catch(e){}el.querySelector('.cbestv').textContent='$'+BEST('city');if(o.career&&el.isConnected&&!el._stopping)setTimeout(()=>{if(el.isConnected&&play.hidden)rerender();},0);}
+  cv.style.cursor='pointer';
+  cv.addEventListener('pointerdown',e=>{if(!st||!st.running)return;const r=cv.getBoundingClientRect();const px=e.clientX-r.left,py=e.clientY-r.top;
+    const s2=Math.max(0,Math.min(5,Math.round((Y(0)-py)/M.rh)));const ur=(px-(M.ml+6))/M.cw;let f=ur<.25?0:Math.max(1,Math.min(o.frets,Math.round(ur+.5)));
+    const gi=f===0?0:f*2-1;const car=st.car;
+    if(car.mode==='stop'&&!car.path&&Math.round(car.x*2)===gi&&Math.round(car.y)===s2){action();return;}
+    st.goal={i:gi,s:s2,f};car.dest={f,s:s2};if(car.mode==='stop')car.path=null;});
   el.querySelector('.cgo').onclick=enterPlay;el.querySelector('.cp-x').onclick=exitPlay;el.querySelector('.cp-force').onclick=()=>play.classList.add('forced');
-  el._stop=()=>{exitPlay();window.removeEventListener('keydown',kd);window.removeEventListener('keyup',ku);};
+  el._stop=()=>{el._stopping=true;exitPlay();window.removeEventListener('keydown',kd);window.removeEventListener('keyup',ku);};
   el._dbg=()=>st;
-  bindChips(el,'.gm',v=>{o.mode=v;save('gt-gopt-city',o);setup();});
+  const rerender=()=>{el._stop();G.city(el);};
+  bindChips(el,'.gcm',v=>{o.career=v==='1';save('gt-gopt-city',o);rerender();});
+  el.querySelectorAll('.gm .chip[data-m]:not(.locked)').forEach(b=>b.onclick=()=>{const k=b.dataset.m;if(o.missions.includes(k)){if(o.missions.filter(owned).length<=1)return;o.missions=o.missions.filter(x=>x!==k);}else o.missions=[...o.missions,k];b.classList.toggle('on',o.missions.includes(k));save('gt-gopt-city',o);setup();});
+  el.querySelectorAll('.gm .chip.locked').forEach(b=>b.onclick=()=>{const g=el.querySelector('.garage');if(!g)return;g.open=true;const it=el.querySelector(`[data-buy^="lic:${b.dataset.m}:"]`);if(it){it.scrollIntoView({behavior:'smooth',block:'center'});it.classList.remove('flash');void it.offsetWidth;it.classList.add('flash');}});
+  el.querySelector('.gall').onclick=()=>{o.missions=MIS.map(m=>m[0]).filter(owned);save('gt-gopt-city',o);rerender();};
+  el.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>{const [kind,k,p]=b.dataset.buy.split(':');const price=+p;if(CR.wallet<price)return;CR.wallet-=price;
+    if(kind==='lic'){CR.lic.push(k);if(!o.missions.includes(k))o.missions.push(k);save('gt-gopt-city',o);}else if(kind==='up')CR.up[k]++;else if(kind==='skin'){CR.skins.push(k);CR.skin=k;}
+    saveCR();playChord([67,71,74,79],0,.05);rerender();const g=el.querySelector('.garage');if(g)g.open=true;});
+  el.querySelectorAll('.skin[data-skin]').forEach(b=>b.onclick=()=>{CR.skin=b.dataset.skin;saveCR();el.querySelectorAll('.skin[data-skin]').forEach(x=>x.classList.toggle('on',x===b));});
   el.querySelectorAll('.gs .chip').forEach(b=>b.onclick=()=>{const v=+b.dataset.s;if(o.str.includes(v)){if(o.str.length===1)return;o.str=o.str.filter(x=>x!==v);}else o.str=[...o.str,v].sort();b.classList.toggle('on',o.str.includes(v));save('gt-gopt-city',o);setup();});
   bindOpts(el,'city',o,setup);setup();};
 
@@ -1539,7 +1779,7 @@ G.defense=(el)=>{
       if(f.k==='boom'){ctx.globalAlpha=1-k;ctx.strokeStyle=col.root;ctx.lineWidth=3;ctx.beginPath();ctx.arc(B.x0+f.x*cw,B.y(f.s),r*(1+k*2),0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;}
       if(f.k==='miss'){ctx.globalAlpha=1-k;B.circle(B.x(f.f),B.y(f.s),r*.85,col.bad);B.text(f.label,B.x(f.f),B.y(f.s),Math.max(9,r*.75),'#fff');ctx.globalAlpha=1;}
       if(f.k==='hit'){ctx.globalAlpha=(1-k)*.5;ctx.fillStyle=col.bad;ctx.fillRect(0,B.y(f.s)-rh/2,B.x0+cw/2,rh);ctx.globalAlpha=1;}});
-    st.en.forEach(e=>{const x=B.x0+e.x*cw,y=B.y(e.s);ctx.globalAlpha=.25;B.circle(x+r*.9,y,r*.55,col.c3);ctx.globalAlpha=1;B.circle(x,y,r,col.c3);B.text(NN(e.pc),x,y,Math.max(10,r*.8),'#fff');});}
+    st.en.forEach(e=>{const x=B.x0+e.x*cw,y=B.y(e.s);ctx.globalAlpha=.25;B.circle(x+r*.9,y,r*.55,col.c3);ctx.globalAlpha=1;B.circle(x,y,r,col.c3);B.text(NN(e.pc),x,y,Math.max(10,r*.8),'#141018');});}
   function over(){setBest('defense',st.score);el.querySelector('.gbest').textContent=BEST('defense');overlay(stage,t('Konec hry','Game over'),`${t('Skóre','Score')}: <b>${st.score}</b>`,t('Hrát znovu','Play again'),start);}
   function stop(){cancelAnimationFrame(raf);if(B)B.destroy();}
   el._stop=stop;bindOpts(el,'defense',o,setup);setup();};
@@ -1550,15 +1790,15 @@ const GAMES=[
  {k:'hunt',id:'hra-lovec',ic:'L',cs:['Lovec tónů','Najdi všechna místa jednoho tónu, než doběhne čas.'],en:['Note hunt','Find every spot of one note before the clock runs out.']},
  {k:'defense',id:'hra-obrana',ic:'O',cs:['Obrana pražců','Sestřel tóny, které jedou po strunách k nultému pražci.'],en:['Fret defense','Shoot down notes riding the strings toward the nut.']}];
 function viewGames(){app.innerHTML=`<div style="display:grid;gap:22px"><div style="display:grid;gap:8px"><span class="eyebrow">${t('Hry','Games')}</span><h2>${t('Nauč se hmatník hrou','Learn the neck by playing')}</h2><p style="color:var(--muted);max-width:66ch">${t('Krátké hry na pár minut denně. Začni s pražci 0–7 a přirozenými tóny, pak přidej celý hmatník a křížky.','Short games for a few minutes a day. Start with frets 0–7 and natural notes, then add the whole neck and sharps.')}</p></div>
-   <div class="gcards">${GAMES.map(g=>{const [n,d]=LANG==='en'?g.en:g.cs;return `<a class="gcard" href="#${g.id}"><span class="gic" aria-hidden="true">${gameIcon(g.k)}</span><b>${n}</b><small>${d}</small><span class="gbestc">${t('Rekord','Best')}: ${BEST(g.k)}</span></a>`;}).join('')}</div></div>`;}
-function gameIcon(k){const S='<svg viewBox="0 0 48 32" width="64" height="42" aria-hidden="true"><rect x="2" y="3" width="44" height="26" rx="4" fill="var(--wood)"/>'+[8,13,18,23].map(y=>`<line x1="2" x2="46" y1="${y}" y2="${y}" stroke="var(--string)" stroke-width="1"/>`).join('')+[14,26,38].map(x=>`<line x1="${x}" x2="${x}" y1="3" y2="29" stroke="var(--fret)" stroke-width="1.5"/>`).join('');
+   <div class="gcards">${GAMES.filter(g=>g.k!=='city').map(g=>{const [n,d]=LANG==='en'?g.en:g.cs;return `<a class="gcard" href="#${g.id}"><span class="gic" aria-hidden="true">${gameIcon(g.k)}</span><b>${n}</b><small>${d}</small><span class="gbestc">${t('Rekord','Best')}: ${BEST(g.k)}</span></a>`;}).join('')}</div></div>`;}
+function gameIcon(k){const S='<svg viewBox="0 0 48 32" width="64" height="42" aria-hidden="true"><rect x="2" y="3" width="44" height="26" rx="0" fill="var(--wood)"/>'+[8,13,18,23].map(y=>`<line x1="2" x2="46" y1="${y}" y2="${y}" stroke="var(--string)" stroke-width="1"/>`).join('')+[14,26,38].map(x=>`<line x1="${x}" x2="${x}" y1="3" y2="29" stroke="var(--fret)" stroke-width="1.5"/>`).join('');
   const E={snake:'<path d="M8 23 H20 V13 H32" fill="none" stroke="var(--c-3)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="33" cy="13" r="3.5" fill="var(--c-root)"/><circle cx="40" cy="18" r="2.6" fill="var(--fg)"/>',
    hunt:'<circle cx="8" cy="18" r="3.4" fill="var(--c-root)"/><circle cx="32" cy="8" r="3.4" fill="var(--c-root)"/><circle cx="20" cy="23" r="3.4" fill="none" stroke="var(--c-root)" stroke-width="1.5"/>',
    ball:'<path d="M10 18 Q 20 0 32 13" fill="none" stroke="var(--fg)" stroke-width="1.2" stroke-dasharray="2 2"/><circle cx="10" cy="18" r="3.4" fill="var(--c-root)"/><circle cx="32" cy="13" r="3" fill="none" stroke="var(--c-7)" stroke-width="1.6"/>',
-   city:'<rect x="2" y="3" width="44" height="26" rx="4" fill="#141018"/><rect x="6" y="6" width="8" height="5" fill="#41334F"/><rect x="18" y="6" width="9" height="5" fill="#372C44"/><rect x="31" y="16" width="10" height="5" fill="#41334F"/><rect x="2" y="12.5" width="44" height="3" fill="#2A2431"/><rect x="2" y="22.5" width="44" height="3" fill="#2A2431"/><rect x="15.5" y="3" width="2" height="26" fill="#2A2431"/><rect x="28.5" y="3" width="2" height="26" fill="#2A2431"/><rect x="20" y="12" width="7" height="4" rx="1" fill="#F39237"/><circle cx="29.5" cy="24" r="2" fill="#9B7BFF"/>',
+   city:'<rect x="2" y="3" width="44" height="26" rx="0" fill="#0E0B10"/><rect x="6" y="6" width="8" height="5" fill="#41334F"/><rect x="18" y="6" width="9" height="5" fill="#372C44"/><rect x="31" y="16" width="10" height="5" fill="#41334F"/><rect x="2" y="12.5" width="44" height="3" fill="#2A2431"/><rect x="2" y="22.5" width="44" height="3" fill="#2A2431"/><rect x="15.5" y="3" width="2" height="26" fill="#2A2431"/><rect x="28.5" y="3" width="2" height="26" fill="#2A2431"/><rect x="20" y="12" width="7" height="4" rx="1" fill="#F39237"/><circle cx="29.5" cy="24" r="2" fill="#9B7BFF"/>',
    defense:'<circle cx="38" cy="13" r="4" fill="var(--c-3)"/><circle cx="30" cy="23" r="4" fill="var(--c-3)"/><line x1="14" y1="13" x2="34" y2="13" stroke="var(--c-root)" stroke-width="1.6"/><circle cx="14" cy="13" r="2.6" fill="var(--c-root)"/>'};
   return S+E[k]+'</svg>';}
-function viewGame(g){const [n,d]=LANG==='en'?g.en:g.cs;app.innerHTML=`<div style="display:grid;gap:16px"><div><a class="btn ghost" href="#hry">← ${t('Všechny hry','All games')}</a></div><div style="display:grid;gap:6px"><h2>${n}</h2><p style="color:var(--muted);max-width:66ch">${d}</p></div><div class="wh" style="display:grid;gap:16px"></div></div>`;
+function viewGame(g){const [n,d]=LANG==='en'?g.en:g.cs;app.innerHTML=`<div style="display:grid;gap:16px">${g.k==='city'?'':`<div><a class="btn ghost" href="#hry">← ${t('Všechny hry','All games')}</a></div>`}<div style="display:grid;gap:6px">${g.k==='city'?`<h2 class="fclogo">${cityLogo('a',96)}</h2>`:`<h2>${n}</h2>`}<p style="color:var(--muted);max-width:66ch">${d}</p></div><div class="wh" style="display:grid;gap:16px"></div></div>`;
   const p=document.createElement('div');p.className='panel game';$('.wh').appendChild(p);G[g.k](p);activeWidgets.push(p);}
 
 function route(){stopAll();applyLang();if($('#tools')._label)$('#tools')._label();const hsh=location.hash.replace('#','')||'cesta';let v=hsh;
@@ -1570,7 +1810,7 @@ function route(){stopAll();applyLang();if($('#tools')._label)$('#tools')._label(
   else if(hsh==='trenink')viewTool(t('Trénink','Practice'),t('Pět minut denně. Intervaly po sluchu jsou nejtěžší a nejužitečnější.','Five minutes a day. Intervals by ear are the hardest and the most useful.'),['quiz']);
   else if(hsh==='nastroje'){viewTool(t('Ladička a metronom','Tuner and metronome'),t('Nalaď se a cvič s metronomem. Úkoly z lekcí hraj nejdřív pomalu (60–70 BPM) a tempo zvyšuj, až když jdou čistě.','Tune up and practise with the metronome. Play the lesson tasks slowly first (60–70 BPM) and only speed up once they’re clean.'),['tuner','metro'],false);$('.wh').classList.add('tools');}
   else if(hsh==='hry'){viewGames();v='hry';}
-  else if(GAMES.find(g=>g.id===hsh)){viewGame(GAMES.find(g=>g.id===hsh));v='hry';}
+  else if(GAMES.find(g=>g.id===hsh)){const gg=GAMES.find(g=>g.id===hsh);viewGame(gg);v=gg.k==='city'?'city':'hry';}
   else{viewHome();v='cesta';}
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));window.scrollTo(0,0);}
 document.querySelectorAll('.snd .chip').forEach(b=>{b.classList.toggle('on',b.dataset.v===INSTR);b.onclick=()=>{document.querySelectorAll('.snd .chip').forEach(x=>x.classList.toggle('on',x===b));setInstr(b.dataset.v);playChord([48,55,59,64,67].map(x=>x),0,.04);};});
@@ -1579,5 +1819,4 @@ initBar();
 window.addEventListener('hashchange',route);route();
 </script>
 
-</body>
-</html>
+</body></html>
