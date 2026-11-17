@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -150,7 +150,7 @@ label.f{display:block;font-size:12.5px;color:var(--muted);margin:10px 0 4px}
 .sc-filter{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
 .chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:5px 11px;border-radius:20px;font-size:13px;cursor:pointer}
 .chip.on{background:var(--text);color:#111;border-color:var(--text)}
-.sc td:first-child{white-space:nowrap;width:1%}
+.sc td:first-child{width:38%;white-space:normal;line-height:2}
 .sc tr.star td{background:rgba(255,122,26,.06)}
 .star-b{cursor:pointer;color:var(--dim);background:none;border:none;font-size:16px}
 .star-b.on{color:var(--yellow)}
@@ -481,6 +481,84 @@ nav{justify-content:center}
  .lang{flex:none}
  .lang button{padding:3px 8px}
 }
+
+/* firmware mode */
+.only-doom{display:none}
+body.fw-doom .only-doom{display:block}
+body.fw-doom .only-official{display:none}
+.lang.fw button.on{background:var(--ink);color:var(--panel)}
+.navlogo{height:21px;width:auto;vertical-align:-6px;display:inline-block}
+nav a.on .navlogo,nav a:hover .navlogo{filter:none}
+.dtag{display:inline-block;font-family:var(--pixel);font-size:14px;letter-spacing:.06em;background:var(--device);color:#f4f4f0;border-radius:5px;padding:0 6px;vertical-align:2px;line-height:1.35}
+.dconf{font-size:12.5px;color:var(--muted);margin-top:3px}
+.dfeat{display:block;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
+.dfeat h3{margin:0 0 4px}
+.dfeat p{margin:0 0 8px;font-size:13.5px}
+.dfeat .dk{font-family:var(--pixel);font-size:17px;color:var(--orange);letter-spacing:.03em}
+.dfeat:hover{border-color:var(--pink)}
+@media (max-width:600px){.lang.fw button{padding:3px 6px;font-size:16px}}
+
+#v-doom .only-doom + .grid{margin-top:24px}
+@media (max-width:600px){
+ .top{flex-wrap:wrap;row-gap:8px}
+ .logo{order:1}
+ .lang.fw{order:2;margin-left:auto}
+ #langSw{order:3}
+ .gsearch{order:4;flex-basis:100%}
+}
+.ddetail ul.clean li{font-size:14px}
+.dadd .ddone{}
+.dsteps{font-size:13.5px;margin:10px 0 0}
+.dadd ul.clean li{font-size:14px}
+.dadd[open] .num{background:var(--ink);color:var(--panel)}
+.dadd .num{font-size:0}.dadd .num::before{content:"+";font-size:20px}.dadd[open] .num::before{content:"−"}
+.star-b{font-size:20px;line-height:1;padding:4px 6px;cursor:pointer}
+.star-b:hover{color:var(--pink)}
+
+@media (max-width:860px){
+ .sc tr{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--line)}
+ .sc tr:first-child{display:none}
+ .sc td{border:none;padding:6px 4px;width:auto!important}
+ .sc td:nth-child(1){grid-column:1/2}
+ .sc td:nth-child(4){grid-column:2/3;grid-row:1/3}
+ .sc td:nth-child(2){grid-column:1/2;padding-top:0}
+ .sc td:nth-child(3){display:none}
+}
+
+.phase .body,.step .st,.step .how{overflow-wrap:anywhere;min-width:0}
+.step>div{min-width:0}
+@media (max-width:380px){.k{white-space:normal}.phase .body{padding:0 12px 14px}}
+@media (max-width:1000px){.planner{grid-template-columns:minmax(0,1fr)}}
+.procgrp{margin:22px 0 10px;font-size:17px}
+.procgrp .navlogo{height:22px;vertical-align:-6px;margin-right:4px}
+.dinline{margin-top:12px}
+.dil-h{font-family:var(--pixel);font-size:18px;letter-spacing:.05em;color:var(--orange);margin:4px 0 6px}
+.dil{background:#f6f7e6;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0}
+.dil ol{margin:6px 0 0;padding-left:20px}.dil li{margin:4px 0;font-size:14px}
+.dil p{font-size:13px;margin:8px 0 0}
+body:not(.fw-doom) .dinline{display:none}
+.sc tr.scgrp td{padding:16px 4px 6px;font-weight:700;font-size:15px;border-bottom:2px solid var(--ink)}
+.sc tr.scgrp td .dim{font-weight:400;font-size:12.5px}
+.sc tr.scgrp .navlogo{height:20px;vertical-align:-5px;margin-right:4px}
+@media (max-width:860px){.sc tr.scgrp{display:block}.sc tr.scgrp td{display:block}}
+.dproc,.dil.dl,.wf-doomstep{position:relative}
+.dproc::after{content:"";position:absolute;top:12px;right:14px;width:62px;height:23px;background:var(--doomlogo) right top/contain no-repeat;pointer-events:none}
+.dproc>summary{padding-right:90px}
+
+.dlogo-s{height:16px;width:auto;display:block;margin-top:4px}
+.sc tr.drow td:nth-child(3){display:table-cell!important}
+@media (max-width:860px){.sc tr.drow{grid-template-columns:1fr auto auto}.sc tr.drow td:nth-child(3){display:block!important;grid-column:2/3;grid-row:1/2;padding-top:9px}.sc tr.drow td:nth-child(4){grid-column:3/4}}
+.scsrc{margin-right:8px}
+.scsrc .seg{padding:5px 12px;font-family:var(--pixel);font-size:17px}
+.scsrc .navlogo{height:17px;vertical-align:-4px}
+.scsrc .seg.on .navlogo{filter:invert(1) brightness(1.6)}
+@media (max-width:860px){.sc tr.drow .catlbl{display:none}.sc tr.drow .dlogo-s{margin-top:0}.sc tr{grid-template-columns:minmax(0,1fr) auto}.sc tr.drow{grid-template-columns:minmax(0,1fr) auto auto}}
+@media (max-width:860px){
+ .sc tr,.sc tr.drow{grid-template-columns:minmax(0,1fr) auto}
+ .sc tr.drow td:nth-child(3){grid-column:2/3;grid-row:1/2;padding-top:8px}
+ .sc td:nth-child(4),.sc tr.drow td:nth-child(4){grid-column:2/3;grid-row:2/3;align-self:end}
+ .sc td:nth-child(2){grid-row:2/3}
+}
 </style>
 </head>
 <body>
@@ -488,7 +566,7 @@ nav{justify-content:center}
   <div class="top">
     <a class="logo" href="#start" style="color:inherit;text-decoration:none">groove garden</a>
     <div class="gsearch"><input id="gSearch" type="search" autocomplete="off"><div id="gResults"></div></div>
-    <div class="lang" id="langSw"><button data-l="cs">CS</button><button data-l="en">EN</button></div>
+    <div class="lang fw" id="fwSw"><button data-f="official">SP ORIGINAL</button><button data-f="doom">DOOM OS</button></div>
   </div>
   <nav id="nav"></nav>
 </header>
@@ -498,277 +576,6 @@ nav{justify-content:center}
   <div id="mBody"></div>
 </div></div>
 <div class="toast" id="toast"></div>
-<template id="tpl-cs"><main><!-- ============ 1. START ============ -->
-<section class="view" id="v-start">
-  <div class="hero"><div class="hero-t"><p class="eyebrow">INTERAKTIVNÍ PRŮVODCE · SP-404MKII</p><h1>od samplu<br>k live setu</h1><p class="lead">Tenhle průvodce tě provede tím, jak si na SP-404MKII práci <b>předpřipravit</b>, jak ji <b>dotáhnout do struktury</b> a jak ji pak <b>ovládat naživo</b>. Vyber si přístup, odškrtávej kroky a naplánuj si banky a pady přímo tady.</p><a class="press" href="#workflow"><span>▸</span> PRESS START</a></div><div class="hero-img" role="img" aria-label="Kreslený sampler SP-404MKII v banánovníkových listech"></div></div>
-
-  <div class="callout">
-    <b class="t">Hlavní myšlenka</b>
-    SP-404 je <b>nástroj na hraní z padů</b>: skladba nevzniká na timeline, ale jako <b>sada připravených dílů v jedné bance</b>, které spouštíš, mutuješ a přetavuješ efekty. „Dokončit“ tady neznamená mít aranž na ose, ale mít <b>banku, kterou umíš zahrát od začátku do konce</b>.
-  </div>
-
-  <h2>Mentální model: co je co</h2>
-  <div class="stack">
-    <div class="lvl"><div class="n">PROJECT<small>16 na SD</small></div><div><b>= celý live set / jedno album.</b> Jeden projekt = jeden večer. Sdílí tempo projektu, efekty a 160 patternů.</div></div>
-    <div class="lvl"><div class="n">BANK A–J<small>10 × 16 padů</small></div><div><b>= jedna skladba.</b> Všechny díly jedné skladby v jedné bance. Banka má vlastní tempo a hlasitost (<span class="k">SHIFT</span><span class="plus">+</span><span class="k">BANK</span>) – funguje jako „kanál mixu“.</div></div>
-    <div class="lvl"><div class="n">PAD 1–16<small>role, ne zvuk</small></div><div><b>= role ve skladbě</b> (beat A, beat B, bas, hook, přechod…). Stejná role na stejném padu v každé bance → ruce si zapamatují layout.</div></div>
-    <div class="lvl"><div class="n">PATTERN<small>16 × 10 bank</small></div><div><b>= sekce skladby</b> (intro, sloka, refrén, break). Pattern může hrát samply z libovolné banky.</div></div>
-    <div class="lvl"><div class="n">PATTERN CHAIN<small>16 / projekt</small></div><div><b>= aranž</b> – až 16 patternů za sebou. Obdoba song módu.</div></div>
-    <div class="lvl"><div class="n">BUS FX 1–4<small>+ Input FX</small></div><div><b>= přechody a dynamika.</b> BUS 1/2 hraješ rukama, BUS 3/4 jsou master (komprese, EQ, lo-fi).</div></div>
-  </div>
-
-  <h2>Šest pravidel na dokončování</h2>
-  <div class="grid g3">
-    <div class="card accent"><h3>1 · Banka = skladba</h3><p class="muted">Žádné samply „na později“ v náhodných bankách. Když banka nedává skladbu, je to knihovna – dej ji do zvláštního projektu.</p></div>
-    <div class="card accent"><h3>2 · Pevný layout padů</h3><p class="muted">Řádek 1 bicí, řádek 2 bas a harmonie, řádek 3 melodie a vokál, řádek 4 přechody. Pořád stejně.</p></div>
-    <div class="card accent"><h3>3 · Resample = commit</h3><p class="muted">Jakmile se ti něco líbí, resampluj to s efekty na nový pad. Rozhodnutí je hotové, nemůžeš ho donekonečna ladit.</p></div>
-    <div class="card accent"><h3>4 · Max. 4 sekce</h3><p class="muted">Intro · A · B · Break/Outro. Na stage stačí. Variace dělají efekty a mutování, ne nové díly.</p></div>
-    <div class="card accent"><h3>5 · Timebox</h3><p class="muted">45 min na jednu fázi. Když zvoní budík, jde se do další fáze – i když to „ještě není ono“. Timer najdeš v záložce Trénink.</p></div>
-    <div class="card accent"><h3>6 · Hotovo = umím to zahrát</h3><p class="muted">Skladba je hotová, když ji třikrát po sobě zahraješ od začátku do konce bez zaseknutí. Ne když je dokonalá.</p></div>
-  </div>
-  <p class="row" style="margin-top:22px"><a class="btn pri" href="#pristup">Vybrat přístup →</a> <a class="btn" href="#workflow">Rovnou na workflow</a></p>
-</section>
-
-<!-- ============ 2. PŘÍSTUP ============ -->
-<section class="view" id="v-pristup">
-  <h1>Vyber si přístup</h1>
-  <p class="lead">Na SP-404 se dá live hrát několika způsoby. Odpověz na pět otázek a průvodce ti doporučí, kterým začít – nebo rovnou klikni na kartu.</p>
-
-  <div class="card" id="wizard"></div>
-
-  <h2>Pět přístupů</h2>
-  <div class="grid g3" id="apprCards"></div>
-  <div id="apprDetail" class="detail"></div>
-  <h2>Srovnání přístupů</h2>
-  <p class="dim" style="font-size:13px;margin-top:0">Klikni na kartu výše pro podrobný postup přípravy a hraní.</p>
-  <div class="card" style="padding:6px 10px;overflow-x:auto"><table id="apprTable"></table></div>
-</section>
-
-<!-- ============ 3. WORKFLOW ============ -->
-<section class="view" id="v-workflow">
-  <h1>Workflow krok za krokem</h1>
-  <p class="lead">Sedm fází od prázdného projektu po nahraný set. Kroky si odškrtávej – postup se ukládá v tomhle prohlížeči. Fáze 2–5 opakuješ pro každou skladbu (banku).</p>
-  <div class="row noprint" style="margin-bottom:6px">
-    <span class="muted" style="font-size:14px">Pracuju přístupem:</span>
-    <select id="wfFilter" style="width:auto"></select>
-    <button class="btn sm ghost" id="wfReset">Vynulovat odškrtnutí</button>
-  </div>
-  <p class="dim" style="font-size:13px;margin:4px 0 10px">Některé kroky dávají smysl jen pro určitý přístup (např. Pattern Chain jen pro B). Když tu vybereš svůj přístup ze záložky Přístup, kroky, které se tě netýkají, se skryjí. Štítek u kroku (např. <span class="tag">A,B,C</span>) říká, pro které přístupy krok platí; kroky bez štítku platí vždy.</p>
-  <div class="wfprog"><span id="progTxt">0 %</span><div class="bar"><i id="progBar"></i></div><span class="dim" id="progLbl"></span></div>
-  <div id="wfAppr"></div>
-  <div id="phases"></div>
-</section>
-
-<!-- ============ 4. PLÁNOVAČ ============ -->
-<section class="view" id="v-planovac">
-  <h1>Plánovač bank a struktury</h1>
-  <p class="lead">Rozvrhni si skladby do bank, role do padů a sekce do struktury. Pak si vygeneruj tahák na stage. Vše se ukládá lokálně v prohlížeči – zálohuj přes Export.</p>
-
-  <div class="row noprint" style="margin-bottom:14px">
-    <button class="btn" id="tplBtn">Doplnit doporučený layout do banky</button>
-    <button class="btn" id="exportMd">Tahák na stage (text)</button>
-    <button class="btn" id="exportJson">Export / import dat</button>
-    <button class="btn ghost" id="clearBank">Vymazat banku</button>
-  </div>
-
-  <div class="planner">
-    <div>
-      <div class="banks" id="bankBtns"></div>
-      <div class="card" style="margin-bottom:12px">
-        <div class="row" style="gap:8px">
-          <div style="flex:2;min-width:140px"><label class="f">Název skladby</label><input id="bName" placeholder="např. Night Bus"></div>
-          <div style="flex:1;min-width:70px"><label class="f">BPM</label><input id="bBpm" type="number" placeholder="88"></div>
-          <div style="flex:1;min-width:70px"><label class="f">Tónina</label><input id="bKey" placeholder="F moll"></div>
-        </div>
-      </div>
-      <div class="pads" id="pads"></div>
-      <div class="legend" id="legend"></div>
-      <p class="dim" style="font-size:12px;margin-top:8px">Číslování padů: 1 vlevo nahoře → 16 vpravo dole. Pokud to máš na panelu jinak, ber čísla podle potisku.</p>
-    </div>
-    <div>
-      <div class="card" id="padEdit"></div>
-      <div class="card" style="margin-top:14px">
-        <h3>Struktura skladby</h3>
-        <p class="muted" style="font-size:14px;margin-top:0">Sekce = pattern (nebo co spouštíš ručně). Délka v taktech se promítne do časové osy.</p>
-        <div class="timeline" id="timeline"></div>
-        <div class="sections" id="sections"></div>
-        <div class="row" style="margin-top:8px"><button class="btn sm" id="addSec">+ sekce</button><span class="dim" id="secTotal" style="font-size:13px"></span></div>
-      </div>
-    </div>
-  </div>
-
-  <h2>Setlist (pořadí bank)</h2>
-  <div class="card">
-    <p class="muted" style="margin-top:0;font-size:14px">Pořadí skladeb a jak přejdeš z jedné do druhé. Do setlistu se automaticky dostanou banky, které mají název.</p>
-    <ul class="clean setlist" id="setlist"></ul>
-  </div>
-</section>
-
-
-<!-- ============ KONVERTOR ============ -->
-<section class="view" id="v-konvertor">
-  <h1>Konvertor a knihovna zvuků</h1>
-  <p class="lead">Nahraj zvuky nebo celé složky v jakémkoli běžném formátu. Převedou se na WAV 48 kHz / 16 bit (stejně si je tak SP-404MKII ukládá) a můžeš v nich hledat. Všechno běží jen v tvém prohlížeči – nic se nikam neodesílá.</p>
-  <div class="seg-wrap" id="cvMode"></div>
-  <p class="dim" id="cvModeHint" style="font-size:13px;margin:6px 0 12px"></p>
-  <div class="drop" id="cvDrop"><input type="file" id="cvFile" multiple accept="audio/*,.wav,.aif,.aiff,.mp3,.flac,.m4a,.ogg,.opus" hidden><input type="file" id="cvDir" webkitdirectory directory multiple hidden><div class="drop-i">⤒</div><b id="cvDropT"></b><span class="dim" id="cvDropS"></span>
-    <div class="row" style="justify-content:center;margin-top:10px"><button class="btn sm" id="cvPickF"></button><button class="btn sm" id="cvPickD"></button></div></div>
-  <div class="cv-opts" id="cvOpts"></div>
-  <div class="dim" id="cvStatus" style="font-size:13.5px;min-height:20px;margin:6px 0"></div>
-  <input id="cvSearch" class="noprint">
-  <div class="sc-filter" id="cvChips"></div>
-  <div class="row" style="margin-bottom:10px"><button class="btn sm pri" id="cvZipShown"></button><button class="btn sm" id="cvZipAll"></button><button class="btn sm ghost" id="cvClear"></button><span class="dim" id="cvStats" style="font-size:13px;margin-left:auto"></span></div>
-  <div class="card" style="padding:6px 10px"><table class="cvt" id="cvList"></table></div>
-  <div class="grid g2" style="margin-top:16px">
-    <div class="card"><h3>Jak dostat zvuky do SP-404MKII</h3><p class="muted" style="font-size:14px;margin:0">Rozbal ZIP a složky s kategoriemi zkopíruj do složky <b>IMPORT</b> na SD kartě. Na přístroji: <span class="k">SHIFT</span><span class="plus">+</span><span class="k">pad 14</span> → IMPORT → IMPORT from SD-CARD → SAMPLE → prázdný pad → vyber soubor (víc souborů: podrž <span class="k">SHIFT</span> a toč <span class="k">VALUE</span>).</p></div>
-  </div>
-</section>
-
-<!-- ============ 5. LIVE ============ -->
-<section class="view" id="v-live">
-  <h1>Live performance</h1>
-  <p class="lead">Co dělat na stage, aby se set hýbal, ale nerozpadl. Rozdělené podle toho, co právě potřebuješ.</p>
-
-  <div class="callout red">
-    <b class="t">Před live setem</b>
-    Zapni <b>LIVE MODE</b>: podrž <span class="k">SHIFT</span> a <span class="k">REMAIN</span> na 3 s. Vypne <span class="k">DEL</span>, <span class="k">REC</span>, <span class="k">RESAMPLE</span>, <span class="k">COPY</span> a <span class="k">MARK</span> – nic si omylem nesmažeš ani nepřepíšeš. A měj čerstvý <b>BACKUP</b> na SD/počítači.
-  </div>
-
-  <div class="grid g2" id="liveCards"></div>
-
-  <h2>Kostra jedné skladby naživo (cca 4–5 min)</h2>
-  <div class="card" style="padding:6px 10px">
-  <table class="stack-m">
-    <tr><th>Čas</th><th>Sekce</th><th>Co dělají ruce</th></tr>
-    <tr><td>0:00</td><td>Intro</td><td>Hook/textura (řádek 3) + filtr zavřený na BUS 1. Postupně otevírat <span class="k">CTRL</span>.</td></tr>
-    <tr><td>0:30</td><td>Drop A</td><td>Beat A (pad 1) + bas A (pad 5). Filtr pryč, efekt vypnout.</td></tr>
-    <tr><td>1:30</td><td>Variace</td><td>Mutovat hi-hat / přidat vokál, krátký DJFX looper stutter.</td></tr>
-    <tr><td>2:00</td><td>Break</td><td><span class="k">SHIFT</span><span class="plus">+</span><span class="k">BUS FX</span> (MUTE BUS) – zůstane dozvuk delaye. Riser na padu 13.</td></tr>
-    <tr><td>2:30</td><td>Drop B</td><td>Beat B (pad 2 – díky mute group vymění A) + bas B (pad 6). Impact pad 14.</td></tr>
-    <tr><td>3:30</td><td>Outro / přechod</td><td>Odebírat vrstvy, delay/reverb tail, mezitím zvolit další banku a spustit její intro.</td></tr>
-  </table>
-  </div>
-
-  <h2>Cue sheet tvého setu</h2>
-  <p class="muted">Vygenerováno z Plánovače. Doplň názvy skladeb a struktury tam.</p>
-  <div class="card"><pre class="out" id="cueSheet" style="max-height:none"></pre>
-    <div class="row noprint" style="margin-top:10px"><button class="btn sm" id="copyCue">Kopírovat</button></div>
-  </div>
-</section>
-
-<!-- ============ 6. ZKRATKY ============ -->
-<section class="view" id="v-zkratky">
-  <h1>Tahák zkratek</h1>
-  <p class="lead">Hledej nebo filtruj. Hvězdičkou si označ ty, které se chceš naučit – zobrazíš si je pak samostatně jako vlastní tahák.</p>
-  <input id="scSearch" placeholder="Hledat (např. mute, tempo, chain, bus…)" class="noprint">
-  <div class="sc-filter noprint" id="scFilter"></div>
-  <div class="card" style="padding:6px 10px"><table class="sc" id="scTable"></table></div>
-  <p class="dim" style="font-size:13px">Podle Reference Manualu v5.50 a oficiálního seznamu zkratek. U DOOM OS podle manuálu Klangfeld Labs (verze 0.7). Pokud se něco na tvém firmware chová jinak, ber jako směrodatný manuál.</p>
-  <h2>Postupy krok za krokem</h2>
-  <p class="dim" style="font-size:13px;margin-top:0">Podle Reference Manualu v5.50 (zkráceno). U každého postupu je odkaz na příslušnou stránku manuálu.</p>
-  <div id="procList"></div>
-</section>
-
-<!-- ============ 7. DOOM OS ============ -->
-<section class="view" id="v-doom">
-  <h1>Upgrade na DOOM OS?</h1>
-  <p class="lead">Neoficiální firmware od Klangfeld Labs postavený na Roland firmware 5.52. Zdarma, na vlastní riziko. Přidává grafický step sekvencer, piano roll, syntézy, mixer a p-locky – tedy klasický groovebox workflow.</p>
-
-  <div class="grid g2">
-    <div class="card"><h3>Co přidává</h3>
-      <ul class="clean">
-        <li>Grafický pattern sekvencer s mřížkou a piano rollem</li>
-        <li>20 syntézových enginů (BASS, POLY, FM, WAVE…) a 11 bicích kitů (909, 808, 606…)</li>
-        <li>Arpeggiator (40 stupnic, až 3 oktávy, HOLD)</li>
-        <li>Parameter locks na krok (až 4096 na projekt)</li>
-        <li>Mixer: pan, bus, level, mute/solo, 3pásmový EQ na pad</li>
-        <li>Sidechain editor, waveform display</li>
-        <li>Bounce in place (CUT / TAIL / LOOP)</li>
-        <li>Automatizace efektů, pattern nástroje (QUANT, SWING, HUMAN, TRANSP…)</li>
-      </ul>
-    </div>
-    <div class="card"><h3>Na co si dát pozor</h3>
-      <ul class="clean">
-        <li>Neoficiální – Roland ho nepodporuje, vliv na záruku není nikde popsán.</li>
-        <li>Stále ve vývoji (verze 0.x); starší verze byly označené jako alpha.</li>
-        <li>Instaluje se vlastním patcherem nad oficiální update; původní funkce podle autora zůstávají.</li>
-        <li>Manuál nepopisuje návrat na čistý Roland firmware – počítej s tím, že si to musíš ověřit sám.</li>
-        <li>Nemá song mode / arranger – struktura je pořád přes patterny a jejich přepínání.</li>
-      </ul>
-    </div>
-  </div>
-
-  <h2>Rozhodovací checklist</h2>
-  <div class="card" id="doomCheck"></div>
-
-  <h2>Jak by se změnil workflow</h2>
-  <div class="card" style="padding:6px 10px">
-  <table class="stack-m">
-    <tr><th>Krok</th><th>Stock firmware</th><th>S DOOM OS</th></tr>
-    <tr><td>Programování beatu</td><td>Real-time REC nebo TR-REC bez přehledné mřížky</td><td>Mřížka + piano roll, editace not, p-locky</td></tr>
-    <tr><td>Basa / melodie</td><td>Samplovat, Chromatic mode, Sound Generator</td><td>Syntézové enginy přímo v boxu + arpeggiator</td></tr>
-    <tr><td>Přepínání sekcí</td><td>Pad během patternu (na konci) / <span class="k">SUB PAD</span>+pad (hned)</td><td><span class="k">PATTERN SELECT</span>+pad (na konci) / + <span class="k">SUB PAD</span> (hned)</td></tr>
-    <tr><td>Mix</td><td>Bank volume, pad bus routing</td><td>Mixer (podržet <span class="k">RECORD SETTING</span> 0,6 s), mute/solo, EQ</td></tr>
-    <tr><td>Commit</td><td>RESAMPLE / BOUNCE</td><td>Bounce in place – výsledek je běžný sample, hraje i ve stock režimu</td></tr>
-  </table>
-  </div>
-
-
-  <h2>Kde DOOM OS mění tlačítka</h2>
-  <div class="callout blue" style="margin-top:0"><b class="t">Platí jen uvnitř DOOM OS</b>
-  DOOM OS je samostatná obrazovka: otevřeš ji <span class="k">REMAIN</span><span class="plus">+</span><span class="k">SUB PAD</span> a zavřeš <span class="k">EXIT</span>. Dokud jsi v ní, některé kombinace dělají něco jiného než ve stock režimu. Po zavření se podle autora vše chová jako na běžném SP-404MKII – takže <b>zbytek průvodce (Workflow, Live, Zkratky) platí mimo DOOM OS beze změny</b>. Rozdíly níže; ve Zkratkách je najdeš pod filtrem „DOOM OS“.</div>
-  <div class="card" style="padding:6px 10px;overflow-x:auto"><table class="stack-m">
-    <tr><th>Kombinace</th><th>Stock (průvodce)</th><th>Uvnitř DOOM OS</th></tr>
-    <tr><td><span class="k">SHIFT</span><span class="plus">+</span><span class="k">REC</span></td><td>TR-REC (krokové nahrávání)</td><td>Volba režimu nahrávání</td></tr>
-    <tr><td><span class="k">SHIFT</span><span class="plus">+</span><span class="k">HOLD</span></td><td>Pauza samplu</td><td>Grid follow (mřížka sleduje přehrávání)</td></tr>
-    <tr><td><span class="k">SHIFT</span><span class="plus">+</span><span class="k">START/END</span></td><td>Markery / CHOP</td><td>Waveform display</td></tr>
-    <tr><td><span class="k">SHIFT</span><span class="plus">+</span><span class="k">RECORD SETTING</span></td><td>Sound generator</td><td>Přepínání zobrazení mřížky</td></tr>
-    <tr><td>RECORD SETTING (podržet)</td><td>Nastavení nahrávání</td><td>Mixer (podržet 0,6 s)</td></tr>
-    <tr><td><span class="k">SHIFT</span><span class="plus">+</span><span class="k">MARK</span></td><td>—</td><td>Automatizace efektů</td></tr>
-    <tr><td><span class="k">PATTERN SELECT</span></td><td>Režim patternů / návrat do sample módu</td><td>Start / stop přehrávání</td></tr>
-    <tr><td>pad (při přehrávání patternu)</td><td>Zařadí další pattern</td><td>Zařazení je PATTERN SELECT + pad</td></tr>
-    <tr><td>SHIFT (3 s)</td><td>—</td><td>Help mode</td></tr>
-  </table></div>
-  <p class="dim" style="font-size:13px">Podle manuálu DOOM OS 0.7. Manuál neříká, jestli patterny vytvořené v DOOM OS a ve stock sekvenceru jsou totéž – než na tom postavíš set, vyzkoušej to na kopii projektu.</p>
-  <div class="callout blue">
-    <b class="t">Doporučení</b>
-    Nejdřív si 2–3 týdny osvoj stock workflow (fáze 0–4) – layout padů, mute groups, resample a přechody fungují stejně i s DOOM OS. DOOM OS pak nasaď ve chvíli, kdy tě brzdí <i>programování</i> not, ne <i>struktura</i>. Před patchem udělej <b>BACKUP</b> všech projektů a první gig s ním odehraj až po pár zkouškách. Výsledky si vždy bounce-ni do samplů – ty přežijí i návrat na stock.
-  </div>
-</section>
-
-<!-- ============ 8. TRÉNINK ============ -->
-<section class="view" id="v-trenink">
-  <h1>Trénink</h1>
-  <p class="lead">Od ovládání naslepo po 20minutový set. Projdi čtyři úrovně, každou zakonči zkouškou.</p>
-  <div class="grid g2">
-    <div class="card">
-      <h3>Timebox timer</h3>
-      <div class="timer" id="tDisp">45:00</div>
-      <div class="row" style="margin-top:8px">
-        <button class="btn sm" data-min="10">10 min</button><button class="btn sm" data-min="20">20 min</button><button class="btn sm" data-min="45">45 min</button>
-        <button class="btn sm pri" id="tStart">Start</button><button class="btn sm" id="tReset">Reset</button>
-      </div>
-      <p class="muted" style="font-size:14px">Když doběhne, ukonči fázi a resampluj, co máš. Nedokonalé &gt; nedokončené.</p>
-    </div>
-    <div class="card">
-      <h3>Jak trénink funguje</h3>
-      <p class="muted" style="font-size:14px;margin:0">Čtyři úrovně: <b>Ovládání → Tvorba → Aranž → Live set</b>. Každá má cíl, 5 cvičení a závěrečnou zkoušku. Další úroveň se odemkne, až splníš zkoušku té předchozí (nahlédnout do ní můžeš kdykoli). Postup se ukládá v tomto prohlížeči. Jedno cvičení denně stačí – a timer vlevo hlídá, ať se nezasekneš.</p>
-    </div>
-  </div>
-  <h2>Úrovně</h2>
-  <div id="levels"></div>
-</section>
-
-</main><footer>
-  <p><b>Zdroje:</b>
-  <a href="https://static.roland.com/assets/media/pdf/SP-404mk2_v550_reference_eng04_W.pdf">SP-404MKII Reference Manual v5.50 (PDF)</a> ·
-  <a href="https://static.roland.com/manuals/sp-404mk2_reference_v550/en-US/index.html">Online manuál v5.50</a> ·
-  <a href="https://static.roland.com/manuals/sp-404mk2_reference/eng/17805509.html">Seznam zkratek</a> ·
-  <a href="https://klangfeldlabs.com/doom-os/manual/">DOOM OS manuál</a> ·
-  <a href="https://synthanatomy.com/2026/10/klangfeld-labs-doom-os-a-custom-roland-sp-404mkii-firmware.html">Synth Anatomy o DOOM OS 0.7</a></p>
-  <p>Neoficiální osobní průvodce. SP-404MKII je ochranná známka společnosti Roland. Data plánovače se ukládají jen v tvém prohlížeči.</p>
-</footer>
-</template>
 <template id="tpl-en"><main><!-- ============ 1. START ============ -->
 <section class="view" id="v-start">
   <div class="hero"><div class="hero-t"><p class="eyebrow">INTERACTIVE GUIDE · SP-404MKII</p><h1>from sample<br>to live set</h1><p class="lead">This guide walks you through how to <b>prepare</b> your work on the SP-404MKII, how to <b>turn it into a structure</b>, and how to <b>perform it live</b>. Pick an approach, tick off steps and plan your banks and pads right here.</p><a class="press" href="#workflow"><span>▸</span> PRESS START</a></div><div class="hero-img" role="img" aria-label="Drawn SP-404MKII sampler among banana leaves"></div></div>
@@ -823,6 +630,7 @@ nav{justify-content:center}
     <button class="btn sm ghost" id="wfReset">Reset checkmarks</button>
   </div>
   <p class="dim" style="font-size:13px;margin:4px 0 10px">Some steps only make sense for a particular approach (e.g. Pattern Chain only for B). Pick your approach from the Approach tab here and steps that don't apply are hidden. The tag on a step (e.g. <span class="tag">A,B,C</span>) shows which approaches it applies to; steps without a tag always apply.</p>
+  <div class="callout neutral only-doom" style="margin:8px 0"><b>DOOM mode.</b> Steps tagged DOOM show DOOM OS controls (open with <span class="k">REMAIN</span> + <span class="k">SUB PAD</span>). Other steps work the same as in stock mode.</div>
   <div class="wfprog"><span id="progTxt">0 %</span><div class="bar"><i id="progBar"></i></div><span class="dim" id="progLbl"></span></div>
   <div id="wfAppr"></div>
   <div id="phases"></div>
@@ -928,7 +736,7 @@ nav{justify-content:center}
 <!-- ============ 6. SHORTCUTS ============ -->
 <section class="view" id="v-zkratky">
   <h1>Shortcut cheat sheet</h1>
-  <p class="lead">Search or filter. Star the ones you want to learn – then view them on their own as your personal cheat sheet.</p>
+  <p class="lead">Search or filter. Click ★ next to the shortcuts you want to learn – the “★ Starred” filter then shows only those, as your personal cheat sheet.</p>
   <input id="scSearch" placeholder="Search (e.g. mute, tempo, chain, bus…)" class="noprint">
   <div class="sc-filter noprint" id="scFilter"></div>
   <div class="card" style="padding:6px 10px"><table class="sc" id="scTable"></table></div>
@@ -940,22 +748,29 @@ nav{justify-content:center}
 
 <!-- ============ 7. DOOM OS ============ -->
 <section class="view" id="v-doom">
+  <div class="only-official">
   <h1>Upgrade to DOOM OS?</h1>
   <p class="lead">Unofficial firmware by Klangfeld Labs built on Roland firmware 5.52. Free, at your own risk. Adds a graphical step sequencer, piano roll, synth engines, a mixer and p-locks – a classic groovebox workflow.</p>
+  </div>
+  <div class="only-doom">
+  <h1>DOOM OS</h1>
+  <p class="lead">DOOM mode is on: procedures, shortcuts, workflow and the Live cheat sheet show DOOM OS controls. Expand a feature below for the details and the step-by-step procedure.</p>
+  </div>
 
-  <div class="grid g2">
-    <div class="card"><h3>What it adds</h3>
-      <ul class="clean">
-        <li>Graphical pattern sequencer with grid and piano roll</li>
-        <li>20 synth engines (BASS, POLY, FM, WAVE…) and 11 drum kits (909, 808, 606…)</li>
-        <li>Arpeggiator (40 scales, up to 3 octaves, HOLD)</li>
-        <li>Per-step parameter locks (up to 4096 per project)</li>
-        <li>Mixer: pan, bus, level, mute/solo, 3-band EQ per pad</li>
-        <li>Sidechain editor, waveform display</li>
-        <li>Bounce in place (CUT / TAIL / LOOP)</li>
-        <li>FX automation, pattern tools (QUANT, SWING, HUMAN, TRANSP…)</li>
-      </ul>
-    </div>
+  <h2>What DOOM OS adds</h2>
+  <p class="dim" style="font-size:13px;margin-top:0">From the DOOM OS 0.7 manual (Klangfeld Labs); instrument and kit examples from Synth Anatomy's coverage of 0.7.</p>
+  <div id="doomAdds">
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Instruments &amp; drum kits</div><div class="sub">20 synths and 11 drum kits inside the SP – no sampling needed.</div></div></summary><div class="body"><ul class="clean"><li><b>20 built-in instruments</b> “from drums to synths” – e.g. BASS, POLY, FM (two operators, selectable wave) and WAVE.</li><li><b>11 drum kits</b> – e.g. 909, 808, 606, CR78, 707, 727 (some load only 13–15 pads).</li><li>Editor: sections such as TONE, MOD, AMP, OUT; <span class="k">CTRL 1</span>–<span class="k">CTRL 3</span> set parameters, <span class="k">SHIFT</span> for fine steps.</li><li>Chromatic: <span class="k">SHIFT</span><span class="plus">+</span><span class="k">pad 4</span> in the editor, octave with the bank buttons.</li><li>Saved to the pad as a sample – plays in stock mode too.</li></ul><div class="dinline" data-procs="doominst"></div></div></details>
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Arpeggiator</div><div class="sub">Turns held notes into patterns – 11 types, 40 scales.</div></div></summary><div class="body"><ul class="clean"><li><b>Types:</b> UP, DOWN, U/D, RND, ORD, CHRD, CONV, DIV, PNKY, THMB, U/D+.</li><li><b>Rate:</b> 1/4 to 1/32 incl. triplets · <b>Gate:</b> 1–100 %.</li><li><b>40 scales</b> (e.g. CHR, MAJ, MIN, DOR), key C–B, up to 3 octaves up or down.</li><li><span class="k">HOLD</span> latches · PRINT ARP turns it into real notes.</li></ul><div class="dinline" data-procs="doomarp"></div></div></details>
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Recording</div><div class="sub">Rehearse first, then record in 4 modes.</div></div></summary><div class="body"><ul class="clean"><li><b>Rehearsal:</b> <span class="k">REC</span> = play without recording, second <span class="k">REC</span> = record.</li><li><b>SINGLE</b> – all pads play the selected track · <b>MULTI</b> – each pad its own track.</li><li><b>CHROMATIC</b> – pads as a keyboard (pad 5 = original pitch) · <b>16 VEL</b> – 16 velocities (pad 4 = 127, pad 13 = 1).</li><li><b>NEW NOTES</b> (<span class="k">SHIFT</span><span class="plus">+</span><span class="k">PATTERN EDIT</span>): quantize, swing, live/fixed velocity and length.</li><li>New patterns are 4/4; 5/4–7/4 patterns are view-only.</li></ul><div class="dinline" data-procs="record"></div></div></details>
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Sequencer &amp; editing</div><div class="sub">16-step grid, piano roll, parameter locks and pattern tools.</div></div></summary><div class="body"><ul class="clean"><li>16-step grid on the pads; per note: velocity, length, nudge (<span class="k">CTRL 1</span>–<span class="k">CTRL 3</span>).</li><li><b>Piano roll</b> per track · <b>Parameter locks</b>: up to 4096 per project.</li><li><b>Pattern tools:</b> QUANT (1/4–1/32, triplets), SWING 50–75, SHIFT ±16 steps, DOUBLE, HALVE, REVERSE, HUMAN 1–30, TRANSP ±12.</li><li><b>Undo</b> up to 11 steps, redo <span class="k">REMAIN</span><span class="plus">+</span><span class="k">PATTERN SELECT</span>.</li><li><b>Grid views</b> (<span class="k">SHIFT</span><span class="plus">+</span><span class="k">RECORD SETTING</span>): GRID, LABELS, BEATS, BOTH, ZOOM · Pattern Follow <span class="k">SHIFT</span><span class="plus">+</span><span class="k">HOLD</span>.</li></ul><div class="dinline" data-procs="doompiano,doomplock,doomtools,switch"></div></div></details>
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Mixer, EQ &amp; sidechain</div><div class="sub">A per-track mix, 3-band EQ and ducking.</div></div></summary><div class="body"><ul class="clean"><li><b>Mixer:</b> pan, bus (B1 / B2 / DRY), level, mute, solo per track.</li><li><b>EQ:</b> 3 bands, ±12 dB, 20 Hz–20 kHz (defaults 100 Hz / 1.2 kHz / 8 kHz), Q 0.3–10; up to 16 pads.</li><li><b>Sidechain:</b> threshold, ratio, release, make-up gain 0–6 dB; between DRY and BUS 1–4.</li></ul><div class="dinline" data-procs="mute,doomsc"></div></div></details>
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Bounce &amp; automation</div><div class="sub">Commit tracks to samples and record knob moves.</div></div></summary><div class="body"><ul class="clean"><li><b>Bounce in place:</b> CUT (pattern length), TAIL (until effects fade, max 30 s), LOOP (taken from the 2nd pass, loops seamlessly).</li><li>Bounce one track (<span class="k">RESAMPLE</span>) or everything you hear (<span class="k">SHIFT</span><span class="plus">+</span><span class="k">RESAMPLE</span>).</li><li><b>FX automation:</b> record with <span class="k">REC</span> ×2 on an effect page, edit step by step in <span class="k">SHIFT</span><span class="plus">+</span><span class="k">MARK</span>.</li></ul><div class="dinline" data-procs="resample,efxmotion"></div></div></details>
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Screen &amp; workflow helpers</div><div class="sub">Waveform, help mode, custom shortcuts, Boot to DOOM.</div></div></summary><div class="body"><ul class="clean"><li><b>Waveform display</b> of the last 2 s – output or selected track (<span class="k">SHIFT</span><span class="plus">+</span><span class="k">START/END</span>).</li><li><b>Help mode:</b> hold <span class="k">SHIFT</span> 3 s, then press any control to see what it does.</li><li><b>Custom shortcuts:</b> up to 8 (SYSTEM › SHORTCUT).</li><li><b>Boot to DOOM:</b> start straight into DOOM OS.</li></ul><div class="dinline" data-procs="doomopen"></div></div></details>
+    <details class="phase dadd"><summary><span class="num">+</span><div><div class="ttl">Compatibility with stock firmware</div><div class="sub">What still plays when you go back to stock.</div></div></summary><div class="body"><ul class="clean"><li>Instruments are pad samples – they play in stock mode.</li><li><b>Parameter locks don't play</b> in stock mode (each step uses the plain sound).</li><li>Mixer pan / bus / level are pad settings – kept everywhere; pad EQ is heard on all screens.</li><li>Stock COPY and EXCHANGE of patterns work; locks travel with the copy within a project.</li></ul><div class="dinline" data-procs="chain"></div></div></details>
+  </div>
+
+  <div style="margin-top:18px">
     <div class="card"><h3>Watch out for</h3>
       <ul class="clean">
         <li>Unofficial – not supported by Roland; warranty impact isn't documented anywhere.</li>
@@ -967,8 +782,10 @@ nav{justify-content:center}
     </div>
   </div>
 
+  <div class="only-official">
   <h2>Decision checklist</h2>
   <div class="card" id="doomCheck"></div>
+  </div>
 
   <h2>How the workflow would change</h2>
   <div class="card" style="padding:6px 10px">
@@ -998,8 +815,8 @@ nav{justify-content:center}
     <tr><td>pad (during pattern playback)</td><td>Queues next pattern</td><td>Queue is PATTERN SELECT + pad</td></tr>
     <tr><td>SHIFT (3 s)</td><td>—</td><td>Help mode</td></tr>
   </table></div>
-  <p class="dim" style="font-size:13px">Per the DOOM OS 0.7 manual. The manual doesn't say whether patterns made in DOOM OS and in the stock sequencer are the same thing – test on a copy of your project before building a set on it.</p>
-  <div class="callout blue">
+  <p class="dim" style="font-size:13px">Per the DOOM OS 0.7 manual. Patterns made in DOOM OS also play in stock mode – instruments are stored as samples, only parameter locks don't play there.</p>
+  <div class="callout blue only-official">
     <b class="t">Recommendation</b>
     First spend 2–3 weeks learning the stock workflow (phases 0–4) – pad layout, mute groups, resampling and transitions work the same with DOOM OS. Bring in DOOM OS when you're held back by <i>programming</i> notes, not by <i>structure</i>. <b>BACKUP</b> all projects before patching and only gig with it after a few rehearsals. Always bounce results to samples – they survive a return to stock.
   </div>
@@ -1041,349 +858,11 @@ nav{justify-content:center}
 <script>
 // ---------- helpers for key markup ----------
 // "SHIFT+pad 11" -> <span class="k">SHIFT</span>+<span class="k">pad 11</span>
-function K(s){return s.split(' | ').map(alt=>alt.split('+').map(x=>`<span class="k">${x.trim()}</span>`).join('<span class="plus">+</span>')).join(` <span class="dim">${T('or')}</span> `)}
+function K(s){return s.split(' | ').map(alt=>alt.split(' → ').map(seq=>seq.split('+').map(x=>`<span class="k">${x.trim()}</span>`).join('<span class="plus">+</span>')).join('<span class="plus"> → </span>')).join(` <span class="dim">${T('or')}</span> `)}
 function kx(html){return html.replace(/\[\[(.+?)\]\]/g,(_,s)=>K(s))}
 
 const SEC_COLORS = ['#6f8fd0','#e08a3c','#cf3f98','#e2c14c','#5f9a6e','#8c7bc4','#8fbfae','#e8b27a'];
 const DATA={};
-DATA.cs=(()=>{
-// ---------- APPROACHES ----------
-const APPROACHES = [
- {id:'A', name:'Banka = skladba', short:'Loopy a one-shoty v bance, hraješ je rukama. Nejvíc „SP-404 way“.',
-  m:{improvizace:5, struktura:2, priprava:2, riziko:3},
-  who:'Samplerky/beatmakeři, kteří chtějí jamovat a mít volnost. Ideální první krok.',
-  setup:[
-   'Každá skladba dostane jednu banku (A–J). Max. 10 skladeb na projekt, 16 projektů na kartě.',
-   'Pevný layout: řádek 1 bicí, řádek 2 bas/harmonie, řádek 3 melodie/vokál, řádek 4 přechody.',
-   'Loopy: [[LOOP]] zapnout, [[BPM SYNC]] zapnout (celá banka: [[SHIFT+BPM SYNC]]), [[GATE]] vypnout.',
-   'Variace stejné role do mute group ([[SHIFT+pad 8]]) → pad 2 automaticky vypne pad 1.',
-   'Tempo banky: [[SHIFT+pad 11]], [[CTRL 1]] = BANK, [[VALUE]] = BPM.'],
-  live:['Spouštíš a zastavuješ loopy pady, vrstvy přidáváš/ubíráš.','Struktura vzniká v reálném čase – podle cue sheetu.','Přechody přes BUS FX, MUTE BUS a přechodové pady 13–16.'],
-  pros:['Maximální volnost a groove','Nic se „nerozjede“ – žádný sekvencer','Funguje stejně se stock i DOOM OS'],
-  cons:['Struktura je jen v tvé hlavě → potřebuješ cue sheet','Loopy začínají tam, kde stiskneš – trénink timingu'],
- },
- {id:'B', name:'Patterny + Pattern Chain', short:'Každá sekce je pattern, aranž je chain. Nejvíc „song mode“.',
-  m:{improvizace:2, struktura:5, priprava:4, riziko:3},
-  who:'Pokud chceš sekvence, aranž a hrát „hotové“ skladby.',
-  setup:[
-   'Samply skladby v bance X, patterny skladby v pattern bance X (stejné písmeno – snadná orientace).',
-   'Pattern 1 = Intro, 2 = A, 3 = B, 4 = Break, 5 = Outro (+ 6–8 variace / fill).',
-   'Nahrávání: v PATTERN SELECT zvol prázdný pad, [[REC]] (real-time) nebo [[SHIFT+REC]] (TR-REC).',
-   'Variace: zkopíruj pattern a ubírej/měň – rychlejší než nahrávat znovu.',
-   'Chain: [[PATTERN SELECT]] → [[HOLD+pad]] (číslo chainu) → pady v pořadí → [[EXIT]].'],
-  live:['Pad během přehrávání = další pattern naskočí na konci aktuálního (fronta).','[[SUB PAD+pad]] = přepnutí okamžitě.','Mutování: přepni [[PATTERN SELECT]] do sample módu (pattern hraje dál) a [[SHIFT+REVERSE+pad]].','Nebo chain spustíš [[SUB PAD]] a jen hraješ efekty.'],
-  pros:['Skladba má jasnou strukturu – opravdu ji „dokončíš“','Přepínání sekcí kvantizované na konec patternu','Pattern chain jde bounce-nout na sample'],
-  cons:['Programování not bez mřížky je pomalé','Chain přehrávaný v kuse = méně živosti'],
- },
- {id:'C', name:'Stem jam (resamplované stopy)', short:'Sekce převedeš na dlouhé loopy po vrstvách a hraješ je jako klipy v Abletonu.',
-  m:{improvizace:4, struktura:4, priprava:5, riziko:1},
-  who:'Pro delší sety a pro klid na stage. Nejspolehlivější varianta.',
-  setup:[
-   'Skladbu si nejdřív postav jakkoli (A nebo B, klidně i v DAW).',
-   'Každou sekci exportuj po vrstvách: bicí / bas / harmonie / melodie (8–16 taktů).',
-   'Pady: sloupec = vrstva, řádek = sekce. Např. sloupec 1 bicí (pady 1,5,9,13), sloupec 2 bas…',
-   'Každý sloupec = jedna mute group → spuštění jiné sekce v sloupci vypne předchozí.',
-   'Vše [[LOOP]] + [[BPM SYNC]], gate off. Ořez přes [[START/END]] s END SNAP na dobu.'],
-  live:['Jako Ableton Session view: měníš sekce po vrstvách, ne naráz.','Pady 1 kolem sebe = vrstvy nejsou vázané – hraješ „remix“ vlastní skladby.','Efekty a MUTE BUS na přechody.'],
-  pros:['Nejmíň věcí, co se může pokazit','Zvuk je přesně jak ho chceš (už mixované)','Malá zátěž, rychlé přepínání bank'],
-  cons:['Nejvíc přípravy (export stopy)','Méně prostoru měnit noty naživo'],
- },
- {id:'D', name:'DJ set z hotových beatů', short:'Hotové tracky jako dlouhé samply, mix ve 2 decích + efekty.',
-  m:{improvizace:2, struktura:4, priprava:3, riziko:1},
-  who:'Beat-tape sety, kdy máš hotové skladby a chceš je plynule spojit a „přefouknout“ efekty.',
-  setup:[
-   'Hotové skladby resampluj / importuj jako celé samply (nebo 2–3 díly na skladbu).',
-   'DJ MODE: stiskni [[BANK D/I+BANK E/J]] současně.',
-   'Kanál 1/2 vybereš přes [[VALUE]] → CH1/CH2 SELECT → pad → ENTER.',
-   'Markery na místa drop/break – v DJ módu z nich můžeš spouštět.'],
-  live:['[[CTRL 1]] / [[CTRL 2]] = hlasitost kanálů, [[CTRL 3]] = crossfader.','Synchronizace tempa a pitch bend na padech (viz manuál, kapitola DJ MODE).','Přes to hraješ efekty a one-shoty.'],
-  pros:['Hotové skladby = nulový stres o aranž','Přechody mezi tracky jsou přirozené'],
-  cons:['Málo „live“ tvorby','Nevyřeší, že skladby nedokončuješ'],
- },
- {id:'E', name:'DOOM OS groovebox', short:'Neoficiální firmware: mřížka, piano roll, syntézy, p-locky, mixer.',
-  m:{improvizace:4, struktura:4, priprava:3, riziko:4},
-  who:'Až budeš mít stock workflow v rukou a brzdí tě programování not.',
-  setup:[
-   'Kompletní BACKUP projektů, pak instalace patcherem (viz DOOM OS manuál).',
-   'Otevření: [[REMAIN+SUB PAD]], zavření a uložení: [[EXIT]].',
-   'Patterny skládáš v mřížce, basu/melodii ze syntézových enginů.',
-   'Hotové věci bounce in place → běžné samply.'],
-  live:['[[PATTERN SELECT+pad]] = zařadí další pattern, + [[SUB PAD]] = okamžitě.','Mixer (podržet [[RECORD SETTING]]): mute/solo stop.','Automatizace efektů [[SHIFT+MARK]].'],
-  pros:['Programování jako na grooveboxu','Syntézy přímo v SP – méně samplování','Mixer s mute/solo'],
-  cons:['Neoficiální, ve vývoji – riziko na stage','Další vrstva ovládání k naučení','Bez song módu'],
- },
-];
-
-// ---------- WIZARD ----------
-const WIZARD = [
- {q:'Co chceš na stage dělat nejvíc?', o:[
-   ['Jamovat a improvizovat s loopy',{A:3,C:2}],
-   ['Hrát připravené skladby se strukturou',{B:3,C:2}],
-   ['Plynule míchat hotové beaty',{D:3,C:1}],
-   ['Měnit noty a melodie naživo',{E:3,B:1}]]},
- {q:'Kde se teď nejčastěji zasekáváš?', o:[
-   ['Mám hromadu 8taktových loopů a nevím, jak dál',{B:2,C:2,A:1}],
-   ['Nevím, jak si organizovat pady a banky',{A:3,C:1}],
-   ['Neumím přechody mezi skladbami',{D:2,A:1,C:1}],
-   ['Sekvencování na SP je pro mě nepohodlné',{E:3,C:1}]]},
- {q:'Jak dlouhý set plánuješ?', o:[
-   ['Do 15 minut',{A:2,B:1,E:1}],
-   ['15–30 minut',{B:2,A:1,C:1}],
-   ['45 minut a víc',{C:2,D:2}]]},
- {q:'Kolik rizika na stage sneseš?', o:[
-   ['Žádné – musí to jet',{C:3,D:2}],
-   ['Trochu, ať je to živé',{A:2,B:2}],
-   ['Klidně experiment',{E:3,A:1}]]},
- {q:'Odkud bereš zvuky?', o:[
-   ['Samply z desek, nahrávek, YouTube',{A:2,C:1}],
-   ['Synťáky a hardware',{B:2,E:2}],
-   ['Hotové skladby z DAW / jiného hardwaru',{C:2,D:2}],
-   ['Mix všeho',{A:1,B:1,C:1}]]},
-];
-
-// ---------- WORKFLOW PHASES ----------
-// s: step title, h: how (with [[keys]]), a: approaches it applies to ('*' = all)
-const PHASES = [
- {t:'Příprava projektu (jednou)', sub:'Šablona, kterou pak jen plníš', time:'60 min',
-  why:'Rozhodnutí, která uděláš jednou, už nikdy nemusíš dělat znovu. Šablona = méně tření při každé nové skladbě.',
-  steps:[
-   {s:'Založ prázdný projekt jen pro live set', h:'[[SHIFT+SUB PAD]] → SELECT PROJECT. Knihovnu samplů drž v jiném projektu.', a:'*'},
-   {s:'Rozhodni tempo: projektové, nebo per banka', h:'[[SHIFT+pad 11]] → [[CTRL 1]] PROJECT / BANK, [[VALUE]] tempo. Pro set s různými tempy volíš BANK.', a:'*'},
-   {s:'Nastav master efekty na BUS 3/4', h:'Např. BUS 3 komprese/EQ, BUS 4 lo-fi nebo limiter. Na ty už na stage nesahej.', a:'*'},
-   {s:'Rozhodni, co bude na BUS 1 a BUS 2', h:'BUS 1 = filtr / DJFX looper (přechody), BUS 2 = delay/reverb (prostor). [[BUS FX]] přepíná, který bus ovládáš.', a:'*'},
-   {s:'Vyber si oblíbené MFX efekty', h:'Hold [[MFX]] + [[VALUE]] výběr. Zamknutí edit obrazovky: [[REMAIN+efekt]].', a:'*'},
-   {s:'Vytiskni si / ulož layout padů z Plánovače', h:'V záložce Plánovač klikni „Doplnit doporučený layout“ a uprav podle sebe.', a:'*'},
-  ]},
- {t:'Sběr materiálu', sub:'Samplování a chop – s limitem', time:'45 min',
-  why:'Sbírání je příjemné a nekonečné. Limit (max. 16 padů na skladbu) tě donutí vybírat.',
-  steps:[
-   {s:'Nahraj/importuj zdroje do jedné banky', h:'[[REC]] → pad → [[REC]]. Pro vstup přes Input FX: [[REC]] → [[RECORD SETTING]] → [[VALUE]].', a:'A,B,C,E'},
-   {s:'Skip-back sampling, když něco zahraješ náhodou', h:'[[MARK]] (pokud je MARK Function = Skip back) → přehrání → [[REC]] + pad pro uložení.', a:'A,B,E'},
-   {s:'Rozsekej (chop) a rozlož na pady', h:'[[SHIFT+START/END]] markery, [[MARK]] přidá marker, AUTO MARK podle transientů → [[SHIFT+START/END]] CHOP.', a:'A,B,C'},
-   {s:'Nastav hrací vlastnosti padů', h:'[[LOOP]], [[GATE]], [[BPM SYNC]]; one-shot = podrž [[VALUE]] + [[GATE]]; obálka [[SHIFT+PITCH/SPEED]].', a:'A,B,C'},
-   {s:'Pro DJ set: připrav hotové tracky jako samply', h:'Import přes [[SHIFT+pad 14]] (IMPORT/EXPORT).', a:'D'},
-  ]},
- {t:'Jádro: jeden 8taktový loop', sub:'Tady se to obvykle zasekne – proto timebox', time:'45 min',
-  why:'Loop je „refrén“. Když je hotový, zbytek skladby se odvozuje z něj – odebíráním a variacemi.',
-  steps:[
-   {s:'Postav beat + bas + jednu harmonii/hook', h:'Max. 4 vrstvy. Pattern: [[PATTERN SELECT]] → prázdný pad → [[REC]] (nebo [[SHIFT+REC]] = TR-REC).', a:'*'},
-   {s:'Metronom a count-in', h:'[[SHIFT+pad 9]] metronom, [[SHIFT+pad 10]] count-in.', a:'B,E'},
-   {s:'Undo při nahrávání patternu', h:'[[SHIFT+PATTERN SELECT]].', a:'B'},
-   {s:'Smíchej hlasitosti a routing na busy', h:'Dlouze [[REMAIN]], pak pady přepínají bus / DRY. [[REMAIN+BANK]] = celá banka. Hlasitost banky [[SHIFT+BANK]].', a:'*'},
-   {s:'COMMIT: resampluj loop s efekty na pad 16', h:'[[RESAMPLE]] → [[RECORD SETTING]] ROUTING = Mix → pad → zahraj → [[REC]]. To je tvoje záchranná síť na stage.', a:'*'},
-   {s:'Zazvonil timer? Jde se dál, i když to není dokonalé', h:'Nedokonalé > nedokončené.', a:'*'},
-  ]},
- {t:'Sekce a variace', sub:'Intro · A · B · Break · Outro', time:'45 min',
-  why:'Nejrychlejší cesta k sekcím je odčítání: z plného loopu ubírej, nepřidávej.',
-  steps:[
-   {s:'Intro = loop bez bicích (nebo jen textura)', h:'Pattern: zkopíruj loop a smaž stopy. Live: prostě ještě nespouštěj řádek 1.', a:'*'},
-   {s:'B-sekce = jiná varianta beatu nebo basy na padech 2/6', h:'Variace dej do mute group s originálem: [[SHIFT+pad 8]].', a:'A,C'},
-   {s:'Vytvoř patterny 1–5 pro sekce skladby', h:'Pattern bank vybíráš tlačítky BANK v režimu PATTERN SELECT. Úpravy: [[PATTERN EDIT]] (DUPLICATE, CROP, QUANTIZE…).', a:'B,E'},
-   {s:'Připrav přechodové pady 13–16', h:'Riser, impact, vocal tag, reverse crash. Gate off, BPM SYNC dle potřeby.', a:'*'},
-   {s:'Nahraj pohyby efektů / mutů do patternu (volitelné)', h:'EFX MOTION REC: pattern hraje → [[REC]] → [[MARK]] → hraj efekty → [[EXIT]]. PAD MUTE MOTION REC: [[REC]] → [[SHIFT+REVERSE+REMAIN]] → muty → [[EXIT]].', a:'B'},
-   {s:'Stemy: exportuj každou sekci po vrstvách', h:'[[RESAMPLE]] jednotlivých vrstev / MULTIPAD EXPORT; ulož do sloupců padů.', a:'C'},
-  ]},
- {t:'Struktura skladby', sub:'Rozhodni pořadí a zapiš ho', time:'30 min',
-  why:'Struktura, kterou máš napsanou, se na stage hraje sama. Struktura v hlavě se pod tlakem rozpadne.',
-  steps:[
-   {s:'Zapiš sekce do Plánovače (sekce, takty, co se děje)', h:'Záložka Plánovač → Struktura skladby.', a:'*'},
-   {s:'Postav Pattern Chain', h:'[[PATTERN SELECT]] → [[HOLD+pad]] (chain 1–16) → pady v pořadí → [[EXIT]]. Spuštění [[SUB PAD]]. Repeat: [[REMAIN]], mód [[START/END]].', a:'B'},
-   {s:'Zahraj strukturu jednou a nahraj ji', h:'Resample celého výstupu nebo chain: [[PATTERN SELECT]] → [[RESAMPLE]] → … → [[HOLD+pad]] → [[SUB PAD]].', a:'*'},
-   {s:'Bounce chainu na sample (záloha)', h:'[[PATTERN SELECT]] → [[COPY]] → [[HOLD+pad]] (chain) → cílový pad → [[COPY]].', a:'B'},
-   {s:'Pro DJ set: zapiš pořadí tracků a body přechodů', h:'Markery v DJ módu na místa přechodů.', a:'D'},
-  ]},
- {t:'Zkouška live', sub:'Hraj, dokud to neumíš 3× v kuse', time:'3 × 20 min',
-  why:'Live je dovednost rukou. Teprve tady zjistíš, které pady jsou na špatném místě.',
-  steps:[
-   {s:'Zamkni mute pro hraní', h:'[[SHIFT+REVERSE+REMAIN]] = latch; pak pady jen mutují. Konec [[EXIT]].', a:'A,B,C'},
-   {s:'Nacvič přepínání patternů do fronty i okamžitě', h:'Pad = na konci patternu, [[SUB PAD+pad]] = hned. Výběr bez přehrání: hold [[VALUE]] + pad.', a:'B,E'},
-   {s:'Nacvič přechod do další banky (skladby)', h:'Během outra přepni banku a spusť intro další skladby. Hlasitosti bank [[SHIFT+BANK]].', a:'A,B,C'},
-   {s:'Nacvič break s MUTE BUS', h:'[[SHIFT+BUS FX]] – bus ztichne, zůstanou dozvuky delay/reverb.', a:'*'},
-   {s:'Momentky efektů', h:'Hold [[VALUE]] + tlačítko efektu = efekt jen po dobu držení (EFFECT GRAB).', a:'*'},
-   {s:'Nouzové zastavení', h:'Rychle 4× [[EXIT]].', a:'*'},
-   {s:'Oprav layout podle zkoušky a zahraj znovu', h:'Výměna padů: [[SHIFT+pad 5]] (EXCHANGE).', a:'*'},
-  ]},
- {t:'Uzavřít, nahrát, zálohovat', sub:'Teprve teď je to hotové', time:'20 min',
-  why:'Záloha a nahrávka jsou definice „hotovo“. Zamčená banka se už nepřepíše omylem.',
-  steps:[
-   {s:'Nahraj celé odehrání (do PC/rekordéru nebo RESAMPLE)', h:'Poslouchej až druhý den; max. 3 opravy.', a:'*'},
-   {s:'Zamkni banku proti přepsání', h:'[[SHIFT+COPY]] = BANK PROTECT.', a:'*'},
-   {s:'Export projektu a BACKUP na SD / do počítače', h:'[[SHIFT+pad 13]] UTILITY → BACKUP; EXPORT PROJECT přes [[SHIFT+pad 14]].', a:'*'},
-   {s:'Před gigem: LIVE MODE', h:'Podrž [[SHIFT]] + [[REMAIN]] 3 s.', a:'*'},
-  ]},
-];
-
-// ---------- LIVE CARDS ----------
-const LIVE = [
- {t:'Spouštění a zastavování', items:[
-  ['Zastavit vše','Rychle 4× [[EXIT]]'],
-  ['Pauza / pokračování samplu','[[SHIFT+HOLD]]'],
-  ['Držet sample i po puštění padu (gate on)','Hold [[HOLD]] + pad'],
-  ['Výměna variací automaticky','Mute group [[SHIFT+pad 8]]'],
-  ['Spustit více padů najednou','Pad link [[SHIFT+pad 7]] (až 4 pady)'],
-  ['Roll / stutter','Hold [[ROLL]] + pad; interval [[SHIFT+ROLL]]'],
- ]},
- {t:'Patterny a struktura', items:[
-  ['Další pattern (na konci aktuálního)','Pad během přehrávání'],
-  ['Přepnout okamžitě','[[SUB PAD+pad]]'],
-  ['Vybrat pattern bez přehrání','Hold [[VALUE]] + pad'],
-  ['Přepnout pattern banku','Tlačítka BANK v režimu PATTERN SELECT'],
-  ['Spustit / zastavit chain','[[HOLD+pad]] → [[SUB PAD]]'],
-  ['Zastavit pattern','Svítící pad nebo [[EXIT]]'],
- ]},
- {t:'Mutování a mix', items:[
-  ['Mute padu','[[SHIFT+REVERSE+pad]]'],
-  ['Mute latch (hrát muty jednou rukou)','[[SHIFT+REVERSE+REMAIN]], konec [[EXIT]]'],
-  ['Mute během patternu','Nejdřív [[PATTERN SELECT]] → sample mód (pattern hraje dál)'],
-  ['Hlasitost skladby (banky)','[[SHIFT+BANK]]'],
-  ['Odposlech ve sluchátkách','CUE [[SHIFT+pad 3]]'],
- ]},
- {t:'Přechody a efekty', items:[
-  ['Break s dozvukem','MUTE BUS [[SHIFT+BUS FX]]'],
-  ['Efekt jen na chvíli','Hold [[VALUE]] + tlačítko efektu'],
-  ['Přepnout ovládaný bus','[[BUS FX]] (svítí = BUS 1, bliká = BUS 2)'],
-  ['Prohodit efekty BUS 1 a 2','[[REMAIN+BUS FX]]'],
-  ['Zamknout obrazovku efektu','[[REMAIN+efekt]]'],
-  ['Tap tempo / tempo','[[SHIFT+pad 11]]'],
- ]},
-];
-
-// ---------- SHORTCUTS ----------
-// c: category
-const SHORTCUTS = [
- // Live
- ['SHIFT+REMAIN (3 s)','LIVE MODE – vypne DEL/REC/RESAMPLE/COPY/MARK','live'],
- ['EXIT ×4 (rychle)','Zastavit všechno','live'],
- ['SHIFT+HOLD','Pauza přehrávaného samplu','live'],
- ['HOLD+pad','Držet sample (gate on) po puštění','live'],
- ['SHIFT+REVERSE+pad','Mute / unmute padu','live'],
- ['SHIFT+REVERSE+REMAIN','Mute latch (zamknutí mute režimu)','live'],
- ['SHIFT+BANK','Hlasitost banky','live'],
- ['ROLL+pad','Roll; SHIFT+ROLL = interval, ROLL + VALUE = jemně','live'],
- ['SHIFT+pad 3','CUE – odposlech ve sluchátkách','live'],
- ['BANK D/I+BANK E/J','DJ MODE','live'],
- // Pattern
- ['PATTERN SELECT','Režim patternů / návrat do sample módu','pattern'],
- ['pad (při přehrávání)','Zařadit další pattern – naskočí na konci aktuálního','pattern'],
- ['SUB PAD+pad','Přepnout pattern okamžitě','pattern'],
- ['VALUE (hold)+pad','Vybrat pattern / sample bez přehrání','pattern'],
- ['REC (při přehrávání)','Real-time nahrávání patternu','pattern'],
- ['SHIFT+REC','TR-REC (krokové nahrávání)','pattern'],
- ['SHIFT+PATTERN SELECT','Undo při nahrávání patternu','pattern'],
- ['PATTERN EDIT','Úpravy patternu (DUPLICATE, CROP, QUANTIZE…)','pattern'],
- ['HOLD+pad','V PATTERN SELECT: otevřít Pattern Chain 1–16','pattern'],
- ['SUB PAD','V Pattern Chain: start / stop','pattern'],
- ['REMAIN','V Pattern Chain: repeat on/off ([START/END] = mód)','pattern'],
- ['REC → MARK','EFX MOTION REC (nahrát pohyby efektů)','pattern'],
- ['REC → SHIFT+REVERSE+REMAIN','PAD MUTE MOTION REC (nahrát muty)','pattern'],
- ['SHIFT+pad 9','Metronom','pattern'],
- ['SHIFT+pad 10','Count-in','pattern'],
- // FX
- ['BUS FX','Přepnout ovládání BUS 1 / BUS 2','fx'],
- ['SHIFT+BUS FX','MUTE BUS – nechá jen efektový dozvuk','fx'],
- ['REMAIN+BUS FX','Prohodit efekty BUS 1 a BUS 2','fx'],
- ['VALUE (hold)+efekt','EFFECT GRAB – efekt jen během držení','fx'],
- ['REMAIN+efekt','Zamknout edit obrazovku efektu','fx'],
- ['MFX (hold)+VALUE','Výběr MFX efektu','fx'],
- ['MFX+DJFX LOOPER','Seznam MFX od #17','fx'],
- ['REMAIN (dlouze)+pad','Routing padu na bus / DRY','fx'],
- ['REMAIN+BANK','Routing celé banky','fx'],
- ['REMAIN+EXT SOURCE','Bus pro externí vstup','fx'],
- // Sample
- ['LOOP','Smyčka on/off','sample'],
- ['SHIFT+LOOP','Ping-pong loop','sample'],
- ['GATE','Hraje jen při držení padu','sample'],
- ['SHIFT+GATE','Gate pro celou banku','sample'],
- ['VALUE (hold)+GATE','One-shot','sample'],
- ['BPM SYNC','Synchronizace s tempem; SHIFT+BPM SYNC = celá banka','sample'],
- ['SHIFT+PITCH/SPEED','Obálka (attack, hold, release)','sample'],
- ['SHIFT+START/END','Markery / CHOP','sample'],
- ['SHIFT+pad 1','Fixed velocity','sample'],
- ['SHIFT+pad 2','16 velocity','sample'],
- ['SHIFT+pad 4','Chromatic (REMAIN = legato/mono/poly)','sample'],
- ['SHIFT+pad 5','Exchange – prohodit pady','sample'],
- ['SHIFT+pad 6','Init parametrů padu','sample'],
- ['SHIFT+pad 7','Pad link (skupina až 4 padů)','sample'],
- ['SHIFT+pad 8','Mute group','sample'],
- // Sampling
- ['REC','Sampling standby (pady blikají)','sampling'],
- ['RECORD SETTING','REC BPM, routing (Mix / ExtIn), úroveň','sampling'],
- ['RESAMPLE','Nahrát výstup (resampling)','sampling'],
- ['SHIFT+RESAMPLE','Sloučit pady (SUM / MUL)','sampling'],
- ['MARK','Skip-back sampling nebo Looper (dle nastavení)','sampling'],
- ['SHIFT+RECORD SETTING','Sound generator','sampling'],
- ['SHIFT+EXT SOURCE','Nastavení vstupu','sampling'],
- // Utility
- ['SHIFT+pad 11','Tempo / Tap tempo (TEMPO SEL)','utility'],
- ['SHIFT+pad 12','Gain','utility'],
- ['SHIFT+pad 13','UTILITY menu','utility'],
- ['SHIFT+pad 14','Import / export','utility'],
- ['SHIFT+pad 15','Pad setting','utility'],
- ['SHIFT+pad 16','EFX setting','utility'],
- ['SHIFT+SUB PAD','Výběr projektu','utility'],
- ['SHIFT+COPY','Bank protect','utility'],
- ['COPY+EXIT','Kopírovat celou banku','utility'],
- ['DEL+EXIT','Smazat celou banku','utility'],
- // DOOM
- ['REMAIN+SUB PAD','Otevřít DOOM OS','doom'],
- ['EXIT','Zavřít DOOM OS a uložit','doom'],
- ['PATTERN SELECT','Start / stop přehrávání','doom'],
- ['PATTERN SELECT+pad','Zařadit pattern (po konci aktuálního)','doom'],
- ['PATTERN SELECT+SUB PAD+pad','Přepnout pattern okamžitě','doom'],
- ['PATTERN SELECT+BANK','Pattern banka','doom'],
- ['SHIFT+PATTERN SELECT','Undo','doom'],
- ['REMAIN+PATTERN SELECT','Redo','doom'],
- ['SHIFT+REC','Režim nahrávání (SINGLE, MULTI, CHROMATIC, 16 VEL)','doom'],
- ['RECORD SETTING (0,6 s)','Mixer','doom'],
- ['SHIFT+RECORD SETTING','Přepínat zobrazení mřížky','doom'],
- ['SHIFT+HOLD','Grid follow','doom'],
- ['SHIFT+START/END','Waveform display','doom'],
- ['SHIFT+MARK','Automatizace efektů','doom'],
- ['SHIFT (3 s)','Help mode','doom'],
-];
-const SC_CATS = {all:'Vše',star:'★ Moje',live:'Live',pattern:'Patterny',fx:'Efekty',sample:'Pady/samply',sampling:'Sampling',utility:'Utility',doom:'DOOM OS'};
-
-// ---------- DOOM CHECKLIST ----------
-const DOOM_Q = [
- ['Umím stock workflow: layout padů, mute groups, resample, pattern chain', 1],
- ['Nejvíc mě brzdí programování not a melodií, ne struktura', 1],
- ['Chybí mi mřížka / piano roll', 1],
- ['Chci syntézu (basy, pady) přímo v SP bez samplování', 1],
- ['Mám zálohu všech projektů (BACKUP) mimo SD kartu', 1],
- ['V nejbližších 2 týdnech nemám gig', 1],
- ['Jsem ok s tím, že je to neoficiální firmware ve vývoji', 1],
-];
-
-// ---------- DRILLS ----------
-const DRILLS = [
- {t:'Mute latch drill', time:'10 min', d:'Pusť plný loop (4 vrstvy). Zamkni mute ([[SHIFT+REVERSE+REMAIN]]) a každé 4 takty změň jednu vrstvu. Cíl: žádná změna mimo dobu „1“.'},
- {t:'Fronta patternů', time:'10 min', d:'Patterny 1–4 hraj v pořadí jen přes frontu (pad během přehrávání). Pak totéž s [[SUB PAD+pad]] přesně na „1“.'},
- {t:'Break a návrat', time:'10 min', d:'Každých 16 taktů: [[SHIFT+BUS FX]] na 2 takty + riser, pak zpět. Delay na BUS 2 musí doznít do návratu.'},
- {t:'Bank switch', time:'15 min', d:'Přechod z banky A do banky B: outro A (ubírej vrstvy) → přepni banku → intro B. Hlídej hlasitost bank.'},
- {t:'Efekt jen na chvíli', time:'10 min', d:'Hold [[VALUE]] + efekt: filtr na poslední takt každé osmičky, DJFX looper na fill. Jen momentky, nic nezapínat natrvalo.'},
- {t:'3 minuty bez zastavení', time:'15 min', d:'Nahraj si 3 minuty jednou banky bez přerušení. Chyby hraj dál. Poslechni až zítra.'},
- {t:'Resample commit', time:'15 min', d:'Vezmi loop, který „ještě není ono“. Dej na něj efekt, resampluj na pad 16 a originál smaž. Pocit: hotovo.'},
- {t:'Speed chop', time:'15 min', d:'10 minut: jeden zdroj → 8 chopů → 8taktový loop. Bez opravování. Trénuje rozhodování.'},
-];
-
-// ---------- PLANNER ROLES ----------
-const ROLES = {
- '':{n:'—',c:'#4a4950'},
- drums:{n:'Bicí',c:'#e08a3c'}, perc:{n:'Perkuse',c:'#e8b27a'},
- bass:{n:'Basa',c:'#8c7bc4'}, chords:{n:'Harmonie',c:'#6f8fd0'},
- melody:{n:'Melodie/hook',c:'#5f9a6e'}, vox:{n:'Vokál',c:'#cf3f98'},
- texture:{n:'Textura',c:'#8fbfae'}, fx:{n:'Přechod/FX',c:'#e2c14c'},
- oneshot:{n:'One-shot',c:'#eef0d6'}, full:{n:'Celý mix (záloha)',c:'#d7473d'},
-};
-const TEMPLATE = [
- ['Beat A','drums','L S','A','1'],['Beat B','drums','L S','A','1'],['Hats/perc','perc','L S','','1'],['Fill / break','drums','S','','1'],
- ['Basa A','bass','L S','B','D'],['Basa B','bass','L S','B','D'],['Harmonie A','chords','L S','C','2'],['Harmonie B','chords','L S','C','2'],
- ['Hook','melody','L S','','2'],['Kontramelodie','melody','L S','','2'],['Vokál chop','vox','G','','2'],['Textura','texture','L S','','2'],
- ['Riser','fx','S','','2'],['Impact','fx','','','D'],['Vocal tag','oneshot','','','2'],['Celý loop (resample)','full','L S','','D'],
-];
-const DEFAULT_SECTIONS = [['Intro',8,'',''],['A',16,'',''],['B',16,'',''],['Break',8,'',''],['Outro',8,'','']];
-
-return {APPROACHES,WIZARD,PHASES,LIVE,SHORTCUTS,SC_CATS,DOOM_Q,DRILLS,ROLES,TEMPLATE,DEFAULT_SECTIONS};})();
 DATA.en=(()=>{
 const APPROACHES = [
  {id:'A', name:'Bank = track', short:'Loops and one-shots in a bank, played by hand. The most "SP-404 way".',
@@ -1631,7 +1110,7 @@ const SHORTCUTS = [
  ['SHIFT+pad 5','Exchange – swap pads','sample'],
  ['SHIFT+pad 6','Init pad parameters','sample'],
  ['SHIFT+pad 7','Pad link (group of up to 4 pads)','sample'],
- ['SHIFT+pad 8','Mute group','sample'],
+ ['SHIFT+pad 8','Mute group – pads in a group cut each other off (choke)','sample'],
  ['REC','Sampling standby (pads blink)','sampling'],
  ['RECORD SETTING','REC BPM, routing (Mix / ExtIn), level','sampling'],
  ['RESAMPLE','Record the output (resampling)','sampling'],
@@ -1665,7 +1144,7 @@ const SHORTCUTS = [
  ['SHIFT+MARK','FX automation','doom'],
  ['SHIFT (3 s)','Help mode','doom'],
 ];
-const SC_CATS = {all:'All',star:'★ Mine',live:'Live',pattern:'Patterns',fx:'Effects',sample:'Pads/samples',sampling:'Sampling',utility:'Utility',doom:'DOOM OS'};
+const SC_CATS = {all:'All',star:'★ Starred',live:'Live',pattern:'Patterns',fx:'Effects',sample:'Pads/samples',sampling:'Sampling',utility:'Utility',doom:'DOOM OS'};
 
 const DOOM_Q = [
  ['I know the stock workflow: pad layout, mute groups, resampling, pattern chain', 1],
@@ -1725,7 +1204,7 @@ cs:{or:'nebo',copied:'Zkopírováno',copyFail:'Kopírování nepovoleno – ozna
  imp:'Importovat',imported:'Importováno',badJson:'Neplatný JSON',
  scH:['Kombinace','Funkce','Sekce'],star:'Označit',none:'Nic nenalezeno.',
  doomV:[['Jdi do toho.','Máš základ i důvod. Udělej BACKUP a nainstaluj DOOM OS podle manuálu.'],['Skoro.','Dodělej body, které chybí – hlavně zálohu a stock workflow – a pak ano.'],['Zatím ne.','Nejdřív se opři o stock workflow. Většina problémů se strukturou se vyřeší layoutem, mute groups a resamplem.']],
- searchPh:'Hledat',noResults:'Nic nenalezeno. Zkus jiné slovo (česky i anglicky).',procTag:'postup',manLink:'Otevřít v manuálu Roland →',
+ searchPh:'Hledat',noResults:'Nic nenalezeno. Zkus jiné slovo (česky i anglicky).',procTag:'postup',manLink:'Otevřít v manuálu Roland →',doomManLink:'Otevřít manuál DOOM OS →',
  start:'Start',pause:'Pauza',timeUp:'Čas! Resampluj a jdi dál.',title:'groove garden – SP-404MKII guide'},
 en:{or:'or',copied:'Copied',copyFail:'Copy not allowed – select the text manually',close:'Close',
  views:['Start','Approach','Workflow','Converter','Planner','Live','Shortcuts','DOOM OS','Practice'],
@@ -1744,17 +1223,17 @@ en:{or:'or',copied:'Copied',copyFail:'Copy not allowed – select the text manua
  sheet:'Stage cheat sheet',copy:'Copy',dlTxt:'Download .txt',dlJson:'Download .json',noDl:'Downloads not allowed here – use Copy',
  expTitle:'Planner export / import',expText:'Copy the data as a backup (or save it in your repo as <code>my-set.json</code>). To import, paste JSON and click Import.',
  imp:'Import',imported:'Imported',badJson:'Invalid JSON',
- scH:['Combination','Function','Section'],star:'Star',none:'Nothing found.',
+ scH:['Combination','Function','Section'],star:'Add to starred',unstar:'Remove from starred',none:'Nothing found.',
  doomV:[['Go for it.','You have the foundation and the reason. Make a BACKUP and install DOOM OS per the manual.'],['Almost.','Finish the missing points – especially backup and the stock workflow – then yes.'],['Not yet.','Lean on the stock workflow first. Most structure problems are solved by layout, mute groups and resampling.']],
- searchPh:'Search',noResults:'Nothing found. Try another word.',procTag:'procedure',manLink:'Open in the Roland manual →',
+ searchPh:'Search',noResults:'Nothing found. Try another word.',procTag:'procedure',manLink:'Open in the Roland manual →',doomManLink:'Open the DOOM OS manual →',stepByStep:'Step by step',
  start:'Start',pause:'Pause',timeUp:'Time! Resample and move on.',title:'groove garden – SP-404MKII guide'}
 };
 
 // ---------- storage ----------
 const LS_KEY='sp404guide.v1';
-let S={lang:'cs',checks:{},wizard:{},appr:null,wfFilter:'*',bank:'A',banks:{},stars:{},setOrder:[],doom:{}};
+let S={lang:'cs',fw:'official',checks:{},wizard:{},appr:null,wfFilter:'*',bank:'A',banks:{},stars:{},setOrder:[],doom:{}};
 try{const r=localStorage.getItem(LS_KEY); if(r) S=Object.assign(S,JSON.parse(r));}catch(e){}
-if(!UI[S.lang]) S.lang='cs';
+S.lang='en';
 function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(S))}catch(e){}}
 const T=k=>UI[S.lang][k];
 let APPROACHES,WIZARD,PHASES,LIVE,SHORTCUTS,SC_CATS,DOOM_Q,DRILLS,ROLES,TEMPLATE,DEFAULT_SECTIONS;
@@ -1768,9 +1247,11 @@ $('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('o
 
 // ---------- routing ----------
 const VIEW_IDS=['start','pristup','workflow','konvertor','planovac','live','zkratky','doom','trenink'];
-function renderNav(){$('#nav').innerHTML=VIEW_IDS.slice(1).map((v,i)=>`<a href="#${v}" data-v="${v}"><b>0${i+1}</b>${T('views')[i+1]}</a>`).join('')}
+const DOOM_LOGO='data:image/png;base64,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';
+document.documentElement.style.setProperty('--doomlogo',`url("${DOOM_LOGO}")`);
+function renderNav(){$('#nav').innerHTML=VIEW_IDS.slice(1).map((v,i)=>`<a href="#${v}" data-v="${v}"><b>0${i+1}</b>${v==='doom'?`<img class="navlogo" src="${DOOM_LOGO}" alt="DOOM OS">`:T('views')[i+1]}</a>`).join('')}
 function route(scroll=true){
-  let h=location.hash.slice(1); if(!VIEW_IDS.includes(h)) h='pristup';
+  let h=location.hash.slice(1); if(!VIEW_IDS.includes(h)) h='start';
   $$('section.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+h));
   $$('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===h));
   if(h==='live') renderCue();
@@ -1838,21 +1319,27 @@ function renderWorkflow(){
     <div><b style="color:var(--red)">${T('cons')}</b><ul style="padding-left:18px;font-size:14px;margin:4px 0">${sa.cons.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div>`:'';
   const open=new Set($$('#phases details[open]').map(d=>d.dataset.p));
   $('#phases').innerHTML=PHASES.map((p,pi)=>{
-    const steps=p.steps.map((s,si)=>({...s,id:pi+'-'+si})).filter(s=>stepApplies(s,f));
+    const steps=wfSteps(p,pi).filter(s=>stepApplies(s,f));
     const n=steps.filter(s=>S.checks[s.id]).length;
     const isOpen=open.size?open.has(String(pi)):pi===0;
     const full=n===steps.length&&steps.length;
     return `<details class="phase ${full?'done':''}" data-p="${pi}" ${isOpen?'open':''}>
       <summary><span class="num">${full?'✓':pi}</span><div><div class="ttl">${p.t}</div><div class="sub">${p.sub} · ⏱ ${p.time}</div></div><span class="cnt">${n}/${steps.length}</span></summary>
       <div class="body"><div class="why">${p.why}</div>
-      ${steps.map(s=>`<label class="step ${S.checks[s.id]?'ok':''}"><input type="checkbox" data-id="${s.id}" ${S.checks[s.id]?'checked':''}><div><div class="st">${s.s} ${s.a!=='*'?`<span class="tag" style="margin-left:6px">${s.a}</span>`:''}</div><div class="how">${kx(s.h)}</div></div></label>`).join('')}
+      ${steps.map(s=>`<label class="step ${S.checks[s.id]?'ok':''} ${s.doom?'dstep':''}"><input type="checkbox" data-id="${s.id}" ${S.checks[s.id]?'checked':''}><div><div class="st">${s.s} ${s.doom?'<span class="dtag">DOOM</span>':''}${s.a!=='*'?`<span class="tag" style="margin-left:6px">${s.a}</span>`:''}</div><div class="how">${kx(s.h)}</div></div></label>`).join('')}
       </div></details>`}).join('');
   $$('#phases input[type=checkbox]').forEach(c=>c.onchange=()=>{S.checks[c.dataset.id]=c.checked;save();renderWorkflow()});
   updateProgress();
 }
+function wfSteps(p,pi){
+  const D=isDoom()?DOOM_WF[S.lang]:null;
+  const base=p.steps.map((s,si)=>{const o=D&&D.over[pi+'-'+si];return {...s,...(o||{}),id:pi+'-'+si,doom:!!o}});
+  const ex=D&&D.extra[pi]?D.extra[pi].map((s,k)=>({...s,id:pi+'-d'+k,doom:true})):[];
+  return base.concat(ex);
+}
 function updateProgress(){
   const f=S.wfFilter; let tot=0,ok=0;
-  PHASES.forEach((p,pi)=>p.steps.forEach((s,si)=>{if(stepApplies(s,f)){tot++;if(S.checks[pi+'-'+si])ok++}}));
+  PHASES.forEach((p,pi)=>wfSteps(p,pi).forEach(s=>{if(stepApplies(s,f)){tot++;if(S.checks[s.id])ok++}}));
   const pc=tot?Math.round(ok/tot*100):0; $('#progTxt').textContent=pc+' %'; $('#progBar').style.width=pc+'%';
   const pl=$('#progLbl'); if(pl) pl.textContent=T('progLbl');
 }
@@ -1947,15 +1434,34 @@ function download(name,txt,type){saveFile(name,new Blob([txt],{type}))}
 
 // ---------- shortcuts ----------
 let scCat='all';
-function renderSC(){
-  $('#scFilter').innerHTML=Object.entries(SC_CATS).map(([k,v])=>`<button class="chip ${scCat===k?'on':''}" data-c="${k}">${v}</button>`).join('');
-  $$('#scFilter .chip').forEach(c=>c.onclick=()=>{scCat=c.dataset.c;renderSC()});
-  const q=$('#scSearch').value.toLowerCase().trim(); const h=T('scH');
-  const rows=SHORTCUTS.map((r,i)=>({r,i})).filter(({r,i})=>(scCat==='all'||(scCat==='star'?S.stars[i]:r[2]===scCat))&&(!q||(r[0]+' '+r[1]).toLowerCase().includes(q)));
-  $('#scTable').innerHTML=`<tr><th>${h[0]}</th><th>${h[1]}</th><th>${h[2]}</th><th></th></tr>`+(rows.length?rows.map(({r,i})=>`<tr class="${S.stars[i]?'star':''}"><td>${K(r[0])}</td><td>${r[1]}</td><td class="dim" style="font-size:12.5px">${SC_CATS[r[2]]}</td><td><button class="star-b ${S.stars[i]?'on':''}" data-i="${i}" title="${T('star')}">★</button></td></tr>`).join(''):`<tr><td colspan="4" class="dim">${T('none')}</td></tr>`);
-  $$('.star-b').forEach(b=>b.onclick=()=>{const i=b.dataset.i;S.stars[i]=!S.stars[i];if(!S.stars[i])delete S.stars[i];save();renderSC()});
+let scSrc='both';
+const DOOM_CAT={"REMAIN+SUB PAD": "utility", "EXIT": "utility", "PATTERN SELECT": "pattern", "PATTERN SELECT+pad": "pattern", "PATTERN SELECT+SUB PAD+pad": "pattern", "PATTERN SELECT+BANK": "pattern", "SHIFT+PATTERN SELECT": "pattern", "REMAIN+PATTERN SELECT": "pattern", "SHIFT+REC": "pattern", "RECORD SETTING (0.6 s)": "live", "SHIFT+RECORD SETTING": "utility", "SHIFT+HOLD": "utility", "SHIFT+START/END": "utility", "SHIFT+MARK": "fx", "SHIFT (3 s)": "utility", "SUB PAD (hold)+pad": "sample", "VALUE (on grid)": "pattern", "MARK (on grid)": "pattern", "RESAMPLE": "sampling", "SHIFT+RESAMPLE": "sampling", "SHIFT+ROLL": "live", "RECORD SETTING \u2192 ARP": "sample", "RECORD SETTING \u2192 SIDECHAIN": "fx"};
+const catOf=r=>r[2]==='doom'?(DOOM_CAT[r[0]]||'utility'):r[2];
+function scList(){
+  const key=r=>r[2]+'|'+r[0];
+  if(!isDoom()) return SHORTCUTS.filter(r=>r[2]!=='doom').map(r=>({r,k:key(r)}));
+  const C=DOOM_CONF[S.lang];
+  const dm=SHORTCUTS.filter(r=>r[2]==='doom').concat(DOOM_SC_EXTRA[S.lang]).map(r=>({r,k:key(r)}));
+  return dm.concat(SHORTCUTS.filter(r=>r[2]!=='doom').map(r=>({r,k:key(r),conf:C[r[0]]})));
 }
-
+function renderSC(){
+  const cats=Object.entries(SC_CATS).filter(([k])=>k!=='doom'||isDoom());
+  if(scCat==='doom'&&!isDoom()) scCat='all';
+  const SRC=[['both','All'],['doom',null],['orig','SP Original']];
+  if(!isDoom()) scSrc='both';
+  const srcHtml=isDoom()?`<div class="seg-wrap scsrc">${SRC.map(([k,l])=>`<button class="seg ${scSrc===k?'on':''}" data-s="${k}">${l||`<img class="navlogo" src="${DOOM_LOGO}" alt="DOOM OS"> only`}</button>`).join('')}</div>`:'';
+  $('#scFilter').innerHTML=srcHtml+cats.filter(([k])=>k!=='doom').map(([k,v])=>`<button class="chip ${scCat===k?'on':''}" data-c="${k}">${v}</button>`).join('');
+  $$('#scFilter .chip').forEach(c=>c.onclick=()=>{scCat=c.dataset.c;renderSC()});
+  $$('#scFilter .seg').forEach(c=>c.onclick=()=>{scSrc=c.dataset.s;renderSC();renderProcs()});
+  const q=$('#scSearch').value.toLowerCase().trim(); const h=T('scH');
+  const rows=scList().filter(({r,k})=>(scSrc==='both'||(scSrc==='doom')===(r[2]==='doom'))&&(scCat==='all'||(scCat==='star'?S.stars[k]:catOf(r)===scCat))&&(!q||(r[0]+' '+r[1]).toLowerCase().includes(q)));
+  $('#scTable').innerHTML=`<tr><th>${h[0]}</th><th>${h[1]}</th><th>${h[2]}</th><th></th></tr>`+(rows.length?rows.map(({r,k,conf},ri)=>{const g=isDoom()&&(ri===0||(rows[ri-1].r[2]==='doom')!==(r[2]==='doom'))?`<tr class="scgrp"><td colspan="4">${r[2]==='doom'?`<img class="navlogo" src="${DOOM_LOGO}" alt="DOOM OS"> only`:'SP Original <span class="dim">– also work with DOOM OS installed; notes show what changes inside the DOOM OS screen</span>'}</td></tr>`:'';return g+`<tr class="${S.stars[k]?'star':''} ${r[2]==='doom'?'drow':''}"><td>${K(r[0])}</td><td>${r[1]}${conf?`<div class="dconf"><span class="dtag">DOOM</span> ${esc(conf)}</div>`:''}</td><td class="dim" style="font-size:12.5px"><span class="catlbl">${SC_CATS[catOf(r)]}</span>${r[2]==='doom'?`<img class="dlogo-s" src="${DOOM_LOGO}" alt="DOOM OS">`:''}</td><td><button class="star-b ${S.stars[k]?'on':''}" data-k="${esc(k)}" title="${S.stars[k]?T('unstar'):T('star')}">${S.stars[k]?'★':'☆'}</button></td></tr>`}).join(''):`<tr><td colspan="4" class="dim">${T('none')}</td></tr>`);
+  $$('.star-b').forEach(b=>b.onclick=()=>{const k=b.dataset.k;S.stars[k]=!S.stars[k];if(!S.stars[k])delete S.stars[k];save();renderSC()});
+}
+function renderLive(){
+  const D=isDoom()?DOOM_LIVE[S.lang]:{};
+  $('#liveCards').innerHTML=LIVE.map((c,ci)=>`<div class="card ${D[ci]?'dcard':''}"><h3>${c.t}${D[ci]?' <span class="dtag">DOOM</span>':''}</h3><table class="live-t">${(D[ci]||c.items).map(([a,b])=>`<tr><td>${a}</td><td style="text-align:right">${kx(b)}</td></tr>`).join('')}</table></div>`).join('');
+}
 // ---------- doom ----------
 function renderDoom(){
   const n=DOOM_Q.filter((_,i)=>S.doom[i]).length; const V=T('doomV');
@@ -1998,6 +1504,15 @@ function bind(){
 }
 
 // ---------- language ----------
+function setFw(f){
+  S.fw=f; save();
+  document.body.classList.toggle('fw-doom',f==='doom');
+  $$('#fwSw button').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+  SIDX=[]; renderWorkflow(); renderSC(); renderLive(); renderProcs(); renderDoomFeat();
+}
+document.addEventListener('click',e=>{const l=e.target.closest('[data-proc]');if(!l)return;e.preventDefault();const id=l.dataset.proc;location.hash='zkratky';setTimeout(()=>{const d=$('#proc-'+id);if(d){d.open=true;flash(d)}},150)});
+$$('#fwSw button').forEach(b=>b.onclick=()=>{if(b.dataset.f!==S.fw) setFw(b.dataset.f)});
+
 function setLang(l,scroll){
   S.lang=l; save();
   ({APPROACHES,WIZARD,PHASES,LIVE,SHORTCUTS,SC_CATS,DOOM_Q,DRILLS,ROLES,TEMPLATE,DEFAULT_SECTIONS}=DATA[l]);
@@ -2005,32 +1520,31 @@ function setLang(l,scroll){
   $('#app').innerHTML=''; $('#app').appendChild(document.getElementById('tpl-'+l).content.cloneNode(true));
   $$('#langSw button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
   $('#mClose').textContent=T('close');
-  $('#liveCards').innerHTML=LIVE.map(c=>`<div class="card"><h3>${c.t}</h3><table class="live-t">${c.items.map(([a,b])=>`<tr><td>${a}</td><td style="text-align:right">${kx(b)}</td></tr>`).join('')}</table></div>`).join('');
-  SIDX=[];renderNav();bind();initConv();renderProcs();renderLevels();$('#gSearch').placeholder=T('searchPh');if(!window._srch){initSearch();window._srch=1}renderWizard();renderAppr();renderWorkflow();renderPlanner();renderSC();renderDoom();tShow();tBtn();route(scroll);
+  document.body.classList.toggle('fw-doom',isDoom());$$('#fwSw button').forEach(b=>b.classList.toggle('on',b.dataset.f===S.fw));renderLive();renderDoomFeat();SIDX=[];renderNav();bind();initConv();renderProcs();renderLevels();$('#gSearch').placeholder=T('searchPh');if(!window._srch){initSearch();window._srch=1}renderWizard();renderAppr();renderWorkflow();renderPlanner();renderSC();renderDoom();tShow();tBtn();route(scroll);
 }
 $$('#langSw button').forEach(b=>b.onclick=()=>{if(b.dataset.l!==S.lang) setLang(b.dataset.l,false)});
 // ================= CONVERTER =================
 const CV={
-cs:{drop:'Přetáhni sem zvukové soubory nebo celé složky',pickFiles:'Vybrat soubory',pickFolder:'Vybrat složku',modeSort:'Rozřadit podle kategorií',modeKeep:'Zachovat původní složky a názvy',modeHintSort:'Soubory dostanou kategorii do názvu a ZIP je rozdělí do složek KICK, BASS, PAD…',modeHintPlain:'Změní se jen formát (.wav, 48 kHz/16 bit). Názvy i struktura složek zůstanou jako v originále – ZIP je zachová.',modeHintKeep:'Změní se jen formát (.wav, 48 kHz/16 bit). Názvy i struktura složek zůstanou jako v originále. Kategorie se i tak odhadnou, abys mohla vyhledávat.',reading:n=>`Načítám složku… nalezeno ${n} zvuků`,noAudio:'Ve složce nejsou žádné zvukové soubory.',many:n=>`Složka má ${n} zvuků – zpracování chvíli potrvá a zabere místo v prohlížeči.`,dropSub:'WAV, AIFF, MP3, FLAC, M4A, OGG… (podle toho, co umí tvůj prohlížeč)',
+cs:{skipped:n=>`${csN(n,'Přeskočen','Přeskočeny','Přeskočeno')} ${n} ${csN(n,'soubor, který není','soubory, které nejsou','souborů, které nejsou')} zvuk (obrázky, texty…) – do ZIPu se nedostanou.`,drop:'Přetáhni sem zvukové soubory nebo celé složky',pickFiles:'Vybrat soubory',pickFolder:'Vybrat složku',modeSort:'Rozřadit podle kategorií',modeKeep:'Zachovat původní složky a názvy',modeHintSort:'Soubory dostanou kategorii do názvu a ZIP je rozdělí do složek KICK, BASS, PAD…',modeHintPlain:'Změní se jen formát (.wav, 48 kHz/16 bit). Názvy i struktura složek zůstanou jako v originále – ZIP je zachová.',modeHintKeep:'Změní se jen formát (.wav, 48 kHz/16 bit). Názvy i struktura složek zůstanou jako v originále. Kategorie se i tak odhadnou, abys mohla vyhledávat.',reading:n=>`Načítám složku… nalezeno ${n} zvuků`,noAudio:'Ve složce nejsou žádné zvukové soubory.',many:n=>`Složka má ${n} zvuků – zpracování chvíli potrvá a zabere místo v prohlížeči.`,dropSub:'WAV, AIFF, MP3, FLAC, M4A, OGG',
  optTrim:'Oříznout ticho na začátku',optTrimEnd:'Oříznout ticho i na konci (ne u loopů)',optNorm:'Normalizovat (−1 dBFS)',optMono:'Převést vše na mono',optSmart:'Chytré mono (jen soubory, které jsou stereo jen naoko)',smartTag:'mono – oba kanály byly stejné',optAscii:'Názvy bez diakritiky',optPrefix:'Kategorie na začátek názvu',optBpm:'BPM do názvu u loopů',optSave:'Uchovat převedené soubory v tomto prohlížeči i po zavření stránky',
  search:'Hledat podle názvu nebo složky…',all:'Vše',
  th:['','Soubor','Délka','Kategorie','BPM',''],
- processing:(i,n)=>`Zpracovávám ${i}/${n}…`,done:n=>`Hotovo: ${n} souborů`,
- decodeErr:'Prohlížeč tenhle formát neumí přečíst – zkus WAV nebo MP3.',
+ processing:(i,n)=>`Zpracovávám ${i}/${n}…`,done:n=>`Hotovo: ${n} ${csN(n,'soubor','soubory','souborů')}`,
+ decodeErr:'Soubor nejde přečíst – je poškozený, nebo ho tvůj prohlížeč neumí. Zkus ho uložit jako WAV.',
  short:'Kratší než 100 ms – SP-404 ho nemusí naimportovat.',
  byName:'podle názvu',byAudio:'odhad ze zvuku',manual:'ručně',
- zipShown:n=>`Stáhnout ZIP (${n} zobrazených)`,zipAll:'Stáhnout ZIP (vše)',clearLib:'Vymazat knihovnu',clearConfirm:'Opravdu? Klikni znovu',
+ zipShown:n=>`Stáhnout ZIP (${n} zobrazených)`,zipAll:'Stáhnout ZIP (vše)',clearLib:'Vymazat zvukovou knihovnu',clearConfirm:'Opravdu? Klikni znovu',
  empty:'Zatím tu nic není. Nahraj první soubory.',noMatch:'Nic neodpovídá hledání.',
  play:'Přehrát',stop:'Stop',dl:'Stáhnout WAV',del:'Odebrat',
  onlyZip:'V tomhle náhledu jde stáhnout jen ZIP.',saved:'Uloženo',declined:'Stažení zrušeno',dlFail:'Stažení tu není k dispozici',
  zipping:'Balím ZIP…',stats:(n,mb)=>`${n} souborů · ${mb} MB`,
  noIdb:'Knihovnu nejde v tomhle prohlížeči uložit – zůstane jen do zavření stránky.'},
-en:{drop:'Drop audio files or whole folders here',pickFiles:'Choose files',pickFolder:'Choose folder',modeSort:'Sort into categories',modeKeep:'Keep original folders and names',modeHintSort:'Files get the category in their name and the ZIP splits them into KICK, BASS, PAD… folders.',modeHintPlain:'Only the format changes (.wav, 48 kHz/16-bit). Names and folder structure stay as in the original – the ZIP keeps them.',modeHintKeep:'Only the format changes (.wav, 48 kHz/16-bit). Names and folder structure stay as in the original. Categories are still estimated so you can search.',reading:n=>`Reading folder… ${n} sounds found`,noAudio:'No audio files in that folder.',many:n=>`The folder has ${n} sounds – processing will take a while and use browser storage.`,dropSub:'WAV, AIFF, MP3, FLAC, M4A, OGG… (whatever your browser can decode)',
+en:{skipped:n=>`Skipped ${n} non-audio files (images, text…) – they won't be in the ZIP.`,drop:'Drop audio files or whole folders here',pickFiles:'Choose files',pickFolder:'Choose folder',modeSort:'Sort into categories',modeKeep:'Keep original folders and names',modeHintSort:'Files get the category in their name and the ZIP splits them into KICK, BASS, PAD… folders.',modeHintPlain:'Only the format changes (.wav, 48 kHz/16-bit). Names and folder structure stay as in the original – the ZIP keeps them.',modeHintKeep:'Only the format changes (.wav, 48 kHz/16-bit). Names and folder structure stay as in the original. Categories are still estimated so you can search.',reading:n=>`Reading folder… ${n} sounds found`,noAudio:'No audio files in that folder.',many:n=>`The folder has ${n} sounds – processing will take a while and use browser storage.`,dropSub:'WAV, AIFF, MP3, FLAC, M4A, OGG',
  optTrim:'Trim silence at start',optTrimEnd:'Also trim silence at end (not for loops)',optNorm:'Normalize (−1 dBFS)',optMono:'Convert everything to mono',optSmart:'Smart mono (only files that are stereo in name only)',smartTag:'mono – both channels were identical',optAscii:'Names without diacritics',optPrefix:'Category at start of name',optBpm:'BPM in loop names',optSave:'Keep converted files in this browser after closing the page',
  search:'Search by name or folder…',all:'All',
  th:['','File','Length','Category','BPM',''],
  processing:(i,n)=>`Processing ${i}/${n}…`,done:n=>`Done: ${n} files`,
- decodeErr:'Your browser can\'t read this format – try WAV or MP3.',
+ decodeErr:'The file can\'t be read – it\'s damaged or your browser doesn\'t support it. Try saving it as WAV.',
  short:'Shorter than 100 ms – the SP-404 may fail to import it.',
  byName:'from name',byAudio:'audio estimate',manual:'manual',
  zipShown:n=>`Download ZIP (${n} shown)`,zipAll:'Download ZIP (all)',clearLib:'Clear library',clearConfirm:'Sure? Click again',
@@ -2041,6 +1555,7 @@ en:{drop:'Drop audio files or whole folders here',pickFiles:'Choose files',pickF
  noIdb:'The library can\'t be stored in this browser – it lasts until you close the page.'}
 };
 const CT=k=>CV[S.lang][k];
+const csN=(n,a,b,c)=>n===1?a:(n>=2&&n<=4?b:c);
 const CATEGORIZE=false; // třídění do kategorií – zatím vypnuto
 const CATS={
  kick:{code:'KICK',cs:'Kick',en:'Kick',c:'#e08a3c'},
@@ -2156,6 +1671,43 @@ function toWav(chs,sr){
   let o=44;for(let i=0;i<n;i++)for(let k=0;k<c;k++){let s=chs[k][i]+(Math.random()-Math.random())/65536;s=Math.max(-1,Math.min(1,s));v.setInt16(o,s<0?s*32768:s*32767,true);o+=2}
   return new Blob([buf],{type:'audio/wav'});
 }
+
+// ---------- AIFF decoder (Chrome/Firefox can't decode AIFF natively) ----------
+function parseAiff(ab){
+  const v=new DataView(ab); const id=s=>String.fromCharCode(...new Uint8Array(ab,s,4));
+  if(id(0)!=='FORM'||!['AIFF','AIFC'].includes(id(8))) return null;
+  let p=12,ch=0,frames=0,bits=0,sr=0,comp='NONE',data=-1;
+  while(p+8<=ab.byteLength){const ck=id(p),sz=v.getUint32(p+4);const b=p+8;
+    if(ck==='COMM'){ch=v.getInt16(b);frames=v.getUint32(b+2);bits=v.getInt16(b+6);
+      const e=v.getUint16(b+8)&0x7fff,hi=v.getUint32(b+10),lo=v.getUint32(b+14);sr=(hi*2**32+lo)*2**(e-16383-63);
+      if(id(8)==='AIFC'&&sz>=22)comp=id(b+18);}
+    if(ck==='SSND'){data=b+8+v.getUint32(b)}
+    p=b+sz+(sz&1);}
+  if(!ch||!frames||data<0||!sr) return null;
+  const le=comp==='sowt'; const fl=comp==='fl32'||comp==='FL32';
+  if(!['NONE','sowt','fl32','FL32'].includes(comp)) return null;
+  const B=fl?4:Math.ceil(bits/8); const out=Array.from({length:ch},()=>new Float32Array(frames));
+  for(let i=0;i<frames;i++)for(let c2=0;c2<ch;c2++){const o=data+(i*ch+c2)*B;let x;
+    if(fl)x=v.getFloat32(o,le);
+    else if(B===1)x=v.getInt8(o)/128;
+    else if(B===2)x=v.getInt16(o,le)/32768;
+    else if(B===3){const b0=v.getUint8(o),b1=v.getUint8(o+1),b2=v.getUint8(o+2);let n=le?(b2<<16)|(b1<<8)|b0:(b0<<16)|(b1<<8)|b2;if(n&0x800000)n-=0x1000000;x=n/8388608}
+    else x=v.getInt32(o,le)/2147483648;
+    out[c2][i]=x}
+  return {ch,sr,data:out};
+}
+async function toBuffer48(ab){
+  const ctx=new OfflineAudioContext(1,1,48000);
+  try{return await ctx.decodeAudioData(ab.slice(0))}catch(e){
+    const a=parseAiff(ab); if(!a) throw e;
+    const src=new AudioBuffer({length:a.data[0].length,numberOfChannels:a.ch,sampleRate:a.sr});
+    a.data.forEach((d,i)=>src.copyToChannel(d,i));
+    if(a.sr===48000) return src;
+    const oc=new OfflineAudioContext(a.ch,Math.ceil(a.data[0].length*48000/a.sr),48000);
+    const s=oc.createBufferSource();s.buffer=src;s.connect(oc.destination);s.start();return await oc.startRendering();
+  }
+}
+
 // ---------- names ----------
 function asciiName(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z0-9_-]+/g,'_').replace(/_+/g,'_').replace(/^_|_$/g,'')||'sample'}
 function outName(it){
@@ -2215,7 +1767,7 @@ async function processFiles(files){
     const it={rel,id:Date.now()+'-'+Math.random().toString(36).slice(2,7),orig:file.name,base:file.name.replace(/\.[^.]+$/,''),opts:o,created:Date.now()};
     try{
       const ab=await file.arrayBuffer();
-      const buf=await ctx.decodeAudioData(ab);
+      const buf=await toBuffer48(ab);
       let chs=[];for(let c=0;c<buf.numberOfChannels;c++)chs.push(buf.getChannelData(c).slice());
       if(chs.length>2)chs=chs.slice(0,2);
       it.srcCh=buf.numberOfChannels;
@@ -2245,16 +1797,18 @@ async function processFiles(files){
     LIB.unshift(it); if(!it.err) idbPut(it); renderLib();
     await new Promise(r=>setTimeout(r,0));
   }
-  st.textContent=CT('done')(files.length);
+  st.textContent=CT('done')(files.length)+(SKIPPED?' · '+CT('skipped')(SKIPPED):'');
 }
 
 // ---------- folder helpers ----------
-const isAudio=f=>!/^\./.test(f.name)&&(/^audio\//.test(f.type)||/\.(wav|wave|aif|aiff|mp3|flac|m4a|aac|ogg|oga|opus|webm|caf)$/i.test(f.name));
+let SKIPPED=0;
+const isAudio0=f=>!/^\./.test(f.name)&&(/^audio\//.test(f.type)||/\.(wav|wave|aif|aiff|mp3|flac|m4a|aac|ogg|oga|opus|webm|caf)$/i.test(f.name));
 async function walkEntry(en,dir,out){
   if(en.isFile){const f=await new Promise((res,rej)=>en.file(res,rej)).catch(()=>null);if(f&&isAudio(f))out.push({file:f,rel:dir});if(out.length%25===0&&$('#cvStatus'))$('#cvStatus').textContent=CT('reading')(out.length);return}
   if(en.isDirectory){const path=dir?dir+'/'+en.name:en.name;const rd=en.createReader();
     while(true){const batch=await new Promise((res,rej)=>rd.readEntries(res,rej)).catch(()=>[]);if(!batch.length)break;for(const c of batch)await walkEntry(c,path,out)}}
 }
+const isAudio=f=>{const ok=isAudio0(f);if(!ok&&!/^\./.test(f.name))SKIPPED++;return ok};
 function startBatch(list){if(list.length>300)toast(CT('many')(list.length));processFiles(list)}
 
 // ---------- UI ----------
@@ -2314,8 +1868,9 @@ async function zipItems(items,label){
   saveFile(`sp404-samples-${label}.zip`,zip);
 }
 function initConv(){
-  S.conv=Object.assign({sort:true,trim:true,trimEnd:false,asciiPlain:true,smartMono:true,norm:true,mono:false,ascii:true,prefix:true,bpm:true,save:true},S.conv||{});
+  S.conv=Object.assign({sort:true,trim:true,trimEnd:false,asciiPlain:true,smartMono:true,norm:true,mono:false,ascii:true,prefix:true,bpm:true,save:false},S.conv||{});
   if(!S.conv.v||S.conv.v<2){S.conv.asciiPlain=true;S.conv.v=2;save()}
+  if(S.conv.v<3){S.conv.save=false;S.conv.v=3;save();idbClear()}
   if(!CATEGORIZE){S.conv.sort=false;$('#cvMode').style.display='none';$('#cvChips').style.display='none'}
   $('#cvMode').innerHTML=[[true,'modeSort'],[false,'modeKeep']].map(([v,l])=>`<button class="seg ${S.conv.sort===v?'on':''}" data-m="${v}">${CT(l)}</button>`).join('');
   $('#cvModeHint').textContent=CATEGORIZE?CT(S.conv.sort?'modeHintSort':'modeHintKeep'):CT('modeHintPlain');
@@ -2330,16 +1885,16 @@ function initConv(){
   $('#cvPickF').onclick=e=>{e.preventDefault();e.stopPropagation();fi.click()};
   $('#cvPickD').onclick=e=>{e.preventDefault();e.stopPropagation();fd.click()};
   if(!('webkitdirectory' in fd)) $('#cvPickD').style.display='none';
-  fi.onchange=()=>{const fs=[...fi.files].filter(isAudio);if(fs.length)startBatch(fs.map(f=>({file:f,rel:''})));fi.value=''};
-  fd.onchange=()=>{const fs=[...fd.files].filter(isAudio).map(f=>({file:f,rel:f.webkitRelativePath.split('/').slice(0,-1).join('/')}));fd.value='';if(fs.length)startBatch(fs);else $('#cvStatus').textContent=CT('noAudio')};
+  fi.onchange=()=>{SKIPPED=0;const fs=[...fi.files].filter(isAudio);if(fs.length)startBatch(fs.map(f=>({file:f,rel:''})));fi.value=''};
+  fd.onchange=()=>{SKIPPED=0;const fs=[...fd.files].filter(isAudio).map(f=>({file:f,rel:f.webkitRelativePath.split('/').slice(0,-1).join('/')}));fd.value='';if(fs.length)startBatch(fs);else $('#cvStatus').textContent=CT('noAudio')+(SKIPPED?' '+CT('skipped')(SKIPPED):'')};
   dz.onclick=()=>fi.click();
   dz.ondragover=e=>{e.preventDefault();dz.classList.add('over')}; dz.ondragleave=()=>dz.classList.remove('over');
-  dz.ondrop=async e=>{e.preventDefault();dz.classList.remove('over');
+  dz.ondrop=async e=>{e.preventDefault();SKIPPED=0;dz.classList.remove('over');
     const items=[...(e.dataTransfer.items||[])].map(i=>i.webkitGetAsEntry&&i.webkitGetAsEntry()).filter(Boolean);
     let fs=[];
     if(items.length){for(const en of items)await walkEntry(en,'',fs)}
     else fs=[...e.dataTransfer.files].filter(isAudio).map(f=>({file:f,rel:''}));
-    if(fs.length)startBatch(fs);else $('#cvStatus').textContent=CT('noAudio')};
+    if(fs.length)startBatch(fs);else $('#cvStatus').textContent=CT('noAudio')+(SKIPPED?' '+CT('skipped')(SKIPPED):'')};
   $('#cvZipShown').onclick=()=>zipItems(libFiltered(),cvCat==='all'?'vyber':(CATS[cvCat]||CATS.other).code.toLowerCase());
   $('#cvZipAll').onclick=()=>zipItems(LIB,'all');
   $('#cvClear').textContent=CT('clearLib'); $('#cvZipAll').textContent=CT('zipAll');
@@ -2351,95 +1906,98 @@ function initConv(){
 const MAN='https://static.roland.com/manuals/sp-404mk2_reference_v550/en-US/';
 const PROC_DEF=[
  {id:'import',url:'7958977178537867',
-  cs:['Import zvuků z SD karty',['Zkopíruj soubory (WAV/AIFF/MP3) do složky IMPORT na SD kartě a kartu vlož do přístroje.','[[SHIFT+pad 14]] otevře IMPORT/EXPORT MENU.','Otoč [[VALUE]] na „IMPORT“ → „IMPORT from SD-CARD“ → „SAMPLE“ a pokaždé stiskni [[VALUE]].','Stiskni cílový pad (prázdný bliká žlutě).','Otáčením [[VALUE]] vyber soubor (přehraje se náhled) a stiskni [[VALUE]]. Víc souborů: podrž [[SHIFT]] a toč [[VALUE]]. Do podsložky vstoupíš stisknutím [[VALUE]].','Během „Working…“ nevypínej přístroj ani nevytahuj kartu.']],
-  en:['Import sounds from SD card',['Copy files (WAV/AIFF/MP3) into the IMPORT folder on the SD card and insert the card.','[[SHIFT+pad 14]] opens the IMPORT/EXPORT MENU.','Turn [[VALUE]] to "IMPORT" → "IMPORT from SD-CARD" → "SAMPLE", pressing [[VALUE]] each time.','Press the destination pad (an empty one blinks yellow).','Turn [[VALUE]] to pick the file (it previews) and press [[VALUE]]. Several files: hold [[SHIFT]] and turn [[VALUE]]. Press [[VALUE]] on a folder to open it.','Never power off or remove the card while "Working…" is shown.']]},
- {id:'chain',url:'7925133978493323',
-  cs:['Pattern Chain – vytvoření a přehrání',['Nejdřív si nahraj patterny (real-time nebo TR-REC).','[[PATTERN SELECT]], pak podrž [[HOLD]] a stiskni pad 1–16 = číslo chainu.','Pady stiskni v pořadí, v jakém mají patterny hrát (až 16). Patterny z jiných bank přidáš po přepnutí tlačítkem BANK.','[[DEL]] smaže pattern na kurzoru, [[SHIFT+DEL]] vrátí úpravy. [[REMAIN]] zapíná opakování, [[START/END]] volí REPEAT All / Current / Off.','[[EXIT]] chain uloží.','Přehrání: [[PATTERN SELECT]] → [[HOLD+pad]] → [[SUB PAD]] start/stop.']],
-  en:['Pattern Chain – create and play',['Record your patterns first (real-time or TR-REC).','[[PATTERN SELECT]], then hold [[HOLD]] and press pad 1–16 = chain number.','Press pads in the order the patterns should play (up to 16). Add patterns from other banks after switching with the BANK buttons.','[[DEL]] deletes the pattern at the cursor, [[SHIFT+DEL]] undoes edits. [[REMAIN]] toggles repeat, [[START/END]] picks REPEAT All / Current / Off.','[[EXIT]] saves the chain.','Play: [[PATTERN SELECT]] → [[HOLD+pad]] → [[SUB PAD]] start/stop.']]},
- {id:'switch',url:'7919732378487179',
-  cs:['Přepínání patternů naživo',['[[PATTERN SELECT]] a stiskni pad s patternem – začne hrát.','Během přehrávání stiskni jiný pad: zařadí se a naskočí, až aktuální pattern dohraje.','Okamžité přepnutí: podrž [[SUB PAD]] a stiskni pad.','Výběr bez přehrání: podrž [[VALUE]] a stiskni pad.','Zastavení: stiskni svítící pad nebo [[EXIT]].']],
-  en:['Switching patterns live',['[[PATTERN SELECT]] and press a pattern pad – it starts.','During playback press another pad: it is queued and starts when the current pattern ends.','Instant switch: hold [[SUB PAD]] and press a pad.','Select without playing: hold [[VALUE]] and press a pad.','Stop: press the lit pad or [[EXIT]].']]},
- {id:'resample',url:'7923444378491019',
-  cs:['Resample patternu na pad',['[[PATTERN SELECT]] → [[RESAMPLE]] → [[RECORD SETTING]].','[[CTRL 2]] nastav ROUTING na „Mix“ a [[EXIT]].','Stiskni prázdný (červeně blikající) cílový pad.','Stiskni pad patternu – nahrávání začne se startem patternu.','[[REC]] nahrávání ukončí, [[EXIT]] zruší.']],
-  en:['Resample a pattern to a pad',['[[PATTERN SELECT]] → [[RESAMPLE]] → [[RECORD SETTING]].','Set ROUTING to "Mix" with [[CTRL 2]] and press [[EXIT]].','Press an empty (red-blinking) target pad.','Press the pattern pad – recording starts with the pattern.','[[REC]] finishes, [[EXIT]] cancels.']]},
- {id:'bounce',url:'7925133978493323',
-  cs:['Bounce chainu na sample',['[[PATTERN SELECT]] → [[COPY]].','Podrž [[HOLD]] a stiskni pad s číslem chainu.','Stiskni cílový pad.','Potvrď [[COPY]] nebo [[ENTER]] – chain je teď sample na padu.']],
-  en:['Bounce a chain to a sample',['[[PATTERN SELECT]] → [[COPY]].','Hold [[HOLD]] and press the chain number pad.','Press the target pad.','Confirm with [[COPY]] or [[ENTER]] – the chain is now a sample on that pad.']]},
- {id:'efxmotion',url:'7925799578494091',
-  cs:['Nahrání pohybů efektů do patternu (EFX MOTION REC)',['[[PATTERN SELECT]] a pad patternu – začne hrát.','[[REC]] (real-time nahrávání), pak [[MARK]] – na displeji „MOTION REC START“.','Zapínej efekty a toč [[CTRL 1]]–[[CTRL 3]] do rytmu.','[[EXIT]] uloží. Přehrávání pohybů zapneš/vypneš [[START/END]].']],
-  en:['Record effect moves into a pattern (EFX MOTION REC)',['[[PATTERN SELECT]] and a pattern pad – it plays.','[[REC]] (real-time), then [[MARK]] – display shows "MOTION REC START".','Switch effects and turn [[CTRL 1]]–[[CTRL 3]] in time.','[[EXIT]] saves. Toggle playback of the moves with [[START/END]].']]},
- {id:'mutemotion',url:'7927489178496395',
-  cs:['Nahrání mutů do patternu (PAD MUTE MOTION REC)',['[[PATTERN SELECT]] a pad patternu.','[[REC]], pak [[SHIFT+REVERSE+REMAIN]] – „PAD MUTE MODE (MOTION REC)“.','Během přehrávání mutuj pady (červené = ztlumené), dalším stiskem odmutuješ.','[[EXIT]] uloží, další [[EXIT]] zastaví přehrávání mutů.']],
-  en:['Record mutes into a pattern (PAD MUTE MOTION REC)',['[[PATTERN SELECT]] and a pattern pad.','[[REC]], then [[SHIFT+REVERSE+REMAIN]] – "PAD MUTE MODE (MOTION REC)".','Mute pads during playback (red = muted), press again to unmute.','[[EXIT]] saves, another [[EXIT]] stops mute playback.']]},
- {id:'tempo',url:'7936372378508683',
-  cs:['Tempo banky nebo projektu',['[[SHIFT+pad 11]] otevře TEMPO SEL.','[[CTRL 1]]: PROJECT (společné tempo) nebo BANK (tempo aktuální banky).','[[VALUE]] nastaví BPM, desetinná místa: [[SHIFT]] + [[VALUE]].','[[EXIT]]. Samply s BPM SYNC a patterny hrají v tomto tempu.']],
-  en:['Bank or project tempo',['[[SHIFT+pad 11]] opens TEMPO SEL.','[[CTRL 1]]: PROJECT (shared tempo) or BANK (current bank tempo).','[[VALUE]] sets BPM, decimals: [[SHIFT]] + [[VALUE]].','[[EXIT]]. BPM SYNC samples and patterns follow this tempo.']]},
- {id:'live',url:'7897639578461835',
-  cs:['LIVE MODE – ochrana na stage',['Podrž [[SHIFT]] a dlouze (3 s) [[REMAIN]].','Vypnou se [[DEL]], [[REC]], [[RESAMPLE]], [[COPY]] a [[MARK]].','Vypnutí stejnou kombinací.']],
-  en:['LIVE MODE – stage protection',['Hold [[SHIFT]] and long-press (3 s) [[REMAIN]].','[[DEL]], [[REC]], [[RESAMPLE]], [[COPY]] and [[MARK]] are disabled.','Same combination turns it off.']]},
- {id:'mute',url:'7884506778448011',
-  cs:['Mutování padů a mute latch',['Mute jednoho padu: [[SHIFT+REVERSE]] a stiskni pad (svítí červeně). Znovu = odmutovat.','Latch pro hraní: [[SHIFT+REVERSE+REMAIN]] – pak pady jen mutují. Konec [[EXIT]].','Když hraje pattern, přepni nejdřív [[PATTERN SELECT]] do sample módu (pattern hraje dál).']],
-  en:['Muting pads and mute latch',['Mute a pad: [[SHIFT+REVERSE]] and press the pad (lights red). Again = unmute.','Latch for playing: [[SHIFT+REVERSE+REMAIN]] – pads then only mute. Exit with [[EXIT]].','While a pattern plays, first switch [[PATTERN SELECT]] to sample mode (pattern keeps playing).']]},
- {id:'groups',url:'7884506778448011',
-  cs:['Mute group a pad link',['Mute group: [[SHIFT+pad 8]] – v jedné skupině zní vždy jen naposledy spuštěný pad (až 16 padů, skupiny A–J).','Pad link: [[SHIFT+pad 7]] – jeden pad spustí celou skupinu (až 4 pady, skupiny A–J).']],
-  en:['Mute group and pad link',['Mute group: [[SHIFT+pad 8]] – only the last triggered pad in a group sounds (up to 16 pads, groups A–J).','Pad link: [[SHIFT+pad 7]] – one pad triggers the whole group (up to 4 pads, groups A–J).']]},
- {id:'bus',url:'7898228378462603',
-  cs:['Routing padů na busy a efekty',['Dlouze [[REMAIN]], pak pady přepínají BUS / DRY (oranžová BUS 1, zelená BUS 2, bílá DRY).','Celá banka: [[REMAIN+BANK]].','[[BUS FX]] přepíná, který bus ovládáš (svítí BUS 1, bliká BUS 2).','Efekt jen při držení: podrž [[VALUE]] + tlačítko efektu.','MUTE BUS (break s dozvukem): [[SHIFT+BUS FX]].']],
-  en:['Routing pads to buses and effects',['Long-press [[REMAIN]], then pads toggle BUS / DRY (orange BUS 1, green BUS 2, white DRY).','Whole bank: [[REMAIN+BANK]].','[[BUS FX]] switches which bus you control (lit BUS 1, blinking BUS 2).','Effect only while held: hold [[VALUE]] + effect button.','MUTE BUS (break with tail): [[SHIFT+BUS FX]].']]},
- {id:'skipback',url:'7903834778468747',
-  cs:['Skip-back sampling',['V nastavení musí být MARK Function = skip back (výchozí).','Zahraj něco a pak stiskni [[MARK]] – přehraje se zachycený zvuk (25 s, s „SBS Long“ až 40 s).','[[REC]] a pad – uloží se na pad.']],
-  en:['Skip-back sampling',['MARK Function must be set to skip back (default).','Play something, then press [[MARK]] – the captured audio plays (25 s, up to 40 s with "SBS Long").','[[REC]] and a pad – saved to the pad.']]},
- {id:'looper',url:'8584103589852939',
-  cs:['Looper',['V System nastav MARK Function na „Looper“.','[[MARK]] = looper mód, [[REC]] start/stop, [[RESAMPLE]] overdub.','[[COPY]] přiřadí smyčku na pad, [[DEL]] smaže, [[SHIFT+PATTERN SELECT]] undo.','Skip-back a looper nejdou zároveň.']],
-  en:['Looper',['In System set MARK Function to "Looper".','[[MARK]] = looper mode, [[REC]] start/stop, [[RESAMPLE]] overdub.','[[COPY]] assigns the loop to a pad, [[DEL]] erases, [[SHIFT+PATTERN SELECT]] undo.','Skip-back and looper can\'t run at once.']]},
- {id:'chop',url:'7908852378474891',
-  cs:['Chop – rozsekání samplu na pady',['[[SHIFT+START/END]] otevře markery.','[[MARK]] přidá marker, nebo AUTO MARK (podle času, hlasitosti nebo transientů).','CHOP rozdělí sample podle markerů a díly rozloží na pady.']],
-  en:['Chop – slicing a sample across pads',['[[SHIFT+START/END]] opens markers.','[[MARK]] adds a marker, or use AUTO MARK (by time, level or transients).','CHOP splits the sample at markers and spreads the slices across pads.']]},
- {id:'dj',url:'7937626778510219',
-  cs:['DJ mód',['Stiskni současně [[BANK D/I+BANK E/J]].','[[VALUE]] → CH1 SELECT / CH2 SELECT → pad → ENTER.','[[CTRL 1]] / [[CTRL 2]] hlasitost kanálů, [[CTRL 3]] crossfader.','Přehrávání, cue, sync a pitch jsou na padech – viz manuál.']],
-  en:['DJ mode',['Press [[BANK D/I+BANK E/J]] together.','[[VALUE]] → CH1 SELECT / CH2 SELECT → pad → ENTER.','[[CTRL 1]] / [[CTRL 2]] channel volume, [[CTRL 3]] crossfader.','Play, cue, sync and pitch are on the pads – see the manual.']]},
- {id:'backup',url:'7961485978540939',
-  cs:['Záloha (BACKUP)',['[[SHIFT+pad 13]] otevře UTILITY MENU.','Vyber BACKUP a potvrď [[VALUE]].','Zálohu z SD karty si zkopíruj i do počítače.']],
-  en:['Backup (BACKUP)',['[[SHIFT+pad 13]] opens the UTILITY MENU.','Choose BACKUP and confirm with [[VALUE]].','Also copy the backup from the SD card to your computer.']]},
- {id:'exportprj',url:'7960897178540171',
-  cs:['Export projektu',['[[SHIFT+pad 14]] otevře IMPORT/EXPORT MENU.','Vyber EXPORT a EXPORT PROJECT, potvrď [[VALUE]].']],
-  en:['Export a project',['[[SHIFT+pad 14]] opens the IMPORT/EXPORT MENU.','Choose EXPORT and EXPORT PROJECT, confirm with [[VALUE]].']]},
- {id:'input',url:'7903834778468747',
-  cs:['Externí vstup a Input FX',['[[EXT SOURCE]] zapíná průchod vstupu (s GATE jen při držení).','Bus vstupu: [[REMAIN+EXT SOURCE]] (svítí BUS 1, bliká BUS 2, zhasnuto DRY).','Input FX: [[REC]] → [[RECORD SETTING]] → [[VALUE]] → „EFX Type“, parametry [[CTRL 1]]–[[CTRL 3]].']],
-  en:['External input and Input FX',['[[EXT SOURCE]] passes the input through (with GATE only while held).','Input bus: [[REMAIN+EXT SOURCE]] (lit BUS 1, blinking BUS 2, off DRY).','Input FX: [[REC]] → [[RECORD SETTING]] → [[VALUE]] → "EFX Type", parameters [[CTRL 1]]–[[CTRL 3]].']]},
- {id:'patbank',url:'140553099140559243',
-  cs:['Výběr pattern banky',['V režimu [[PATTERN SELECT]] stiskni tlačítko BANK.','[[BANK A/F]] přepíná A ↔ F (svítí A–E, bliká F–J).']],
-  en:['Selecting a pattern bank',['In [[PATTERN SELECT]] mode press a BANK button.','[[BANK A/F]] toggles A ↔ F (lit A–E, blinking F–J).']]},
+  cs:['Import zvuků z SD karty','Dostane soubory (WAV, AIFF, MP3) z SD karty na pady.',['Soubory zkopíruj do složky IMPORT na SD kartě a kartu vlož do SP.','[[SHIFT+pad 14]] → IMPORT → IMPORT from SD-CARD → SAMPLE (každou volbu potvrď [[VALUE]]).','Stiskni cílový pad – prázdný bliká žlutě.','Otáčením [[VALUE]] vyber soubor (rovnou se přehraje) a stiskni [[VALUE]]. Víc souborů naráz: podrž [[SHIFT]] a toč [[VALUE]].'],'Během „Working…“ SP nevypínej a kartu nevytahuj.'],
+  en:['Import sounds from SD card','Gets files (WAV, AIFF, MP3) from the SD card onto pads.',['Copy the files into the IMPORT folder on the SD card and insert it.','[[SHIFT+pad 14]] → IMPORT → IMPORT from SD-CARD → SAMPLE (confirm each with [[VALUE]]).','Press the destination pad – an empty one blinks yellow.','Turn [[VALUE]] to pick a file (it previews) and press [[VALUE]]. Several files at once: hold [[SHIFT]] and turn [[VALUE]].'],'Don\'t power off or remove the card while "Working…" is shown.']},
  {id:'record',url:'7920321178487947',
-  cs:['Nahrání patternu (real-time / TR-REC)',['[[PATTERN SELECT]], vyber prázdný pad.','[[REC]] = real-time nahrávání; během přehrávání [[SHIFT+REC]] = TR-REC (krokově).','Metronom [[SHIFT+pad 9]], count-in [[SHIFT+pad 10]], undo [[SHIFT+PATTERN SELECT]].']],
-  en:['Recording a pattern (real-time / TR-REC)',['[[PATTERN SELECT]], choose an empty pad.','[[REC]] = real-time recording; during playback [[SHIFT+REC]] = TR-REC (step).','Metronome [[SHIFT+pad 9]], count-in [[SHIFT+pad 10]], undo [[SHIFT+PATTERN SELECT]].']]},
+  cs:['Nahrání patternu','Pattern = sekvence padů, kterou SP přehrává ve smyčce (sekce skladby).',['[[PATTERN SELECT]] a vyber prázdný pad.','[[REC]] = nahrávání v reálném čase. Během přehrávání [[SHIFT+REC]] = TR-REC (krokově).','Hraj na pady. Chyba? [[SHIFT+PATTERN SELECT]] = undo.'],'Metronom [[SHIFT+pad 9]], count-in [[SHIFT+pad 10]].'],
+  en:['Recording a pattern','Pattern = a sequence of pads the SP loops (a section of a track).',['[[PATTERN SELECT]] and choose an empty pad.','[[REC]] = real-time recording. During playback [[SHIFT+REC]] = TR-REC (step).','Play the pads. Mistake? [[SHIFT+PATTERN SELECT]] = undo.'],'Metronome [[SHIFT+pad 9]], count-in [[SHIFT+pad 10]].']},
+ {id:'switch',url:'7919732378487179',
+  cs:['Přepínání patternů naživo','Jak přejít na další sekci skladby během hraní.',['[[PATTERN SELECT]] a stiskni pad s patternem – začne hrát.','Stiskni jiný pad: zařadí se a naskočí, až aktuální pattern dohraje.','Hned teď: podrž [[SUB PAD]] a stiskni pad.'],'Výběr bez přehrání: podrž [[VALUE]] + pad. Zastavení: svítící pad nebo [[EXIT]].'],
+  en:['Switching patterns live','How to move to the next section while playing.',['[[PATTERN SELECT]] and press a pattern pad – it starts.','Press another pad: it\'s queued and starts when the current pattern ends.','Right now: hold [[SUB PAD]] and press a pad.'],'Select without playing: hold [[VALUE]] + pad. Stop: the lit pad or [[EXIT]].']},
+ {id:'patbank',url:'140553099140559243',
+  cs:['Výběr pattern banky','Patternů je 10 bank × 16. Banku přepínáš stejnými tlačítky jako u samplů.',['V režimu [[PATTERN SELECT]] stiskni tlačítko banky.','[[BANK A/F]] přepíná A ↔ F – svítí = A–E, bliká = F–J.'],''],
+  en:['Selecting a pattern bank','There are 10 banks × 16 patterns. Switch banks with the same buttons as for samples.',['In [[PATTERN SELECT]] mode press a bank button.','[[BANK A/F]] toggles A ↔ F – lit = A–E, blinking = F–J.'],'']},
+ {id:'chain',url:'7925133978493323',
+  cs:['Pattern Chain','Přehraje patterny v daném pořadí – aranž celé skladby (až 16 patternů, 16 chainů v projektu).',['[[PATTERN SELECT]], podrž [[HOLD]] a stiskni pad = číslo chainu.','Stiskni pady patternů v pořadí, v jakém mají hrát.','[[EXIT]] uloží.','Přehrání: [[PATTERN SELECT]] → [[HOLD+pad]] → [[SUB PAD]] start/stop.'],'Úpravy: [[DEL]] smaže pattern na kurzoru, [[REMAIN]] opakování on/off, [[START/END]] režim opakování (All / Current / Off).'],
+  en:['Pattern Chain','Plays patterns in a set order – the arrangement of a whole track (up to 16 patterns, 16 chains per project).',['[[PATTERN SELECT]], hold [[HOLD]] and press a pad = chain number.','Press the pattern pads in the order they should play.','[[EXIT]] saves.','Play: [[PATTERN SELECT]] → [[HOLD+pad]] → [[SUB PAD]] start/stop.'],'Edits: [[DEL]] deletes the pattern at the cursor, [[REMAIN]] repeat on/off, [[START/END]] repeat mode (All / Current / Off).']},
+ {id:'bounce',url:'7925133978493323',
+  cs:['Bounce chainu na sample','Převede celý chain na jeden sample – bez nahrávání v reálném čase.',['[[PATTERN SELECT]] → [[COPY]].','Podrž [[HOLD]] a stiskni pad s číslem chainu.','Stiskni cílový pad a potvrď [[COPY]].'],''],
+  en:['Bounce a chain to a sample','Turns a whole chain into one sample – no real-time recording needed.',['[[PATTERN SELECT]] → [[COPY]].','Hold [[HOLD]] and press the chain number pad.','Press the target pad and confirm with [[COPY]].'],'']},
+ {id:'resample',url:'7923444378491019',
+  cs:['Resample patternu','Nahraje přehrávaný pattern i s efekty na nový pad.',['[[PATTERN SELECT]] → [[RESAMPLE]] → [[RECORD SETTING]], [[CTRL 2]] ROUTING = Mix, [[EXIT]].','Stiskni prázdný cílový pad (bliká červeně).','Stiskni pad patternu – nahrávání začne s ním.','[[REC]] ukončí, [[EXIT]] zruší.'],''],
+  en:['Resample a pattern','Records the playing pattern, effects included, to a new pad.',['[[PATTERN SELECT]] → [[RESAMPLE]] → [[RECORD SETTING]], [[CTRL 2]] ROUTING = Mix, [[EXIT]].','Press an empty target pad (blinks red).','Press the pattern pad – recording starts with it.','[[REC]] finishes, [[EXIT]] cancels.'],'']},
+ {id:'efxmotion',url:'7925799578494091',
+  cs:['Nahrání pohybů efektů (EFX MOTION REC)','Pattern si zapamatuje, jak zapínáš efekty a točíš knoby.',['Spusť pattern a stiskni [[REC]].','[[MARK]] – na displeji „MOTION REC START“.','Hraj efekty a toč [[CTRL 1]]–[[CTRL 3]].','[[EXIT]] uloží.'],'Přehrávání nahraných pohybů zapneš/vypneš [[START/END]].'],
+  en:['Record effect moves (EFX MOTION REC)','The pattern remembers how you switch effects and turn knobs.',['Start the pattern and press [[REC]].','[[MARK]] – the display shows "MOTION REC START".','Play effects and turn [[CTRL 1]]–[[CTRL 3]].','[[EXIT]] saves.'],'Toggle playback of the recorded moves with [[START/END]].']},
+ {id:'mutemotion',url:'7927489178496395',
+  cs:['Nahrání mutů (PAD MUTE MOTION REC)','Pattern si zapamatuje, kdy co ztlumíš – celá aranž bez editace.',['Spusť pattern a stiskni [[REC]].','[[SHIFT+REVERSE+REMAIN]] – „PAD MUTE MODE (MOTION REC)“.','Mutuj pady do rytmu (červená = ztlumeno, další stisk = zpět).','[[EXIT]] uloží.'],''],
+  en:['Record mutes (PAD MUTE MOTION REC)','The pattern remembers when you mute what – a whole arrangement without editing.',['Start the pattern and press [[REC]].','[[SHIFT+REVERSE+REMAIN]] – "PAD MUTE MODE (MOTION REC)".','Mute pads in time (red = muted, press again = back).','[[EXIT]] saves.'],'']},
+ {id:'mute',url:'7894388378457995',
+  cs:['Ztlumení padu (mute)','Vypne zvuk hrajícího padu, dalším stiskem ho vrátíš.',['[[SHIFT+REVERSE]] a stiskni pad – svítí červeně.','Znovu stejně = zvuk zpět.'],'Mutuješ často? [[SHIFT+REVERSE+REMAIN]] zamkne mute režim, pak stačí mačkat pady ([[EXIT]] ho zruší). Když hraje pattern, přepni nejdřív [[PATTERN SELECT]] do sample módu – pattern hraje dál.'],
+  en:['Muting a pad','Silences a playing pad; press again to bring it back.',['[[SHIFT+REVERSE]] and press the pad – it lights red.','Same again = sound back.'],'Muting a lot? [[SHIFT+REVERSE+REMAIN]] latches mute mode, then just press pads ([[EXIT]] cancels). While a pattern plays, first switch [[PATTERN SELECT]] to sample mode – the pattern keeps playing.']},
+ {id:'mutegroup',url:'7895796378459531',
+  cs:['Mute group – pady, které se nepřekrývají (choke)','Pady v jedné skupině nikdy nehrají přes sebe: spuštěním dalšího se předchozí okamžitě utne.',['[[SHIFT+pad 8]] otevře MUTE GROUP.','[[VALUE]] vyber skupinu A–J.','Stiskni pady, které do ní patří, a [[EXIT]].'],'Typicky: otevřený + zavřený hi-hat, varianty beatu nebo basy (A/B), chopy vokálu. Až 16 samplů ve skupině, 10 skupin.'],
+  en:['Mute group – pads that don\'t overlap (choke)','Pads in one group never play over each other: triggering the next cuts the previous one off immediately.',['[[SHIFT+pad 8]] opens MUTE GROUP.','Pick a group A–J with [[VALUE]].','Press the pads that belong to it and [[EXIT]].'],'Typical: open + closed hi-hat, beat or bass variations (A/B), vocal chops. Up to 16 samples per group, 10 groups.']},
+ {id:'padlink',url:'7884506778448011',
+  cs:['Pad link – jeden pad spustí víc padů','Stisk jednoho padu ze skupiny spustí všechny pady ve skupině najednou.',['[[SHIFT+pad 7]] otevře PAD LINK a nastav skupinu.'],'Až 4 pady ve skupině, 10 skupin. Hodí se na „drop“: bicí + basa + akord jedním stiskem.'],
+  en:['Pad link – one pad triggers several','Pressing one pad of the group triggers all pads in it at once.',['[[SHIFT+pad 7]] opens PAD LINK – set up the group.'],'Up to 4 pads per group, 10 groups. Great for a "drop": drums + bass + chord with one press.']},
+ {id:'tempo',url:'7936372378508683',
+  cs:['Tempo banky nebo projektu','Tempo, podle kterého hrají patterny a samply s BPM SYNC.',['[[SHIFT+pad 11]] otevře TEMPO SEL.','[[CTRL 1]]: PROJECT (jedno tempo pro všechno) nebo BANK (každá banka své).','[[VALUE]] nastav BPM a [[EXIT]].'],'Desetinná místa: [[SHIFT]] + [[VALUE]]. Pro set se skladbami v různých tempech zvol BANK.'],
+  en:['Bank or project tempo','The tempo that patterns and BPM SYNC samples follow.',['[[SHIFT+pad 11]] opens TEMPO SEL.','[[CTRL 1]]: PROJECT (one tempo for everything) or BANK (each bank its own).','Set BPM with [[VALUE]] and press [[EXIT]].'],'Decimals: [[SHIFT]] + [[VALUE]]. For a set of tracks in different tempos choose BANK.']},
+ {id:'bus',url:'7898228378462603',
+  cs:['Routing padů na efekty (BUS)','Určí, který pad jde přes efekty na BUS 1, BUS 2, nebo nasucho.',['Dlouze [[REMAIN]], pak mačkej pady – barva ukazuje cíl (oranžová BUS 1, zelená BUS 2, bílá DRY).','Celá banka najednou: [[REMAIN+BANK]].','[[BUS FX]] přepíná, který bus právě ovládáš (svítí BUS 1, bliká BUS 2).'],'Efekt jen na moment: podrž [[VALUE]] + tlačítko efektu. Break s dozvukem: [[SHIFT+BUS FX]] (MUTE BUS).'],
+  en:['Routing pads to effects (BUS)','Decides which pad goes through effects on BUS 1, BUS 2, or dry.',['Long-press [[REMAIN]], then press pads – the colour shows the target (orange BUS 1, green BUS 2, white DRY).','Whole bank at once: [[REMAIN+BANK]].','[[BUS FX]] switches which bus you control (lit BUS 1, blinking BUS 2).'],'Momentary effect: hold [[VALUE]] + effect button. Break with tail: [[SHIFT+BUS FX]] (MUTE BUS).']},
+ {id:'skipback',url:'7903834778468747',
+  cs:['Skip-back sampling','SP pořád poslouchá, takže uložíš i to, co už zaznělo (25 s, se „SBS Long“ až 40 s).',['Zahraj něco a stiskni [[MARK]] – přehraje se zachycený zvuk.','[[REC]] a pad = uloženo na pad.'],'Funguje, když je MARK Function nastavená na skip back (výchozí).'],
+  en:['Skip-back sampling','The SP is always listening, so you can save what already happened (25 s, up to 40 s with "SBS Long").',['Play something and press [[MARK]] – the captured audio plays.','[[REC]] and a pad = saved to the pad.'],'Works when MARK Function is set to skip back (default).']},
+ {id:'looper',url:'8584103589852939',
+  cs:['Looper','Nahrávání smyček s vrstvením (overdub) přímo v SP.',['V System nastav MARK Function = Looper, pak [[MARK]] = looper mód.','[[CTRL 1]] délka (Free / 1 / 2 / 4 takty), [[REC]] start a stop.','[[RESAMPLE]] = overdub (BUS musí být LOOPER: [[SHIFT+CTRL 1]]).','Hotovo: [[COPY]] → pad → [[VALUE]] uloží smyčku na pad. [[MARK]] looper ukončí.'],'Undo/redo [[SHIFT+PATTERN SELECT]], smazání [[DEL]] (jen když nenahrává). Mezi skip-backem a looperem přepneš [[SHIFT]] + stisk [[VALUE]].'],
+  en:['Looper','Loop recording with layering (overdub) right in the SP.',['In System set MARK Function = Looper, then [[MARK]] = looper mode.','[[CTRL 1]] length (Free / 1 / 2 / 4 bars), [[REC]] start and stop.','[[RESAMPLE]] = overdub (BUS must be LOOPER: [[SHIFT+CTRL 1]]).','Done: [[COPY]] → pad → [[VALUE]] saves the loop to a pad. [[MARK]] exits the looper.'],'Undo/redo [[SHIFT+PATTERN SELECT]], erase [[DEL]] (only when stopped). Switch between skip-back and looper with [[SHIFT]] + pressing [[VALUE]].']},
+ {id:'chop',url:'7908852378474891',
+  cs:['Chop – rozsekání samplu na pady','Rozseká sample na úseky a rozloží je na pady.',['[[SHIFT+START/END]] otevře markery.','Markery přidáš [[MARK]], nebo automaticky přes AUTO MARK (podle času, hlasitosti nebo transientů).','CHOP rozloží úseky na pady.'],''],
+  en:['Chop – slicing a sample across pads','Slices a sample into parts and spreads them across pads.',['[[SHIFT+START/END]] opens markers.','Add markers with [[MARK]], or automatically with AUTO MARK (by time, level or transients).','CHOP spreads the slices across pads.'],'']},
+ {id:'input',url:'7903834778468747',
+  cs:['Externí vstup a Input FX','Pustí zvuk ze vstupu (synth, mikrofon, deska) do SP – i s efektem.',['[[EXT SOURCE]] zapne průchod vstupu (s GATE jen po dobu držení).','Bus pro vstup: [[REMAIN+EXT SOURCE]] (svítí BUS 1, bliká BUS 2, zhasnuto DRY).','Input FX: [[REC]] → [[RECORD SETTING]] → [[VALUE]] → „EFX Type“, parametry [[CTRL 1]]–[[CTRL 3]].'],''],
+  en:['External input and Input FX','Brings the input (synth, mic, record) into the SP – with an effect too.',['[[EXT SOURCE]] passes the input through (with GATE only while held).','Input bus: [[REMAIN+EXT SOURCE]] (lit BUS 1, blinking BUS 2, off DRY).','Input FX: [[REC]] → [[RECORD SETTING]] → [[VALUE]] → "EFX Type", parameters [[CTRL 1]]–[[CTRL 3]].'],'']},
+ {id:'dj',url:'7937626778510219',
+  cs:['DJ mód','Míchání dvou samplů jako na DJ pultu.',['Stiskni současně [[BANK D/I+BANK E/J]].','[[VALUE]] → CH1 SELECT / CH2 SELECT → pad → ENTER.','[[CTRL 1]] / [[CTRL 2]] hlasitost kanálů, [[CTRL 3]] crossfader.'],'Přehrávání, cue, sync a pitch jsou na padech – rozložení najdeš v manuálu.'],
+  en:['DJ mode','Mixing two samples like on a DJ mixer.',['Press [[BANK D/I+BANK E/J]] together.','[[VALUE]] → CH1 SELECT / CH2 SELECT → pad → ENTER.','[[CTRL 1]] / [[CTRL 2]] channel volume, [[CTRL 3]] crossfader.'],'Play, cue, sync and pitch are on the pads – see the manual for the layout.']},
+ {id:'live',url:'7897639578461835',
+  cs:['LIVE MODE','Zamkne tlačítka, kterými si na stage můžeš něco smazat nebo přepsat (DEL, REC, RESAMPLE, COPY, MARK).',['Podrž [[SHIFT]] a dlouze (3 s) [[REMAIN]].'],'Vypnutí stejnou kombinací.'],
+  en:['LIVE MODE','Locks the buttons that could delete or overwrite something on stage (DEL, REC, RESAMPLE, COPY, MARK).',['Hold [[SHIFT]] and long-press (3 s) [[REMAIN]].'],'Same combination turns it off.']},
+ {id:'backup',url:'7961485978540939',
+  cs:['Záloha (BACKUP)','Uloží celý obsah SP na SD kartu (až 64 záloh).',['[[SHIFT+pad 13]] → BACKUP → BACKUP (potvrzuj [[VALUE]]).','[[VALUE]] vyber číslo zálohy 01–64 a potvrď.'],'Obsazené číslo se přepíše – pro novou zálohu vyber volné. Zálohu si zkopíruj i do počítače.'],
+  en:['Backup (BACKUP)','Saves the whole SP content to the SD card (up to 64 backups).',['[[SHIFT+pad 13]] → BACKUP → BACKUP (confirm with [[VALUE]]).','Pick a backup number 01–64 with [[VALUE]] and confirm.'],'A used number gets overwritten – pick a free one for a new backup. Copy the backup to your computer too.']},
+ {id:'exportprj',url:'7960897178540171',
+  cs:['Export projektu','Uloží vybrané projekty na SD kartu, např. pro jiný SP-404MKII.',['[[SHIFT+pad 14]] → EXPORT to SD-CARD → PROJECT.','Stiskni pady projektů (svítí oranžově) a potvrď [[VALUE]].'],'Uloží se do složky EXPORT PROJECT na kartě.'],
+  en:['Export a project','Saves selected projects to the SD card, e.g. for another SP-404MKII.',['[[SHIFT+pad 14]] → EXPORT to SD-CARD → PROJECT.','Press the project pads (they light orange) and confirm with [[VALUE]].'],'Saved in the EXPORT PROJECT folder on the card.']},
 ];
 
 // ---------- site-wide search ----------
-const SYN={nahrat:['rec','record','sampl','nahra'],nahravani:['rec','record'],ztlumit:['mute'],ztlum:['mute'],mute:['ztlum','mut'],tempo:['bpm','tap'],bpm:['tempo'],smycka:['loop'],loop:['smyck'],efekt:['fx','effect','efx'],efekty:['fx','effect','efx'],zaloha:['backup'],zalohovat:['backup'],backup:['zaloh'],import:['sd'],retez:['chain'],chain:['retez','chain'],zastavit:['stop','exit'],stop:['zastav','exit'],prechod:['transition','break','mute bus'],skladba:['bank','banka','track'],banka:['bank'],bank:['bank'],zvuk:['sample','sampl'],sample:['zvuk','sampl'],pad:['pad'],sekvencer:['pattern'],sekvence:['pattern'],song:['chain'],aranz:['chain','struktur'],sluchatka:['cue'],sync:['bpm sync'],rozsekat:['chop'],nakrajet:['chop'],kopirovat:['copy'],smazat:['del'],vymazat:['del']};
+const SYN={nahrat:['rec','record','sampl','nahra'],nahravani:['rec','record'],ztlumit:['mute'],ztlum:['mute'],mute:['ztlum','mut'],tempo:['bpm','tap'],bpm:['tempo'],smycka:['loop'],loop:['smyck'],efekt:['fx','effect','efx'],efekty:['fx','effect','efx'],zaloha:['backup'],zalohovat:['backup'],backup:['zaloh'],import:['sd'],retez:['chain'],chain:['retez','chain'],zastavit:['stop','exit'],stop:['zastav','exit'],prechod:['transition','break','mute bus'],skladba:['bank','banka','track'],banka:['bank'],bank:['bank'],zvuk:['sample','sampl'],sample:['zvuk','sampl'],pad:['pad'],sekvencer:['pattern'],sekvence:['pattern'],song:['chain'],aranz:['chain','struktur'],sluchatka:['cue'],sync:['bpm sync'],choke:['mute group','utne'],prekryv:['mute group','choke'],prekryvat:['mute group','choke'],rozsekat:['chop'],nakrajet:['chop'],kopirovat:['copy'],smazat:['del'],vymazat:['del']};
 const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 let SIDX=[];
 function buildIndex(){
   SIDX=[]; let n=0; const V=T('views');
   const viewName=id=>V[VIEW_IDS.indexOf(id)]||'';
-  const sel='.lvl, .card.accent, .callout, table.stack-m tr, .live-t tr, ul.clean > li, .step, .appr, details.proc';
+  const sel='.lvl, .card.accent, .callout, table.stack-m tr, .live-t tr, ul.clean > li, .step, .appr, details.proc, details.dadd';
   $$('section.view').forEach(sec=>{
     const view=sec.id.slice(2); if(view==='konvertor'||view==='planovac') return;
     sec.querySelectorAll(sel).forEach(el=>{
       if(el.closest('#wizard')||el.closest('#doomCheck')) return;
       if(el.parentElement.closest('.callout, .appr, details.proc, .step')) return;
       if(el.tagName==='TR'&&el.querySelector('th')) return;
-      const cl=el.cloneNode(true); cl.querySelectorAll('.num,.tag').forEach(x=>x.remove()); cl.querySelectorAll('li,td,div,p,summary,h3,b,span.k').forEach(x=>x.append(' ')); let text=cl.textContent.replace(/\s+/g,' ').replace(/\s*\+\s*/g,'+').replace(/ ([,.)])/g,'$1').trim(); if(text.length<4) return;
+      const cl=el.cloneNode(true); cl.querySelectorAll('.num,.tag,.dtag').forEach(x=>x.remove()); cl.querySelectorAll('li,td,div,p,summary,h3,b,span.k').forEach(x=>x.append(' ')); let text=cl.textContent.replace(/\s+/g,' ').replace(/\s*\+\s*/g,'+').replace(/ ([,.)])/g,'$1').trim(); if(text.length<4) return;
       let title='';
-      const h=el.querySelector('.ttl')||el.querySelector('h3')||el.querySelector('b.t')||el.querySelector('.n'); if(h){const hc=h.cloneNode(true);hc.querySelectorAll('small').forEach(x=>x.prepend(' · '));title=hc.textContent.replace(/\s+/g,' ').trim()}
+      const h=el.querySelector('.ttl')||el.querySelector('h3')||el.querySelector('b.t')||el.querySelector('.n'); if(h){const hc=h.cloneNode(true);hc.querySelectorAll('.dtag').forEach(x=>x.remove());hc.querySelectorAll('small').forEach(x=>x.prepend(' · '));title=hc.textContent.replace(/\s+/g,' ').trim()}
       if(!title){const c=el.closest('.card'); const ch=c&&c.querySelector('h3'); if(ch) title=ch.textContent.trim()}
       if(!title){let p=el.closest('.card')||el; while(p&&p.previousElementSibling&&p.previousElementSibling.tagName!=='H2')p=p.previousElementSibling; const h2=p&&p.previousElementSibling; title=h2?h2.textContent.trim():sec.querySelector('h1').textContent.trim()}
-      if(el.classList.contains('step')){const ph=el.closest('details.phase'); const st=el.querySelector('.st').cloneNode(true); st.querySelectorAll('.tag').forEach(x=>x.remove()); title=st.textContent.trim(); }
+      if(el.classList.contains('step')){const ph=el.closest('details.phase'); const st=el.querySelector('.st').cloneNode(true); st.querySelectorAll('.tag,.dtag').forEach(x=>x.remove()); title=st.textContent.trim(); }
       if(title&&text.startsWith(title)) text=text.slice(title.length).trim();
       SIDX.push({view,el,title,text,ctx:viewName(view),proc:el.classList.contains('proc'),hay:norm(title+' '+text)});
     });
   });
-  SHORTCUTS.forEach((r,i)=>SIDX.push({view:'zkratky',sc:i,title:r[1],text:r[0].replace(/\+/g,' + '),ctx:viewName('zkratky'),hay:norm(r[0]+' '+r[1]+' '+SC_CATS[r[2]])}));
+  scList().forEach(({r,conf})=>SIDX.push({view:'zkratky',sc:r[1],title:r[1],text:r[0].replace(/\+/g,' + ')+(conf?' · DOOM: '+conf:''),ctx:viewName('zkratky'),hay:norm(r[0]+' '+r[1]+' '+SC_CATS[r[2]]+' '+(conf||''))}));
 }
 function tokMatch(hay,t){if(hay.includes(t))return true;const s=SYN[t];return !!(s&&s.some(x=>hay.includes(norm(x))))}
 function runSearch(q){
@@ -2471,15 +2029,33 @@ function goResult(r){
   $('#gResults').classList.remove('on'); $('#gSearch').blur();
   if(location.hash!=='#'+r.view) location.hash=r.view; else route(false);
   setTimeout(()=>{
-    if(r.sc!=null){scCat='all';$('#scSearch').value=SHORTCUTS[r.sc][1];renderSC();flash($('#scTable tr:nth-child(2)'));return}
+    if(r.sc!=null){scCat='all';$('#scSearch').value=r.sc;renderSC();flash($('#scTable tr:nth-child(2)'));return}
     const el=r.el; if(!el||!el.isConnected){buildIndex();return}
     const d=el.closest('details'); if(d) d.open=true; if(el.tagName==='DETAILS') el.open=true;
     flash(el);
   },80);
 }
+function procList(){
+  if(!isDoom()) return PROC_DEF.map(x=>({...x,src:'roland'}));
+  const ex=Object.fromEntries(DOOM_PROC.extra.map(x=>[x.id,{...x,src:'doom'}]));
+  const base=Object.fromEntries(PROC_DEF.map(x=>[x.id,x]));
+  const ov=id=>({...base[id],...DOOM_PROC.over[id],src:'doom'});
+  const doom=[ex.doomopen,ov('record'),ov('switch'),ov('patbank'),ex.doominst,ex.doompiano,ex.doomarp,ex.doomplock,ex.doomtools,ov('mute'),ex.doomsc,ov('resample'),ov('efxmotion'),ov('chain')];
+  const rest=PROC_DEF.filter(x=>!DOOM_PROC.over[x.id]).map(x=>({...x,src:'roland'}));
+  return doom.concat(rest);
+}
+function renderInlineProcs(){
+  const L=Object.fromEntries(procList().map(x=>[x.id,x]));
+  $$('.dinline').forEach(box=>{
+    const ps=box.dataset.procs.split(',').map(id=>L[id]).filter(Boolean);
+    box.innerHTML=ps.length?`<div class="dil-h">${T('stepByStep')}</div>`+ps.map(p=>{const [t,what,steps,note]=p[S.lang];const d=p.src==='doom';return `<div class="dil ${d?'dl':''}"><b>${t}</b><ol>${steps.map(x=>`<li>${kx(x)}</li>`).join('')}</ol>${note?`<p class="muted">${kx(note)}</p>`:''}</div>`}).join(''):'';
+  });
+}
 function renderProcs(){
+  renderInlineProcs();
   const box=$('#procList'); if(!box) return;
-  box.innerHTML=PROC_DEF.map(p=>{const [t,steps]=p[S.lang];return `<details class="proc phase" id="proc-${p.id}"><summary><span class="num">↳</span><div class="ttl">${t}</div></summary><div class="body"><ol style="margin:0;padding-left:18px">${steps.map(s=>`<li style="margin:5px 0">${kx(s)}</li>`).join('')}</ol><p style="margin:10px 0 0;font-size:13px"><a href="${MAN+p.url}.html" target="_blank" rel="noopener">${T('manLink')}</a></p></div></details>`}).join('');
+  const L=procList().filter(x=>typeof scSrc==='undefined'||scSrc==='both'||(scSrc==='doom')===(x.src==='doom')); let lastSrc=null;
+  box.innerHTML=L.map(p=>{const hdr=isDoom()&&p.src!==lastSrc?(lastSrc=p.src,`<h3 class="procgrp">${p.src==='doom'?'<img class="navlogo" src="'+DOOM_LOGO+'" alt="DOOM OS"> procedures':'SP Original procedures <span class="dim" style="font-weight:400;font-size:13px">– work the same with DOOM OS installed (outside the DOOM OS screen)</span>'}</h3>`):'';return hdr+(()=>{const [t,what,steps,note]=p[S.lang];const d=p.src==='doom';return `<details class="proc phase ${d?'dproc':''}" id="proc-${p.id}"><summary><span class="num">↳</span><div><div class="ttl">${t}</div><div class="sub">${what}</div></div></summary><div class="body"><ol style="margin:0;padding-left:18px">${steps.map(s=>`<li style="margin:5px 0">${kx(s)}</li>`).join('')}</ol>${note?`<p class="muted" style="font-size:13.5px;margin:10px 0 0">${kx(note)}</p>`:''}<p style="margin:10px 0 0;font-size:13px"><a href="${d?DOOM_URL:MAN+p.url+'.html'}" target="_blank" rel="noopener">${d?T('doomManLink'):T('manLink')}</a></p></div></details>`})()}).join('');
 }
 function initSearch(){
   const s=$('#gSearch'); s.placeholder=T('searchPh');
@@ -2590,6 +2166,120 @@ function renderLevels(){
   $$('#levels [data-d]').forEach(c=>c.onchange=()=>{S.train.d[c.dataset.d]=c.checked;save();renderLevels()});
   $$('#levels [data-x]').forEach(c=>c.onchange=()=>{S.train.x[c.dataset.x]=c.checked;save();renderLevels()});
   $$('#levels [data-peek]').forEach(b=>b.onclick=e=>{e.preventDefault();S.train.peek[b.dataset.peek]=1;save();renderLevels()});
+}
+// ================= DOOM OS MODE =================
+// Workflow: overrides of existing steps ("pi-si") and extra DOOM-only steps per phase (appended → saved checks stay valid)
+const DOOM_WF={
+cs:{
+ over:{
+  '2-0':{h:'Nový pattern: podrž [[PATTERN SELECT]] + prázdný pad. Stopu vybereš podržením [[SUB PAD]] a ťuknutím na pad, pady 1–16 pak zapínají kroky. Živě: [[REC]] = zkouška, druhé [[REC]] = nahrávání.'},
+  '2-2':{s:'Undo / redo',h:'[[SHIFT+PATTERN SELECT]] = undo (až 11 kroků), [[REMAIN+PATTERN SELECT]] = redo.'},
+  '2-3':{h:'Mixer: podrž [[RECORD SETTING]] 0,6 s. [[VALUE]] vybírá stopu, [[CTRL 1]] pan, [[CTRL 2]] bus, [[CTRL 3]] hlasitost. EQ stopy: v mixeru [[PITCH/SPEED]].'},
+  '2-4':{s:'COMMIT: bounce in place na pad 16',h:'[[SHIFT+RESAMPLE]] (vše, co slyšíš) → [[VALUE]] zvol LOOP → prázdný pad → [[RESAMPLE]]. Undo [[SHIFT+PATTERN SELECT]].'},
+  '3-2':{h:'Nový pattern: [[PATTERN SELECT]] + prázdný pad. Úpravy přes [[PATTERN EDIT]]: DOUBLE, HALVE, SHIFT, QUANT, SWING, HUMAN, TRANSP (ťuknutím na pad jen pro jednu stopu).'},
+  '3-4':{s:'Automatizace efektů (volitelné)',h:'Otevři stránku efektu, 2× [[REC]] a toč knoby. Prohlížení a úpravy: [[SHIFT+MARK]]. Přehrávání pohybů zapne/vypne [[START/END]].'},
+  '4-1':{s:'Struktura: přepínání naživo nebo Pattern Chain',h:'DOOM OS nemá song mode. Sekce přepínáš naživo ([[PATTERN SELECT+pad]]), nebo zavři DOOM OS ([[EXIT]]) a postav Pattern Chain ve stock režimu – patterny z DOOM OS tam hrají (jen bez parameter locks).'},
+  '5-0':{s:'Mutování v mixeru',h:'Podrž [[RECORD SETTING]] (mixer). Mute stopy: [[SHIFT]] + stisk [[VALUE]], nebo ťukni na její pad. Solo: [[SHIFT+ROLL]] nebo [[REMAIN]] + pad.'},
+  '5-1':{h:'[[PATTERN SELECT+pad]] = fronta (na displeji NEXT), [[PATTERN SELECT+SUB PAD+pad]] = hned. Pattern banka: [[PATTERN SELECT+BANK]].'},
+ },
+ extra:{
+  0:[{s:'Zapni Boot to DOOM',h:'[[EXIT]] → [[SHIFT+pad 13]] → SYSTEM → [[CTRL 3]] záložka DOOM OS → Boot to DOOM = YES → [[EXIT]]. SP pak startuje rovnou do DOOM OS.',a:'*'},
+     {s:'Nastav sidechain (kopák „tlačí“ hudbu)',h:'[[RECORD SETTING]] → SIDECHAIN → [[VALUE]] na zdrojový bus, pak na cílový. [[CTRL 1]] práh, [[CTRL 2]] poměr, [[CTRL 3]] uvolnění.',a:'*'}],
+  2:[{s:'Basa nebo melodie z nástroje DOOM OS',h:'Podrž [[SUB PAD]], ťukni na prázdný pad a pusť → [[VALUE]] vyber nástroj ([[SHIFT+VALUE]] = kity) → [[VALUE]] načti. Zvuk upravíš přes [[START/END]].',a:'*'},
+     {s:'Noty v piano rollu',h:'Na mřížce [[VALUE]] otevře piano roll. Podrž krok a stiskni jiný pad jako klávesu (pad 5 = původní výška).',a:'*'},
+     {s:'Arpeggiator na akordy nebo basu',h:'[[RECORD SETTING]] → ARP. Drž pady, [[HOLD]] arpeggio podrží. Natrvalo do not: GENERATE › PRINT ARP.',a:'*'}],
+  3:[{s:'Variace přes parameter locks',h:'[[MARK]] → ťukni na krok s notou → [[CTRL 1]]–[[CTRL 3]] nastav zvuk jen pro ten krok → [[MARK]] uloží (krok svítí modře).',a:'*'}],
+  6:[{s:'Důležité stopy bounce-ni na samply',h:'Nástroje se ukládají jako samply, ale parameter locks stock firmware nepřehraje. Než projekt zálohuješ nebo sdílíš, bounce-ni důležité stopy ([[RESAMPLE]]).',a:'*'}],
+ }},
+en:{
+ over:{
+  '2-0':{h:'New pattern: hold [[PATTERN SELECT]] + an empty pad. Pick a track by holding [[SUB PAD]] and tapping a pad, then pads 1–16 toggle steps. Live: [[REC]] = rehearsal, second [[REC]] = record.'},
+  '2-2':{s:'Undo / redo',h:'[[SHIFT+PATTERN SELECT]] = undo (up to 11 steps), [[REMAIN+PATTERN SELECT]] = redo.'},
+  '2-3':{h:'Mixer: hold [[RECORD SETTING]] 0.6 s. [[VALUE]] selects a track, [[CTRL 1]] pan, [[CTRL 2]] bus, [[CTRL 3]] level. Track EQ: [[PITCH/SPEED]] in the mixer.'},
+  '2-4':{s:'COMMIT: bounce in place to pad 16',h:'[[SHIFT+RESAMPLE]] (everything you hear) → choose LOOP with [[VALUE]] → empty pad → [[RESAMPLE]]. Undo [[SHIFT+PATTERN SELECT]].'},
+  '3-2':{h:'New pattern: [[PATTERN SELECT]] + an empty pad. Edit with [[PATTERN EDIT]]: DOUBLE, HALVE, SHIFT, QUANT, SWING, HUMAN, TRANSP (tap a pad to limit to one track).'},
+  '3-4':{s:'FX automation (optional)',h:'Open an effect page, press [[REC]] twice and turn the knobs. View and edit: [[SHIFT+MARK]]. [[START/END]] toggles playback of the moves.'},
+  '4-1':{s:'Structure: switch live or Pattern Chain',h:'DOOM OS has no song mode. Switch sections live ([[PATTERN SELECT+pad]]), or close DOOM OS ([[EXIT]]) and build a Pattern Chain in stock mode – DOOM OS patterns play there (just without parameter locks).'},
+  '5-0':{s:'Muting in the mixer',h:'Hold [[RECORD SETTING]] (mixer). Mute a track: [[SHIFT]] + press [[VALUE]], or tap its pad. Solo: [[SHIFT+ROLL]] or [[REMAIN]] + pad.'},
+  '5-1':{h:'[[PATTERN SELECT+pad]] = queue (display shows NEXT), [[PATTERN SELECT+SUB PAD+pad]] = instantly. Pattern bank: [[PATTERN SELECT+BANK]].'},
+ },
+ extra:{
+  0:[{s:'Turn on Boot to DOOM',h:'[[EXIT]] → [[SHIFT+pad 13]] → SYSTEM → [[CTRL 3]] DOOM OS tab → Boot to DOOM = YES → [[EXIT]]. The SP then boots straight into DOOM OS.',a:'*'},
+     {s:'Set up sidechain (kick pumps the music)',h:'[[RECORD SETTING]] → SIDECHAIN → [[VALUE]] on the source bus, then the target. [[CTRL 1]] threshold, [[CTRL 2]] ratio, [[CTRL 3]] release.',a:'*'}],
+  2:[{s:'Bass or melody from a DOOM OS instrument',h:'Hold [[SUB PAD]], tap an empty pad and release → pick an instrument with [[VALUE]] ([[SHIFT+VALUE]] = kits) → [[VALUE]] loads it. Edit the sound with [[START/END]].',a:'*'},
+     {s:'Notes in the piano roll',h:'On the grid [[VALUE]] opens the piano roll. Hold a step and press another pad as a key (pad 5 = original pitch).',a:'*'},
+     {s:'Arpeggiator for chords or bass',h:'[[RECORD SETTING]] → ARP. Hold pads, [[HOLD]] latches. Make it permanent: GENERATE › PRINT ARP.',a:'*'}],
+  3:[{s:'Variations with parameter locks',h:'[[MARK]] → tap a step with a note → set the sound for that step with [[CTRL 1]]–[[CTRL 3]] → [[MARK]] saves (step lights blue).',a:'*'}],
+  6:[{s:'Bounce important tracks to samples',h:'Instruments are stored as samples, but stock firmware doesn\'t play parameter locks. Before backing up or sharing, bounce important tracks ([[RESAMPLE]]).',a:'*'}],
+ }}
+};
+
+// Live cheat sheet: replacement items for card 1 (patterns) and 2 (mute & mix)
+const DOOM_LIVE={
+cs:{1:[['Další pattern (fronta)','[[PATTERN SELECT+pad]]'],['Přepnout okamžitě','[[PATTERN SELECT+SUB PAD+pad]]'],['Pattern banka','[[PATTERN SELECT+BANK]]'],['Start / stop','[[PATTERN SELECT]]'],['Undo / redo','[[SHIFT+PATTERN SELECT]] / [[REMAIN+PATTERN SELECT]]']],
+    2:[['Otevřít mixer','podrž [[RECORD SETTING]] 0,6 s'],['Mute stopy','[[SHIFT]] + stisk [[VALUE]], nebo pad stopy'],['Solo','[[SHIFT+ROLL]] nebo [[REMAIN]] + pad'],['Pan / bus / hlasitost','[[CTRL 1]] / [[CTRL 2]] / [[CTRL 3]]'],['EQ stopy','v mixeru [[PITCH/SPEED]]']]},
+en:{1:[['Next pattern (queue)','[[PATTERN SELECT+pad]]'],['Switch instantly','[[PATTERN SELECT+SUB PAD+pad]]'],['Pattern bank','[[PATTERN SELECT+BANK]]'],['Start / stop','[[PATTERN SELECT]]'],['Undo / redo','[[SHIFT+PATTERN SELECT]] / [[REMAIN+PATTERN SELECT]]']],
+    2:[['Open mixer','hold [[RECORD SETTING]] 0.6 s'],['Mute a track','[[SHIFT]] + press [[VALUE]], or the track pad'],['Solo','[[SHIFT+ROLL]] or [[REMAIN]] + pad'],['Pan / bus / level','[[CTRL 1]] / [[CTRL 2]] / [[CTRL 3]]'],['Track EQ','[[PITCH/SPEED]] in the mixer']]}
+};
+
+// Shortcuts: what a stock combo does inside DOOM OS
+const DOOM_CONF={
+cs:{'SHIFT+REC':'volba režimu nahrávání','SHIFT+HOLD':'grid follow','SHIFT+START/END':'waveform display','SHIFT+RECORD SETTING':'přepínání zobrazení mřížky','RECORD SETTING':'podržet 0,6 s = mixer','PATTERN SELECT':'start / stop přehrávání','pad (při přehrávání)':'fronta je PATTERN SELECT + pad','SUB PAD+pad':'okamžitě je PATTERN SELECT + SUB PAD + pad','REC (při přehrávání)':'REC = zkouška, druhé REC = nahrávání','SHIFT+REVERSE+pad':'mute je v mixeru (SHIFT + stisk VALUE)','SHIFT+MARK':'automatizace efektů','REC → MARK':'automatizace: na stránce efektu 2× REC','PATTERN EDIT':'pattern tools (QUANT, SWING, DOUBLE…)'},
+en:{'SHIFT+REC':'record mode select','SHIFT+HOLD':'grid follow','SHIFT+START/END':'waveform display','SHIFT+RECORD SETTING':'cycle grid views','RECORD SETTING':'hold 0.6 s = mixer','PATTERN SELECT':'start / stop playback','pad (during playback)':'queue is PATTERN SELECT + pad','SUB PAD+pad':'instant is PATTERN SELECT + SUB PAD + pad','REC (during playback)':'REC = rehearsal, second REC = record','SHIFT+REVERSE+pad':'mute is in the mixer (SHIFT + press VALUE)','SHIFT+MARK':'FX automation','REC → MARK':'automation: press REC twice on an effect page','PATTERN EDIT':'pattern tools (QUANT, SWING, DOUBLE…)'}
+};
+const DOOM_SC_EXTRA={ // DOOM-only shortcuts not in the base list
+cs:[['SUB PAD (podržet)+pad','Výběr stopy / načtení nástroje na prázdný pad','doom'],['VALUE (na mřížce)','Piano roll vybrané stopy','doom'],['MARK (na mřížce)','Parameter locks','doom'],['RESAMPLE','Bounce in place vybrané stopy','doom'],['SHIFT+RESAMPLE','Bounce in place všeho, co slyšíš','doom'],['SHIFT+ROLL','Solo stopy','doom'],['RECORD SETTING → ARP','Arpeggiator','doom'],['RECORD SETTING → SIDECHAIN','Sidechain','doom']],
+en:[['SUB PAD (hold)+pad','Select track / load instrument on an empty pad','doom'],['VALUE (on grid)','Piano roll of the selected track','doom'],['MARK (on grid)','Parameter locks','doom'],['RESAMPLE','Bounce in place (selected track)','doom'],['SHIFT+RESAMPLE','Bounce in place (everything you hear)','doom'],['SHIFT+ROLL','Solo track','doom'],['RECORD SETTING → ARP','Arpeggiator','doom'],['RECORD SETTING → SIDECHAIN','Sidechain','doom']]
+};
+
+// Procedures: DOOM replacements (by id) and DOOM-only procedures
+const DOOM_URL='https://klangfeldlabs.com/doom-os/manual/';
+const DOOM_PROC={
+ over:{
+  record:{cs:['Pattern v DOOM OS (mřížka a živé nahrávání)','Pattern skládáš v mřížce 16 kroků, nebo ho nahraješ živě.',['Podrž [[PATTERN SELECT]] a stiskni prázdný pad = nový pattern.','Podrž [[SUB PAD]], ťukni na pad se zvukem a pusť – to je stopa. Pady 1–16 teď zapínají kroky.','[[VALUE]] přepíná stopy, [[SHIFT]] + [[VALUE]] takty. [[CTRL 1]] velocity, [[CTRL 2]] délka, [[CTRL 3]] posun (s podrženým krokem jen pro něj).','Živě: [[REC]] = zkouška (bliká), druhé [[REC]] = nahrávání, [[EXIT]] konec.'],'Režimy nahrávání (SINGLE, MULTI, CHROMATIC, 16 VEL): [[SHIFT+REC]]. Délka patternu: [[RECORD SETTING]] 2× → LENGTH.'],
+          en:['Pattern in DOOM OS (grid and live recording)','Build a pattern in a 16-step grid, or record it live.',['Hold [[PATTERN SELECT]] and press an empty pad = new pattern.','Hold [[SUB PAD]], tap a sound pad and release – that\'s the track. Pads 1–16 now toggle steps.','[[VALUE]] switches tracks, [[SHIFT]] + [[VALUE]] bars. [[CTRL 1]] velocity, [[CTRL 2]] length, [[CTRL 3]] nudge (with a step held, just that step).','Live: [[REC]] = rehearsal (blinks), second [[REC]] = record, [[EXIT]] stops.'],'Record modes (SINGLE, MULTI, CHROMATIC, 16 VEL): [[SHIFT+REC]]. Pattern length: [[RECORD SETTING]] twice → LENGTH.']},
+  switch:{cs:['Přepínání patternů v DOOM OS','Jak přejít na další sekci během hraní.',['Podrž [[PATTERN SELECT]] a stiskni pad – pattern se zařadí (NEXT) a naskočí po dohrání aktuálního.','Hned teď: [[PATTERN SELECT+SUB PAD+pad]].','Pattern banka: [[PATTERN SELECT+BANK]].'],'Zařazení zrušíš výběrem patternu při zastaveném přehrávání. Uložený pattern jde upravit, až jednou zahraje.'],
+          en:['Switching patterns in DOOM OS','How to move to the next section while playing.',['Hold [[PATTERN SELECT]] and press a pad – the pattern is queued (NEXT) and starts when the current one ends.','Right now: [[PATTERN SELECT+SUB PAD+pad]].','Pattern bank: [[PATTERN SELECT+BANK]].'],'Cancel a queue by selecting a pattern while stopped. A saved pattern can be edited once it has played.']},
+  patbank:{cs:['Výběr pattern banky v DOOM OS','Patterny jsou ve stejných bankách jako ve stock režimu.',['Podrž [[PATTERN SELECT]] a stiskni tlačítko banky.'],''],
+           en:['Selecting a pattern bank in DOOM OS','Patterns live in the same banks as in stock mode.',['Hold [[PATTERN SELECT]] and press a bank button.'],'']},
+  chain:{cs:['Pattern Chain (mimo DOOM OS)','DOOM OS nemá song mode – chain postavíš ve stock režimu ze stejných patternů.',['Zavři DOOM OS: [[EXIT]].','[[PATTERN SELECT]], podrž [[HOLD]] a stiskni pad = číslo chainu.','Stiskni pady patternů v pořadí a [[EXIT]] uloží. Přehrání: [[HOLD+pad]] → [[SUB PAD]].'],'Parameter locks ve stock režimu nehrají – stopy, kde na nich záleží, nejdřív bounce-ni.'],
+         en:['Pattern Chain (outside DOOM OS)','DOOM OS has no song mode – build the chain in stock mode from the same patterns.',['Close DOOM OS: [[EXIT]].','[[PATTERN SELECT]], hold [[HOLD]] and press a pad = chain number.','Press the pattern pads in order and [[EXIT]] saves. Play: [[HOLD+pad]] → [[SUB PAD]].'],'Parameter locks don\'t play in stock mode – bounce tracks that depend on them first.']},
+  resample:{cs:['Bounce in place','Nahraje stopu nebo celý mix na nový pad – rychlý commit.',['Vyber stopu a stiskni [[RESAMPLE]]. Všechno, co slyšíš: [[SHIFT+RESAMPLE]].','[[VALUE]] zvol CUT, TAIL (i s dozvukem) nebo LOOP.','Ťukni na prázdný pad (z jiné banky: nejdřív tlačítko banky).','[[RESAMPLE]] nebo [[VALUE]] spustí, [[EXIT]] zastaví.'],'Bounce stopy nahradí její noty jednou notou nového padu. Undo [[SHIFT+PATTERN SELECT]].'],
+            en:['Bounce in place','Records a track or the whole mix to a new pad – a quick commit.',['Select a track and press [[RESAMPLE]]. Everything you hear: [[SHIFT+RESAMPLE]].','Choose CUT, TAIL (with tail) or LOOP with [[VALUE]].','Tap an empty pad (in another bank: press its bank button first).','[[RESAMPLE]] or [[VALUE]] starts, [[EXIT]] stops.'],'A track bounce replaces its notes with one note of the new pad. Undo [[SHIFT+PATTERN SELECT]].']},
+  efxmotion:{cs:['Automatizace efektů v DOOM OS','Pattern si zapamatuje pohyby knobů efektů.',['Otevři stránku efektu.','2× [[REC]] a toč knoby do rytmu.','Prohlížení a úpravy: [[SHIFT+MARK]] – [[VALUE]] parametr, ťuknutím na pad krok.'],'[[START/END]] zapne/vypne přehrávání. Smazání jednoho efektu: podrž [[DEL]] + tlačítko efektu, všech: [[DEL+MARK]].'],
+             en:['FX automation in DOOM OS','The pattern remembers your effect knob moves.',['Open the effect page.','Press [[REC]] twice and turn the knobs in time.','View and edit: [[SHIFT+MARK]] – [[VALUE]] parameter, tap a pad for a step.'],'[[START/END]] toggles playback. Delete one effect: hold [[DEL]] + effect button, all: [[DEL+MARK]].']},
+  mute:{cs:['Mute a solo v mixeru DOOM OS','Ztlumení a sólování stop při hraní.',['Mixer: podrž [[RECORD SETTING]] 0,6 s.','[[VALUE]] vyber stopu.','Mute: [[SHIFT]] + stisk [[VALUE]], nebo ťukni na pad stopy. Solo: [[SHIFT+ROLL]] nebo [[REMAIN]] + pad.'],'V mixeru je i pan [[CTRL 1]], bus [[CTRL 2]], hlasitost [[CTRL 3]] a EQ přes [[PITCH/SPEED]].'],
+        en:['Mute and solo in the DOOM OS mixer','Muting and soloing tracks while playing.',['Mixer: hold [[RECORD SETTING]] 0.6 s.','Select a track with [[VALUE]].','Mute: [[SHIFT]] + press [[VALUE]], or tap the track pad. Solo: [[SHIFT+ROLL]] or [[REMAIN]] + pad.'],'The mixer also has pan [[CTRL 1]], bus [[CTRL 2]], level [[CTRL 3]] and EQ via [[PITCH/SPEED]].']},
+ },
+ extra:[
+  {id:'doomopen',cs:['Otevření DOOM OS a Boot to DOOM','DOOM OS je obrazovka nad stock firmwarem.',['Otevřít: [[REMAIN+SUB PAD]] (z jakékoli obrazovky).','Zavřít a uložit: [[EXIT]].','Startovat rovnou do DOOM OS: [[SHIFT+pad 13]] → SYSTEM → [[CTRL 3]] záložka DOOM OS → Boot to DOOM = YES.'],'Nápověda: podrž [[SHIFT]] 3 s.'],
+   en:['Opening DOOM OS and Boot to DOOM','DOOM OS is a screen on top of the stock firmware.',['Open: [[REMAIN+SUB PAD]] (from any screen).','Close and save: [[EXIT]].','Boot straight into DOOM OS: [[SHIFT+pad 13]] → SYSTEM → [[CTRL 3]] DOOM OS tab → Boot to DOOM = YES.'],'Help: hold [[SHIFT]] for 3 s.']},
+  {id:'doominst',cs:['Nástroje a bicí kity','20 syntezátorových nástrojů a 11 bicích kitů přímo v SP – bez samplování.',['Podrž [[SUB PAD]], ťukni na prázdný pad a pusť.','[[VALUE]] vyber nástroj ([[SHIFT+VALUE]] = kity), podržením [[SUB PAD]] si ho poslechni, [[VALUE]] načte.','Úpravy: vyber stopu a [[START/END]] – [[VALUE]] sekce (TONE, MOD, AMP, OUT), [[CTRL 1]]–[[CTRL 3]] parametry. [[EXIT]] uloží.'],'Chromaticky: v editoru [[SHIFT+pad 4]], oktávu mění tlačítka bank. Nástroj se uloží jako sample, takže hraje i ve stock režimu.'],
+   en:['Instruments and drum kits','20 synth instruments and 11 drum kits right in the SP – no sampling.',['Hold [[SUB PAD]], tap an empty pad and release.','Pick an instrument with [[VALUE]] ([[SHIFT+VALUE]] = kits), hold [[SUB PAD]] to preview, [[VALUE]] loads it.','Edit: select the track and [[START/END]] – [[VALUE]] section (TONE, MOD, AMP, OUT), [[CTRL 1]]–[[CTRL 3]] parameters. [[EXIT]] saves.'],'Chromatic: [[SHIFT+pad 4]] in the editor, bank buttons change octave. The instrument is saved as a sample, so it plays in stock mode too.']},
+  {id:'doompiano',cs:['Piano roll','Výška not jednotlivých kroků.',['Na mřížce stiskni [[VALUE]] – otevře piano roll vybrané stopy.','Podrž krok a stiskni jiný pad jako klávesu (pad 5 = původní výška, každý další o půltón výš).','[[VALUE]] posouvá, s podrženým krokem mění výšku o půltón. [[VALUE]] zavře.'],''],
+   en:['Piano roll','Pitch of individual steps.',['On the grid press [[VALUE]] – opens the piano roll of the selected track.','Hold a step and press another pad as a key (pad 5 = original pitch, each next one a semitone up).','[[VALUE]] scrolls, with a step held it changes pitch by a semitone. [[VALUE]] closes.'],'']},
+  {id:'doomarp',cs:['Arpeggiator','Rozloží držené noty do rytmického vzoru.',['Vyber stopu, [[RECORD SETTING]] → ARP.','Drž pady. [[VALUE]] arp zapne/vypne, [[HOLD]] ho podrží i po puštění.','Stránka PLAY: [[CTRL 1]] typ, [[CTRL 2]] rate, [[CTRL 3]] gate. Stránka PITCH: tónina, stupnice, oktávy.'],'Natrvalo do not: [[RECORD SETTING]] → GENERATE › PRINT ARP (přepíše noty stopy).'],
+   en:['Arpeggiator','Turns held notes into a rhythmic pattern.',['Select a track, [[RECORD SETTING]] → ARP.','Hold pads. [[VALUE]] toggles the arp, [[HOLD]] latches it.','PLAY page: [[CTRL 1]] type, [[CTRL 2]] rate, [[CTRL 3]] gate. PITCH page: key, scale, octaves.'],'Make it permanent: [[RECORD SETTING]] → GENERATE › PRINT ARP (replaces the track\'s notes).']},
+  {id:'doomplock',cs:['Parameter locks','Jiný zvuk na jednotlivých krocích – variace bez dalších stop.',['Vyber stopu s nástrojem a stiskni [[MARK]].','Ťukni na krok s notou a nastav [[CTRL 1]]–[[CTRL 3]] ([[VALUE]] sekce).','[[MARK]] uloží (krok svítí modře), [[EXIT]] zahodí.'],'[[DEL]] vrátí vybraný krok. Ve stock režimu se locky nepřehrají.'],
+   en:['Parameter locks','A different sound on individual steps – variation without extra tracks.',['Select an instrument track and press [[MARK]].','Tap a step with a note and set [[CTRL 1]]–[[CTRL 3]] ([[VALUE]] section).','[[MARK]] saves (step lights blue), [[EXIT]] discards.'],'[[DEL]] resets the selected step. Locks don\'t play in stock mode.']},
+  {id:'doomtools',cs:['Pattern tools','Hromadné úpravy patternu.',['[[PATTERN EDIT]] (vpravo nahoře ALL = celý pattern; ťuknutím na pad jen jedna stopa).','[[VALUE]] vyber nástroj a stiskni, [[VALUE]] nastav hodnotu, stisk použije.'],'QUANT, SWING, SHIFT (±16 kroků), DOUBLE, HALVE, REVERSE, HUMAN, TRANSP (±12 půltónů).'],
+   en:['Pattern tools','Bulk pattern edits.',['[[PATTERN EDIT]] (top right ALL = whole pattern; tap a pad for one track).','Pick a tool with [[VALUE]] and press, set the amount with [[VALUE]], press to apply.'],'QUANT, SWING, SHIFT (±16 steps), DOUBLE, HALVE, REVERSE, HUMAN, TRANSP (±12 semitones).']},
+  {id:'doomsc',cs:['Sidechain','Jeden bus „uhýbá“ druhému – typicky hudba před kopákem.',['[[RECORD SETTING]] → SIDECHAIN.','[[VALUE]] na zdrojový bus, pak na cílový.','[[CTRL 1]] práh, [[CTRL 2]] poměr, [[CTRL 3]] uvolnění. [[EXIT]] uloží.'],'Odebrání: podrž [[DEL]] a stiskni [[VALUE]] na zdroji nebo cíli.'],
+   en:['Sidechain','One bus ducks under another – typically music under the kick.',['[[RECORD SETTING]] → SIDECHAIN.','[[VALUE]] on the source bus, then the target.','[[CTRL 1]] threshold, [[CTRL 2]] ratio, [[CTRL 3]] release. [[EXIT]] saves.'],'Remove: hold [[DEL]] and press [[VALUE]] on the source or target.']},
+ ]
+};
+
+// DOOM tab: feature overview
+const DOOM_FEAT={
+cs:[['Mřížka a živé nahrávání','16 kroků na padech, zkouška před nahráváním, 4 režimy.','PATTERN SELECT+pad · REC','record'],['Piano roll','Výška not jednotlivých kroků.','VALUE na mřížce','doompiano'],['Nástroje a kity','20 syntezátorů, 11 bicích kitů.','SUB PAD+prázdný pad','doominst'],['Arpeggiator','40 stupnic, až 3 oktávy, HOLD.','RECORD SETTING → ARP','doomarp'],['Parameter locks','Zvuk krok po kroku.','MARK','doomplock'],['Pattern tools','QUANT, SWING, HUMAN, TRANSP…','PATTERN EDIT','doomtools'],['Mixer a EQ','Pan, bus, hlasitost, mute/solo, 3pásmový EQ.','podržet RECORD SETTING','mute'],['Sidechain','Hudba uhýbá kopáku.','RECORD SETTING → SIDECHAIN','doomsc'],['Bounce in place','CUT / TAIL / LOOP na nový pad.','RESAMPLE · SHIFT+RESAMPLE','resample'],['Automatizace efektů','Pohyby knobů v patternu.','2× REC · SHIFT+MARK','efxmotion'],['Fronta patternů','Přepnutí na konci nebo hned.','PATTERN SELECT+pad · +SUB PAD','switch'],['Undo / redo','Až 11 kroků zpět.','SHIFT / REMAIN + PATTERN SELECT','record']],
+en:[['Grid and live recording','16 steps on the pads, rehearsal before recording, 4 modes.','PATTERN SELECT+pad · REC','record'],['Piano roll','Pitch of individual steps.','VALUE on the grid','doompiano'],['Instruments and kits','20 synths, 11 drum kits.','SUB PAD+empty pad','doominst'],['Arpeggiator','40 scales, up to 3 octaves, HOLD.','RECORD SETTING → ARP','doomarp'],['Parameter locks','Sound step by step.','MARK','doomplock'],['Pattern tools','QUANT, SWING, HUMAN, TRANSP…','PATTERN EDIT','doomtools'],['Mixer and EQ','Pan, bus, level, mute/solo, 3-band EQ.','hold RECORD SETTING','mute'],['Sidechain','Music ducks under the kick.','RECORD SETTING → SIDECHAIN','doomsc'],['Bounce in place','CUT / TAIL / LOOP to a new pad.','RESAMPLE · SHIFT+RESAMPLE','resample'],['FX automation','Knob moves inside the pattern.','REC twice · SHIFT+MARK','efxmotion'],['Pattern queue','Switch at the end or instantly.','PATTERN SELECT+pad · +SUB PAD','switch'],['Undo / redo','Up to 11 steps back.','SHIFT / REMAIN + PATTERN SELECT','record']]
+};
+
+const isDoom=()=>S.fw==='doom';
+function renderDoomFeat(){
+  const box=$('#doomFeat'); if(!box) return;
+  box.innerHTML=DOOM_FEAT[S.lang].map(f=>`<button class="card dfeat" data-p="${f[3]}"><h3>${f[0]}</h3><p class="muted">${f[1]}</p><span class="dk">${esc(f[2])}</span></button>`).join('');
+  $$('#doomFeat .dfeat').forEach(b=>b.onclick=()=>{location.hash='zkratky';setTimeout(()=>{const d=$('#proc-'+b.dataset.p);if(d){d.open=true;flash(d)}},120)});
 }
 
 setLang(S.lang,true);
