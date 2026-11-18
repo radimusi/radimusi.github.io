@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>steadify · your pocket coach</title>
+<meta name="theme-color" content="#1E9B72">
+<meta name="description" content="steadify – your pocket coach for daily, structured music practice.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="steadify">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EE; --surface:#FFFFFF; --surface2:#EFEDE6; --ink:#1B2420; --muted:#69736E; --line:#E3E0D7;
+  --primary:#1E9B72; --primary-ink:#FFFFFF; --primary-soft:#DDF2EA;
+  --flame:#F2732A; --flame-soft:#FDE7DA; --ice:#3E9BDB; --ice-soft:#DEEEFA;
+  --warn:#D64545; --radius:18px; --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.05);
+  --nav-h:64px;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#111513; --surface:#1A201D; --surface2:#232A26; --ink:#ECF1EE; --muted:#97A29C; --line:#2C3430;
+    --primary:#2DB585; --primary-soft:#173A2D; --flame:#FF8A45; --flame-soft:#3A2618; --ice:#5CB2EE; --ice-soft:#17303F;
+    --shadow:0 1px 2px rgba(0,0,0,.3); }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.4}
+body{min-height:100vh;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
+body.no-nav{padding-bottom:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+a{color:var(--primary)}
+.wrap{max-width:560px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px 24px}
+h1{font-size:28px;margin:4px 0 2px;font-weight:900;letter-spacing:-.02em}
+h2{font-size:19px;margin:22px 0 10px;font-weight:800}
+h3{font-size:16px;margin:0;font-weight:800}
+.muted{color:var(--muted)} .small{font-size:13px} .center{text-align:center}
+.row{display:flex;align-items:center;gap:10px} .between{justify-content:space-between} .wrapf{flex-wrap:wrap} .grow{flex:1;min-width:0}
+.stack>*+*{margin-top:10px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;min-height:40px}
+.brand{font-weight:900;font-size:22px;letter-spacing:-.03em}
+.brand span{color:var(--primary)}
+.iconbtn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--ink)}
+.iconbtn:active{background:var(--surface2)}
+.icon{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.card{background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.card+.card{margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:14px;font-weight:800;background:var(--surface2);color:var(--ink);transition:transform .08s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--primary);color:var(--primary-ink);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.btn.block{width:100%}
+.btn.small{min-height:36px;padding:0 14px;border-radius:11px;font-size:14px}
+.btn.ghost{background:transparent;border:1.5px solid var(--line)}
+.btn.danger{color:var(--warn)}
+.btn:disabled{opacity:.45}
+.seg{display:flex;background:var(--surface2);border-radius:14px;padding:4px;gap:4px}
+.seg button{flex:1;min-height:40px;border-radius:11px;font-weight:800;color:var(--muted)}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.level{border:2px solid var(--line);border-radius:16px;padding:12px 8px;text-align:center;background:var(--surface)}
+.level b{display:block;font-size:15px}
+.level .min{font-size:22px;font-weight:900}
+.level.on{border-color:var(--primary);background:var(--primary-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:700;color:var(--muted)}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.tag{padding:2px 8px;font-size:12px;border-width:1px;background:var(--surface2);border-color:transparent}
+.hscroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.hscroll .chip{flex:none}
+.streak{display:flex;gap:14px;align-items:center}
+.flame{width:58px;height:58px;border-radius:18px;background:var(--flame-soft);color:var(--flame);display:grid;place-items:center}
+.flame.off{background:var(--surface2);color:var(--muted)}
+.flame .icon{width:32px;height:32px;fill:currentColor;stroke:none}
+.bignum{font-size:30px;font-weight:900;line-height:1}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
+.day{text-align:center;font-size:11px;color:var(--muted);font-weight:700}
+.dot{width:30px;height:30px;margin:4px auto 0;border-radius:50%;background:var(--surface2);display:grid;place-items:center}
+.dot.done{background:var(--flame);color:#fff}
+.dot.frozen{background:var(--ice);color:#fff}
+.dot.today{outline:2px solid var(--ink);outline-offset:2px}
+.dot .icon{width:16px;height:16px}
+.freeze{display:inline-flex;align-items:center;gap:4px;color:var(--ice);font-weight:800;font-size:14px}
+.freeze .icon{width:16px;height:16px}
+.ring{position:relative;width:76px;height:76px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .lbl{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:900;font-size:15px;line-height:1.05}
+.ring .lbl small{display:block;font-size:10px;color:var(--muted);font-weight:700}
+.ex{display:flex;gap:12px;align-items:center;padding:12px;background:var(--surface);border-radius:16px;border:1px solid var(--line);width:100%;text-align:left}
+.ex+.ex{margin-top:8px}
+.thumb{width:56px;height:56px;border-radius:12px;background:var(--surface2);flex:none;overflow:hidden;display:grid;place-items:center;color:var(--muted)}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.bar{height:6px;border-radius:6px;background:var(--surface2);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--primary);border-radius:6px}
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:2px 7px;border-radius:999px;background:var(--surface2);color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.pill.pad{background:var(--primary-soft);color:var(--primary)}
+.pill.kit{background:var(--flame-soft);color:var(--flame)}
+.pill.warm{background:var(--ice-soft);color:var(--ice)}
+.field{display:block;margin-bottom:14px}
+.field>span{display:block;font-size:13px;font-weight:800;color:var(--muted);margin-bottom:6px}
+.input{width:100%;min-height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);padding:10px 12px;font-size:16px}
+.input:focus{outline:none;border-color:var(--primary)}
+textarea.input{min-height:80px;resize:vertical}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);z-index:20}
+.nav .in{display:flex;max-width:560px;width:100%}
+.nav a{flex:1;height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:800}
+.nav a.on{color:var(--primary)}
+.empty{text-align:center;padding:28px 12px;color:var(--muted)}
+.fab{position:fixed;right:18px;bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:18px;background:var(--primary);color:#fff;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.2);z-index:15}
+.fab .icon{width:28px;height:28px}
+.plan-item{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.plan-item+.plan-item{margin-top:8px}
+.plan-item .kind{width:8px;align-self:stretch;border-radius:4px;background:var(--primary)}
+.plan-item .kind.warmup{background:var(--ice)} .plan-item .kind.free{background:var(--flame)}
+.stepper{display:flex;align-items:center;gap:4px}
+.stepper button{width:32px;height:32px;border-radius:10px;background:var(--surface2);font-weight:900;font-size:18px}
+.stepper b{min-width:44px;text-align:center}
+/* sheet */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade .15s}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));animation:up .2s ease-out}
+.sheet .grab{width:40px;height:5px;border-radius:5px;background:var(--line);margin:-6px auto 12px}
+@keyframes up{from{transform:translateY(40px);opacity:.5}to{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+/* player */
+.player{min-height:100vh;display:flex;flex-direction:column}
+.player .wrap{flex:1;display:flex;flex-direction:column;width:100%}
+.prog{display:flex;gap:4px;margin:6px 0 14px}
+.prog i{flex:1;height:6px;border-radius:6px;background:var(--surface2)}
+.prog i.done{background:var(--primary)} .prog i.cur{background:var(--flame)}
+.timer{font-size:64px;font-weight:900;text-align:center;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.timer.over{color:var(--flame)}
+.media{margin:12px 0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line)}
+.media img{display:block;width:100%;height:auto}
+.sticking{font-family:ui-monospace,Menlo,monospace;font-size:22px;font-weight:800;letter-spacing:.12em;text-align:center;padding:10px;background:var(--surface);border-radius:12px;border:1px solid var(--line);margin:10px 0;word-break:break-word}
+.metro{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px}
+.beats{display:flex;gap:6px;justify-content:center;margin:6px 0 10px}
+.beats i{width:14px;height:14px;border-radius:50%;background:var(--surface2);transition:background .05s}
+.beats i.hit{background:var(--primary)} .beats i.hit.acc{background:var(--flame)}
+.bpm{font-size:40px;font-weight:900;min-width:96px;text-align:center;font-variant-numeric:tabular-nums}
+.ctrl{display:flex;gap:10px;margin-top:auto;padding-top:16px}
+.rate{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.rate button{border:2px solid var(--line);border-radius:12px;padding:10px 0;font-weight:900;font-size:18px;background:var(--surface)}
+.rate button.on{border-color:var(--primary);background:var(--primary-soft);color:var(--primary)}
+.celebrate{text-align:center;padding:24px 0}
+.celebrate .flame{width:96px;height:96px;margin:0 auto 12px;border-radius:30px;animation:pop .5s ease-out}
+.celebrate .flame .icon{width:54px;height:54px}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.stat .v{font-size:26px;font-weight:900}
+.stat .k{font-size:12px;color:var(--muted);font-weight:700}
+.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px}
+.heat i{aspect-ratio:1;border-radius:3px;background:var(--surface2)}
+.hbar{display:flex;align-items:center;gap:8px;font-size:13px;margin:6px 0}
+.hbar .t{width:96px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar .b{flex:1;height:12px;background:var(--surface2);border-radius:6px;overflow:hidden}
+.hbar .b i{display:block;height:100%;background:var(--primary)}
+.hbar .n{width:48px;text-align:right;color:var(--muted)}
+.chart svg{width:100%;height:auto;display:block}
+.toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;z-index:80;animation:fade .2s;max-width:90vw}
+.crop{position:relative;touch-action:none;user-select:none;border-radius:12px;overflow:hidden;background:#000}
+.crop canvas{display:block;width:100%;height:auto}
+.crop .sel{position:absolute;border:2px solid var(--flame);background:rgba(242,115,42,.12);pointer-events:none}
+.hint{font-size:13px;color:var(--muted);margin:6px 0 10px}
+.ob{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.logo-big{font-size:44px;font-weight:900;letter-spacing:-.04em;text-align:center}
+.logo-big span{color:var(--primary)}
+.list-sep{height:1px;background:var(--line);margin:12px 0}
+.video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;margin:10px 0}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+'use strict';
+/* ================= utils ================= */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pad2 = n => String(n).padStart(2, '0');
+const dayKey = (d = new Date()) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+const keyToDate = k => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (k, n) => { const d = keyToDate(k); d.setDate(d.getDate() + n); return dayKey(d); };
+const diffDays = (a, b) => Math.round((keyToDate(b) - keyToDate(a)) / 864e5);
+const fmtTime = sec => { sec = Math.max(0, Math.round(sec)); return `${Math.floor(sec / 60)}:${pad2(sec % 60)}`; };
+const fmtMin = sec => { const m = Math.round(sec / 60); return m >= 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${m} min`; };
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const parseMMSS = s => { if (!s) return 0; s = String(s).trim(); if (s.includes(':')) { const [m, x] = s.split(':'); return (+m || 0) * 60 + (+x || 0); } return +s || 0; };
+const toMMSS = sec => sec ? `${Math.floor(sec / 60)}:${pad2(sec % 60)}` : '';
+const weekdayShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+/* ================= icons ================= */
+const ICONS = {
+  flame: '<path d="M12 2c1 3.5 5 5.6 5 10.5A5 5 0 0 1 12 18a5 5 0 0 1-5-5.2c0-2 1-3.4 2.2-4.4.2 1.6 1 2.6 2 3C11 8.5 11 5 12 2z"/><path d="M12 22a7 7 0 0 1-7-7c0-1 .2-2 .6-2.8A6.5 6.5 0 0 0 12 19a6.5 6.5 0 0 0 6.4-6.8c.4.9.6 1.8.6 2.8a7 7 0 0 1-7 7z"/>',
+  snow: '<path d="M12 2v20M4.9 6l14.2 12M19.1 6 4.9 18M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  play: '<path d="M7 4.5v15l12-7.5z" fill="currentColor"/>',
+  pause: '<path d="M8 5v14M16 5v14"/>',
+  next: '<path d="M6 5l9 7-9 7zM18 5v14"/>',
+  check: '<path d="M4 12.5l5 5L20 6.5"/>',
+  home: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zM4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  image: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/>',
+  video: '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  trash: '<path d="M4 7h16M10 11v6M14 11v6M5 7l1 13h12l1-13M9 7V4h6v3"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/>',
+  back: '<path d="M15 5l-7 7 7 7"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  shuffle: '<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  metro: '<path d="M9 3h6l4 18H5zM12 17l5-11"/>',
+  file: '<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5"/>',
+  up: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+  down: '<path d="M12 5v14M5 12l7 7 7-7"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  drum: '<ellipse cx="12" cy="8" rx="8" ry="3"/><path d="M4 8v8c0 1.7 3.6 3 8 3s8-1.3 8-3V8"/>',
+};
+const icon = (n, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n] || ''}</svg>`;
+const flameIcon = () => `<svg class="icon" viewBox="0 0 24 24"><path d="M12 2c.6 3.2 4.6 5.4 5.6 9.2A6 6 0 0 1 12 22a6 6 0 0 1-6-6c0-2.6 1.4-4.4 3-5.7.1 1.9 1 3 2.2 3.4C10.6 10 10.8 5.6 12 2z"/></svg>`;
+
+/* ================= storage (IndexedDB w/ memory fallback) ================= */
+const DB = {
+  db: null, mem: { kv: {}, media: {} },
+  open() {
+    return new Promise(res => {
+      try {
+        const r = indexedDB.open('steadify', 1);
+        r.onupgradeneeded = () => { const d = r.result; d.createObjectStore('kv'); d.createObjectStore('media'); };
+        r.onsuccess = () => { this.db = r.result; res(true); };
+        r.onerror = () => res(false);
+        r.onblocked = () => res(false);
+      } catch (e) { res(false); }
+    });
+  },
+  _tx(store, mode, fn) {
+    return new Promise(res => {
+      try {
+        const tx = this.db.transaction(store, mode); const os = tx.objectStore(store);
+        const req = fn(os); tx.oncomplete = () => res(req && req.result); tx.onerror = () => res(undefined);
+      } catch (e) { res(undefined); }
+    });
+  },
+  get(store, key) { return this.db ? this._tx(store, 'readonly', os => os.get(key)) : Promise.resolve(this.mem[store][key]); },
+  put(store, key, val) { if (!this.db) { this.mem[store][key] = val; return Promise.resolve(); } return this._tx(store, 'readwrite', os => os.put(val, key)); },
+  del(store, key) { if (!this.db) { delete this.mem[store][key]; return Promise.resolve(); } return this._tx(store, 'readwrite', os => os.delete(key)); },
+  keys(store) { return this.db ? this._tx(store, 'readonly', os => os.getAllKeys()) : Promise.resolve(Object.keys(this.mem[store])); },
+};
+
+/* ================= state ================= */
+const TAG_GROUPS = {
+  Focus: ['weak hand', 'ghost notes', 'kick', 'accents', 'doubles', 'flams', 'independence', 'dynamics', 'speed', 'endurance', 'time feel'],
+  Subdivision: ['8ths', '16ths', 'triplets', 'sextuplets', '32nds', 'mixed'],
+  Type: ['rudiment', 'groove', 'fill', 'coordination', 'reading', 'song', 'technique'],
+};
+const LEVELS = ['quick', 'standard', 'full'];
+const LEVEL_NAMES = { quick: 'Quick', standard: 'Standard', full: 'Deep' };
+const MODE_NAMES = { pad: 'Pad', kit: 'Kit' };
+
+const defaultSettings = () => ({
+  name: '', dominant: 'R', dailyGoal: 10, weeklyDays: 5, volume: 0.8, customTags: [],
+  levels: { pad: { quick: 10, standard: 20, full: 40 }, kit: { quick: 20, standard: 45, full: 75 } },
+  defaultRoutine: null, onboarded: false, lastMode: 'pad', lastLevel: 'standard',
+});
+let S = { settings: defaultSettings(), exercises: [], routines: [], logs: [], plans: [] };
+const UI = { mode: null, level: null, focus: null, libFilter: { q: '', tag: null, where: 'all' }, exId: null, editId: null, plan: null, summary: null, chartEx: null };
+
+let saveQueued = false;
+function save() { if (saveQueued) return; saveQueued = true; queueMicrotask(() => { saveQueued = false; DB.put('kv', 'state', JSON.parse(JSON.stringify(S))); }); }
+async function load() {
+  await DB.open();
+  const st = await DB.get('kv', 'state');
+  if (st) {
+    S = Object.assign({ exercises: [], routines: [], logs: [], plans: [] }, st);
+    S.settings = Object.assign(defaultSettings(), st.settings || {});
+    S.settings.levels = Object.assign(defaultSettings().levels, st.settings?.levels || {});
+    const pl = S.settings.levels.pad; if (pl.quick === 10 && pl.standard === 20 && pl.full === 35) pl.full = 40; // v1 -> v1.1 defaults
+  }
+}
+
+/* media */
+const mediaCache = {};
+async function putMedia(blob) { const id = 'm_' + uid(); await DB.put('media', id, blob); return id; }
+async function mediaURL(id) {
+  if (!id) return null; if (mediaCache[id]) return mediaCache[id];
+  const b = await DB.get('media', id); if (!b) return null;
+  return (mediaCache[id] = URL.createObjectURL(b));
+}
+function hydrateMedia(root = document) {
+  $$('img[data-media]', root).forEach(async img => { const u = await mediaURL(img.dataset.media); if (u) img.src = u; else img.remove(); });
+}
+
+/* ================= domain helpers ================= */
+const exById = id => S.exercises.find(e => e.id === id);
+const allTags = () => { const t = new Set(Object.values(TAG_GROUPS).flat()); S.settings.customTags.forEach(x => t.add(x)); S.exercises.forEach(e => (e.tags || []).forEach(x => t.add(x))); return [...t]; };
+const fitsMode = (e, mode) => !e.where || e.where === 'both' || e.where === mode;
+function mirrorSticking(s) {
+  if (!s) return '';
+  if (S.settings.dominant !== 'L') return s;
+  return s.replace(/[RLrl]/g, c => ({ R: 'L', L: 'R', r: 'l', l: 'r' }[c]));
+}
+function dayMinutes() { // {dayKey: seconds}
+  const m = {}; S.logs.forEach(l => { m[l.date] = (m[l.date] || 0) + (l.totalSec || 0); }); return m;
+}
+function lastPracticed() { const m = {}; S.logs.forEach(l => (l.entries || []).forEach(en => { if (en.exId && (!m[en.exId] || m[en.exId] < l.date)) m[en.exId] = l.date; })); return m; }
+function tagSeconds(days = 14) {
+  const from = addDays(dayKey(), -days); const m = {};
+  S.logs.filter(l => l.date >= from).forEach(l => (l.entries || []).forEach(en => { const e = exById(en.exId); if (e) (e.tags || []).forEach(t => m[t] = (m[t] || 0) + en.sec); }));
+  return m;
+}
+function bpmHistory(exId) {
+  const out = []; S.logs.slice().sort((a, b) => a.startedAt - b.startedAt).forEach(l => (l.entries || []).forEach(en => { if (en.exId === exId && en.bpm) out.push({ date: l.date, bpm: en.bpm, rating: en.rating }); }));
+  return out;
+}
+
+/* streak with freezes, derived purely from logs */
+function streakInfo() {
+  const goalSec = (S.settings.dailyGoal || 10) * 60;
+  const dm = dayMinutes(); const today = dayKey();
+  const days = Object.keys(dm).filter(k => dm[k] >= goalSec).sort();
+  const status = {}; // day -> 'done' | 'frozen'
+  let streak = 0, best = 0, freezes = 0, earnedRun = 0;
+  if (days.length) {
+    let d = days[0];
+    while (d <= today) {
+      if (dm[d] >= goalSec) {
+        streak++; earnedRun++; status[d] = 'done';
+        if (earnedRun % 7 === 0 && freezes < 2) freezes++;
+      } else if (d !== today) {
+        if (freezes > 0) { freezes--; status[d] = 'frozen'; }
+        else { streak = 0; earnedRun = 0; }
+      }
+      best = Math.max(best, streak);
+      d = addDays(d, 1);
+    }
+  }
+  const doneToday = (dm[today] || 0) >= goalSec;
+  return { streak, best, freezes, status, doneToday, todaySec: dm[today] || 0, goalSec };
+}
+
+/* ================= session planning ================= */
+function splitFor(mode, total) {
+  const warm = Math.max(2, Math.round(total * (mode === 'pad' ? 0.25 : 0.15)));
+  const free = mode === 'kit' ? Math.max(2, Math.round(total * 0.15)) : 0;
+  return { warm, free, focus: Math.max(1, total - warm - free) };
+}
+function distribute(total, n) { const base = Math.floor(total / n); const arr = Array(n).fill(base); let r = total - base * n; for (let i = 0; r > 0; i = (i + 1) % n, r--) arr[i]++; return arr; }
+
+function buildPlan(mode, level, focusTag = null) {
+  const total = S.settings.levels[mode][level];
+  const sp = splitFor(mode, total);
+  const items = [];
+  // warm-up
+  const routine = S.routines.find(r => r.id === S.settings.defaultRoutine) || S.routines[0];
+  let wu = routine ? routine.items.filter(i => exById(i.exId)) : [];
+  if (!wu.length) wu = S.exercises.filter(e => e.warmup && fitsMode(e, mode)).slice(0, 3).map(e => ({ exId: e.id, min: 2 }));
+  if (wu.length) {
+    const sum = wu.reduce((a, i) => a + (i.min || 1), 0);
+    let mins = wu.map(i => Math.max(1, Math.round((i.min || 1) * sp.warm / sum)));
+    while (mins.reduce((a, b) => a + b, 0) > sp.warm && mins.length > 1) { mins.pop(); wu = wu.slice(0, mins.length); }
+    wu.forEach((i, k) => items.push({ kind: 'warmup', exId: i.exId, min: mins[k] }));
+  } else items.push({ kind: 'warmup', title: 'Free warm-up', min: sp.warm });
+  // focus
+  const lp = lastPracticed(); const ts = tagSeconds(14); const today = dayKey();
+  let cands = S.exercises.filter(e => !e.warmup && fitsMode(e, mode));
+  if (focusTag) { const f = cands.filter(e => (e.tags || []).includes(focusTag)); if (f.length) cands = f; }
+  const focusTags = new Set(TAG_GROUPS.Focus.concat(S.settings.customTags));
+  const scored = cands.map(e => {
+    const since = lp[e.id] ? diffDays(lp[e.id], today) : 21;
+    const neglect = (e.tags || []).filter(t => focusTags.has(t)).reduce((a, t) => a + (ts[t] ? 0 : 4), 0);
+    const notDone = e.targetBpm && e.currentBpm && e.currentBpm < e.targetBpm ? 2 : 0;
+    return { e, s: Math.min(since, 21) * 2 + neglect + notDone + Math.random() * 6 };
+  }).sort((a, b) => b.s - a.s);
+  const per = mode === 'pad' ? 5 : 8;
+  const n = Math.max(1, Math.min(Math.round(sp.focus / per), scored.length));
+  if (scored.length) {
+    const mins = distribute(sp.focus, n);
+    scored.slice(0, n).forEach((x, k) => items.push({ kind: 'focus', exId: x.e.id, min: mins[k] }));
+  } else items.push({ kind: 'focus', title: 'Free practice', min: sp.focus });
+  if (sp.free) items.push({ kind: 'free', title: 'Free play / songs', min: sp.free });
+  return { id: uid(), mode, level, focusTag, items, createdAt: Date.now() };
+}
+const planTotal = p => p.items.reduce((a, i) => a + i.min, 0);
+const itemTitle = it => it.exId ? (exById(it.exId)?.name || 'Removed exercise') : (it.title || 'Free practice');
+
+/* ================= router & shell ================= */
+const VIEWS = {};
+const A = {}; // click actions
+const NAV = [['today', 'home', 'Today'], ['library', 'book', 'Library'], ['warmup', 'sun', 'Warm-up'], ['progress', 'chart', 'Progress']];
+const NO_NAV = new Set(['session', 'onboard', 'summary', 'edit']);
+let current = 'today';
+
+function go(v) { if (location.hash.slice(1) === v) render(); else location.hash = v; }
+function render() {
+  let v = location.hash.slice(1) || 'today';
+  if (!S.settings.onboarded) v = 'onboard';
+  if (!VIEWS[v]) v = 'today';
+  if (v === 'exercise' && !exById(UI.exId)) v = 'library';
+  if (v === 'plan' && !UI.plan) v = 'today';
+  if (v === 'session' && !Player.plan) v = 'today';
+  if (v === 'summary' && !UI.summary) v = 'today';
+  if (current === 'session' && v !== 'session') Player.teardown();
+  current = v;
+  const app = $('#app');
+  app.innerHTML = VIEWS[v]() + (NO_NAV.has(v) ? '' : navHTML(v));
+  document.body.classList.toggle('no-nav', NO_NAV.has(v));
+  hydrateMedia(app);
+  if (VIEWS[v].after) VIEWS[v].after();
+}
+function navHTML(v) {
+  const active = { exercise: 'library', plan: 'today', settings: 'today' }[v] || v;
+  return `<nav class="nav"><div class="in">${NAV.map(([k, ic, l]) => `<a href="#${k}" class="${active === k ? 'on' : ''}">${icon(ic)}${l}</a>`).join('')}</div></nav>`;
+}
+function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2200); }
+function openSheet(html, after) {
+  closeSheet(); const bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
+  bg.innerHTML = `<div class="sheet"><div class="grab"></div>${html}</div>`;
+  bg.addEventListener('click', e => { if (e.target === bg) closeSheet(); });
+  document.body.appendChild(bg); hydrateMedia(bg); if (after) after(bg);
+}
+function closeSheet() { $('#sheet')?.remove(); }
+function confirmSheet(text, okLabel, onOk) {
+  openSheet(`<h3>${esc(text)}</h3><div class="row" style="margin-top:16px"><button class="btn grow" data-a="closeSheet">Cancel</button><button class="btn primary grow" id="okBtn">${esc(okLabel)}</button></div>`,
+    bg => $('#okBtn', bg).onclick = () => { closeSheet(); onOk(); });
+}
+A.closeSheet = closeSheet;
+A.go = el => go(el.dataset.v);
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]'); if (!el) return;
+  const fn = A[el.dataset.a]; if (fn) { e.preventDefault(); fn(el, e); }
+});
+window.addEventListener('hashchange', render);
+
+/* ================= shared bits ================= */
+function exThumb(e) {
+  if (e?.media) return `<div class="thumb"><img data-media="${e.media}" alt=""></div>`;
+  if (e?.youtube?.id) return `<div class="thumb">${icon('video')}</div>`;
+  return `<div class="thumb">${icon(e?.warmup ? 'sun' : 'drum')}</div>`;
+}
+function wherePill(e) { return e.where && e.where !== 'both' ? `<span class="pill ${e.where}">${MODE_NAMES[e.where]}</span>` : `<span class="pill">Pad + Kit</span>`; }
+function exRow(e, action = 'openEx') {
+  const prog = e.targetBpm && e.startBpm && e.targetBpm > e.startBpm ? clamp(((e.currentBpm || e.startBpm) - e.startBpm) / (e.targetBpm - e.startBpm), 0, 1) : null;
+  return `<button class="ex" data-a="${action}" data-id="${e.id}">${exThumb(e)}<div class="grow">
+    <div class="row between"><h3 class="grow" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(e.name)}</h3>${e.warmup ? '<span class="pill warm">Warm-up</span>' : ''}</div>
+    <div class="small muted" style="margin-top:2px">${(e.tags || []).slice(0, 3).map(esc).join(' · ') || '&nbsp;'}</div>
+    ${prog !== null ? `<div class="row small" style="gap:8px"><div class="bar grow"><i style="width:${prog * 100}%"></i></div><span class="muted">${e.currentBpm || e.startBpm}/${e.targetBpm}</span></div>` : (e.currentBpm ? `<div class="small muted">${e.currentBpm} BPM</div>` : '')}
+  </div></button>`;
+}
+function ringSVG(frac, size = 76, stroke = 9, color = 'var(--primary)') {
+  const r = (size - stroke) / 2, c = 2 * Math.PI * r;
+  return `<svg width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="var(--surface2)" stroke-width="${stroke}" fill="none"/><circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="${color}" stroke-width="${stroke}" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - clamp(frac, 0, 1))}"/></svg>`;
+}
+function coachLine(si) {
+  const name = S.settings.name ? `, ${esc(S.settings.name)}` : '';
+  if (si.doneToday) return `Done for today${name}. Anything extra is a bonus.`;
+  if (si.todaySec > 0) return `${Math.ceil((si.goalSec - si.todaySec) / 60)} more minutes to keep the streak going.`;
+  if (si.streak === 0) return `Day one starts with ${S.settings.dailyGoal} minutes${name}. Ready?`;
+  if (si.streak < 7) return `Day ${si.streak + 1} is waiting. Small steps, every day.`;
+  return `${si.streak} days strong${name}. Don't break the chain.`;
+}
+
+/* ================= TODAY ================= */
+VIEWS.today = () => {
+  const si = streakInfo(); const today = dayKey();
+  const mode = UI.mode || S.settings.lastMode, level = UI.level || S.settings.lastLevel;
+  UI.mode = mode; UI.level = level;
+  // week Mon..Sun
+  const d = keyToDate(today); const dow = (d.getDay() + 6) % 7; const mon = addDays(today, -dow);
+  const week = [...Array(7)].map((_, i) => { const k = addDays(mon, i); const st = si.status[k]; return `<div class="day">${weekdayShort[keyToDate(k).getDay()][0]}<div class="dot ${st === 'done' ? 'done' : st === 'frozen' ? 'frozen' : ''} ${k === today ? 'today' : ''}">${st === 'done' ? icon('check') : st === 'frozen' ? icon('snow') : ''}</div></div>`; }).join('');
+  const focusTags = [...new Set(S.exercises.filter(e => !e.warmup && fitsMode(e, mode)).flatMap(e => e.tags || []))].sort();
+  const plans = S.plans.slice().sort((a, b) => b.createdAt - a.createdAt);
+  const recent = S.logs.slice().sort((a, b) => b.startedAt - a.startedAt).slice(0, 3);
+  return `<div class="wrap">
+    <div class="topbar"><div class="brand">steadi<span>fy</span></div><button class="iconbtn" data-a="go" data-v="settings" aria-label="Settings">${icon('gear')}</button></div>
+    <div class="card">
+      <div class="row between">
+        <div class="streak"><div class="flame ${si.streak ? '' : 'off'}">${flameIcon()}</div>
+          <div><div class="bignum">${si.streak}</div><div class="small muted" style="font-weight:700">day streak</div>
+          ${si.freezes ? `<div class="freeze" title="Streak freezes">${icon('snow')} ${si.freezes} freeze${si.freezes > 1 ? 's' : ''}</div>` : ''}</div></div>
+        <div class="ring">${ringSVG(si.todaySec / si.goalSec, 76, 9, si.doneToday ? 'var(--flame)' : 'var(--primary)')}<div class="lbl"><div>${Math.floor(si.todaySec / 60)}<small>/ ${S.settings.dailyGoal} min</small></div></div></div>
+      </div>
+      <div class="week">${week}</div>
+      <p class="small" style="margin:14px 0 0;font-weight:700">${coachLine(si)}</p>
+    </div>
+
+    <h2>Start practicing</h2>
+    <div class="card">
+      <div class="seg">${['pad', 'kit'].map(m => `<button class="${mode === m ? 'on' : ''}" data-a="setMode" data-m="${m}">${m === 'pad' ? 'Practice pad' : 'Full kit'}</button>`).join('')}</div>
+      <div class="levels">${LEVELS.map(l => `<button class="level ${level === l ? 'on' : ''}" data-a="setLevel" data-l="${l}"><b>${LEVEL_NAMES[l]}</b><span class="min">${S.settings.levels[mode][l]}</span><span class="small muted"> min</span></button>`).join('')}</div>
+      ${focusTags.length ? `<div class="small muted" style="font-weight:800;margin:14px 0 6px">Today's focus</div>
+      <div class="hscroll"><button class="chip ${!UI.focus ? 'on' : ''}" data-a="setFocus" data-t="">Balanced</button>${focusTags.map(t => `<button class="chip ${UI.focus === t ? 'on' : ''}" data-a="setFocus" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
+      <button class="btn primary block" style="margin-top:14px" data-a="buildPlan">${icon('play')} Build my session</button>
+    </div>
+
+    ${plans.length ? `<h2>Planned sessions</h2>${plans.map(p => `<div class="plan-item"><div class="kind ${p.mode === 'kit' ? 'free' : ''}"></div><div class="grow"><h3>${esc(p.name || `${MODE_NAMES[p.mode]} · ${LEVEL_NAMES[p.level]}`)}</h3><div class="small muted">${planTotal(p)} min · ${p.items.length} blocks</div></div><button class="btn small ghost" data-a="openPlan" data-id="${p.id}">Open</button></div>`).join('')}` : ''}
+
+    ${recent.length ? `<h2>Recent</h2>${recent.map(l => `<div class="plan-item"><div class="kind ${l.mode === 'kit' ? 'free' : ''}"></div><div class="grow"><h3>${MODE_NAMES[l.mode] || 'Session'} · ${fmtMin(l.totalSec)}</h3><div class="small muted">${keyToDate(l.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })} · ${(l.entries || []).length} exercises</div></div></div>`).join('')}` : ''}
+  </div>`;
+};
+A.setMode = el => { UI.mode = el.dataset.m; UI.focus = null; S.settings.lastMode = UI.mode; save(); render(); };
+A.setLevel = el => { UI.level = el.dataset.l; S.settings.lastLevel = UI.level; save(); render(); };
+A.setFocus = el => { UI.focus = el.dataset.t || null; render(); };
+A.buildPlan = () => { UI.plan = buildPlan(UI.mode, UI.level, UI.focus); UI.plan.saved = false; go('plan'); };
+A.openPlan = el => { const p = S.plans.find(x => x.id === el.dataset.id); if (p) { UI.plan = JSON.parse(JSON.stringify(p)); UI.plan.saved = true; go('plan'); } };
+
+/* ================= PLAN ================= */
+VIEWS.plan = () => {
+  const p = UI.plan;
+  return `<div class="wrap">
+    <div class="topbar"><button class="iconbtn" data-a="go" data-v="today">${icon('back')}</button><b>${MODE_NAMES[p.mode]} · ${LEVEL_NAMES[p.level]}</b><button class="iconbtn" data-a="reshuffle" aria-label="Reshuffle">${icon('shuffle')}</button></div>
+    <div class="row between" style="margin:6px 0 12px"><div><div class="bignum">${planTotal(p)} min</div><div class="small muted">${p.focusTag ? `Focus: ${esc(p.focusTag)}` : 'Balanced session'}</div></div>
+    <div class="small muted" style="text-align:right">Warm-up → Focus${p.mode === 'kit' ? ' → Free play' : ''}</div></div>
+    ${p.items.map((it, i) => { const e = exById(it.exId); return `<div class="plan-item"><div class="kind ${it.kind}"></div>
+      <div class="grow"><div class="small muted" style="font-weight:800;text-transform:uppercase;font-size:11px">${it.kind === 'warmup' ? 'Warm-up' : it.kind === 'free' ? 'Free play' : 'Focus'}</div><h3>${esc(itemTitle(it))}</h3>${e?.currentBpm ? `<div class="small muted">${e.currentBpm} BPM${e.targetBpm ? ` → ${e.targetBpm}` : ''}</div>` : ''}</div>
+      <div class="stepper"><button data-a="planMin" data-i="${i}" data-d="-1">−</button><b>${it.min}′</b><button data-a="planMin" data-i="${i}" data-d="1">+</button></div>
+      <button class="iconbtn" data-a="planItemMenu" data-i="${i}" style="width:32px">${icon('edit')}</button></div>`; }).join('')}
+    <button class="btn ghost block" style="margin-top:10px" data-a="planAdd">${icon('plus')} Add exercise</button>
+    <div class="row" style="margin-top:18px">
+      <button class="btn grow" data-a="planSave">${icon('calendar')} ${p.saved ? 'Update plan' : 'Save for later'}</button>
+      <button class="btn primary grow" data-a="startPlan">${icon('play')} Start</button>
+    </div>
+    ${p.saved ? `<button class="btn danger block" style="margin-top:10px" data-a="planDelete">${icon('trash')} Delete saved plan</button>` : ''}
+  </div>`;
+};
+A.reshuffle = () => { const p = UI.plan; const n = buildPlan(p.mode, p.level, p.focusTag); n.id = p.id; n.saved = p.saved; n.name = p.name; UI.plan = n; render(); };
+A.planMin = el => { const it = UI.plan.items[+el.dataset.i]; it.min = clamp(it.min + +el.dataset.d, 1, 90); render(); };
+A.planItemMenu = el => {
+  const i = +el.dataset.i;
+  openSheet(`<h3>${esc(itemTitle(UI.plan.items[i]))}</h3><div class="stack" style="margin-top:14px">
+    <button class="btn block" data-a="planSwap" data-i="${i}">${icon('shuffle')} Swap for another exercise</button>
+    <button class="btn block" data-a="planMove" data-i="${i}" data-d="-1">${icon('up')} Move up</button>
+    <button class="btn block" data-a="planMove" data-i="${i}" data-d="1">${icon('down')} Move down</button>
+    <button class="btn block danger" data-a="planRemove" data-i="${i}">${icon('trash')} Remove</button></div>`);
+};
+A.planMove = el => { const i = +el.dataset.i, j = i + +el.dataset.d, a = UI.plan.items; if (j >= 0 && j < a.length) [a[i], a[j]] = [a[j], a[i]]; closeSheet(); render(); };
+A.planRemove = el => { UI.plan.items.splice(+el.dataset.i, 1); closeSheet(); render(); };
+function pickExerciseSheet(title, onPick, filter = () => true) {
+  const list = S.exercises.filter(filter);
+  openSheet(`<h3>${esc(title)}</h3><input class="input" id="pickQ" placeholder="Search…" style="margin:12px 0">
+    <div id="pickList">${list.map(e => exRow(e, 'pickEx')).join('') || '<div class="empty">No exercises yet.</div>'}</div>`, bg => {
+    $('#pickQ', bg).oninput = ev => { const q = ev.target.value.toLowerCase(); $$('#pickList .ex', bg).forEach(b => { const e = exById(b.dataset.id); b.style.display = (e.name + ' ' + (e.tags || []).join(' ')).toLowerCase().includes(q) ? '' : 'none'; }); };
+  });
+  A.pickEx = el => { closeSheet(); onPick(exById(el.dataset.id)); };
+}
+A.planSwap = el => { const i = +el.dataset.i; closeSheet(); pickExerciseSheet('Swap for…', e => { const it = UI.plan.items[i]; it.exId = e.id; delete it.title; if (it.kind === 'free') it.kind = 'focus'; render(); }); };
+A.planAdd = () => pickExerciseSheet('Add to session', e => { UI.plan.items.push({ kind: e.warmup ? 'warmup' : 'focus', exId: e.id, min: 5 }); render(); });
+A.planSave = () => {
+  const p = UI.plan;
+  openSheet(`<h3>Save plan</h3><p class="small muted">Great for planning your rehearsal room time in advance.</p>
+    <label class="field"><span>Name</span><input class="input" id="planName" value="${esc(p.name || `${MODE_NAMES[p.mode]} · ${LEVEL_NAMES[p.level]}`)}"></label>
+    <button class="btn primary block" id="planSaveOk">Save</button>`, bg => {
+    $('#planSaveOk', bg).onclick = () => {
+      p.name = $('#planName', bg).value.trim(); p.saved = true;
+      const copy = JSON.parse(JSON.stringify(p)); delete copy.saved;
+      const ix = S.plans.findIndex(x => x.id === p.id); if (ix >= 0) S.plans[ix] = copy; else S.plans.push(copy);
+      save(); closeSheet(); toast('Plan saved'); render();
+    };
+  });
+};
+A.planDelete = () => confirmSheet('Delete this saved plan?', 'Delete', () => { S.plans = S.plans.filter(x => x.id !== UI.plan.id); save(); UI.plan = null; go('today'); });
+A.startPlan = () => { if (!UI.plan.items.length) return toast('Add something to practice first'); Player.begin(JSON.parse(JSON.stringify(UI.plan))); go('session'); };
+
+/* ================= LIBRARY ================= */
+VIEWS.library = () => {
+  const f = UI.libFilter; const q = f.q.toLowerCase();
+  const list = S.exercises.filter(e => (f.where === 'all' || fitsMode(e, f.where)) && (!f.tag || (e.tags || []).includes(f.tag)) && (!q || (e.name + ' ' + (e.tags || []).join(' ') + ' ' + (e.notes || '')).toLowerCase().includes(q)))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  const tags = [...new Set(S.exercises.flatMap(e => e.tags || []))].sort();
+  return `<div class="wrap">
+    <div class="topbar"><h1>Library</h1><span class="muted small">${S.exercises.length} exercises</span></div>
+    <input class="input" id="libQ" placeholder="Search exercises, tags, notes…" value="${esc(f.q)}">
+    <div class="seg" style="margin:10px 0">${[['all', 'All'], ['pad', 'Pad'], ['kit', 'Kit']].map(([k, l]) => `<button class="${f.where === k ? 'on' : ''}" data-a="libWhere" data-w="${k}">${l}</button>`).join('')}</div>
+    ${tags.length ? `<div class="hscroll" style="margin-bottom:12px"><button class="chip ${!f.tag ? 'on' : ''}" data-a="libTag" data-t="">All tags</button>${tags.map(t => `<button class="chip ${f.tag === t ? 'on' : ''}" data-a="libTag" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
+    <div id="libList">${list.map(e => exRow(e)).join('') || `<div class="empty">${S.exercises.length ? 'Nothing matches.' : 'No exercises yet. Add your first one with the + button.'}</div>`}</div>
+  </div><button class="fab" data-a="newEx" aria-label="Add exercise">${icon('plus')}</button>`;
+};
+VIEWS.library.after = () => { const i = $('#libQ'); i.oninput = () => { UI.libFilter.q = i.value; const pos = i.selectionStart; render(); const n = $('#libQ'); n.focus(); n.setSelectionRange(pos, pos); }; };
+A.libWhere = el => { UI.libFilter.where = el.dataset.w; render(); };
+A.libTag = el => { UI.libFilter.tag = el.dataset.t || null; render(); };
+A.openEx = el => { UI.exId = el.dataset.id; go('exercise'); };
+A.newEx = (el) => { UI.editId = null; UI.draft = null; UI.draftWarm = !!el?.dataset?.warm; go('edit'); };
+
+/* ================= EXERCISE DETAIL ================= */
+VIEWS.exercise = () => {
+  const e = exById(UI.exId); const hist = bpmHistory(e.id);
+  const lp = lastPracticed()[e.id];
+  const secs = S.logs.reduce((a, l) => a + (l.entries || []).filter(x => x.exId === e.id).reduce((b, x) => b + x.sec, 0), 0);
+  return `<div class="wrap">
+    <div class="topbar"><button class="iconbtn" data-a="go" data-v="library">${icon('back')}</button><div class="row"><button class="iconbtn" data-a="editEx">${icon('edit')}</button></div></div>
+    <h1>${esc(e.name)}</h1>
+    <div class="row wrapf" style="gap:6px;margin:6px 0 12px">${wherePill(e)}${e.warmup ? '<span class="pill warm">Warm-up</span>' : ''}${(e.tags || []).map(t => `<span class="chip tag">${esc(t)}</span>`).join('')}</div>
+    ${e.media ? `<div class="media"><img data-media="${e.media}" alt="Notation"></div>` : ''}
+    ${e.sticking ? `<div class="sticking">${esc(mirrorSticking(e.sticking))}</div>` : ''}
+    ${ytBlock(e)}
+    ${e.link ? `<a class="btn ghost block" href="${esc(e.link)}" target="_blank" rel="noopener">${icon('link')} Open source link</a>` : ''}
+    ${e.notes ? `<p style="white-space:pre-wrap">${esc(e.notes)}</p>` : ''}
+    <div class="stats" style="margin-top:14px">
+      <div class="stat"><div class="v">${e.currentBpm || '–'}</div><div class="k">Current BPM${e.targetBpm ? ` · goal ${e.targetBpm}` : ''}</div></div>
+      <div class="stat"><div class="v">${fmtMin(secs)}</div><div class="k">Practiced${lp ? ` · last ${lp === dayKey() ? 'today' : diffDays(lp, dayKey()) + 'd ago'}` : ''}</div></div>
+    </div>
+    ${hist.length > 1 ? `<h2>Tempo progress</h2><div class="card chart">${lineChart(hist.map(h => h.bpm), hist.map(h => h.date.slice(5)), e.targetBpm)}</div>` : ''}
+    <button class="btn primary block" style="margin-top:18px" data-a="practiceOne">${icon('play')} Practice now</button>
+  </div>`;
+};
+function ytBlock(e) {
+  if (!e.youtube?.id) return '';
+  const y = e.youtube; const params = `start=${y.start || 0}${y.end ? `&end=${y.end}` : ''}&rel=0&playsinline=1`;
+  const watch = `https://www.youtube.com/watch?v=${y.id}${y.start ? `&t=${y.start}s` : ''}`;
+  return `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${y.id}?${params}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe></div>
+    <a class="small" href="${watch}" target="_blank" rel="noopener">Open in YouTube${y.start ? ` (${toMMSS(y.start)}${y.end ? '–' + toMMSS(y.end) : ''})` : ''}</a>`;
+}
+A.editEx = () => { UI.editId = UI.exId; UI.draft = null; go('edit'); };
+A.practiceOne = () => { const e = exById(UI.exId); Player.begin({ id: uid(), mode: e.where === 'kit' ? 'kit' : 'pad', level: 'single', items: [{ kind: e.warmup ? 'warmup' : 'focus', exId: e.id, min: 5 }] }); go('session'); };
+
+/* ================= EDIT EXERCISE ================= */
+VIEWS.edit = () => {
+  const ex = UI.editId ? exById(UI.editId) : null;
+  if (!UI.draft) UI.draft = ex ? JSON.parse(JSON.stringify(ex)) : { id: uid(), name: '', tags: [], where: 'pad', warmup: !!UI.draftWarm, startBpm: 60, targetBpm: 100, step: 4, sticking: '', notes: '', link: '', media: null, youtube: null };
+  const d = UI.draft;
+  const tagChips = Object.entries(TAG_GROUPS).map(([g, ts]) => `<div class="small muted" style="font-weight:800;margin:10px 0 6px">${g}</div><div class="chips">${ts.map(t => `<button class="chip ${d.tags.includes(t) ? 'on' : ''}" data-a="togTag" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>`).join('');
+  const custom = [...new Set(S.settings.customTags.concat(d.tags.filter(t => !Object.values(TAG_GROUPS).flat().includes(t))))];
+  return `<div class="wrap">
+    <div class="topbar"><button class="iconbtn" data-a="cancelEdit">${icon('x')}</button><b>${ex ? 'Edit exercise' : 'New exercise'}</b><button class="btn small primary" data-a="saveEx">Save</button></div>
+    <label class="field"><span>Name *</span><input class="input" id="f_name" value="${esc(d.name)}" placeholder="e.g. Paradiddle accents"></label>
+    <div class="field"><span>Where do you practice it?</span><div class="seg">${[['pad', 'Pad'], ['kit', 'Kit'], ['both', 'Both']].map(([k, l]) => `<button class="${d.where === k ? 'on' : ''}" data-a="setWhere" data-w="${k}">${l}</button>`).join('')}</div></div>
+    <div class="field"><label class="row" style="justify-content:space-between;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px"><span style="font-weight:800">${icon('sun')} Part of my warm-up</span><input type="checkbox" id="f_warm" ${d.warmup ? 'checked' : ''} style="width:22px;height:22px"></label></div>
+
+    <div class="field"><span>Notation / source</span>
+      ${d.media ? `<div class="media"><img data-media="${d.media}" alt=""></div><button class="btn small ghost danger" data-a="rmMedia">${icon('trash')} Remove image</button>` : `
+      <div class="grid3">
+        <label class="btn ghost" style="flex-direction:column;min-height:72px;font-size:13px">${icon('image')}Image<input type="file" accept="image/*" id="f_img" hidden></label>
+        <label class="btn ghost" style="flex-direction:column;min-height:72px;font-size:13px">${icon('file')}PDF page<input type="file" accept="application/pdf" id="f_pdf" hidden></label>
+        <button class="btn ghost" style="flex-direction:column;min-height:72px;font-size:13px" data-a="focusYt">${icon('video')}YouTube</button>
+      </div><div class="hint">Screenshot, photo of a book page or a PDF. You can crop to just the bars you need.</div>`}
+    </div>
+    <label class="field"><span>YouTube link (optional)</span><input class="input" id="f_yt" value="${esc(d.youtube?.url || '')}" placeholder="https://youtu.be/…"></label>
+    <div class="row" style="gap:10px;margin-top:-6px"><label class="field grow"><span>Loop from (m:ss)</span><input class="input" id="f_yts" value="${esc(toMMSS(d.youtube?.start))}" placeholder="1:20" inputmode="numeric"></label>
+    <label class="field grow"><span>to (m:ss)</span><input class="input" id="f_yte" value="${esc(toMMSS(d.youtube?.end))}" placeholder="1:45" inputmode="numeric"></label></div>
+
+    <div class="field"><span>Tempo ladder (BPM)</span><div class="grid3">
+      <input class="input" id="f_sb" type="number" inputmode="numeric" value="${d.startBpm || ''}" placeholder="Start">
+      <input class="input" id="f_tb" type="number" inputmode="numeric" value="${d.targetBpm || ''}" placeholder="Goal">
+      <input class="input" id="f_st" type="number" inputmode="numeric" value="${d.step || ''}" placeholder="Step"></div>
+      <div class="hint">Start → goal, and how much to speed up after a clean run.</div></div>
+    <label class="field"><span>Sticking (optional, written right-hand lead)</span><input class="input" id="f_stk" value="${esc(d.sticking)}" placeholder="RLRR LRLL" style="font-family:ui-monospace,monospace">
+      <div class="hint">${S.settings.dominant === 'L' ? 'You are set as left-handed, so it will be shown mirrored.' : 'Left-handed players will see it mirrored.'}</div></label>
+
+    <div class="field"><span>Tags</span>${tagChips}
+      ${custom.length ? `<div class="small muted" style="font-weight:800;margin:10px 0 6px">Custom</div><div class="chips">${custom.map(t => `<button class="chip ${d.tags.includes(t) ? 'on' : ''}" data-a="togTag" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
+      <div class="row" style="margin-top:10px"><input class="input grow" id="f_newtag" placeholder="Add your own tag"><button class="btn small" data-a="addTag">Add</button></div></div>
+    <label class="field"><span>Source link (notefy, neofy, website…)</span><input class="input" id="f_link" value="${esc(d.link)}" placeholder="https://"></label>
+    <label class="field"><span>Notes</span><textarea class="input" id="f_notes" placeholder="What to focus on, book & page…">${esc(d.notes)}</textarea></label>
+    ${ex ? `<button class="btn danger block" data-a="deleteEx">${icon('trash')} Delete exercise</button>` : ''}
+  </div>`;
+};
+VIEWS.edit.after = () => {
+  const img = $('#f_img'), pdf = $('#f_pdf');
+  if (img) img.onchange = () => { syncDraft(); if (img.files[0]) openCropper(img.files[0]); };
+  if (pdf) pdf.onchange = () => { syncDraft(); if (pdf.files[0]) openPdfPicker(pdf.files[0]); };
+};
+function ytId(url) { if (!url) return null; const m = url.match(/(?:youtu\.be\/|v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/); return m ? m[1] : null; }
+function syncDraft() {
+  const d = UI.draft; if (!d || !$('#f_name')) return;
+  d.name = $('#f_name').value.trim(); d.warmup = $('#f_warm').checked;
+  d.startBpm = +$('#f_sb').value || null; d.targetBpm = +$('#f_tb').value || null; d.step = +$('#f_st').value || null;
+  d.sticking = $('#f_stk').value.trim(); d.link = $('#f_link').value.trim(); d.notes = $('#f_notes').value;
+  const url = $('#f_yt').value.trim(); const id = ytId(url);
+  d.youtube = url ? { url, id, start: parseMMSS($('#f_yts').value), end: parseMMSS($('#f_yte').value) } : null;
+}
+A.setWhere = el => { syncDraft(); UI.draft.where = el.dataset.w; render(); };
+A.togTag = el => { syncDraft(); const t = el.dataset.t, a = UI.draft.tags; const i = a.indexOf(t); i >= 0 ? a.splice(i, 1) : a.push(t); const y = scrollY; render(); scrollTo(0, y); };
+A.addTag = () => { syncDraft(); const t = $('#f_newtag').value.trim().toLowerCase(); if (!t) return; if (!S.settings.customTags.includes(t) && !Object.values(TAG_GROUPS).flat().includes(t)) S.settings.customTags.push(t); if (!UI.draft.tags.includes(t)) UI.draft.tags.push(t); save(); const y = scrollY; render(); scrollTo(0, y); };
+A.focusYt = () => $('#f_yt').focus();
+A.rmMedia = () => { syncDraft(); UI.draft.media = null; render(); };
+A.cancelEdit = () => { const back = UI.editId ? 'exercise' : (UI.draftWarm ? 'warmup' : 'library'); UI.draft = null; go(back); };
+A.saveEx = () => {
+  syncDraft(); const d = UI.draft;
+  if (!d.name) { toast('Give it a name'); $('#f_name').focus(); return; }
+  if (d.youtube && !d.youtube.id) { toast("That YouTube link doesn't look right"); return; }
+  if (!d.currentBpm || !UI.editId) d.currentBpm = d.currentBpm || d.startBpm || null;
+  const ix = S.exercises.findIndex(e => e.id === d.id);
+  if (ix >= 0) S.exercises[ix] = d; else { d.createdAt = Date.now(); S.exercises.push(d); }
+  save(); UI.exId = d.id; const wasWarm = UI.draftWarm; UI.draft = null; UI.editId = null; toast('Saved'); go(wasWarm ? 'warmup' : 'exercise');
+};
+A.deleteEx = () => confirmSheet('Delete this exercise? Your practice history stays.', 'Delete', () => {
+  S.exercises = S.exercises.filter(e => e.id !== UI.editId);
+  S.routines.forEach(r => r.items = r.items.filter(i => i.exId !== UI.editId));
+  S.plans.forEach(p => p.items = p.items.filter(i => i.exId !== UI.editId));
+  save(); UI.draft = null; UI.editId = null; go('library');
+});
+
+/* ================= WARM-UP ================= */
+VIEWS.warmup = () => {
+  const wex = S.exercises.filter(e => e.warmup);
+  const def = S.settings.defaultRoutine || S.routines[0]?.id;
+  return `<div class="wrap">
+    <div class="topbar"><h1>Warm-up</h1></div>
+    <p class="muted small" style="margin-top:0">Collect exercises that get you going, then build routines from them. Your default routine opens every session.</p>
+    <h2>Routines</h2>
+    ${S.routines.map(r => `<div class="plan-item"><div class="kind warmup"></div><div class="grow"><h3>${esc(r.name)} ${r.id === def ? '<span class="pill warm">Default</span>' : ''}</h3><div class="small muted">${r.items.reduce((a, i) => a + i.min, 0)} min · ${r.items.map(i => esc(exById(i.exId)?.name || '')).filter(Boolean).join(', ')}</div></div>
+      <button class="iconbtn" data-a="runRoutine" data-id="${r.id}" aria-label="Start">${icon('play')}</button><button class="iconbtn" data-a="editRoutine" data-id="${r.id}">${icon('edit')}</button></div>`).join('') || '<div class="empty">No routines yet.</div>'}
+    <button class="btn ghost block" style="margin-top:10px" data-a="editRoutine" ${wex.length ? '' : 'disabled'}>${icon('plus')} New routine</button>
+    <h2>Warm-up exercises</h2>
+    ${wex.map(e => exRow(e)).join('') || '<div class="empty">Mark exercises as “Part of my warm-up”, or add one here.</div>'}
+    <button class="btn ghost block" style="margin-top:10px" data-a="newEx" data-warm="1">${icon('plus')} Add warm-up exercise</button>
+  </div>`;
+};
+A.runRoutine = el => { const r = S.routines.find(x => x.id === el.dataset.id); const items = r.items.filter(i => exById(i.exId)).map(i => ({ kind: 'warmup', exId: i.exId, min: i.min })); if (!items.length) return toast('Routine is empty'); Player.begin({ id: uid(), mode: 'pad', level: 'warmup', items }); go('session'); };
+A.editRoutine = el => {
+  const r = el.dataset.id ? JSON.parse(JSON.stringify(S.routines.find(x => x.id === el.dataset.id))) : { id: uid(), name: 'My warm-up', items: [] };
+  const draw = () => {
+    const wex = S.exercises.filter(e => e.warmup);
+    const isDef = (S.settings.defaultRoutine || S.routines[0]?.id) === r.id;
+    openSheet(`<h3>${S.routines.some(x => x.id === r.id) ? 'Edit routine' : 'New routine'}</h3>
+      <label class="field" style="margin-top:12px"><span>Name</span><input class="input" id="r_name" value="${esc(r.name)}"></label>
+      <div class="small muted" style="font-weight:800;margin-bottom:6px">Exercises · ${r.items.reduce((a, i) => a + i.min, 0)} min</div>
+      ${r.items.map((it, i) => `<div class="plan-item"><div class="kind warmup"></div><div class="grow"><h3>${esc(exById(it.exId)?.name || '?')}</h3></div>
+        <div class="stepper"><button data-r="min" data-i="${i}" data-d="-1">−</button><b>${it.min}′</b><button data-r="min" data-i="${i}" data-d="1">+</button></div>
+        <button class="iconbtn" data-r="up" data-i="${i}" style="width:30px">${icon('up')}</button><button class="iconbtn" data-r="rm" data-i="${i}" style="width:30px">${icon('x')}</button></div>`).join('') || '<div class="hint">Tap exercises below to add them.</div>'}
+      <div class="small muted" style="font-weight:800;margin:14px 0 6px">Add</div>
+      <div class="chips">${wex.map(e => `<button class="chip" data-r="add" data-id="${e.id}">+ ${esc(e.name)}</button>`).join('')}</div>
+      <label class="row" style="margin:16px 0"><input type="checkbox" id="r_def" ${isDef ? 'checked' : ''} style="width:20px;height:20px"> <span>Use as default warm-up in sessions</span></label>
+      <div class="row"><button class="btn primary grow" data-r="save">Save</button></div>
+      ${S.routines.some(x => x.id === r.id) ? `<button class="btn danger block" style="margin-top:8px" data-r="del">${icon('trash')} Delete routine</button>` : ''}`, bg => {
+      bg.addEventListener('click', ev => {
+        const b = ev.target.closest('[data-r]'); if (!b) return; r.name = $('#r_name', bg).value; const i = +b.dataset.i;
+        const act = b.dataset.r;
+        if (act === 'min') r.items[i].min = clamp(r.items[i].min + +b.dataset.d, 1, 30);
+        if (act === 'up' && i > 0) [r.items[i - 1], r.items[i]] = [r.items[i], r.items[i - 1]];
+        if (act === 'rm') r.items.splice(i, 1);
+        if (act === 'add') r.items.push({ exId: b.dataset.id, min: 2 });
+        if (act === 'save') {
+          if (!r.items.length) return toast('Add at least one exercise');
+          const ix = S.routines.findIndex(x => x.id === r.id); if (ix >= 0) S.routines[ix] = r; else S.routines.push(r);
+          if ($('#r_def', bg).checked) S.settings.defaultRoutine = r.id; else if (S.settings.defaultRoutine === r.id) S.settings.defaultRoutine = null;
+          save(); closeSheet(); render(); return;
+        }
+        if (act === 'del') { S.routines = S.routines.filter(x => x.id !== r.id); if (S.settings.defaultRoutine === r.id) S.settings.defaultRoutine = null; save(); closeSheet(); render(); return; }
+        draw();
+      });
+    });
+  };
+  draw();
+};
+
+/* ================= metronome ================= */
+const Metro = {
+  ctx: null, bpm: 80, beats: 4, sub: 1, on: false, next: 0, tick: 0, timer: null, onBeat: null,
+  ensure() { if (!this.ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) this.ctx = new C(); } if (this.ctx?.state === 'suspended') this.ctx.resume(); return !!this.ctx; },
+  start() { if (!this.ensure()) return toast('Audio not available'); this.on = true; this.tick = 0; this.next = this.ctx.currentTime + 0.08; clearInterval(this.timer); this.timer = setInterval(() => this.sched(), 25); },
+  stop() { this.on = false; clearInterval(this.timer); },
+  sched() {
+    const spt = 60 / this.bpm / this.sub;
+    while (this.next < this.ctx.currentTime + 0.12) {
+      const t = this.tick, beatStart = t % this.sub === 0, beat = Math.floor(t / this.sub) % this.beats;
+      this.click(this.next, beatStart ? (beat === 0 ? 2 : 1) : 0);
+      if (beatStart && this.onBeat) { const at = this.next; setTimeout(() => this.on && this.onBeat(beat), Math.max(0, (at - this.ctx.currentTime) * 1000)); }
+      this.next += spt; this.tick++;
+    }
+  },
+  click(t, lvl) {
+    const c = this.ctx, o = c.createOscillator(), g = c.createGain(); const v = (S.settings.volume ?? .8) * [0.35, 0.7, 1][lvl];
+    o.type = 'square'; o.frequency.value = [900, 1250, 1750][lvl];
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(Math.max(0.0002, v * 0.5), t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.045);
+    o.connect(g).connect(c.destination); o.start(t); o.stop(t + 0.06);
+  },
+  chime() {
+    if (!this.ensure()) return; const c = this.ctx, t = c.currentTime;
+    [[784, 0], [1047, .14], [1319, .28]].forEach(([f, d]) => { const o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0.0001, t + d); g.gain.exponentialRampToValueAtTime(0.35 * (S.settings.volume ?? .8), t + d + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + d + 0.5); o.connect(g).connect(c.destination); o.start(t + d); o.stop(t + d + 0.55); });
+    try { navigator.vibrate?.([120, 60, 120]); } catch (e) { }
+  },
+};
+
+/* ================= session player ================= */
+const Player = {
+  plan: null, idx: 0, itemSec: 0, running: false, last: 0, iv: null, entries: [], startedAt: 0, rated: false, wake: null,
+  begin(plan) { UI._streakBefore = streakInfo().streak; this.plan = plan; this.idx = 0; this.entries = []; this.startedAt = Date.now(); this.resetItem(); this.running = false; },
+  resetItem() { this.itemSec = 0; this.rated = false; const e = exById(this.cur()?.exId); Metro.bpm = e?.currentBpm || e?.startBpm || Metro.bpm || 80; },
+  cur() { return this.plan?.items[this.idx]; },
+  target() { return (this.cur()?.min || 1) * 60; },
+  async lockWake() { try { this.wake = await navigator.wakeLock?.request('screen'); } catch (e) { } },
+  toggle() {
+    this.running = !this.running; this.last = performance.now();
+    if (this.running) { this.lockWake(); clearInterval(this.iv); this.iv = setInterval(() => this.tick(), 250); Metro.ensure(); if (Metro.wanted && !Metro.on) Metro.start(); }
+    else { clearInterval(this.iv); if (Metro.on) Metro.stop(); }
+    this.paint();
+  },
+  tick() {
+    const now = performance.now(); const dt = (now - this.last) / 1000; this.last = now;
+    const before = this.itemSec; this.itemSec += dt;
+    if (before < this.target() && this.itemSec >= this.target()) { Metro.chime(); this.finishItem(); }
+    this.paintTimer();
+  },
+  finishItem() {
+    // pause & ask for rating
+    this.running = false; clearInterval(this.iv); Metro.stop(); this.paint(); this.rateSheet();
+  },
+  rateSheet() {
+    const it = this.cur(); const e = exById(it.exId);
+    if (!e) { this.commit({ exId: null, title: itemTitle(it), sec: this.itemSec }); return this.advance(); }
+    let rating = 0; const bpm0 = Metro.bpm;
+    openSheet(`<h3>${esc(e.name)}</h3><p class="muted small" style="margin-top:4px">${fmtTime(this.itemSec)} practiced. How did it go?</p>
+      <div class="rate" id="rt">${[1, 2, 3, 4, 5].map(n => `<button data-n="${n}">${n}</button>`).join('')}</div>
+      <div class="row between small muted" style="margin-top:4px"><span>Rough</span><span>Clean</span></div>
+      <label class="field" style="margin-top:14px"><span>Top clean tempo (BPM)</span><div class="row"><button class="btn small" id="bm">−</button><input class="input center" id="rbpm" type="number" inputmode="numeric" value="${bpm0}" style="font-weight:900;font-size:20px"><button class="btn small" id="bp">+</button></div></label>
+      <div id="nextHint" class="hint"></div>
+      <label class="field"><span>Note for next time</span><input class="input" id="rnote" placeholder="e.g. left hand rushes on beat 3"></label>
+      <div class="row"><button class="btn grow" id="rmore">+2 min</button><button class="btn primary grow" id="rok">Next</button></div>`, bg => {
+      const hint = () => { const b = +$('#rbpm', bg).value; const st = e.step || 4; $('#nextHint', bg).innerHTML = rating >= 4 && b ? `Nice! Next time we'll start at <b>${e.targetBpm ? Math.min(b + st, Math.max(e.targetBpm, b)) : b + st} BPM</b>.` : rating && rating <= 2 ? 'Tempo stays where it is. Slow and clean wins.' : ''; };
+      $('#rt', bg).onclick = ev => { const b = ev.target.closest('button'); if (!b) return; rating = +b.dataset.n; $$('#rt button', bg).forEach(x => x.classList.toggle('on', +x.dataset.n === rating)); hint(); };
+      $('#bm', bg).onclick = () => { $('#rbpm', bg).value = +$('#rbpm', bg).value - 1; hint(); };
+      $('#bp', bg).onclick = () => { $('#rbpm', bg).value = +$('#rbpm', bg).value + 1; hint(); };
+      $('#rbpm', bg).oninput = hint;
+      $('#rmore', bg).onclick = () => { closeSheet(); it.min += 2; this.toggle(); };
+      $('#rok', bg).onclick = () => {
+        const bpm = +$('#rbpm', bg).value || null;
+        this.commit({ exId: e.id, sec: this.itemSec, bpm, rating: rating || null, note: $('#rnote', bg).value.trim() || null });
+        if (bpm) {
+          if (rating >= 4) { const nb = bpm + (e.step || 4); e.currentBpm = e.targetBpm ? Math.min(nb, Math.max(e.targetBpm, bpm)) : nb; }
+          else if (rating === 3 || !rating) e.currentBpm = Math.max(e.currentBpm || 0, bpm);
+        }
+        save(); closeSheet(); this.advance();
+      };
+    });
+  },
+  commit(entry) { if (entry.sec >= 5) this.entries.push(entry); this.persist(); },
+  persist() {
+    // write/refresh log incrementally so nothing is lost if the phone dies
+    const totalSec = this.entries.reduce((a, x) => a + x.sec, 0); if (!totalSec) return;
+    const log = { id: this.plan.id + '_log', date: dayKey(new Date(this.startedAt)), startedAt: this.startedAt, mode: this.plan.mode, level: this.plan.level, totalSec, entries: this.entries };
+    const ix = S.logs.findIndex(l => l.id === log.id); if (ix >= 0) S.logs[ix] = log; else S.logs.push(log); save();
+  },
+  advance() {
+    if (this.idx < this.plan.items.length - 1) { this.idx++; this.resetItem(); this.paint(true); }
+    else this.end();
+  },
+  skip() {
+    const it = this.cur(); this.running = false; clearInterval(this.iv); Metro.stop();
+    if (this.itemSec >= 20) return this.rateSheet();
+    this.advance();
+  },
+  end() {
+    this.running = false; clearInterval(this.iv); Metro.stop();
+    const before = UI._streakBefore ?? 0;
+    this.persist();
+    const si = streakInfo();
+    UI.summary = { totalSec: this.entries.reduce((a, x) => a + x.sec, 0), entries: this.entries.slice(), streak: si.streak, grew: si.streak > before, doneToday: si.doneToday, todaySec: si.todaySec };
+    this.plan = null; go('summary');
+  },
+  quit() {
+    const has = this.entries.length || this.itemSec >= 20;
+    confirmSheet(has ? 'End session now? Practiced time is saved.' : 'Leave this session?', 'End session', () => {
+      if (this.itemSec >= 20 && this.cur()) { const it = this.cur(); this.commit({ exId: it.exId || null, title: it.exId ? undefined : itemTitle(it), sec: this.itemSec, bpm: exById(it.exId) ? Metro.bpm : null }); }
+      if (this.entries.length) this.end(); else { this.teardown(); this.plan = null; go('today'); }
+    });
+  },
+  teardown() { this.running = false; clearInterval(this.iv); Metro.stop(); try { this.wake?.release(); } catch (e) { } this.wake = null; },
+  paintTimer() {
+    const el = $('#ptimer'); if (!el) return; const rem = this.target() - this.itemSec;
+    el.textContent = rem >= 0 ? fmtTime(rem) : '+' + fmtTime(-rem); el.classList.toggle('over', rem < 0);
+    const tot = $('#ptotal'); if (tot) { const done = this.plan.items.slice(0, this.idx).reduce((a, i) => a + i.min * 60, 0) + Math.min(this.itemSec, this.target()); tot.textContent = `${fmtTime(planTotal(this.plan) * 60 - done)} left`; }
+  },
+  paint(full) { if (current === 'session') { if (full) render(); else { const b = $('#pplay'); if (b) b.innerHTML = this.running ? icon('pause') + ' Pause' : icon('play') + (this.itemSec > 0 ? ' Resume' : ' Start'); const m = $('#mtoggle'); if (m) m.classList.toggle('primary', Metro.on); } } },
+};
+
+VIEWS.session = () => {
+  const P = Player, p = P.plan, it = P.cur(), e = exById(it.exId);
+  const kindLbl = it.kind === 'warmup' ? 'Warm-up' : it.kind === 'free' ? 'Free play' : 'Focus';
+  return `<div class="player"><div class="wrap">
+    <div class="topbar"><button class="iconbtn" data-a="pQuit">${icon('x')}</button><span class="small muted" id="ptotal"></span><span class="small muted">${P.idx + 1}/${p.items.length}</span></div>
+    <div class="prog">${p.items.map((x, i) => `<i class="${i < P.idx ? 'done' : i === P.idx ? 'cur' : ''}"></i>`).join('')}</div>
+    <div class="small" style="font-weight:800;color:${it.kind === 'warmup' ? 'var(--ice)' : it.kind === 'free' ? 'var(--flame)' : 'var(--primary)'};text-transform:uppercase;letter-spacing:.04em">${kindLbl}</div>
+    <h1 style="font-size:24px">${esc(itemTitle(it))}</h1>
+    ${e ? `<div class="row wrapf" style="gap:6px;margin-top:4px">${(e.tags || []).map(t => `<span class="chip tag">${esc(t)}</span>`).join('')}</div>` : ''}
+    <div class="timer" id="ptimer" style="margin:14px 0 4px">${fmtTime(P.target() - P.itemSec)}</div>
+    ${e?.media ? `<div class="media" data-a="zoomImg" data-m="${e.media}"><img data-media="${e.media}" alt="Notation"></div>` : ''}
+    ${e?.sticking ? `<div class="sticking">${esc(mirrorSticking(e.sticking))}</div>` : ''}
+    ${e ? ytBlock(e) : ''}
+    ${e?.notes ? `<p class="small muted" style="white-space:pre-wrap">${esc(e.notes)}</p>` : ''}
+    ${(() => { const h = e ? S.logs.flatMap(l => (l.entries || []).filter(x => x.exId === e.id && x.note).map(x => ({ d: l.date, n: x.note }))).pop() : null; return h ? `<p class="small" style="background:var(--surface2);padding:8px 10px;border-radius:10px"><b>Last time:</b> ${esc(h.n)}</p>` : ''; })()}
+    ${it.kind !== 'free' ? `<div class="metro" style="margin-top:10px">
+      <div class="row between"><button class="btn small" data-a="mBpm" data-d="-5">−5</button><button class="btn small" data-a="mBpm" data-d="-1">−1</button>
+        <div class="center"><div class="bpm" id="mbpm">${Metro.bpm}</div><div class="small muted" style="margin-top:-4px">BPM${e?.targetBpm ? ` · goal ${e.targetBpm}` : ''}</div></div>
+        <button class="btn small" data-a="mBpm" data-d="1">+1</button><button class="btn small" data-a="mBpm" data-d="5">+5</button></div>
+      <div class="beats" id="mbeats">${[...Array(Metro.beats)].map((_, i) => `<i class="${i === 0 ? 'acc' : ''}"></i>`).join('')}</div>
+      <div class="row"><button class="btn small grow ${Metro.on ? 'primary' : ''}" id="mtoggle" data-a="mToggle">${icon('metro')} Click</button>
+        <div class="seg grow" style="padding:3px">${[[1, '♩'], [2, '♪♪'], [3, '3'], [4, '4']].map(([n, l]) => `<button class="${Metro.sub === n ? 'on' : ''}" style="min-height:30px" data-a="mSub" data-n="${n}">${l}</button>`).join('')}</div></div>
+    </div>` : ''}
+    <div class="ctrl"><button class="btn primary grow" id="pplay" data-a="pToggle" style="min-height:58px;font-size:18px">${P.running ? icon('pause') + ' Pause' : icon('play') + (P.itemSec > 0 ? ' Resume' : ' Start')}</button>
+      <button class="btn" data-a="pDone" style="min-height:58px" aria-label="Done with this one">${icon('check')}</button>
+      <button class="btn" data-a="pSkip" style="min-height:58px" aria-label="Skip">${icon('next')}</button></div>
+  </div></div>`;
+};
+VIEWS.session.after = () => {
+  Player.paintTimer();
+  Metro.onBeat = b => { const dots = $$('#mbeats i'); dots.forEach((d, i) => d.classList.toggle('hit', i === b)); setTimeout(() => dots[b]?.classList.remove('hit'), 110); };
+};
+A.pToggle = () => Player.toggle();
+A.pSkip = () => Player.skip();
+A.pDone = () => { if (Player.itemSec < 5) return toast('Play a bit first, or skip'); Player.finishItem(); };
+A.pQuit = () => Player.quit();
+A.mBpm = el => { Metro.bpm = clamp(Metro.bpm + +el.dataset.d, 20, 320); $('#mbpm').textContent = Metro.bpm; };
+A.mToggle = el => { Metro.on ? Metro.stop() : Metro.start(); Metro.wanted = Metro.on; el.classList.toggle('primary', Metro.on); };
+A.mSub = el => { Metro.sub = +el.dataset.n; $$('[data-a="mSub"]').forEach(b => b.classList.toggle('on', b === el)); };
+A.zoomImg = el => openSheet(`<div class="media" style="margin:0"><img data-media="${el.dataset.m}" alt=""></div><button class="btn block" style="margin-top:12px" data-a="closeSheet">Close</button>`);
+
+/* ================= SUMMARY ================= */
+VIEWS.summary = () => {
+  const s = UI.summary;
+  return `<div class="wrap"><div class="celebrate">
+    <div class="flame">${flameIcon()}</div>
+    <h1>${s.grew ? `${s.streak}-day streak!` : s.doneToday ? 'Session done!' : 'Nice work!'}</h1>
+    <p class="muted">${s.grew ? 'Your chain just got longer.' : s.doneToday ? 'Daily goal reached. See you tomorrow.' : `${Math.ceil((S.settings.dailyGoal * 60 - s.todaySec) / 60)} more minutes today to count it for your streak.`}</p></div>
+    <div class="stats"><div class="stat"><div class="v">${fmtMin(s.totalSec)}</div><div class="k">This session</div></div><div class="stat"><div class="v">${fmtMin(s.todaySec)}</div><div class="k">Today total</div></div></div>
+    <h2>What you played</h2>
+    ${s.entries.map(x => { const e = exById(x.exId); return `<div class="plan-item"><div class="kind"></div><div class="grow"><h3>${esc(e?.name || x.title || 'Free practice')}</h3><div class="small muted">${fmtTime(x.sec)}${x.bpm ? ` · ${x.bpm} BPM` : ''}${x.rating ? ` · ${'●'.repeat(x.rating)}${'○'.repeat(5 - x.rating)}` : ''}</div></div>${e?.currentBpm && x.bpm && e.currentBpm > x.bpm ? `<span class="pill pad">next ${e.currentBpm}</span>` : ''}</div>`; }).join('')}
+    <button class="btn primary block" style="margin-top:20px" data-a="go" data-v="today">Done</button></div>`;
+};
+
+/* ================= PROGRESS ================= */
+function lineChart(vals, labels, goal) {
+  const W = 320, H = 150, pl = 30, pr = 8, pt = 10, pb = 22;
+  const all = vals.concat(goal ? [goal] : []); let mn = Math.min(...all), mx = Math.max(...all); if (mn === mx) { mn -= 5; mx += 5; } const padv = (mx - mn) * 0.1; mn -= padv; mx += padv;
+  const x = i => pl + (vals.length === 1 ? (W - pl - pr) / 2 : i * (W - pl - pr) / (vals.length - 1)); const y = v => pt + (1 - (v - mn) / (mx - mn)) * (H - pt - pb);
+  const path = vals.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('');
+  const ticks = [mn + padv, (mn + mx) / 2, mx - padv].map(v => Math.round(v));
+  const lstep = Math.ceil(labels.length / 6);
+  return `<svg viewBox="0 0 ${W} ${H}" role="img">
+    ${ticks.map(t => `<line x1="${pl}" x2="${W - pr}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)"/><text x="${pl - 6}" y="${y(t) + 4}" font-size="10" text-anchor="end" fill="var(--muted)">${t}</text>`).join('')}
+    ${goal ? `<line x1="${pl}" x2="${W - pr}" y1="${y(goal)}" y2="${y(goal)}" stroke="var(--flame)" stroke-dasharray="4 4"/><text x="${W - pr}" y="${y(goal) - 4}" font-size="10" text-anchor="end" fill="var(--flame)">goal ${goal}</text>` : ''}
+    <path d="${path}" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${vals.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="var(--primary)"><title>${labels[i]}: ${v} BPM</title></circle>`).join('')}
+    ${labels.map((l, i) => i % lstep === 0 ? `<text x="${x(i)}" y="${H - 6}" font-size="10" text-anchor="${vals.length > 1 && i === 0 ? 'start' : vals.length > 1 && i === vals.length - 1 ? 'end' : 'middle'}" fill="var(--muted)">${esc(l)}</text>` : '').join('')}
+  </svg>`;
+}
+VIEWS.progress = () => {
+  const si = streakInfo(), dm = dayMinutes(), today = dayKey();
+  const total = S.logs.reduce((a, l) => a + l.totalSec, 0);
+  // last 7 days bars
+  const days = [...Array(7)].map((_, i) => addDays(today, i - 6));
+  const mx = Math.max(S.settings.dailyGoal * 60, ...days.map(k => dm[k] || 0));
+  const goalY = 100 - (S.settings.dailyGoal * 60 / mx) * 100;
+  const bars = `<svg viewBox="0 0 280 130" style="width:100%"><line x1="0" x2="280" y1="${goalY}" y2="${goalY}" stroke="var(--flame)" stroke-dasharray="4 4"/>${days.map((k, i) => { const h = ((dm[k] || 0) / mx) * 100; return `<rect x="${i * 40 + 8}" y="${100 - h}" width="24" height="${Math.max(h, 1.5)}" rx="5" fill="${(dm[k] || 0) >= S.settings.dailyGoal * 60 ? 'var(--primary)' : 'var(--line)'}"><title>${k}: ${fmtMin(dm[k] || 0)}</title></rect><text x="${i * 40 + 20}" y="118" font-size="11" text-anchor="middle" fill="var(--muted)">${weekdayShort[keyToDate(k).getDay()]}</text><text x="${i * 40 + 20}" y="${Math.max(10, 96 - h)}" font-size="10" text-anchor="middle" fill="var(--ink)">${dm[k] ? Math.round(dm[k] / 60) : ''}</text>`; }).join('')}</svg>`;
+  const wkSum = off => [...Array(7)].reduce((a, _, i) => a + (dm[addDays(today, -i - off)] || 0), 0);
+  const thisW = wkSum(0), lastW = wkSum(7);
+  // heatmap 12 weeks aligned to Monday
+  const dow = (keyToDate(today).getDay() + 6) % 7; const startH = addDays(today, -dow - 7 * 11);
+  const heat = [...Array(84)].map((_, i) => { const k = addDays(startH, i); const v = dm[k] || 0; const st = si.status[k]; const op = v ? clamp(0.25 + v / (S.settings.dailyGoal * 60 * 2), 0.25, 1) : 0; return `<i title="${k}: ${fmtMin(v)}" style="${k > today ? 'opacity:.3;' : ''}${st === 'frozen' ? 'background:var(--ice)' : v ? `background:color-mix(in srgb, var(--primary) ${Math.round(op * 100)}%, var(--surface2))` : ''}"></i>`; }).join('');
+  // tags 30 days
+  const ts = tagSeconds(30); const tsArr = Object.entries(ts).sort((a, b) => b[1] - a[1]).slice(0, 8); const tmx = Math.max(1, ...tsArr.map(x => x[1]));
+  // exercise bpm chart
+  const withHist = S.exercises.filter(e => bpmHistory(e.id).length > 1);
+  if (!withHist.find(e => e.id === UI.chartEx)) UI.chartEx = withHist[0]?.id;
+  const ce = exById(UI.chartEx); const ch = ce ? bpmHistory(ce.id) : [];
+  const logs = S.logs.slice().sort((a, b) => b.startedAt - a.startedAt).slice(0, 15);
+  return `<div class="wrap">
+    <div class="topbar"><h1>Progress</h1></div>
+    <div class="stats">
+      <div class="stat"><div class="v" style="color:var(--flame)">${si.streak}</div><div class="k">Current streak</div></div>
+      <div class="stat"><div class="v">${si.best}</div><div class="k">Best streak</div></div>
+      <div class="stat"><div class="v">${fmtMin(thisW)}</div><div class="k">Last 7 days ${lastW ? `· ${thisW >= lastW ? '▲' : '▼'} ${Math.abs(Math.round((thisW - lastW) / 60))} min` : ''}</div></div>
+      <div class="stat"><div class="v">${fmtMin(total)}</div><div class="k">All time · ${S.logs.length} sessions</div></div>
+    </div>
+    <h2>This week</h2><div class="card">${bars}<div class="small muted">Dashed line = daily goal (${S.settings.dailyGoal} min)</div></div>
+    <h2>Last 12 weeks</h2><div class="card"><div class="heat">${heat}</div><div class="small muted" style="margin-top:8px">Darker = more practice · blue = streak freeze used</div></div>
+    <h2>Where your time goes <span class="small muted">(30 days)</span></h2>
+    <div class="card">${tsArr.map(([t, s]) => `<div class="hbar"><span class="t">${esc(t)}</span><span class="b"><i style="width:${s / tmx * 100}%"></i></span><span class="n">${Math.round(s / 60)}m</span></div>`).join('') || '<div class="muted small">Practice a few tagged exercises to see this.</div>'}</div>
+    <h2>Tempo ladder</h2>
+    ${withHist.length ? `<div class="card"><select class="input" id="chartSel">${withHist.map(e => `<option value="${e.id}" ${e.id === UI.chartEx ? 'selected' : ''}>${esc(e.name)}</option>`).join('')}</select><div class="chart" style="margin-top:10px">${lineChart(ch.map(h => h.bpm), ch.map(h => h.date.slice(5)), ce.targetBpm)}</div></div>` : '<div class="card muted small">Log BPM on the same exercise twice and your tempo curve appears here.</div>'}
+    <h2>History</h2>
+    ${logs.map(l => `<div class="plan-item"><div class="kind ${l.mode === 'kit' ? 'free' : ''}"></div><div class="grow"><h3>${keyToDate(l.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })} · ${fmtMin(l.totalSec)}</h3><div class="small muted">${MODE_NAMES[l.mode] || ''} · ${(l.entries || []).map(x => esc(exById(x.exId)?.name || x.title || 'Free')).join(', ')}</div></div></div>`).join('') || '<div class="empty">No sessions yet.</div>'}
+  </div>`;
+};
+VIEWS.progress.after = () => { const s = $('#chartSel'); if (s) s.onchange = () => { UI.chartEx = s.value; render(); }; };
+
+/* ================= image cropper ================= */
+function loadImage(src) { return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
+async function openCropper(fileOrCanvas) {
+  let srcCanvas;
+  if (fileOrCanvas instanceof HTMLCanvasElement) srcCanvas = fileOrCanvas;
+  else {
+    const url = URL.createObjectURL(fileOrCanvas);
+    try { const img = await loadImage(url); srcCanvas = document.createElement('canvas'); srcCanvas.width = img.naturalWidth; srcCanvas.height = img.naturalHeight; srcCanvas.getContext('2d').drawImage(img, 0, 0); }
+    catch (e) { toast("Couldn't open that image"); return; } finally { URL.revokeObjectURL(url); }
+  }
+  let sel = null;
+  openSheet(`<h3>Crop to the bars you need</h3><div class="hint">Drag across the area to keep. Or keep the whole thing.</div>
+    <div class="crop" id="cropBox"><canvas id="cropCv"></canvas><div class="sel" id="cropSel" style="display:none"></div></div>
+    <div class="row" style="margin-top:12px"><button class="btn grow" id="cropAll">Use whole</button><button class="btn primary grow" id="cropOk" disabled>Use selection</button></div>`, bg => {
+    const cv = $('#cropCv', bg), box = $('#cropBox', bg), selEl = $('#cropSel', bg);
+    cv.width = srcCanvas.width; cv.height = srcCanvas.height; cv.getContext('2d').drawImage(srcCanvas, 0, 0);
+    let start = null;
+    const pt = ev => { const r = box.getBoundingClientRect(); return { x: clamp(ev.clientX - r.left, 0, r.width), y: clamp(ev.clientY - r.top, 0, r.height) }; };
+    const draw = () => { if (!sel) return; selEl.style.display = 'block'; Object.assign(selEl.style, { left: sel.x + 'px', top: sel.y + 'px', width: sel.w + 'px', height: sel.h + 'px' }); };
+    box.addEventListener('pointerdown', ev => { box.setPointerCapture(ev.pointerId); start = pt(ev); sel = { x: start.x, y: start.y, w: 0, h: 0 }; draw(); });
+    box.addEventListener('pointermove', ev => { if (!start) return; const p = pt(ev); sel = { x: Math.min(start.x, p.x), y: Math.min(start.y, p.y), w: Math.abs(p.x - start.x), h: Math.abs(p.y - start.y) }; draw(); });
+    box.addEventListener('pointerup', () => { start = null; $('#cropOk', bg).disabled = !(sel && sel.w > 12 && sel.h > 12); });
+    const finish = async rect => {
+      const sc = srcCanvas.width / box.getBoundingClientRect().width;
+      const r = rect ? { x: rect.x * sc, y: rect.y * sc, w: rect.w * sc, h: rect.h * sc } : { x: 0, y: 0, w: srcCanvas.width, h: srcCanvas.height };
+      const maxW = 1800, k = Math.min(1, maxW / r.w);
+      const out = document.createElement('canvas'); out.width = Math.round(r.w * k); out.height = Math.round(r.h * k);
+      const cx = out.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, out.width, out.height); cx.drawImage(srcCanvas, r.x, r.y, r.w, r.h, 0, 0, out.width, out.height);
+      const blob = await new Promise(res => out.toBlob(res, 'image/jpeg', 0.88));
+      UI.draft.media = await putMedia(blob); closeSheet(); render();
+    };
+    $('#cropAll', bg).onclick = () => finish(null);
+    $('#cropOk', bg).onclick = () => finish(sel);
+  });
+}
+
+/* ================= PDF (pdf.js, lazy) ================= */
+const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+async function ensurePdf() {
+  if (window.pdfjsLib) return window.pdfjsLib;
+  await loadScript(PDFJS + 'pdf.min.js');
+  // load worker code into the page too, so it works where worker scripts from other hosts are blocked
+  try { await loadScript(PDFJS + 'pdf.worker.min.js'); } catch (e) { }
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js';
+  return window.pdfjsLib;
+}
+async function openPdfPicker(file) {
+  toast('Opening PDF…');
+  let pdf;
+  try { const lib = await ensurePdf(); pdf = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise; }
+  catch (e) { console.warn(e); toast("Couldn't open the PDF. Try a screenshot instead."); return; }
+  let page = 1;
+  const show = async () => {
+    openSheet(`<h3>Pick a page</h3><div class="row between" style="margin:10px 0"><button class="btn small" id="pp">${icon('back')}</button><b>Page ${page} / ${pdf.numPages}</b><button class="btn small" id="pn" style="transform:scaleX(-1)">${icon('back')}</button></div>
+      <div class="media" style="background:#fff"><canvas id="pdfCv" style="width:100%;display:block"></canvas></div>
+      <button class="btn primary block" id="pUse">Use this page</button>`, async bg => {
+      const pg = await pdf.getPage(page); const vp = pg.getViewport({ scale: 2 });
+      const cv = $('#pdfCv', bg); cv.width = vp.width; cv.height = vp.height;
+      await pg.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+      $('#pp', bg).onclick = () => { if (page > 1) { page--; show(); } };
+      $('#pn', bg).onclick = () => { if (page < pdf.numPages) { page++; show(); } };
+      $('#pUse', bg).onclick = () => { closeSheet(); openCropper(cv); };
+    });
+  };
+  show();
+}
+
+/* ================= SETTINGS ================= */
+VIEWS.settings = () => {
+  const st = S.settings;
+  return `<div class="wrap">
+    <div class="topbar"><button class="iconbtn" data-a="go" data-v="today">${icon('back')}</button><b>Settings</b><span style="width:40px"></span></div>
+    <label class="field"><span>Your name</span><input class="input" id="s_name" value="${esc(st.name)}" placeholder="optional"></label>
+    <div class="field"><span>Dominant hand</span><div class="seg">${[['R', 'Right'], ['L', 'Left']].map(([k, l]) => `<button class="${st.dominant === k ? 'on' : ''}" data-a="setDom" data-k="${k}">${l}</button>`).join('')}</div>
+      <div class="hint">“Weak hand” exercises and stickings follow this. Left-handed players see stickings mirrored.</div></div>
+    <div class="field"><span>Daily goal (counts for your streak)</span><div class="seg">${[5, 10, 15, 20, 30].map(n => `<button class="${st.dailyGoal === n ? 'on' : ''}" data-a="setGoal" data-n="${n}">${n}′</button>`).join('')}</div>
+      <div class="hint">Keep it low. The goal is showing up every day, longer sessions are a bonus.</div></div>
+    <div class="field"><span>Session lengths (minutes)</span>
+      ${['pad', 'kit'].map(m => `<div class="row" style="margin-bottom:8px"><b style="width:44px">${MODE_NAMES[m]}</b>${LEVELS.map(l => `<label class="grow"><div class="small muted">${LEVEL_NAMES[l]}</div><input class="input" type="number" inputmode="numeric" data-lvl="${m}.${l}" value="${st.levels[m][l]}"></label>`).join('')}</div>`).join('')}</div>
+    <label class="field"><span>Click volume</span><input type="range" min="0.1" max="1" step="0.05" id="s_vol" value="${st.volume}" style="width:100%"></label>
+    <h2>Your data</h2>
+    <p class="small muted">Everything is stored on this device, inside the app. Deleting the app from your home screen deletes the data, so export a backup now and then (save it to Files or iCloud).</p>
+    <div class="stack"><button class="btn block" data-a="exportData">Export backup</button>
+    <label class="btn block">Import backup<input type="file" accept="application/json" id="s_imp" hidden></label>
+    <button class="btn block" data-a="loadSamples">Add sample exercises</button>
+    <button class="btn block danger" data-a="resetAll">Delete all data</button></div>
+    <p class="small muted center" style="margin-top:24px">steadify · your pocket coach</p>
+  </div>`;
+};
+VIEWS.settings.after = () => {
+  $('#s_name').onchange = e => { S.settings.name = e.target.value.trim(); save(); };
+  $('#s_vol').onchange = e => { S.settings.volume = +e.target.value; save(); };
+  $$('[data-lvl]').forEach(i => i.onchange = () => { const [m, l] = i.dataset.lvl.split('.'); S.settings.levels[m][l] = clamp(+i.value || 5, 3, 240); save(); });
+  $('#s_imp').onchange = e => importData(e.target.files[0]);
+};
+A.setDom = el => { S.settings.dominant = el.dataset.k; save(); render(); };
+A.setGoal = el => { S.settings.dailyGoal = +el.dataset.n; save(); render(); };
+A.loadSamples = () => { addSamples(); save(); toast('Sample exercises added'); };
+A.resetAll = () => confirmSheet('Delete all exercises, routines and history? This cannot be undone.', 'Delete everything', async () => {
+  for (const k of await DB.keys('media') || []) await DB.del('media', k);
+  S = { settings: defaultSettings(), exercises: [], routines: [], logs: [], plans: [] }; await DB.put('kv', 'state', S); go('onboard');
+});
+const blobToDataURL = b => new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.readAsDataURL(b); });
+A.exportData = async () => {
+  const media = {}; for (const e of S.exercises) if (e.media) { const b = await DB.get('media', e.media); if (b) media[e.media] = await blobToDataURL(b); }
+  const blob = new Blob([JSON.stringify({ app: 'steadify', version: 1, exportedAt: new Date().toISOString(), state: S, media })], { type: 'application/json' });
+  const fname = `steadify-backup-${dayKey()}.json`;
+  try { const f = new File([blob], fname, { type: 'application/json' }); if (navigator.canShare?.({ files: [f] })) { await navigator.share({ files: [f], title: 'steadify backup' }); return; } } catch (e) { if (e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+};
+async function importData(file) {
+  if (!file) return;
+  try {
+    const j = JSON.parse(await file.text()); if (j.app !== 'steadify' || !j.state) throw 0;
+    confirmSheet('Replace current data with this backup?', 'Import', async () => {
+      for (const [id, url] of Object.entries(j.media || {})) { const b = await (await fetch(url)).blob(); await DB.put('media', id, b); }
+      S = j.state; S.settings = Object.assign(defaultSettings(), S.settings); save(); toast('Backup imported'); go('today');
+    });
+  } catch (e) { toast("That file isn't a steadify backup"); }
+}
+
+/* ================= ONBOARDING ================= */
+UI.ob = { name: '', dominant: 'R', goal: 10, samples: true };
+VIEWS.onboard = () => {
+  const o = UI.ob;
+  return `<div class="wrap ob">
+    <div class="logo-big">steadi<span>fy</span></div>
+    <p class="center muted" style="margin:4px 0 26px;font-weight:700">your pocket coach</p>
+    <div class="card">
+      <label class="field"><span>What should I call you?</span><input class="input" id="o_name" value="${esc(o.name)}" placeholder="Your name (optional)"></label>
+      <div class="field"><span>Dominant hand</span><div class="seg">${[['R', 'Right'], ['L', 'Left']].map(([k, l]) => `<button class="${o.dominant === k ? 'on' : ''}" data-a="obSet" data-f="dominant" data-v="${k}">${l}</button>`).join('')}</div></div>
+      <div class="field"><span>Daily minimum to keep your streak</span><div class="seg">${[5, 10, 15, 20].map(n => `<button class="${o.goal === n ? 'on' : ''}" data-a="obSet" data-f="goal" data-v="${n}">${n} min</button>`).join('')}</div>
+        <div class="hint">Start small. Showing up daily beats long sessions once a week.</div></div>
+      <label class="row" style="margin-bottom:16px"><input type="checkbox" id="o_samples" ${o.samples ? 'checked' : ''} style="width:20px;height:20px"><span>Start with sample drum exercises</span></label>
+      <button class="btn primary block" data-a="obDone">Let's go</button>
+    </div></div>`;
+};
+A.obSet = el => { UI.ob.name = $('#o_name').value; UI.ob.samples = $('#o_samples').checked; UI.ob[el.dataset.f] = el.dataset.f === 'goal' ? +el.dataset.v : el.dataset.v; render(); };
+A.obDone = () => {
+  const o = UI.ob; Object.assign(S.settings, { name: $('#o_name').value.trim(), dominant: o.dominant, dailyGoal: o.goal, onboarded: true });
+  if ($('#o_samples').checked && !S.exercises.length) addSamples();
+  save(); go('today');
+};
+
+/* ================= samples ================= */
+function addSamples() {
+  const mk = (name, o) => ({ id: uid(), name, tags: [], where: 'pad', warmup: false, startBpm: 60, targetBpm: 120, step: 4, sticking: '', notes: '', link: '', media: null, youtube: null, createdAt: Date.now(), sample: true, ...o, currentBpm: o.startBpm || 60 });
+  const ex = [
+    mk('Slow full strokes', { warmup: true, tags: ['technique', '8ths'], startBpm: 60, targetBpm: 80, sticking: 'RRRR LLLL', notes: 'Big relaxed strokes, 8 per hand. Focus on rebound and even height.' }),
+    mk('Single stroke roll', { warmup: true, tags: ['rudiment', '16ths', 'speed'], where: 'both', startBpm: 70, targetBpm: 140, sticking: 'RLRL RLRL' }),
+    mk('Double stroke roll', { warmup: true, tags: ['rudiment', 'doubles', '16ths'], where: 'both', startBpm: 60, targetBpm: 120, sticking: 'RRLL RRLL' }),
+    mk('Weak hand singles', { tags: ['weak hand', '16ths', 'endurance'], startBpm: 60, targetBpm: 110, sticking: 'LLLL LLLL', notes: 'Only your weak hand. Match the sound of your strong hand.' }),
+    mk('Paradiddle', { tags: ['rudiment', '16ths', 'accents'], where: 'both', startBpm: 60, targetBpm: 120, sticking: 'RLRR LRLL', notes: 'Accent the first note of each group.' }),
+    mk('Accent tap 8ths', { tags: ['accents', 'dynamics', '8ths'], startBpm: 70, targetBpm: 130, sticking: 'RLRL RLRL', notes: 'Rotate one accent through the 8 notes. Taps stay low.' }),
+    mk('Triplet singles', { tags: ['triplets', 'rudiment'], startBpm: 60, targetBpm: 110, sticking: 'RLR LRL' }),
+    mk('Flam taps', { tags: ['flams', 'rudiment'], startBpm: 55, targetBpm: 100, sticking: 'lRR rLL' }),
+    mk('Ghost note groove', { where: 'kit', tags: ['ghost notes', 'groove', '16ths'], startBpm: 70, targetBpm: 100, notes: 'Backbeat loud, ghost notes barely audible.' }),
+    mk('16th kick variations', { where: 'kit', tags: ['kick', 'groove', '16ths'], startBpm: 60, targetBpm: 100 }),
+    mk('Fill around the toms', { where: 'kit', tags: ['fill', '16ths'], startBpm: 70, targetBpm: 120, sticking: 'RLRL RLRL RLRL RLRL' }),
+    mk('Play along: favourite song', { where: 'kit', tags: ['song', 'time feel'], startBpm: null, targetBpm: null, step: null }),
+  ];
+  S.exercises.push(...ex);
+  if (!S.routines.length) { const r = { id: uid(), name: 'Basic warm-up', items: ex.filter(e => e.warmup).map(e => ({ exId: e.id, min: 2 })) }; S.routines.push(r); S.settings.defaultRoutine = r.id; }
+}
+
+/* ================= boot ================= */
+(async function boot() {
+  await load();
+  if (navigator.storage?.persist) navigator.storage.persist().catch(() => { });
+  if ('serviceWorker' in navigator && location.protocol === 'https:' && !/claudeusercontent|claude\.ai/.test(location.host)) navigator.serviceWorker.register('sw.js').catch(() => { });
+  render();
+})();
+
+</script>
+</body>
+</html>
