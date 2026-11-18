@@ -756,10 +756,27 @@ A.editRoutine = el => {
   draw();
 };
 
+const SILENT_WAV = 'data:audio/wav;base64,UklGRvQHAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YdAHAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==';
 /* ================= metronome ================= */
 const Metro = {
   ctx: null, bpm: 80, beats: 4, sub: 1, on: false, next: 0, tick: 0, timer: null, onBeat: null,
-  ensure() { if (!this.ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) this.ctx = new C(); } if (this.ctx?.state === 'suspended') this.ctx.resume(); return !!this.ctx; },
+  // iOS: Web Audio is muted by the silent switch unless the audio session is "playback".
+  // iOS 17+: navigator.audioSession; older iOS: a looping silent <audio> element switches the session.
+  keep: null,
+  unlock() {
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { }
+    try {
+      if (!this.keep) { this.keep = new Audio(SILENT_WAV); this.keep.loop = true; this.keep.setAttribute('playsinline', ''); this.keep.volume = 0.01; }
+      this.keep.play().catch(() => { });
+    } catch (e) { }
+  },
+  release() { try { this.keep?.pause(); } catch (e) { } },
+  ensure() {
+    if (!this.ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) this.ctx = new C({ latencyHint: 'interactive' }); }
+    this.unlock();
+    if (this.ctx && this.ctx.state !== 'running') this.ctx.resume().catch(() => { });
+    return !!this.ctx;
+  },
   start() { if (!this.ensure()) return toast('Audio not available'); this.on = true; this.tick = 0; this.next = this.ctx.currentTime + 0.08; clearInterval(this.timer); this.timer = setInterval(() => this.sched(), 25); },
   stop() { this.on = false; clearInterval(this.timer); },
   sched() {
@@ -867,7 +884,7 @@ const Player = {
       if (this.entries.length) this.end(); else { this.teardown(); this.plan = null; go('today'); }
     });
   },
-  teardown() { this.running = false; clearInterval(this.iv); Metro.stop(); try { this.wake?.release(); } catch (e) { } this.wake = null; },
+  teardown() { this.running = false; clearInterval(this.iv); Metro.stop(); Metro.release(); try { this.wake?.release(); } catch (e) { } this.wake = null; },
   paintTimer() {
     const el = $('#ptimer'); if (!el) return; const rem = this.target() - this.itemSec;
     el.textContent = rem >= 0 ? fmtTime(rem) : '+' + fmtTime(-rem); el.classList.toggle('over', rem < 0);
@@ -985,6 +1002,11 @@ VIEWS.progress = () => {
   </div>`;
 };
 VIEWS.progress.after = () => { const s = $('#chartSel'); if (s) s.onchange = () => { UI.chartEx = s.value; render(); }; };
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && Metro.ctx && Metro.ctx.state !== 'running') Metro.ctx.resume().catch(() => { });
+  if (document.visibilityState === 'visible' && current === 'session' && Player.running) Player.lockWake();
+});
 
 /* ================= image cropper ================= */
 function loadImage(src) { return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
