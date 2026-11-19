@@ -100,6 +100,7 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .menu .barnums .bn{display:block;min-width:34px;height:30px;padding:0 6px;border:1px solid var(--line);border-radius:7px;background:var(--bg);font-family:var(--f-mono);font-size:12px;text-align:center}
 .menu .barnums .bn[aria-current="true"]{background:rgba(214,178,98,.22);border-color:#d6b262;color:#f1dfa8}
 .menu button.danger b{color:var(--danger)}
+.menu .barno{display:inline-block;min-width:18px;padding:0 5px;border-radius:5px;background:rgba(214,178,98,.22);color:#f1dfa8;font-family:var(--f-mono);font-size:12px;text-align:center}
 .toast .undo{margin-left:12px;border:none;background:transparent;color:var(--accent);font-weight:600;padding:0}
 
 /* sequencer */
@@ -1017,13 +1018,16 @@ function pasteAt(cell){ // cell = where the first copied note lands; null = same
 }
 function goBar(i){ S.sel=i; S.page=0; renderGrid(); renderScore(); saveDraft(); }
 function barMenu(anchor){
+  const N=()=>el("span",{class:"barno"},String(S.sel+1)); // the bar number stands out, so "bar 2 left" never reads as "2 to the left"
   const nums=el("div",{class:"barnums"},S.measures.map((_,i)=>el("button",{class:"bn","aria-current":i===S.sel?"true":null,onclick:()=>{ closeMidiMenu(); goBar(i); }},String(i+1))));
   openMenu(anchor,[el("div",{class:"mh"},"Go to bar"),nums,
-    menuItem("Add bar","Empty bar at the end",addMeasure), menuItem("Duplicate bar "+(S.sel+1),"Copy goes right after it",()=>$("#bDup").click()),
-    menuItem("Clear bar "+(S.sel+1),"",()=>$("#bClear").click()),
-    S.sel>0?menuItem("Move bar "+(S.sel+1)+" left","Swap it with the bar before",()=>moveBar(S.sel,S.sel-1)):null,
-    S.sel<S.measures.length-1?menuItem("Move bar "+(S.sel+1)+" right","Swap it with the bar after",()=>moveBar(S.sel,S.sel+1)):null,
-    S.measures.length>1?menuItem("Delete bar "+(S.sel+1),"",()=>$("#bDel").click(),true):null],"center");
+    menuItem("Add bar","Empty bar at the end",addMeasure),
+    menuItem(["Duplicate bar ",N()],"Copy goes right after it",()=>$("#bDup").click()),
+    menuItem(["Clear bar ",N()],"",()=>$("#bClear").click()),
+    S.sel>0?menuItem(["Move bar ",N()," left"],"Swap it with the bar before",()=>moveBar(S.sel,S.sel-1)):null,
+    S.sel<S.measures.length-1?menuItem(["Move bar ",N()," right"],"Swap it with the bar after",()=>moveBar(S.sel,S.sel+1)):null,
+    S.sel<S.measures.length-1?menuItem(["Move bar ",N()," to the end"],"It becomes the last bar",()=>moveBar(S.sel,S.measures.length-1)):null,
+    S.measures.length>1?menuItem(["Delete bar ",N()],"",()=>$("#bDel").click(),true):null],"center");
 }
 function undoToast(msg,undo){
   const r=$("#toastRoot"); r.innerHTML=""; clearTimeout(toast._t);
