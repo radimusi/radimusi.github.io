@@ -123,11 +123,12 @@ select.sel{background:var(--bg);border:1px solid var(--line);border-radius:8px;p
 .pager{display:none;align-items:center;gap:2px;margin-left:auto}
 .grid.paged .pager{display:flex}
 #navbar{display:flex;align-items:center;gap:6px;padding:8px;border-bottom:1px solid var(--line)}
-.navlab{border:1px solid transparent;background:transparent;border-radius:8px;height:32px;padding:0 8px;font-size:13px;color:var(--muted);white-space:nowrap;display:inline-flex;align-items:center;gap:0;min-width:0;overflow:hidden}
+.navlab{border:1px solid transparent;background:transparent;border-radius:8px;height:32px;padding:0 8px;font-size:13px;color:var(--muted);white-space:nowrap;display:inline-flex;align-items:center;gap:0;min-width:0;overflow:visible}
 .navlab:hover{border-color:var(--line);background:var(--bg)}
 .navlab b{color:var(--fg);font-weight:600}
 .navlab .pg{color:#e6c57f}
-.navlab .caret{font-size:10px;margin-left:6px;color:var(--faint)}
+.navlab .caret{display:inline-block;flex:none;box-sizing:border-box;width:7px;height:7px;margin:0 2px 0 9px;border-right:1.6px solid var(--muted);border-bottom:1.6px solid var(--muted);transform:translateY(-2px) rotate(45deg);font-size:0;align-self:center}
+.navlab:hover .caret{border-color:var(--fg)}
 #navbar .bb.ico[aria-label="Delete bar"],#navbar .bb.ico[aria-label="Delete selected notes"]{margin-right:10px}
 #navbar .redobtn,.phd .redobtn{margin-right:10px}
 .phd .nrow .pbtn.ico svg{width:16px;height:16px}
@@ -959,7 +960,7 @@ function renderNav(pages){
   } else
   nb.append(prev,
     el("button",{class:"navlab",id:"navLab","aria-haspopup":"menu",title:"Bar menu – jump to a bar, add, duplicate or delete",onclick:e=>barMenu(e.currentTarget)},
-      el("span",{},"Bar ",el("b",{},String(S.sel+1)),el("span",{class:"of"},"\u00a0/\u00a0"+S.measures.length)), el("span",{class:"caret"},"▾")),
+      el("span",{},"Bar ",el("b",{},String(S.sel+1)),el("span",{class:"of"},"\u00a0/\u00a0"+S.measures.length)), el("span",{class:"caret","aria-hidden":"true"})),
     next,
     el("span",{class:"spacer"}), ...undoBtns(),
     ...[["Delete bar",IC_DEL,()=>$("#bDel").click(),S.measures.length<2],["Clear bar",IC_CLR,()=>$("#bClear").click()],["Duplicate bar",IC_DUP,()=>$("#bDup").click()],["Add an empty bar at the end",IC_ADD,addMeasure]]
