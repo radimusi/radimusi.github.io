@@ -299,7 +299,11 @@ input[type=range]{accent-color:var(--accent)}
 .gover>div{display:grid;gap:10px;justify-items:center;max-width:46ch}
 .gover p{color:var(--muted)}
 .citywrap{background:#141018}
-html.playing,html.playing body{overflow:hidden}
+html.playing,html.playing body{overflow:hidden;overscroll-behavior:none;height:100%}
+html.playing body{position:fixed;inset:0;width:100%}
+.cityplay{touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.a2hs{position:absolute;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:10px;max-width:min(560px,92%);background:var(--sunk);border:1.5px solid var(--accent);padding:8px 10px 8px 14px;font-size:.82rem;line-height:1.35}
+.a2hs b{color:var(--fg)}.a2hs button{flex:none;border:0;background:var(--accent);color:var(--ink);font-weight:700;padding:6px 10px}
 .csetup{display:grid;gap:14px}
 .cintro{color:var(--muted);max-width:75ch;font-size:.95rem}
 .cstart{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -596,6 +600,9 @@ h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;font-weig
  .fbx-leg{flex-wrap:nowrap;justify-content:space-between;gap:4px;font-size:.7rem;padding:9px 10px 11px}.fbx-leg i{min-width:16px;height:16px;font-size:.58rem;line-height:16px}
  .fbx-leg span:last-child{overflow:hidden;text-overflow:ellipsis}
  .fbx-bar{padding:10px 10px 0}.fbx-bar>.seg,.fbx-bar>.btn{margin:0 10px 8px 0}.fbx-name{margin:-10px -10px 6px 10px}.seg small{min-width:58px}}
+/* Fret City job card extras */
+.mwarn{display:inline-grid;place-items:center;width:14px;height:14px;margin-left:4px;background:var(--brass);color:#fff;font-size:.62rem;border-radius:50%}
+.jzone{font-size:.68rem;color:var(--muted);margin-left:4px;white-space:nowrap}
 /* lessons in small steps */
 .stepdots{display:flex;gap:6px;flex-wrap:wrap}
 .sd{width:26px;height:6px;border:0;padding:0;background:rgba(169,155,201,.25);cursor:pointer}
@@ -668,15 +675,15 @@ body,.cityplay{background:var(--grain-b) 0 0/240px,var(--bg);background-blend-mo
 <body>
 
 <header class="top"><div class="top-in">
-  <a class="brand" href="#cesta" aria-label="neofy"><span>ne</span><span class="o" aria-hidden="true"></span><span>fy</span></a>
+  <a class="brand" href="#path" aria-label="neofy"><span>ne</span><span class="o" aria-hidden="true"></span><span>fy</span></a>
   <nav class="nav" id="nav">
-    <a href="#cesta" data-v="cesta" data-cs="Cesta" data-en="Path">Cesta</a>
-    <a href="#hmatnik" data-v="hmatnik" data-cs="Stupnice" data-en="Scales">Stupnice</a>
-    <a href="#akordy" data-v="akordy" data-cs="Akordy" data-en="Chords">Akordy</a>
-    <a href="#postupy" data-v="postupy" data-cs="Postupy" data-en="Progressions">Postupy</a>
-    <a href="#trenink" data-v="trenink" data-cs="Trénink" data-en="Practice">Trénink</a>
-    <a href="#hra-fret-city" data-v="city" class="fcl" aria-label="Fret City"><svg class="fcnav" viewBox="0 0 140 26" height="26" aria-hidden="true"><defs><linearGradient id="fcNavG" x1="0" y1="0" x2="1" y2="1"><stop offset=".08" stop-color="#E8402E"/><stop offset=".55" stop-color="#F2649D"/><stop offset=".95" stop-color="#A99BC9"/></linearGradient><filter id="fcNavN" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" result="t"/><feColorMatrix in="t" type="saturate" values="0" result="m"/><feComposite in="SourceGraphic" in2="m" operator="arithmetic" k1="1.4" k2=".5" k3="-.18" k4="0"/></filter></defs><circle cx="13" cy="13" r="10" fill="url(#fcNavG)" filter="url(#fcNavN)"/><rect x="1" y="11" width="4" height="9" fill="#141018"/><rect x="2.5" y="14" width="1.2" height="1.2" fill="#F2C14E"/><rect x="6" y="6" width="4" height="14" fill="#141018"/><rect x="7.5" y="9" width="1.2" height="1.2" fill="#F2C14E"/><rect x="11" y="13" width="4" height="7" fill="#141018"/><rect x="16" y="4" width="4" height="16" fill="#141018"/><rect x="17.5" y="7" width="1.2" height="1.2" fill="#F2C14E"/><rect x="21" y="9" width="4" height="11" fill="#141018"/><rect x="22.5" y="12" width="1.2" height="1.2" fill="#F2C14E"/><text x="32" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="15" style="font-variation-settings:'wdth' 125" textLength="52.3" fill="#F0629A">FRET</text><text x="91.3" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="15" style="font-variation-settings:'wdth' 125" textLength="47.4" fill="url(#fcNavG)">CITY</text><line x1="0" x2="0" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="1.2"/><line x1="24" x2="24" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="46" x2="46" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="66" x2="66" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="84" x2="84" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="100" x2="100" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="114" x2="114" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="126" x2="126" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="138.7" x2="138.7" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="0" x2="138.7" y1="21.30" y2="21.30" stroke="#A99BC9" stroke-width="0.35"/><line x1="0" x2="138.7" y1="22.15" y2="22.15" stroke="#A99BC9" stroke-width="0.41"/><line x1="0" x2="138.7" y1="23.00" y2="23.00" stroke="#A99BC9" stroke-width="0.47"/><line x1="0" x2="138.7" y1="23.85" y2="23.85" stroke="#A99BC9" stroke-width="0.53"/><line x1="0" x2="138.7" y1="24.70" y2="24.70" stroke="#A99BC9" stroke-width="0.59"/><line x1="0" x2="138.7" y1="25.55" y2="25.55" stroke="#A99BC9" stroke-width="0.65"/></svg></a>
-    <a href="#hry" data-v="hry" data-cs="Hry" data-en="Games">Hry</a>
+    <a href="#path" data-v="path" data-cs="Cesta" data-en="Path">Cesta</a>
+    <a href="#scales" data-v="scales" data-cs="Stupnice" data-en="Scales">Stupnice</a>
+    <a href="#chords" data-v="chords" data-cs="Akordy" data-en="Chords">Akordy</a>
+    <a href="#progressions" data-v="progressions" data-cs="Postupy" data-en="Progressions">Postupy</a>
+    <a href="#practice" data-v="practice" data-cs="Trénink" data-en="Practice">Trénink</a>
+    <a href="#fret-city" data-v="city" class="fcl" aria-label="Fret City"><svg class="fcnav" viewBox="0 0 140 26" height="26" aria-hidden="true"><defs><linearGradient id="fcNavG" x1="0" y1="0" x2="1" y2="1"><stop offset=".08" stop-color="#E8402E"/><stop offset=".55" stop-color="#F2649D"/><stop offset=".95" stop-color="#A99BC9"/></linearGradient><filter id="fcNavN" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" result="t"/><feColorMatrix in="t" type="saturate" values="0" result="m"/><feComposite in="SourceGraphic" in2="m" operator="arithmetic" k1="1.4" k2=".5" k3="-.18" k4="0"/></filter></defs><circle cx="13" cy="13" r="10" fill="url(#fcNavG)" filter="url(#fcNavN)"/><rect x="1" y="11" width="4" height="9" fill="#141018"/><rect x="2.5" y="14" width="1.2" height="1.2" fill="#F2C14E"/><rect x="6" y="6" width="4" height="14" fill="#141018"/><rect x="7.5" y="9" width="1.2" height="1.2" fill="#F2C14E"/><rect x="11" y="13" width="4" height="7" fill="#141018"/><rect x="16" y="4" width="4" height="16" fill="#141018"/><rect x="17.5" y="7" width="1.2" height="1.2" fill="#F2C14E"/><rect x="21" y="9" width="4" height="11" fill="#141018"/><rect x="22.5" y="12" width="1.2" height="1.2" fill="#F2C14E"/><text x="32" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="15" style="font-variation-settings:'wdth' 125" textLength="52.3" fill="#F0629A">FRET</text><text x="91.3" y="17" font-family="Archivo, sans-serif" font-weight="900" font-size="15" style="font-variation-settings:'wdth' 125" textLength="47.4" fill="url(#fcNavG)">CITY</text><line x1="0" x2="0" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="1.2"/><line x1="24" x2="24" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="46" x2="46" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="66" x2="66" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="84" x2="84" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="100" x2="100" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="114" x2="114" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="126" x2="126" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="138.7" x2="138.7" y1="20.4" y2="25.6" stroke="#4A3D5C" stroke-width="0.7"/><line x1="0" x2="138.7" y1="21.30" y2="21.30" stroke="#A99BC9" stroke-width="0.35"/><line x1="0" x2="138.7" y1="22.15" y2="22.15" stroke="#A99BC9" stroke-width="0.41"/><line x1="0" x2="138.7" y1="23.00" y2="23.00" stroke="#A99BC9" stroke-width="0.47"/><line x1="0" x2="138.7" y1="23.85" y2="23.85" stroke="#A99BC9" stroke-width="0.53"/><line x1="0" x2="138.7" y1="24.70" y2="24.70" stroke="#A99BC9" stroke-width="0.59"/><line x1="0" x2="138.7" y1="25.55" y2="25.55" stroke="#A99BC9" stroke-width="0.65"/></svg></a>
+    <a href="#games" data-v="games" data-cs="Hry" data-en="Games">Hry</a>
   </nav>
   <div class="tools" id="tools">
     <button class="tg mmviz" id="mmPlay" type="button" aria-pressed="false"><span class="viz" aria-hidden="true"><span class="dots"></span><span class="bx"><span class="ball"></span></span></span></button>
@@ -1607,8 +1614,8 @@ function viewHome(){
    <h1>${t('Pentatonika','Pentatonic')} <svg class="arr" viewBox="0 0 120 100" aria-hidden="true"><path d="M3 34 H66 V8 L116 50 L66 92 V66 H3 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"/></svg> <em>Neo-soul</em></h1>
    <p class="lead">${t('Dvanáct lekcí v pořadí, ve kterém na sebe navazují. Každá má krátký výklad, interaktivní hmatník se zvukem a úkoly na kytaru. Začni lekcí 1, i když ti bude připadat jednoduchá – na ní stojí všechno ostatní.','Twelve lessons in the order they build on each other. Each has a short explanation, an interactive fretboard with sound and tasks for your guitar. Start with lesson 1 even if it looks easy – everything else stands on it.')}</p>
    <div class="progress"><div class="bar"><i style="width:${n/LESSONS.length*100}%"></i></div>${t(`${n} z ${LESSONS.length} lekcí hotovo`,`${n} of ${LESSONS.length} lessons done`)}</div>
-   <div class="cta">${nxt===undefined?`<a class="btn" href="#trenink">▶ ${t('Do tréninku','To practice')}</a>`:`<a class="btn" href="#lekce-${nxt+1}">▶ ${n?t('Pokračovat lekcí','Continue with lesson'):t('Začít lekcí','Start with lesson')} ${nxt+1}</a>`}<a class="btn ghost" href="#hmatnik">${t('Celý hmatník','Whole fretboard')}</a></div></section>${''}
-   <div class="path">${LEVELS.map((L,li)=>`<div class="level"><h3>${t('Úroveň','Level')} ${li+1} · ${L}</h3><div class="cards">${LESSONS.map((l,i)=>l.lv!==li?'':`<a class="lcard ${DONE.has(i)?'done':''}" href="#lekce-${i+1}"><span class="lnum">${DONE.has(i)?'✓':i+1}</span><b>${l.t}</b><small>${l.s}</small></a>`).join('')}</div></div>`).join('')}
+   <div class="cta">${nxt===undefined?`<a class="btn" href="#practice">▶ ${t('Do tréninku','To practice')}</a>`:`<a class="btn" href="#lesson-${nxt+1}">▶ ${n?t('Pokračovat lekcí','Continue with lesson'):t('Začít lekcí','Start with lesson')} ${nxt+1}</a>`}<a class="btn ghost" href="#scales">${t('Celý hmatník','Whole fretboard')}</a></div></section>${''}
+   <div class="path">${LEVELS.map((L,li)=>`<div class="level"><h3>${t('Úroveň','Level')} ${li+1} · ${L}</h3><div class="cards">${LESSONS.map((l,i)=>l.lv!==li?'':`<a class="lcard ${DONE.has(i)?'done':''}" href="#lesson-${i+1}"><span class="lnum">${DONE.has(i)?'✓':i+1}</span><b>${l.t}</b><small>${l.s}</small></a>`).join('')}</div></div>`).join('')}
    <div class="level"><h3>${t('Jak s tím pracovat','How to use it')}</h3><div class="howto">${how.map(([a,b])=>`<div><b>${a}</b><p>${b}</p></div>`).join('')}</div></div>
    <div class="level"><h3>${t('Zdroje','Sources')}</h3><div class="prose src" style="max-width:80ch">${src}</div></div></div>`;
   drawHeroArt();}
@@ -1633,7 +1640,7 @@ function viewLesson(i,startStep=0){
   exFor(i).forEach(e=>steps.push({k:'ex',h:e.type==='find'?t('Cvičení na hmatníku','Fretboard exercise'):t('Rychlá otázka','Quick check'),ex:e}));
   steps.push({k:'end',h:t('Shrnutí a úkoly na kytaru','Summary and guitar tasks')});
   let cur=Math.min(startStep,steps.length-1);
-  app.innerHTML=`<div class="lesson"><nav class="rail" aria-label="${t('Lekce','Lessons')}">${LEVELS.map((lv,li)=>`<div class="lvl">${lv}</div>`+LESSONS.map((l,j)=>l.lv!==li?'':`<a href="#lekce-${j+1}" class="${j===i?'on':''} ${DONE.has(j)?'done':''}"><span class="n">${DONE.has(j)?'✓':j+1}</span>${l.t}</a>`).join('')).join('')}</nav>
+  app.innerHTML=`<div class="lesson"><nav class="rail" aria-label="${t('Lekce','Lessons')}">${LEVELS.map((lv,li)=>`<div class="lvl">${lv}</div>`+LESSONS.map((l,j)=>l.lv!==li?'':`<a href="#lesson-${j+1}" class="${j===i?'on':''} ${DONE.has(j)?'done':''}"><span class="n">${DONE.has(j)?'✓':j+1}</span>${l.t}</a>`).join('')).join('')}</nav>
    <article class="lesson-body"><div class="mobile-pick"><select id="lpick" aria-label="${t('Vybrat lekci','Choose a lesson')}">${LESSONS.map((l,j)=>`<option value="${j}" ${j===i?'selected':''}>${j+1}. ${l.t}</option>`).join('')}</select></div>
     <div style="display:grid;gap:8px"><span class="eyebrow">${t('Lekce','Lesson')} ${i+1} ${t('z','of')} ${LESSONS.length} · ${LEVELS[L.lv]}</span><h2>${L.t}</h2></div>
     <div class="stepdots" role="tablist">${steps.map((s,k)=>`<button type="button" class="sd sd-${s.k}" data-k="${k}" aria-label="${k+1}. ${s.h}" title="${s.h}"></button>`).join('')}</div>
@@ -1646,7 +1653,7 @@ function viewLesson(i,startStep=0){
     else if(s.k==='w'){mount(box,s.w);}
     else if(s.k==='ex'){const d=document.createElement('div');d.className='panel';box.appendChild(d);W[s.ex.type==='find'?'find':'mq'](d,s.ex);activeWidgets.push(d);}
     else{box.innerHTML=`<p class="tip"><b>Tip:</b> ${L.tip}</p><div class="tasks"><h3>${t('Zkus to na kytaře','Try it on your guitar')}</h3><ol>${L.tasks.map(x=>`<li>${x}</li>`).join('')}</ol></div><p class="src">${L.src}</p>
-      <div class="lfoot"><button class="btn ghost donebtn" type="button">${DONE.has(i)?t('✓ Hotovo','✓ Done'):t('Označit jako hotové','Mark as done')}</button>${i<LESSONS.length-1?`<a class="btn" href="#lekce-${i+2}">${LESSONS[i+1].t} →</a>`:`<a class="btn" href="#trenink">${t('Do tréninku →','To practice →')}</a>`}</div>`;
+      <div class="lfoot"><button class="btn ghost donebtn" type="button">${DONE.has(i)?t('✓ Hotovo','✓ Done'):t('Označit jako hotové','Mark as done')}</button>${i<LESSONS.length-1?`<a class="btn" href="#lesson-${i+2}">${LESSONS[i+1].t} →</a>`:`<a class="btn" href="#practice">${t('Do tréninku →','To practice →')}</a>`}</div>`;
       box.querySelector('.donebtn').onclick=()=>{DONE.has(i)?DONE.delete(i):DONE.add(i);save('gt-done',[...DONE]);viewLesson(i,steps.length-1);};}}
   function show(k,scroll=true){cur=k;secs.forEach((s,j)=>s.hidden=j!==k);fill(k);
     app.querySelectorAll('.sd').forEach((b,j)=>{b.classList.toggle('on',j===k);b.classList.toggle('seen',j<k);});
@@ -1654,9 +1661,9 @@ function viewLesson(i,startStep=0){
     nx.hidden=k===steps.length-1;nx.textContent=k===steps.length-2?`${t('Shrnutí','Summary')} →`:`${t('Další','Next')} →`;
     if(scroll){const h=app.querySelector('.stepdots');const y=h.getBoundingClientRect().top+scrollY-130;if(scrollY>y)window.scrollTo({top:Math.max(0,y),behavior:'smooth'});}}
   app.querySelector('.snext').onclick=()=>{if(cur<steps.length-1)show(cur+1);};
-  app.querySelector('.sprev').onclick=()=>{if(cur>0)show(cur-1);else if(i>0)go('#lekce-'+i);};
+  app.querySelector('.sprev').onclick=()=>{if(cur>0)show(cur-1);else if(i>0)go('#lesson-'+i);};
   app.querySelectorAll('.sd').forEach(b=>b.onclick=()=>show(+b.dataset.k));
-  $('#lpick').onchange=e=>go('#lekce-'+(+e.target.value+1));
+  $('#lpick').onchange=e=>go('#lesson-'+(+e.target.value+1));
   show(cur,false);}
 
 function viewTool(title,lead,specs,showLegend=true){app.innerHTML=`<div style="display:grid;gap:18px"><div style="display:grid;gap:8px"><h2>${title}</h2><p style="color:var(--muted);max-width:70ch">${lead}</p>${showLegend?legend():''}</div><div class="wh" style="display:grid;gap:16px"></div></div>`;specs.forEach(s=>mount($('.wh'),s));}
@@ -1885,6 +1892,9 @@ G.city=(el)=>{el._stopping=false;
   if(!Array.isArray(o.str)||!o.str.length)o.str=[0,1,2,3,4,5];
   if(o.career===undefined)o.career=true;
   if(!Array.isArray(o.missions))o.missions=[o.mode&&o.mode!=='mix'?o.mode:'notes'];
+  const missNeed=k=>{const on=x=>o.str.includes(x);const tri=LVL(o,[[3,4,5]],[[3,4,5],[2,3,4],[1,2,3]],[[3,4,5],[2,3,4],[1,2,3],[0,1,2]]);
+    if(k==='triads'&&!tri.some(x=>x.every(on)))return LVL(o,t('Potřebuje struny G, B a e','Needs the G, B and e strings'),t('Potřebuje 3 sousední struny (G-B-e, D-G-B nebo A-D-G)','Needs 3 adjacent strings (G-B-e, D-G-B or A-D-G)'),t('Potřebuje 3 sousední struny','Needs 3 adjacent strings'));
+    if(k==='doubles'&&![0,1,2,3,4].some(a=>on(a)&&(on(a+1)||on(a+2))))return t('Potřebuje aspoň 2 blízké struny','Needs at least 2 nearby strings');return '';};
   const MIS=[['notes',t('Kurýr – tóny','Courier – notes'),0],['pent',t('Pentatonika','Pentatonic'),120],['triads',t('Triády','Triads'),200],['intervals',t('Taxík – intervaly','Taxi – intervals'),150],['race',t('Závod – jeden tón, celý krk','Race – one note, whole neck'),250],['chords',t('Sanitka – akordy','Ambulance – chords'),300],['scales',t('Hasiči – stupnice','Fire – scales'),450],['doubles',t('Policie – dvojhmaty','Police – double stops'),600],['prog',t('Autobus – postupy','Bus – progressions'),800]];
   const UPS=[['speed',t('Rychlejší auto','Faster car'),[120,250,400]],['time',t('Delší směna (+15 s)','Longer shift (+15 s)'),[150,300,500]],['gps',t('Levnější GPS','Cheaper GPS'),[100,250]],['shield',t('Pojistka – 1. chyba ve směně zdarma','Insurance – 1st mistake per shift free'),[300]]];
   const SKINS=[['orange','#F0629A',0],['purple','#9F8CFF',80],['green','#9ADBB8',80],['yellow','#F2C14E',120],['white','#F4E9EF',150],['pink','#E8402E',150]];
@@ -1897,7 +1907,7 @@ G.city=(el)=>{el._stopping=false;
   const strOn=s=>o.str.includes(s);
   el.innerHTML=`<div class="csetup"><div class="cform">
    <div class="crow"><span class="clab">${t('Režim','Mode')}</span><div class="cval"><div class="grp gcm">${chips([['1',t('Kariéra','Career')],['0',t('Volná hra','Free play')]],o.career?'1':'0')}</div>${o.career?`<span class="wallet">${t('Peněženka','Wallet')}: <b>$${CR.wallet}</b></span>`:''}</div></div>
-   <div class="crow"><span class="clab">${t('Mise','Missions')}</span><div class="cval cvcol"><div class="grp gm">${MIS.map(([k,n,p],i)=>owned(k)?`<button class="chip ${o.missions.includes(k)?'on':''}" data-m="${k}" type="button">${i+1} · ${n}</button>`:`<button class="chip locked" data-m="${k}" type="button" title="${t('Odemkni v garáži','Unlock in the garage')}"><svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><rect x="2" y="5.5" width="8" height="5.5" rx="1" fill="currentColor"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>${i+1} · ${n} · $${p}</button>`).join('')}<button class="chip gall" type="button">${t('Vše','All')}</button></div>${o.career?`<p class="src mhint">${t('V kariéře máš na začátku jen Kurýra – další mise si odemkneš v garáži za vydělané peníze. Kombinovat můžeš všechny odemčené mise. Ve <b>Volné hře</b> je odemčené všechno hned.','In career you start with Courier only – unlock more missions in the garage with the cash you earn. You can combine any unlocked missions. In <b>Free play</b> everything is unlocked.')}</p>`:''}</div></div>
+   <div class="crow"><span class="clab">${t('Mise','Missions')}</span><div class="cval cvcol"><div class="grp gm">${MIS.map(([k,n,p],i)=>owned(k)?`<button class="chip ${o.missions.includes(k)?'on':''}" data-m="${k}" type="button"${missNeed(k)?` title="${missNeed(k)}"`:''}>${i+1} · ${n}${missNeed(k)?' <b class="mwarn">!</b>':''}</button>`:`<button class="chip locked" data-m="${k}" type="button" title="${t('Odemkni v garáži','Unlock in the garage')}"><svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><rect x="2" y="5.5" width="8" height="5.5" rx="1" fill="currentColor"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>${i+1} · ${n} · $${p}</button>`).join('')}<button class="chip gall" type="button">${t('Vše','All')}</button></div>${o.career?`<p class="src mhint">${t('V kariéře máš na začátku jen Kurýra – další mise si odemkneš v garáži za vydělané peníze. Kombinovat můžeš všechny odemčené mise. Ve <b>Volné hře</b> je odemčené všechno hned.','In career you start with Courier only – unlock more missions in the garage with the cash you earn. You can combine any unlocked missions. In <b>Free play</b> everything is unlocked.')}</p>`:''}</div></div>
    <div class="crow"><span class="clab">${t('Struny','Strings')}</span><div class="cval"><div class="grp gs">${[0,1,2,3,4,5].map(s=>`<button class="chip ${o.str.includes(s)?'on':''}" data-s="${s}" type="button">${SN[s]}</button>`).join('')}</div></div></div>
    <div class="crow"><span class="clab">${t('Obtížnost','Level')}</span><div class="cval"><div class="grp gl">${chips([['easy','Rookie'],['mid',t('Profík','Pro')],['hard',t('Legenda','Legend')]],o.lvl)}</div></div></div>
    <div class="crow"><span class="clab">${t('Pražce','Frets')}</span><div class="cval"><div class="grp gf">${chips([['7','0–7'],['12','0–12']],String(o.frets))}</div></div></div>
@@ -2001,7 +2011,7 @@ G.city=(el)=>{el._stopping=false;
   const rootPool=()=>o.nat?['C','D','E','F','G','A','B']:KEYS_A;
   const NEWK=['amb','fire','police','bus','race','pent','tri'];
   function zone(width){const a=1+Math.floor(Math.random()*Math.max(1,o.frets-width+1));return [a,Math.min(o.frets,a+width-1)];}
-  function spots(a,b,fn){const r=[];for(let s=0;s<6;s++)for(let f=a;f<=b;f++)if(fn(f,s))r.push({f,s});return r;}
+  function spots(a,b,fn){const r=[];for(let s=0;s<6;s++)if(o.str.includes(s))for(let f=Math.max(0,a);f<=Math.min(o.frets,b);f++)if(fn(f,s))r.push({f,s});return r;}
   const ivOf=(f,s,root)=>(pcAt(s,f)-pcOf(root)+12)%12;
   function winJob(f,s,base,add,txt){st.streak++;const r=base+st.streak*5;cash(r);st.time+=add;st.done++;pop('+$'+r,f,s,C.ok);msg(`<b style="color:var(--ok)">${txt}</b>${o.career?` +${add} s`:''}`);}
   function pen(){if(st.shield){st.shield=0;msg(t('Pojistka tě podržela – bez pokuty.','Insurance covered it – no fine.'));return;}cash(-5);}
@@ -2011,10 +2021,10 @@ G.city=(el)=>{el._stopping=false;
     for(let a=0;a<=o.frets;a++){const ia=ivOf(a,s1,root);if(!iv.has(ia))continue;for(let b=Math.max(0,a-4);b<=Math.min(o.frets,a+4);b++){const ib=ivOf(b,s2,root);if(!iv.has(ib)||ib===ia)continue;for(let c=Math.max(0,a-4);c<=Math.min(o.frets,a+4);c++){const ic=ivOf(c,s3,root);if(!iv.has(ic)||ic===ia||ic===ib)continue;const fs=[a,b,c].filter(x=>x>0);const sp=fs.length?Math.max(...fs)-Math.min(...fs):0;if(sp<=3)out.push([a,b,c]);}}}return out;}
   function makeJob2(kind){
     if(kind==='pent'){const scs=LVL(o,['minpent'],['minpent','majpent'],['minpent','majpent']);let root,sc,a,b,ok,tries=0;const W=LVL(o,4,4,5);
-      do{root=rnd(rootPool());sc=rnd(scs);[a,b]=zone(W);ok=SCALES[sc].deg.every(d=>spots(a,b,(f,s)=>ivOf(f,s,root)===parseDeg(d).semis%12).length);tries++;}while(!ok&&tries<80);
+      do{root=rnd(rootPool());sc=rnd(scs);[a,b]=zone(o.str.length<3?7:W);ok=SCALES[sc].deg.every(d=>spots(a,b,(f,s)=>ivOf(f,s,root)===parseDeg(d).semis%12).length);tries++;}while(!ok&&tries<120);if(!ok)return false;
       st.job={k:'pent',root,sc,a,b,deg:SCALES[sc].deg,done:{},reward:30};pentCard();msg(t(`V zóně (pražce ${a}–${b}) doruč na každý stupeň <b>${pretty(root)} ${sname(sc).toLowerCase()}</b> jednou.`,`In the zone (frets ${a}–${b}) deliver to every degree of <b>${pretty(root)} ${sname(sc).toLowerCase()}</b> once.`));}
-    if(kind==='tri'){const sets=LVL(o,[[3,4,5]],[[3,4,5],[2,3,4],[1,2,3]],[[3,4,5],[2,3,4],[1,2,3],[0,1,2]]).filter(x=>x.every(strOn));const SETS=sets.length?sets:[[3,4,5]];const qs=LVL(o,['maj','m'],['maj','m'],['maj','m','dim','aug']);
-      let root,q,set,c,tries=0;do{root=rnd(rootPool());q=rnd(qs);set=rnd(SETS);c=triCands(root,q,set);tries++;}while(!c.length&&tries<80);
+    if(kind==='tri'){const sets=LVL(o,[[3,4,5]],[[3,4,5],[2,3,4],[1,2,3]],[[3,4,5],[2,3,4],[1,2,3],[0,1,2]]).filter(x=>x.every(strOn));if(!sets.length)return false;const SETS=sets;const qs=LVL(o,['maj','m'],['maj','m'],['maj','m','dim','aug']);
+      let root,q,set,c,tries=0;do{root=rnd(rootPool());q=rnd(qs);set=rnd(SETS);c=triCands(root,q,set);tries++;}while(!c.length&&tries<80);if(!c.length)return false;
       st.job={k:'tri',root,q,set,cands:c,done:{},reward:35};triCard();msg(t(`Postav <b>${chordName(root,q)}</b> na strunách <b>${set.map(x=>SN[x]).join(' ')}</b> – na každé struně jeden tón, rozpětí max. 4 pražce.`,`Build <b>${chordName(root,q)}</b> on strings <b>${set.map(x=>SN[x]).join(' ')}</b> – one note per string, within 4 frets.`));}}
   function pentCard(){const j=st.job;setJob(`<span class="jb">${pretty(j.root)}</span><span class="jw">${sname(j.sc).toLowerCase()} · ${t(`pražce ${j.a}–${j.b}`,`frets ${j.a}–${j.b}`)}</span>`,j.deg.map(d=>pill(prettyDeg(d),DEGC[degFamily(d)],!!j.done[d])).join(''),t('Pentatonika','Pentatonic'));}
   function triCard(){const j=st.job;setJob(`<span class="jb">${chordName(j.root,j.q)}</span><span class="jw">${t('na strunách','on strings')}</span><span class="jb jstr">${j.set.map(x=>SN[x]).join(' ')}</span>`,j.set.map(x=>pill(SN[x]+(j.done[x]?' '+prettyDeg(j.done[x].d):''),'#F0629A',!!j.done[x])).join(''),t('Triády','Triads'));}
@@ -2042,43 +2052,58 @@ G.city=(el)=>{el._stopping=false;
     if(j.k==='tri'){j.set.forEach(x=>{const y=Y(x);ctx.fillStyle='rgba(240,98,154,.12)';ctx.fillRect(M.ml+6,y-vw(),M.W-M.ml-20,vw()*2);});j.set.forEach(x=>{const p=j.done[x];if(p)dot(p.f,x,DEGC[degFamily(p.d)],prettyDeg(p.d));});}}
   function makeJob(kind){if(kind==='pent'||kind==='tri')return makeJob2(kind);
     if(kind==='amb'){const types=LVL(o,['maj','m'],['maj7','m7','7'],['maj7','m7','7','m7b5']);let root,q,a,b,tries=0,ok;
-      do{root=rnd(rootPool());q=rnd(types);[a,b]=zone(4);ok=CHORDS[q].deg.every(d=>spots(a,b,(f,s)=>ivOf(f,s,root)===parseDeg(d).semis%12).length);tries++;}while(!ok&&tries<80);
-      st.job={k:'amb',root,q,a,b,deg:CHORDS[q].deg,done:{},reward:35};ambCard();msg(t(`Sanitka: v zóně (pražce ${a}–${b}) zastav na každém tónu akordu <b>${chordName(root,q)}</b>.`,`Ambulance: in the zone (frets ${a}–${b}) stop on every chord tone of <b>${chordName(root,q)}</b>.`));}
-    else if(kind==='fire'){const scs=LVL(o,['majpent','minpent'],['major'],['dorian','mixolydian','lydian','major']);const sc=rnd(scs),root=rnd(rootPool());const [a,b]=zone(5);const set=new Set(SCALES[sc].deg.map(d=>parseDeg(d).semis%12));
-      const ins=shuf(spots(a,b,(f,s)=>set.has(ivOf(f,s,root)))).slice(0,4),outs=shuf(spots(a,b,(f,s)=>!set.has(ivOf(f,s,root)))).slice(0,2);
-      st.job={k:'fire',root,sc,a,b,set,fires:shuf([...ins.map(p=>({...p,in:true})),...outs.map(p=>({...p,in:false}))]),reward:35};
-      setJob(`<span class="jb">${pretty(root)}</span><span class="jw">${sname(sc).toLowerCase()}</span>`,t('hasi jen domy na tónech stupnice','put out only fires on scale notes'),t('Hasiči','Firefighters'));
-      msg(t(`Hoří ve čtvrti (pražce ${a}–${b}). Haš jen tóny stupnice <b>${pretty(root)} ${sname(sc).toLowerCase()}</b> – ostatní požáry nech být.`,`Fires in the district (frets ${a}–${b}). Put out only notes of <b>${pretty(root)} ${sname(sc).toLowerCase()}</b> – leave the others.`));}
+      do{root=rnd(rootPool());q=rnd(types);[a,b]=zone(o.str.length<3?6:4);ok=CHORDS[q].deg.every(d=>spots(a,b,(f,s)=>ivOf(f,s,root)===parseDeg(d).semis%12).length);tries++;}while(!ok&&tries<120);
+      if(!ok)return false;
+      st.job={k:'amb',root,q,a,b,deg:CHORDS[q].deg,done:{},i:0,reward:35};ambCard();ambMsg();}
+    else if(kind==='fire'){const scs=LVL(o,['majpent','minpent'],['major'],['dorian','mixolydian','lydian','major']);let sc,root,a,b,order=[],ins=[],tries=0;
+      const RANK=d=>[1,3,5,7,2,6,4].indexOf(parseDeg(d).num);
+      do{sc=rnd(scs);root=rnd(rootPool());[a,b]=zone(5);order=SCALES[sc].deg.slice().sort((x,y)=>RANK(x)-RANK(y));ins=[];
+        for(const d of order){if(ins.length>=4)break;const c=shuf(spots(a,b,(f,s)=>ivOf(f,s,root)===parseDeg(d).semis%12));if(c.length)ins.push({...c[0],in:true,d});}tries++;}while(ins.length<3&&tries<80);
+      if(ins.length<2)return false;const set=new Set(SCALES[sc].deg.map(d=>parseDeg(d).semis%12));
+      const outs=shuf(spots(a,b,(f,s)=>!set.has(ivOf(f,s,root))&&!ins.some(p=>p.f===f&&p.s===s))).slice(0,2);
+      st.job={k:'fire',root,sc,a,b,set,seq:ins.map(p=>p.d),i:0,fires:shuf([...ins,...outs.map(p=>({...p,in:false}))]),reward:35};
+      fireCard();fireMsg();}
     else if(kind==='police'){const pairs=LVL(o,[[3,5,'6']],[[3,4,'3'],[4,5,'3'],[3,5,'6']],[[0,1,'3'],[1,2,'3'],[2,3,'3'],[3,4,'3'],[4,5,'3'],[0,2,'6'],[1,3,'6'],[2,4,'6'],[3,5,'6']]);
       let key,ls,ts,typ,p,semi,tries=0;const sc=SCALES.major.deg.map(d=>parseDeg(d).semis);
-      do{key=rnd(keyPool());[ls,ts,typ]=rnd(pairs);const kp=pcOf(key);const cands=[];for(let f=0;f<=o.frets;f++){const iv=(pcAt(ls,f)-kp+12)%12;const ix=sc.indexOf(iv);if(ix<0)continue;const st2=typ==='3'?2:5;let sm=(sc[(ix+st2)%7]-sc[ix]+12)%12;const tf=TUNING[ls]+f+sm-TUNING[ts];if(tf>=0&&tf<=o.frets)cands.push({f,sm});}
-        const c=rnd(cands);if(c){p={f:c.f,s:ls};semi=c.sm;}tries++;}while(!p&&tries<80);
+      const PP=pairs.filter(([a2,b2])=>o.str.includes(a2)&&o.str.includes(b2));if(!PP.length)return false;
+      do{key=rnd(keyPool());[ls,ts,typ]=rnd(PP);const kp=pcOf(key);const cands=[];for(let f=0;f<=o.frets;f++){const iv=(pcAt(ls,f)-kp+12)%12;const ix=sc.indexOf(iv);if(ix<0)continue;const st2=typ==='3'?2:5;let sm=(sc[(ix+st2)%7]-sc[ix]+12)%12;const tf=TUNING[ls]+f+sm-TUNING[ts];if(tf>=0&&tf<=o.frets)cands.push({f,sm});}
+        const c=rnd(cands);if(c){p={f:c.f,s:ls};semi=c.sm;}tries++;}while(!p&&tries<80);if(!p)return false;
       st.job={k:'police',key,p,ts,typ,semi,reward:35};const nm=typ==='3'?t('tercii','a 3rd'):t('sextu','a 6th');
       setJob(`<span class="jw">${t('Zatkni','Catch')}</span><span class="jb">${NN(pcAt(p.s,p.f))}</span><span class="jw">${t('na strunu','on string')}</span><span class="jb jstr">${SN[ts]}</span>`,t(`${nm} výš v ${pretty(key)} dur`,`${nm} up in ${pretty(key)} major`),t('Policie','Police'));
       msg(t(`Podezřelý bliká na <b>${NN(pcAt(p.s,p.f))}</b> (struna ${SN[p.s]}). Zastav na struně <b>${SN[ts]}</b> o ${nm} výš v tónině <b>${pretty(key)} dur</b> – vznikne dvojhmat.`,`A suspect flashes on <b>${NN(pcAt(p.s,p.f))}</b> (string ${SN[p.s]}). Stop on string <b>${SN[ts]}</b> ${nm} higher in <b>${pretty(key)} major</b> – that makes a double stop.`));}
     else if(kind==='bus'){const PR=[['ii–V–I',[[1,'m7','ii'],[4,'7','V'],[0,'maj7','I']]],['IV–iii–vi',[[3,'maj7','IV'],[2,'m7','iii'],[5,'m7','vi']]],['I–vi–ii–V',[[0,'maj7','I'],[5,'m7','vi'],[1,'m7','ii'],[4,'7','V']]],['vi–ii–V–I',[[5,'m7','vi'],[1,'m7','ii'],[4,'7','V'],[0,'maj7','I']]]];
-      const [name,ch]=rnd(PR);const key=rnd(keyPool());const stops=ch.map(([i,q,rn])=>({root:spell(key,SCALES.major.deg[i]),q,rn}));
+      let name,ch,key,stops,tries=0;do{[name,ch]=rnd(PR);key=rnd(keyPool());stops=ch.map(([i,q,rn])=>({root:spell(key,SCALES.major.deg[i]),q,rn}));tries++;}while(!stops.every(x=>spots(0,o.frets,(f,s)=>pcAt(s,f)===pcOf(x.root)).length)&&tries<60);
+      if(!stops.every(x=>spots(0,o.frets,(f,s)=>pcAt(s,f)===pcOf(x.root)).length))return false;
       const started=false;st.job={k:'bus',key,name,stops,i:0,started,beats:LVL(o,16,12,8),reward:45};st.job.deadline=performance.now()+st.job.beats*60/METRO.bpm*1000;busCard();
       msg(t(`Linka ${name} v ${pretty(key)} dur. Na každé zastávce zastav na <b>základním tónu</b> akordu dřív, než ujede (${st.job.beats} dob).`,`Line ${name} in ${pretty(key)} major. At each stop park on the chord’s <b>root</b> before the bus leaves (${st.job.beats} beats).`));}
-    else if(kind==='race'){const pc=rnd(pool());const left=spots(0,o.frets,(f,s)=>strOn(s)&&pcAt(s,f)===pc);st.job={k:'race',pc,left,total:left.length,start:performance.now(),reward:20};raceCard();
+    else if(kind==='race'){let pc,left,tries=0;do{pc=rnd(pool());left=spots(0,o.frets,(f,s)=>pcAt(s,f)===pc);tries++;}while(left.length<2&&tries<40);if(!left.length)return false;st.job={k:'race',pc,left,total:left.length,start:performance.now(),reward:20};raceCard();
       msg(t(`Závod! Projeď všechna <b>${NN(pc)}</b> na vybraných strunách co nejrychleji.`,`Race! Hit every <b>${NN(pc)}</b> on the selected strings as fast as you can.`));}}
-  function ambCard(){const j=st.job;setJob(`<span class="jb">${chordName(j.root,j.q)}</span><span class="jw">${t(`pražce ${j.a}–${j.b}`,`frets ${j.a}–${j.b}`)}</span>`,j.deg.map(d=>pill(prettyDeg(d),DEGC[degFamily(d)],!!j.done[d])).join(''),t('Sanitka','Ambulance'));}
+  const DEGN=d=>{const n=parseDeg(d).num;return ({1:t('prima','root'),2:t('sekunda','2nd'),3:t('tercie','3rd'),4:t('kvarta','4th'),5:t('kvinta','5th'),6:t('sexta','6th'),7:t('septima','7th'),9:t('nóna','9th'),11:t('undecima','11th'),13:t('tercdecima','13th')})[n]||prettyDeg(d);};
+  // what to look for next: rookie sees the note, pro/legend only the degree
+  const tgtHtml=(root,d)=>o.lvl==='easy'?`<span class="jb">${pretty(spell(root,d))}</span><span class="jw">–</span><span class="jb js">${prettyDeg(d)}</span>`:`<span class="jb js">${prettyDeg(d)}</span><span class="jw">(${DEGN(d)})</span>`;
+  const seqPills=(degs,done,root,cur)=>degs.map((d,k)=>pill(done[d]?`${pretty(spell(root,d))} ${prettyDeg(d)}`:prettyDeg(d),DEGC[degFamily(d)],!!done[d],k===cur)).join('');
+  function ambCard(){const j=st.job;const d=j.deg[j.i];setJob(d?`<span class="jw">${t('Ošetři','Treat')}</span>${tgtHtml(j.root,d)}<span class="jw">${t('v','in')}</span><span class="jb">${chordName(j.root,j.q)}</span>`:`<span class="jb">${chordName(j.root,j.q)}</span>`,seqPills(j.deg,j.done,j.root,j.i)+` <span class="jzone">${t(`pražce ${j.a}–${j.b}`,`frets ${j.a}–${j.b}`)}</span>`,t('Sanitka','Ambulance'));}
+  function fireCard(){const j=st.job;const d=j.seq[j.i];const nm=`${pretty(j.root)} ${sname(j.sc).toLowerCase()}`;setJob(d?`<span class="jw">${t('Hasi','Put out')}</span>${tgtHtml(j.root,d)}<span class="jw">${t('v','in')}</span><span class="jb">${nm}</span>`:`<span class="jb">${nm}</span>`,seqPills(j.seq,Object.fromEntries(j.fires.filter(x=>x.in&&x.out).map(x=>[x.d,1])),j.root,j.i)+` <span class="jzone">${t(`pražce ${j.a}–${j.b}`,`frets ${j.a}–${j.b}`)}</span>`,t('Hasiči','Firefighters'));}
+  function fireMsg(){const j=st.job;const d=j.seq[j.i];if(!d)return;msg(t(`Dispečink: hoří na <b>${DEGN(d)}</b>${o.lvl==='easy'?` (<b>${pretty(spell(j.root,d))}</b>)`:''} stupnice <b>${pretty(j.root)} ${sname(j.sc).toLowerCase()}</b>. Požáry mimo stupnici nech hořet.`,`Dispatch: fire on the <b>${DEGN(d)}</b>${o.lvl==='easy'?` (<b>${pretty(spell(j.root,d))}</b>)`:''} of <b>${pretty(j.root)} ${sname(j.sc).toLowerCase()}</b>. Leave the fires outside the scale.`));}
+  function ambMsg(){const j=st.job;const d=j.deg[j.i];if(!d)return;msg(t(`Sanitka: v zóně (pražce ${j.a}–${j.b}) najdi ${o.lvl==='easy'?`<b>${pretty(spell(j.root,d))}</b> – `:''}<b>${DEGN(d)}</b> akordu <b>${chordName(j.root,j.q)}</b>.`,`Ambulance: in the zone (frets ${j.a}–${j.b}) find ${o.lvl==='easy'?`<b>${pretty(spell(j.root,d))}</b> – `:''}the <b>${DEGN(d)}</b> of <b>${chordName(j.root,j.q)}</b>.`));}
   function busCard(){const j=st.job;const lab=s=>o.lvl==='hard'?s.rn:o.lvl==='mid'?chordName(s.root,s.q):`${chordName(s.root,s.q)} (${pretty(s.root)})`;
     setJob(`<span class="jw">${t('Linka','Line')}</span><span class="jb js">${j.name}</span><span class="jw">${pretty(j.key)} ${t('dur','major')}</span>`,j.stops.map((s,i)=>pill(lab(s),'#F0C93A',i<j.i,i===j.i)).join(''),t('Autobus','Bus'));}
   function raceCard(){const j=st.job;setJob(`<span class="jw">${t('Projeď všechna','Hit every')}</span><span class="jb">${NN(j.pc)}</span>`,t(`zbývá ${j.left.length} z ${j.total}`,`${j.left.length} of ${j.total} left`),t('Závod','Race'));}
   function finishBus(){const j=st.job;if(j.started)METRO.stop();newJob();}
   function newAction(f,s){const j=st.job;if(j.k==='pent'||j.k==='tri')return newAction2(f,s);
     if(j.k==='amb'){if(f<j.a||f>j.b){msg(t(`Jsi mimo zónu – sanitka jezdí jen mezi pražci ${j.a}–${j.b}.`,`Outside the zone – frets ${j.a}–${j.b} only.`));return;}
-      const iv=ivOf(f,s,j.root);const d=j.deg.find(x=>parseDeg(x).semis%12===iv);
+      const iv=ivOf(f,s,j.root);const d=j.deg.find(x=>parseDeg(x).semis%12===iv);const want=j.deg[j.i];
       if(!d)return failJob(f,s,t(`${NN(pcAt(s,f))} v akordu ${chordName(j.root,j.q)} není.`,`${NN(pcAt(s,f))} isn’t in ${chordName(j.root,j.q)}.`));
-      if(j.done[d]){msg(t(`${prettyDeg(d)} už máš ošetřenou – najdi další tón.`,`You already have the ${prettyDeg(d)} – find another tone.`));return;}
-      j.done[d]={f,s};playNote(midiAt(f,s));ambCard();
-      if(j.deg.every(x=>j.done[x])){const ms=j.deg.map(x=>midiAt(j.done[x].f,j.done[x].s)).sort((a,b)=>a-b);playChord(ms,.25,.06);winJob(f,s,j.reward,LVL(o,15,10,6),t('Pacient zachráněn!','Patient saved!'));const jj=j;setTimeout(()=>{if(st&&st.job===jj&&st.running)newJob();},900);}
-      else msg(`<b style="color:var(--ok)">${prettyDeg(d)} = ${NN(pcAt(s,f))}</b>`);return;}
+      if(d!==want){playNote(midiAt(f,s),0,.4);msg(t(`${NN(pcAt(s,f))} je ${DEGN(d)} – teď hledáme <b>${DEGN(want)}</b>${o.lvl==='easy'?` (${pretty(spell(j.root,want))})`:''}.`,`${NN(pcAt(s,f))} is the ${DEGN(d)} – right now we need the <b>${DEGN(want)}</b>${o.lvl==='easy'?` (${pretty(spell(j.root,want))})`:''}.`));return;}
+      j.done[d]={f,s,t:performance.now()};j.i++;playNote(midiAt(f,s),0,.9,1.2);fx('cross',f,s);ambCard();
+      if(j.i>=j.deg.length){const ms=j.deg.map(x=>midiAt(j.done[x].f,j.done[x].s));playSeq(ms,.16);playChord(ms.slice().sort((a,b)=>a-b),ms.length*.16+.1,.05);j.fin=performance.now();winJob(f,s,j.reward,LVL(o,15,10,6),t(`Pacient zachráněn! ${chordName(j.root,j.q)} = ${j.deg.map(x=>pretty(spell(j.root,x))).join(' ')}`,`Patient saved! ${chordName(j.root,j.q)} = ${j.deg.map(x=>pretty(spell(j.root,x))).join(' ')}`));const jj=j;setTimeout(()=>{if(st&&st.job===jj&&st.running)newJob();},1600);}
+      else{msg(`<b style="color:var(--ok)">${prettyDeg(d)} = ${NN(pcAt(s,f))} ✓</b> `);const m0=document.querySelector('.cp-msg');if(m0){const keep=m0.innerHTML;setTimeout(()=>{if(st&&st.job===j)ambMsg();},1100);}}return;}
     if(j.k==='fire'){const fi=j.fires.find(x=>x.f===f&&x.s===s&&!x.out);if(!fi){msg(t('Tady nehoří.','No fire here.'));return;}
       if(!fi.in){fi.out=true;fi.bad=true;return failJob(f,s,t(`${NN(pcAt(s,f))} do stupnice nepatří – tenhle požár jsi hasit neměla.`,`${NN(pcAt(s,f))} isn’t in the scale – you shouldn’t have put this one out.`));}
-      fi.out=true;playNote(midiAt(f,s));const left=j.fires.filter(x=>x.in&&!x.out).length;
-      if(!left){winJob(f,s,j.reward,LVL(o,15,10,6),t('Čtvrť zachráněna!','District saved!'));setTimeout(()=>{if(st&&st.job===j&&st.running)newJob();},900);}else msg(`<b style="color:var(--ok)">${NN(pcAt(s,f))} ✓</b> ${t(`zbývá ${left}`,`${left} left`)}`);return;}
+      const want=j.seq[j.i];if(fi.d!==want){playNote(midiAt(f,s),0,.4);msg(t(`Tohle hoří taky (${DEGN(fi.d)}), ale dispečink teď volá na <b>${DEGN(want)}</b>.`,`This one is burning too (${DEGN(fi.d)}), but dispatch needs the <b>${DEGN(want)}</b> first.`));return;}
+      fi.out=true;fi.t=performance.now();j.i++;playNote(midiAt(f,s),0,.9,1.2);fx('water',f,s);fireCard();
+      if(j.i>=j.seq.length){const ms=j.seq.map(d=>{const x=j.fires.find(y=>y.d===d);return midiAt(x.f,x.s);});playSeq(ms,.16);j.fin=performance.now();winJob(f,s,j.reward,LVL(o,15,10,6),t('Čtvrť zachráněna!','District saved!'));setTimeout(()=>{if(st&&st.job===j&&st.running)newJob();},1600);}
+      else{msg(`<b style="color:var(--ok)">${prettyDeg(fi.d)} = ${NN(pcAt(s,f))} ✓</b>`);setTimeout(()=>{if(st&&st.job===j)fireMsg();},1100);}return;}
     if(j.k==='police'){const want=midiAt(j.p.f,j.p.s)+j.semi;if(s===j.ts&&midiAt(f,s)===want){playChord([midiAt(j.p.f,j.p.s),want],0,.01);mark(j.p.f,j.p.s,pcAt(j.p.s,j.p.f));mark(f,s,pcAt(s,f));winJob(f,s,j.reward,LVL(o,15,10,6),t('Zadržen! Dvojhmat sedí.','Caught! The double stop works.'));st.job={k:'wait'};setTimeout(()=>{if(st&&st.running)newJob();},800);}
       else{const tf=want-TUNING[j.ts];st.reveal={pts:[{f:tf,s:j.ts}],until:performance.now()+1600};failJob(f,s,t(`Tady je ${NN(pcAt(s,f))}. Hledala jsi ${NN(want%12)} na struně ${SN[j.ts]}.`,`This is ${NN(pcAt(s,f))}. You needed ${NN(want%12)} on string ${SN[j.ts]}.`));}return;}
     if(j.k==='bus'){const cur=j.stops[j.i];if(pcAt(s,f)===pcOf(cur.root)){const v=bestVoicing(cur.root,cur.q);if(v)playChord(realMidis(v),0,.03);else playNote(midiAt(f,s));j.i++;
@@ -2087,22 +2112,36 @@ G.city=(el)=>{el._stopping=false;
     if(j.k==='race'){const ix=j.left.findIndex(p=>p.f===f&&p.s===s);if(ix>=0){j.left.splice(ix,1);playNote(midiAt(f,s));mark(f,s,pcAt(s,f));raceCard();
         if(!j.left.length){const sec=(performance.now()-j.start)/1000;const bonus=Math.max(10,Math.round(80-sec*2));winJob(f,s,bonus,LVL(o,15,10,6),t(`Cíl za ${sec.toFixed(1)} s!`,`Finished in ${sec.toFixed(1)} s!`));st.job={k:'wait'};setTimeout(()=>{if(st&&st.running)newJob();},900);}}
       else if(pcAt(s,f)===j.pc)msg(t('Tohle už máš.','Already got this one.'));else failJob(f,s,t(`Tohle je ${NN(pcAt(s,f))}.`,`This is ${NN(pcAt(s,f))}.`));}}
-  function newGps(j){if(j.k==='pent'||j.k==='tri')return newGps2(j);if(j.k==='amb')return spots(j.a,j.b,(f,s)=>j.deg.some(d=>!j.done[d]&&parseDeg(d).semis%12===ivOf(f,s,j.root)));
-    if(j.k==='fire')return j.fires.filter(x=>x.in&&!x.out);if(j.k==='police')return[{f:midiAt(j.p.f,j.p.s)+j.semi-TUNING[j.ts],s:j.ts}];
+  function newGps(j){if(j.k==='pent'||j.k==='tri')return newGps2(j);if(j.k==='amb'){const d=j.deg[j.i];return d?spots(j.a,j.b,(f,s)=>parseDeg(d).semis%12===ivOf(f,s,j.root)):[];}
+    if(j.k==='fire')return j.fires.filter(x=>x.in&&!x.out&&x.d===j.seq[j.i]);if(j.k==='police')return[{f:midiAt(j.p.f,j.p.s)+j.semi-TUNING[j.ts],s:j.ts}];
     if(j.k==='bus'){const c=j.stops[j.i];return spots(0,o.frets,(f,s)=>pcAt(s,f)===pcOf(c.root));}if(j.k==='race')return j.left;return[];}
-  function drawNew(now){drawNew2(now);const j=st.job;if(!j||!NEWK.includes(j.k))return;const u=Math.min(M.cw,M.rh),r=Math.max(8,u*.3);
+  function fx(type,f,s){if(st){(st.fx=st.fx||[]).push({type,f,s,t:performance.now()});}}
+  function drawFx(now){if(!st||!st.fx)return;const u=Math.min(M.cw,M.rh);st.fx=st.fx.filter(e=>now-e.t<900);st.fx.forEach(e=>{const k=(now-e.t)/900,x=X(e.f),y=Y(e.s);
+    if(e.type==='water'){for(let i=0;i<9;i++){const a=-Math.PI/2+(i-4)*.32,d=u*(.2+k*.9);ctx.globalAlpha=Math.max(0,1-k*1.4);ctx.fillStyle='#7CC8F2';ctx.beginPath();ctx.arc(x+Math.cos(a)*d,y+Math.sin(a)*d+k*k*u*.8,u*.06,0,7);ctx.fill();}
+      for(let i=0;i<4;i++){ctx.globalAlpha=Math.max(0,.45-k*.45);ctx.fillStyle='#D8D2E4';ctx.beginPath();ctx.arc(x+(i-1.5)*u*.18,y-u*.2-k*u*.9,u*(.12+k*.3),0,7);ctx.fill();}}
+    if(e.type==='cross'){const sz=u*(.25+k*.7);ctx.globalAlpha=Math.max(0,1-k);ctx.fillStyle='#FFFFFF';ctx.fillRect(x-sz*.18,y-sz*.6,sz*.36,sz*1.2);ctx.fillRect(x-sz*.6,y-sz*.18,sz*1.2,sz*.36);}
+    ctx.globalAlpha=1;});}
+  function drawNew(now){drawNew2(now);drawFx(now);const j=st.job;if(!j||!NEWK.includes(j.k))return;const u=Math.min(M.cw,M.rh),r=Math.max(8,u*.3);
     const zoneR=(a,b,col)=>{const x0=M.ml+6+(Math.max(1,a)-1)*M.cw,x1=M.ml+6+b*M.cw,y0=Y(5)-vw(),y1=Y(0)+vw();ctx.fillStyle=col+'18';ctx.fillRect(x0,y0,x1-x0,y1-y0);ctx.setLineDash([6,5]);ctx.strokeStyle=col;ctx.lineWidth=2;ctx.strokeRect(x0+1,y0+1,x1-x0-2,y1-y0-2);ctx.setLineDash([]);};
+    const ndot=(f,s,fill,note,deg,pulse=0)=>{const x=X(f),y=Y(s),rr=r*(1.08+pulse*.35);if(pulse){ctx.fillStyle=fill;ctx.globalAlpha=.35*pulse;ctx.beginPath();ctx.arc(x,y,rr*1.6,0,7);ctx.fill();ctx.globalAlpha=1;}
+      ctx.fillStyle=fill;ctx.beginPath();ctx.arc(x,y,rr,0,7);ctx.fill();ctx.fillStyle='#141018';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`800 ${rr*.82}px Archivo, sans-serif`;ctx.fillText(note,x,y-rr*.18);ctx.font=`700 ${rr*.48}px Archivo, sans-serif`;ctx.fillText(deg,x,y+rr*.5);};
+    const flame=(x,y,r,now,sd)=>{const t0=now/1000;const fl=k=>.88+.12*Math.sin(t0*(9+k*3)+sd)+.06*Math.sin(t0*23+sd*2);
+      ctx.save();ctx.globalAlpha=.18;ctx.fillStyle='#FF6B3D';ctx.beginPath();ctx.arc(x,y,r*1.5,0,7);ctx.fill();ctx.restore();
+      [['#E8402E',1],['#FF7A3D',.74],['#FFD23F',.46]].forEach(([c,k],i)=>{const h=r*1.55*k*fl(i),w=r*.95*k*(.95+.08*Math.sin(t0*11+sd+i));const sway=Math.sin(t0*6+sd+i)*r*.12;const by=y+r*.55;
+        ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(x-w,by);ctx.quadraticCurveTo(x-w*1.05,by-h*.55,x+sway,by-h*1.25);ctx.quadraticCurveTo(x+w*1.05,by-h*.55,x+w,by);ctx.quadraticCurveTo(x,by+w*.45,x-w,by);ctx.fill();});
+      for(let k=0;k<3;k++){const ph=((t0*.9+k/3+sd*.13)%1);ctx.globalAlpha=1-ph;ctx.fillStyle=k%2?'#FFD23F':'#FF7A3D';ctx.beginPath();ctx.arc(x+Math.sin(sd+k*2.1+t0*3)*r*.5,y-r*.4-ph*r*1.8,Math.max(1,r*.09),0,7);ctx.fill();}
+      ctx.globalAlpha=1;};
     const dot=(f,s,fill,label,txtCol='#141018')=>{const x=X(f),y=Y(s);ctx.fillStyle=fill;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.fillStyle=txtCol;ctx.font=`800 ${r*.95}px Archivo, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,x,y+1);};
-    if(j.k==='amb'){zoneR(j.a,j.b,'#FF5A4A');j.deg.forEach(d=>{const p=j.done[d];if(p)dot(p.f,p.s,DEGC[degFamily(d)],prettyDeg(d),'#fff');});}
-    if(j.k==='fire'){zoneR(j.a,j.b,'#F0629A');j.fires.forEach(fi=>{const x=X(fi.f),y=Y(fi.s);if(!fi.out){for(let k=0;k<3;k++){const fl=Math.sin(now/90+k*2+fi.f)*.15;ctx.fillStyle=['#FF6B52','#F39237','#F0C93A'][k];ctx.beginPath();ctx.ellipse(x,y-r*.2*k,r*(1-k*.25+fl),r*(1.15-k*.25+fl),0,0,7);ctx.fill();}}
-        else if(fi.bad)dot(fi.f,fi.s,'#5A5262','×','#fff');else dot(fi.f,fi.s,'#A99BEA',prettyDeg(SCALES[j.sc].deg.find(d=>parseDeg(d).semis%12===ivOf(fi.f,fi.s,j.root))||'?'),'#fff');});}
+    if(j.k==='amb'){zoneR(j.a,j.b,'#FF5A4A');j.deg.forEach((d,k)=>{const p=j.done[d];if(p)ndot(p.f,p.s,DEGC[degFamily(d)],pretty(spell(j.root,d)),prettyDeg(d),j.fin?Math.max(0,1-Math.abs((now-j.fin)/160-k)):0);});}
+    if(j.k==='fire'){zoneR(j.a,j.b,'#F0629A');j.fires.forEach(fi=>{const x=X(fi.f),y=Y(fi.s);if(!fi.out)flame(x,y,r,now,fi.f*7+fi.s*3);
+        else if(fi.bad)dot(fi.f,fi.s,'#5A5262','×','#fff');else{const k=j.seq.indexOf(fi.d);ndot(fi.f,fi.s,DEGC[degFamily(fi.d)],pretty(spell(j.root,fi.d)),prettyDeg(fi.d),j.fin?Math.max(0,1-Math.abs((now-j.fin)/160-k)):0);}});}
     if(j.k==='police'){const on=Math.floor(now/180)%2;dot(j.p.f,j.p.s,on?'#FF5A4A':'#8FA8FF',NN(pcAt(j.p.s,j.p.f)),'#fff');const y=Y(j.ts);ctx.strokeStyle='rgba(78,163,245,.6)';ctx.lineWidth=2;ctx.strokeRect(1,y-11,M.ml-4,22);}
     if(j.k==='bus'){const k=Math.max(0,(j.deadline-now)/(j.beats*60/METRO.bpm*1000));const w=M.W-M.ml-20;ctx.fillStyle='rgba(255,255,255,.12)';ctx.fillRect(M.ml+6,4,w,5);ctx.fillStyle=k<.25?'#FF6B52':'#F0C93A';ctx.fillRect(M.ml+6,4,w*k,5);}}
   function updateNew(){const j=st.job;if(j&&j.k==='bus'&&performance.now()>j.deadline){const cur=j.stops[j.i];failJob(0,2,t(`Autobus ti ujel zastávku ${chordName(cur.root,cur.q)}.`,`You missed the ${chordName(cur.root,cur.q)} stop.`));j.i++;if(j.i>=j.stops.length)finishBus();else{j.deadline=performance.now()+j.beats*60/METRO.bpm*1000;busCard();}}}
   function newJob(){const done=st.done,r=Math.random(),multi=o.str.length>1;let kind;
     const A=activeM(),MK={pent:['pent'],triads:['tri'],chords:['amb'],scales:['fire'],doubles:['police'],prog:['bus'],race:['race'],intervals:['iv','iv'],notes:['courier','courier']};
     const all=[];A.forEach(k=>all.push(...MK[k]));if(A.includes('notes')&&multi&&done>=2)all.push('same');
-    kind=(A.includes('notes')&&done<2)?'courier':rnd(all);if(NEWK.includes(kind)){makeJob(kind);return;}
+    kind=(A.includes('notes')&&done<2)?'courier':rnd(all);if(NEWK.includes(kind)){if(makeJob(kind)!==false)return;for(const k2 of shuf(all.filter(x=>NEWK.includes(x)&&x!==kind)))if(makeJob(k2)!==false)return;kind=all.includes('iv')?'iv':'courier';}
     const taxi=kind!=='courier';const cf=noteOf(st.car.x),cs=Math.round(st.car.y);
     if(kind==='same'){let p,ts,tries=0;do{p={f:Math.floor(Math.random()*(o.frets+1)),s:rnd(o.str)};ts=rnd(o.str.filter(x=>x!==p.s));tries++;}while((Math.abs(p.f-cf)+Math.abs(p.s-cs)<2||!sameT(p,ts).filter(q=>unrev(q.f,q.s)).length||!pool().includes(pcAt(p.s,p.f)))&&tries<300);
       st.job={k:'taxi',kind:'same',phase:'pickup',p,ts,reward:30};setJob(`<span class="jw">${t('Vyzvedni zákazníka','Pick up the passenger')}</span>`,t('fialová postavička na rohu','purple figure on a corner'),t('Taxík','Taxi'));msg(t('Zákazník mává na rohu. Zastav u něj a zmáčkni mezerník.','A passenger is waving on a corner. Stop there and press Space.'));return;}
@@ -2116,7 +2155,7 @@ G.city=(el)=>{el._stopping=false;
   function sameT(p,ts){const pc=pcAt(p.s,p.f),a=[];for(let f=0;f<=o.frets;f++)if(pcAt(ts,f)===pc)a.push({f,s:ts});return a;}
   const rideT=j=>j.kind==='same'?sameT(j.p,j.ts):targets(j.p,j.semi);
   const acc=cz=>cz.replace('velká','velkou').replace('malá','malou').replace('čistá','čistou').replace(/tercie$/,'tercii').replace(/sekunda$/,'sekundu').replace(/kvarta$/,'kvartu').replace(/kvinta$/,'kvintu').replace(/sexta$/,'sextu').replace(/septima$/,'septimu').replace(/oktáva$/,'oktávu').replace(/prima$/,'primu');
-  function targets(p,semi){const m=midiAt(p.f,p.s)+semi,a=[];for(let s=0;s<6;s++){const f=m-TUNING[s];if(f>=0&&f<=o.frets)a.push({f,s});}return a;}
+  function targets(p,semi){const m=midiAt(p.f,p.s)+semi,a=[];for(let s=0;s<6;s++){const f=m-TUNING[s];if(f>=0&&f<=o.frets&&o.str.includes(s))a.push({f,s});}return a;}
   function actUI(){const j=st.job,k=j?j.k:'courier';const lbl=k==='taxi'&&j.phase==='pickup'?t('Vyzvednout','Pick up'):({pent:t('Doručit','Deliver'),tri:t('Postavit','Place'),amb:t('Ošetřit','Treat'),fire:t('Hasit','Extinguish'),police:t('Zatknout','Arrest'),bus:t('Zastavit','Stop'),race:t('Projet','Check in')})[k]||t('Doručit','Deliver');
     const ico=ACT_ICO[k]?k:'courier',key=ico+'|'+lbl,b=el.querySelector('.act');if(b._key!==key){b._key=key;b.querySelector('.aico').innerHTML=`<svg viewBox="0 0 24 24" aria-hidden="true">${ACT_ICO[ico]}</svg>`;el.querySelector('.albl').textContent=lbl;b.setAttribute('aria-label',lbl);}
     const ready=atCross()&&!(isWire(st.car.x)&&st.car.x>1e-6)&&!st.car.path&&!st.goal;b.classList.toggle('ready',ready);b.classList.toggle('dim',!ready);}
@@ -2183,6 +2222,7 @@ G.city=(el)=>{el._stopping=false;
     ctx.fillStyle=({amb:'#F4F1F6',fire:'#FF5A4A',police:'#8FA8FF',bus:'#F2C14E'})[j&&j.k]||carCol();ctx.beginPath();ctx.roundRect?ctx.roundRect(-L/2,-Wd/2,L,Wd,4):ctx.rect(-L/2,-Wd/2,L,Wd);ctx.fill();
     ctx.fillStyle='#1B1622';ctx.fillRect(L*.08,-Wd*.36,L*.18,Wd*.72);ctx.fillRect(-L*.36,-Wd*.32,L*.12,Wd*.64);
     ctx.fillStyle=C.roof;ctx.fillRect(-L*.22,-Wd*.36,L*.28,Wd*.72);
+    if(j&&['amb','fire','police'].includes(j.k)){const on=Math.floor(now/170)%2;ctx.fillStyle=on?'#FF3B3B':'#3B8BFF';ctx.fillRect(-L*.14,-Wd*.38,L*.1,Wd*.36);ctx.fillStyle=on?'#3B8BFF':'#FF3B3B';ctx.fillRect(-L*.14,Wd*.02,L*.1,Wd*.36);ctx.globalAlpha=.16;ctx.fillStyle=on?'#FF3B3B':'#3B8BFF';ctx.beginPath();ctx.arc(-L*.09,0,L*.75,0,7);ctx.fill();ctx.globalAlpha=1;}
     if(j&&j.k==='taxi'&&j.phase==='ride'){ctx.fillStyle='#FFE08A';ctx.fillRect(-L*.12,-Wd*.16,L*.1,Wd*.32);}
     ctx.fillStyle='#FFF3C4';ctx.fillRect(L/2-2,-Wd*.42,2,Wd*.22);ctx.fillRect(L/2-2,Wd*.2,2,Wd*.22);
     {ctx.globalAlpha=car.mode==='stop'?.16:.24;ctx.fillStyle='#FFF3C4';ctx.beginPath();ctx.moveTo(L/2,-Wd*.4);ctx.lineTo(L/2+L*.9,-Wd*.9);ctx.lineTo(L/2+L*.9,Wd*.9);ctx.lineTo(L/2,Wd*.4);ctx.fill();ctx.globalAlpha=1;}
@@ -2202,11 +2242,19 @@ G.city=(el)=>{el._stopping=false;
   el.querySelectorAll('.dpad button').forEach(b=>{const k=b.dataset.d;b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture&&b.setPointerCapture(e.pointerId);order=order.filter(x=>x!==k);order.push(k);if(st)st.car.tap={d:DIR[k],t:performance.now()};};const up=()=>{order=order.filter(x=>x!==k);};b.onpointerup=up;b.onpointercancel=up;b.onlostpointercapture=up;b.oncontextmenu=e=>e.preventDefault();});
   el.querySelector('.act').onclick=action;el.querySelector('.gps').onclick=gps;el.querySelector('.albl').textContent=t('Doručit','Deliver');el.querySelector('.aico').innerHTML=`<svg viewBox="0 0 24 24" aria-hidden="true">${ACT_ICO.courier}</svg>`;
   function setup(){cancelAnimationFrame(raf);if(ro)ro.disconnect();st=null;CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.cbestv').textContent='$'+BEST('city');el.querySelector('.gbest').textContent='$'+BEST('city');el.querySelector('.gclock').textContent=o.career?LVL(o,150,90,60):'∞';el.querySelector('.gsc').textContent='$0';el.querySelector('.gpsc').textContent='$'+[10,5,2][upg('gps')];setJob('–','',t('Mise','Job'));msg('');}
-  function enterPlay(){ac();play.hidden=false;document.documentElement.classList.add('playing');
+  // keep Safari from scrolling the page (and showing its toolbars) while playing
+  let savedY=0;const stopTouch=e=>{if(e.touches&&e.touches.length>1)return;if(play.contains(e.target)&&!e.target.closest('.a2hs'))e.preventDefault();};
+  function lockScroll(on){if(on){savedY=scrollY;document.body.style.top=-savedY+'px';document.addEventListener('touchmove',stopTouch,{passive:false});}
+    else{document.removeEventListener('touchmove',stopTouch,{passive:false});document.body.style.top='';window.scrollTo(0,savedY);}}
+  function a2hsHint(){const ios=/iP(hone|od|ad)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const standalone=navigator.standalone||matchMedia('(display-mode: standalone)').matches;
+    if(!ios||standalone||load('gt-a2hs',false)||play.querySelector('.a2hs'))return;const d=document.createElement('div');d.className='a2hs';
+    d.innerHTML=`<span>${t('Pro hru bez lišty prohlížeče si přidej neofy na plochu: <b>Sdílet → Přidat na plochu</b>.','To play without the browser bar, add neofy to your home screen: <b>Share → Add to Home Screen</b>.')}</span><button type="button">OK</button>`;
+    d.querySelector('button').onclick=()=>{save('gt-a2hs',true);d.remove();};play.appendChild(d);}
+  function enterPlay(){ac();lockScroll(true);play.hidden=false;document.documentElement.classList.add('playing');a2hsHint();
     try{const fe=document.documentElement;if(fe.requestFullscreen&&!document.fullscreenElement)fe.requestFullscreen().then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{});}catch(e){}}).catch(()=>{});}catch(e){}
     if(ro)ro.disconnect();ro=new ResizeObserver(()=>resize());ro.observe(wrap);
     requestAnimationFrame(()=>{resize();CURLVL=o.lvl==='easy'?'':'-'+o.lvl;el.querySelector('.gbest').textContent='$'+BEST('city');start();cancelAnimationFrame(raf);last=performance.now();loop();});}
-  function exitPlay(){if(st){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();if(st.running)bank();st.running=false;}cancelAnimationFrame(raf);if(ro)ro.disconnect();play.hidden=true;play.classList.remove('forced');stage.querySelectorAll('.gover').forEach(x=>x.remove());document.documentElement.classList.remove('playing');
+  function exitPlay(){if(st){if(st.job&&st.job.k==='bus'&&st.job.started)METRO.stop();if(st.running)bank();st.running=false;}cancelAnimationFrame(raf);if(ro)ro.disconnect();play.hidden=true;play.classList.remove('forced');stage.querySelectorAll('.gover').forEach(x=>x.remove());document.documentElement.classList.remove('playing');lockScroll(false);
     try{if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});}catch(e){}el.querySelector('.cbestv').textContent='$'+BEST('city');if(o.career&&el.isConnected&&!el._stopping)setTimeout(()=>{if(el.isConnected&&play.hidden)rerender();},0);}
   cv.style.cursor='pointer';
   let swp=null;cv.addEventListener('pointerdown',e=>{if(!st||!st.running)return;swp={x:e.clientX,y:e.clientY,id:e.pointerId};try{cv.setPointerCapture(e.pointerId);}catch(_){}});
@@ -2268,10 +2316,10 @@ G.defense=(el)=>{
   el._stop=stop;bindOpts(el,'defense',o,setup);setup();};
 
 const GAMES=[
- {k:'city',id:'hra-fret-city',ic:'F',cs:['Fret City','Město je hmatník. Rozvážej balíky na tóny a vozí zákazníky o intervaly.'],en:['Fret City','The city is a fretboard. Deliver parcels to notes and drive passengers by intervals.']},
- {k:'snake',id:'hra-had',ic:'S',cs:['Had po hmatníku','Doveď hada ke správnému tónu. Ostatní body jsou návnady.'],en:['Fretboard snake','Steer the snake to the right note. The other dots are decoys.']},
- {k:'hunt',id:'hra-lovec',ic:'L',cs:['Lovec tónů','Najdi všechna místa jednoho tónu, než doběhne čas.'],en:['Note hunt','Find every spot of one note before the clock runs out.']},
- {k:'defense',id:'hra-obrana',ic:'O',cs:['Obrana pražců','Sestřel tóny, které jedou po strunách k nultému pražci.'],en:['Fret defense','Shoot down notes riding the strings toward the nut.']}];
+ {k:'city',id:'fret-city',ic:'F',cs:['Fret City','Město je hmatník. Rozvážej balíky na tóny a vozí zákazníky o intervaly.'],en:['Fret City','The city is a fretboard. Deliver parcels to notes and drive passengers by intervals.']},
+ {k:'snake',id:'snake',ic:'S',cs:['Had po hmatníku','Doveď hada ke správnému tónu. Ostatní body jsou návnady.'],en:['Fretboard snake','Steer the snake to the right note. The other dots are decoys.']},
+ {k:'hunt',id:'hunter',ic:'L',cs:['Lovec tónů','Najdi všechna místa jednoho tónu, než doběhne čas.'],en:['Note hunt','Find every spot of one note before the clock runs out.']},
+ {k:'defense',id:'defense',ic:'O',cs:['Obrana pražců','Sestřel tóny, které jedou po strunách k nultému pražci.'],en:['Fret defense','Shoot down notes riding the strings toward the nut.']}];
 function viewGames(){app.innerHTML=`<div style="display:grid;gap:22px"><div style="display:grid;gap:8px"><span class="eyebrow">${t('Hry','Games')}</span><h2>${t('Nauč se hmatník hrou','Learn the neck by playing')}</h2><p style="color:var(--muted);max-width:66ch">${t('Krátké hry na pár minut denně. Začni s pražci 0–7 a přirozenými tóny, pak přidej celý hmatník a křížky.','Short games for a few minutes a day. Start with frets 0–7 and natural notes, then add the whole neck and sharps.')}</p></div>
    <div class="gcards">${GAMES.filter(g=>g.k!=='city').map(g=>{const [n,d]=LANG==='en'?g.en:g.cs;return `<a class="gcard" href="#${g.id}"><span class="gic" aria-hidden="true">${gameIcon(g.k)}</span><b>${n}</b><small>${d}</small><span class="gbestc">${t('Rekord','Best')}: ${BEST(g.k)}</span></a>`;}).join('')}</div></div>`;}
 function gameIcon(k){const S='<svg viewBox="0 0 48 32" width="64" height="42" aria-hidden="true"><rect x="2" y="3" width="44" height="26" rx="0" fill="var(--wood)"/>'+[8,13,18,23].map(y=>`<line x1="2" x2="46" y1="${y}" y2="${y}" stroke="var(--string)" stroke-width="1"/>`).join('')+[14,26,38].map(x=>`<line x1="${x}" x2="${x}" y1="3" y2="29" stroke="var(--fret)" stroke-width="1.5"/>`).join('');
@@ -2281,22 +2329,22 @@ function gameIcon(k){const S='<svg viewBox="0 0 48 32" width="64" height="42" ar
    city:'<rect x="2" y="3" width="44" height="26" rx="0" fill="#0E0B10"/><rect x="6" y="6" width="8" height="5" fill="#41334F"/><rect x="18" y="6" width="9" height="5" fill="#372C44"/><rect x="31" y="16" width="10" height="5" fill="#41334F"/><rect x="2" y="12.5" width="44" height="3" fill="#2A2431"/><rect x="2" y="22.5" width="44" height="3" fill="#2A2431"/><rect x="15.5" y="3" width="2" height="26" fill="#2A2431"/><rect x="28.5" y="3" width="2" height="26" fill="#2A2431"/><rect x="20" y="12" width="7" height="4" rx="1" fill="#F39237"/><circle cx="29.5" cy="24" r="2" fill="#9B7BFF"/>',
    defense:'<circle cx="38" cy="13" r="4" fill="var(--c-3)"/><circle cx="30" cy="23" r="4" fill="var(--c-3)"/><line x1="14" y1="13" x2="34" y2="13" stroke="var(--c-root)" stroke-width="1.6"/><circle cx="14" cy="13" r="2.6" fill="var(--c-root)"/>'};
   return S+E[k]+'</svg>';}
-function viewGame(g){const [n,d]=LANG==='en'?g.en:g.cs;app.innerHTML=`<div style="display:grid;gap:16px">${g.k==='city'?'':`<div><a class="btn ghost" href="#hry">← ${t('Všechny hry','All games')}</a></div>`}<div style="display:grid;gap:6px">${g.k==='city'?`<h2 class="fclogo">${cityLogo('a',96)}</h2>`:`<h2>${n}</h2>`}<p style="color:var(--muted);max-width:66ch">${d}</p></div><div class="wh" style="display:grid;gap:16px"></div></div>`;
+function viewGame(g){const [n,d]=LANG==='en'?g.en:g.cs;app.innerHTML=`<div style="display:grid;gap:16px">${g.k==='city'?'':`<div><a class="btn ghost" href="#games">← ${t('Všechny hry','All games')}</a></div>`}<div style="display:grid;gap:6px">${g.k==='city'?`<h2 class="fclogo">${cityLogo('a',96)}</h2>`:`<h2>${n}</h2>`}<p style="color:var(--muted);max-width:66ch">${d}</p></div><div class="wh" style="display:grid;gap:16px"></div></div>`;
   const p=document.createElement('div');p.className='panel game';$('.wh').appendChild(p);G[g.k](p);activeWidgets.push(p);}
 
 let HASH=(()=>{try{return location.hash;}catch(e){return '';}})();
-function go(h){HASH=h||'#cesta';try{if(location.hash!==HASH)history.pushState(null,'',HASH);}catch(e){}route();}
-function route(){stopAll();applyLang();if($('#tools')._label)$('#tools')._label();const hsh=HASH.replace('#','')||'cesta';let v=hsh;
-  const m=/^lekce-(\d+)$/.exec(hsh);
-  if(m&&LESSONS[+m[1]-1]){viewLesson(+m[1]-1);v='cesta';}
-  else if(hsh==='hmatnik')viewTool(t('Stupnice na hmatníku','Scales on the fretboard'),t('Vyber základní tón a stupnici. Pozice omezí zobrazení na pět pražců, aby sis ji mohl(a) propojit s CAGED tvary.','Pick a root and a scale. Position limits the view to five frets so you can connect it with your CAGED shapes.'),[['scales',{def:'major',cmpList:['majpent','minpent','major'],id:'t1'}]],false);
-  else if(hsh==='akordy')viewTool(t('Akordy','Chords'),t('Všechny typy akordů z lekcí na jednom místě: vzorec, tóny, hmaty a rozložení na hmatníku.','Every chord type from the lessons in one place: formula, notes, voicings and layout on the neck.'),[['chords',{def:'m9',id:'t2',list:['maj','m','dim','aug','sus2','sus4','maj7','7','m7','m7b5','dim7','6','m6','add9','maj9','9','m9','m11','13','7#9','69','maj7#11']}]],false);
-  else if(hsh==='postupy')viewTool(t('Postupy','Progressions'),t('Jazzové a neo-soulové postupy k poslechu a hraní. Pusť je dokola a hraj s nimi akordy, dvojhmaty nebo improvizuj.','Jazz and neo-soul progressions to listen to and play along with. Loop them and play chords, double stops or improvise.'),[['progressions',{id:'t3'}]],false);
-  else if(hsh==='trenink')viewTool(t('Trénink','Practice'),t('Pět minut denně. Intervaly po sluchu jsou nejtěžší a nejužitečnější.','Five minutes a day. Intervals by ear are the hardest and the most useful.'),['quiz']);
-  else if(hsh==='nastroje'){viewTool(t('Ladička a metronom','Tuner and metronome'),t('Nalaď se a cvič s metronomem. Úkoly z lekcí hraj nejdřív pomalu (60–70 BPM) a tempo zvyšuj, až když jdou čistě.','Tune up and practise with the metronome. Play the lesson tasks slowly first (60–70 BPM) and only speed up once they’re clean.'),['tuner','metro'],false);$('.wh').classList.add('tools');}
-  else if(hsh==='hry'){viewGames();v='hry';}
-  else if(GAMES.find(g=>g.id===hsh)){const gg=GAMES.find(g=>g.id===hsh);viewGame(gg);v=gg.k==='city'?'city':'hry';}
-  else{viewHome();v='cesta';}
+function go(h){HASH=h||'#path';try{if(location.hash!==HASH)history.pushState(null,'',HASH);}catch(e){}route();}
+function route(){stopAll();applyLang();if($('#tools')._label)$('#tools')._label();let hsh=HASH.replace('#','')||'path';{const OLD={cesta:'path',hmatnik:'scales',akordy:'chords',postupy:'progressions',trenink:'practice',hry:'games',nastroje:'tools','hra-fret-city':'fret-city','hra-had':'snake','hra-lovec':'hunter','hra-obrana':'defense'};const lm=/^lekce-(\d+)$/.exec(hsh);const nh=lm?'lesson-'+lm[1]:OLD[hsh];if(nh){hsh=nh;HASH='#'+nh;try{history.replaceState(null,'','#'+nh);}catch(e){}}}let v=hsh;
+  const m=/^lesson-(\d+)$/.exec(hsh);
+  if(m&&LESSONS[+m[1]-1]){viewLesson(+m[1]-1);v='path';}
+  else if(hsh==='scales')viewTool(t('Stupnice na hmatníku','Scales on the fretboard'),t('Vyber základní tón a stupnici. Pozice omezí zobrazení na pět pražců, aby sis ji mohl(a) propojit s CAGED tvary.','Pick a root and a scale. Position limits the view to five frets so you can connect it with your CAGED shapes.'),[['scales',{def:'major',cmpList:['majpent','minpent','major'],id:'t1'}]],false);
+  else if(hsh==='chords')viewTool(t('Akordy','Chords'),t('Všechny typy akordů z lekcí na jednom místě: vzorec, tóny, hmaty a rozložení na hmatníku.','Every chord type from the lessons in one place: formula, notes, voicings and layout on the neck.'),[['chords',{def:'m9',id:'t2',list:['maj','m','dim','aug','sus2','sus4','maj7','7','m7','m7b5','dim7','6','m6','add9','maj9','9','m9','m11','13','7#9','69','maj7#11']}]],false);
+  else if(hsh==='progressions')viewTool(t('Postupy','Progressions'),t('Jazzové a neo-soulové postupy k poslechu a hraní. Pusť je dokola a hraj s nimi akordy, dvojhmaty nebo improvizuj.','Jazz and neo-soul progressions to listen to and play along with. Loop them and play chords, double stops or improvise.'),[['progressions',{id:'t3'}]],false);
+  else if(hsh==='practice')viewTool(t('Trénink','Practice'),t('Pět minut denně. Intervaly po sluchu jsou nejtěžší a nejužitečnější.','Five minutes a day. Intervals by ear are the hardest and the most useful.'),['quiz']);
+  else if(hsh==='tools'){viewTool(t('Ladička a metronom','Tuner and metronome'),t('Nalaď se a cvič s metronomem. Úkoly z lekcí hraj nejdřív pomalu (60–70 BPM) a tempo zvyšuj, až když jdou čistě.','Tune up and practise with the metronome. Play the lesson tasks slowly first (60–70 BPM) and only speed up once they’re clean.'),['tuner','metro'],false);$('.wh').classList.add('tools');}
+  else if(hsh==='games'){viewGames();v='games';}
+  else if(GAMES.find(g=>g.id===hsh)){const gg=GAMES.find(g=>g.id===hsh);viewGame(gg);v=gg.k==='city'?'city':'games';}
+  else{viewHome();v='path';}
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));window.scrollTo(0,0);}
 document.querySelectorAll('.snd .chip').forEach(b=>{b.classList.toggle('on',b.dataset.v===INSTR);b.onclick=()=>{document.querySelectorAll('.snd .chip').forEach(x=>x.classList.toggle('on',x===b));setInstr(b.dataset.v);playChord([48,55,59,64,67].map(x=>x),0,.04);};});
 document.querySelectorAll('.lng .chip').forEach(b=>b.onclick=()=>{LANG=b.dataset.v;try{localStorage.setItem('gt-lang',LANG);}catch(e){}route();});
