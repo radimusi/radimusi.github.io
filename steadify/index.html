@@ -4,29 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>steadify · your pocket coach</title>
-<meta name="theme-color" content="#1E9B72">
+<meta name="theme-color" content="#0F0E11">
 <meta name="description" content="steadify – your pocket coach for daily, structured music practice.">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="steadify">
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<script>try{if(localStorage.getItem("steadify-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
 <style>
+/* dark is the default theme; light via <html data-theme="light"> */
+/* dark is the default theme; light via <html data-theme="light">. Brand gradient = logo (amber -> pink) */
 :root{
-  --bg:#F6F4EE; --surface:#FFFFFF; --surface2:#EFEDE6; --ink:#1B2420; --muted:#69736E; --line:#E3E0D7;
-  --primary:#1E9B72; --primary-ink:#FFFFFF; --primary-soft:#DDF2EA;
-  --flame:#F2732A; --flame-soft:#FDE7DA; --ice:#3E9BDB; --ice-soft:#DEEEFA;
-  --warn:#D64545; --radius:18px; --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.05);
+  color-scheme:dark;
+  --bg:#0F0E11; --surface:#18161B; --surface2:#232027; --ink:#F3EEF1; --muted:#A39AA3; --line:#2C2830;
+  --grad:linear-gradient(135deg,#FFB347 0%,#FF4F8B 100%);
+  --primary:#FF7A72; --primary-ink:#1C0F14; --primary-soft:#33191F;
+  --flame:#FFB347; --flame-soft:#35271A; --pink:#FF4F8B; --ice:#6BB8F0; --ice-soft:#18293A;
+  --warn:#FF6B6B; --radius:18px; --shadow:0 1px 2px rgba(0,0,0,.35);
   --nav-h:64px;
 }
-@media (prefers-color-scheme:dark){
-  :root{ --bg:#111513; --surface:#1A201D; --surface2:#232A26; --ink:#ECF1EE; --muted:#97A29C; --line:#2C3430;
-    --primary:#2DB585; --primary-soft:#173A2D; --flame:#FF8A45; --flame-soft:#3A2618; --ice:#5CB2EE; --ice-soft:#17303F;
-    --shadow:0 1px 2px rgba(0,0,0,.3); }
+html[data-theme="light"]{
+  color-scheme:light;
+  --bg:#F7F3F1; --surface:#FFFFFF; --surface2:#F0EAE8; --ink:#1E1519; --muted:#776A70; --line:#E7DEDB;
+  --primary:#E5484D; --primary-soft:#FDE6E4;
+  --flame:#E8901F; --flame-soft:#FCEBD5; --pink:#E33B78; --ice:#3E9BDB; --ice-soft:#DEEEFA;
+  --warn:#D64545; --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.05);
 }
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mark{width:28px;height:28px;flex:none}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.4}
 body{min-height:100vh;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
@@ -43,7 +52,7 @@ h3{font-size:16px;margin:0;font-weight:800}
 .stack>*+*{margin-top:10px}
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;min-height:40px}
 .brand{font-weight:900;font-size:22px;letter-spacing:-.03em}
-.brand span{color:var(--primary)}
+.brand{display:flex;align-items:center;gap:8px} .brand span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .iconbtn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--ink)}
 .iconbtn:active{background:var(--surface2)}
 .icon{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
@@ -51,7 +60,7 @@ h3{font-size:16px;margin:0;font-weight:800}
 .card+.card{margin-top:12px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:14px;font-weight:800;background:var(--surface2);color:var(--ink);transition:transform .08s}
 .btn:active{transform:scale(.97)}
-.btn.primary{background:var(--primary);color:var(--primary-ink);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.btn.primary{background:var(--grad);color:var(--primary-ink);box-shadow:0 3px 0 rgba(0,0,0,.25)}
 .btn.block{width:100%}
 .btn.small{min-height:36px;padding:0 14px;border-radius:11px;font-size:14px}
 .btn.ghost{background:transparent;border:1.5px solid var(--line)}
@@ -73,14 +82,14 @@ h3{font-size:16px;margin:0;font-weight:800}
 .hscroll::-webkit-scrollbar{display:none}
 .hscroll .chip{flex:none}
 .streak{display:flex;gap:14px;align-items:center}
-.flame{width:58px;height:58px;border-radius:18px;background:var(--flame-soft);color:var(--flame);display:grid;place-items:center}
+.flame{width:58px;height:58px;border-radius:18px;background:var(--grad);color:var(--primary-ink);display:grid;place-items:center}
 .flame.off{background:var(--surface2);color:var(--muted)}
 .flame .icon{width:32px;height:32px;fill:currentColor;stroke:none}
 .bignum{font-size:30px;font-weight:900;line-height:1}
 .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
 .day{text-align:center;font-size:11px;color:var(--muted);font-weight:700}
 .dot{width:30px;height:30px;margin:4px auto 0;border-radius:50%;background:var(--surface2);display:grid;place-items:center}
-.dot.done{background:var(--flame);color:#fff}
+.dot.done{background:var(--grad);color:var(--primary-ink)}
 .dot.frozen{background:var(--ice);color:#fff}
 .dot.today{outline:2px solid var(--ink);outline-offset:2px}
 .dot .icon{width:16px;height:16px}
@@ -95,7 +104,7 @@ h3{font-size:16px;margin:0;font-weight:800}
 .thumb{width:56px;height:56px;border-radius:12px;background:var(--surface2);flex:none;overflow:hidden;display:grid;place-items:center;color:var(--muted)}
 .thumb img{width:100%;height:100%;object-fit:cover}
 .bar{height:6px;border-radius:6px;background:var(--surface2);overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:var(--primary);border-radius:6px}
+.bar i{display:block;height:100%;background:var(--grad);border-radius:6px}
 .pill{display:inline-block;font-size:11px;font-weight:800;padding:2px 7px;border-radius:999px;background:var(--surface2);color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 .pill.pad{background:var(--primary-soft);color:var(--primary)}
 .pill.kit{background:var(--flame-soft);color:var(--flame)}
@@ -111,11 +120,11 @@ textarea.input{min-height:80px;resize:vertical}
 .nav a{flex:1;height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:800}
 .nav a.on{color:var(--primary)}
 .empty{text-align:center;padding:28px 12px;color:var(--muted)}
-.fab{position:fixed;right:18px;bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:18px;background:var(--primary);color:#fff;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.2);z-index:15}
+.fab{position:fixed;right:18px;bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:18px;background:var(--grad);color:var(--primary-ink);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.2);z-index:15}
 .fab .icon{width:28px;height:28px}
 .plan-item{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
 .plan-item+.plan-item{margin-top:8px}
-.plan-item .kind{width:8px;align-self:stretch;border-radius:4px;background:var(--primary)}
+.plan-item .kind{width:8px;align-self:stretch;border-radius:4px;background:var(--grad)}
 .plan-item .kind.warmup{background:var(--ice)} .plan-item .kind.free{background:var(--flame)}
 .stepper{display:flex;align-items:center;gap:4px}
 .stepper button{width:32px;height:32px;border-radius:10px;background:var(--surface2);font-weight:900;font-size:18px}
@@ -131,7 +140,7 @@ textarea.input{min-height:80px;resize:vertical}
 .player .wrap{flex:1;display:flex;flex-direction:column;width:100%}
 .prog{display:flex;gap:4px;margin:6px 0 14px}
 .prog i{flex:1;height:6px;border-radius:6px;background:var(--surface2)}
-.prog i.done{background:var(--primary)} .prog i.cur{background:var(--flame)}
+.prog i.done{background:var(--grad)} .prog i.cur{background:var(--flame)}
 .timer{font-size:64px;font-weight:900;text-align:center;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
 .timer.over{color:var(--flame)}
 .media{margin:12px 0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line)}
@@ -140,7 +149,7 @@ textarea.input{min-height:80px;resize:vertical}
 .metro{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px}
 .beats{display:flex;gap:6px;justify-content:center;margin:6px 0 10px}
 .beats i{width:14px;height:14px;border-radius:50%;background:var(--surface2);transition:background .05s}
-.beats i.hit{background:var(--primary)} .beats i.hit.acc{background:var(--flame)}
+.beats i.hit{background:var(--flame)} .beats i.hit.acc{background:var(--pink)}
 .bpm{font-size:40px;font-weight:900;min-width:96px;text-align:center;font-variant-numeric:tabular-nums}
 .ctrl{display:flex;gap:10px;margin-top:auto;padding-top:16px}
 .rate{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
@@ -159,17 +168,17 @@ textarea.input{min-height:80px;resize:vertical}
 .hbar{display:flex;align-items:center;gap:8px;font-size:13px;margin:6px 0}
 .hbar .t{width:96px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hbar .b{flex:1;height:12px;background:var(--surface2);border-radius:6px;overflow:hidden}
-.hbar .b i{display:block;height:100%;background:var(--primary)}
+.hbar .b i{display:block;height:100%;background:var(--grad)}
 .hbar .n{width:48px;text-align:right;color:var(--muted)}
 .chart svg{width:100%;height:auto;display:block}
 .toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;z-index:80;animation:fade .2s;max-width:90vw}
 .crop{position:relative;touch-action:none;user-select:none;border-radius:12px;overflow:hidden;background:#000}
 .crop canvas{display:block;width:100%;height:auto}
-.crop .sel{position:absolute;border:2px solid var(--flame);background:rgba(242,115,42,.12);pointer-events:none}
+.crop .sel{position:absolute;border:2px solid var(--flame);background:rgba(255,122,114,.15);pointer-events:none}
 .hint{font-size:13px;color:var(--muted);margin:6px 0 10px}
 .ob{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 .logo-big{font-size:44px;font-weight:900;letter-spacing:-.04em;text-align:center}
-.logo-big span{color:var(--primary)}
+.logo-big span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent} .logo-big .mark{width:72px;height:72px;display:block;margin:0 auto 10px}
 .list-sep{height:1px;background:var(--line);margin:12px 0}
 .video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;margin:10px 0}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -228,6 +237,7 @@ const ICONS = {
   target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
   drum: '<ellipse cx="12" cy="8" rx="8" ry="3"/><path d="M4 8v8c0 1.7 3.6 3 8 3s8-1.3 8-3V8"/>',
 };
+const MARK = `<svg viewBox="86 86 340 340" class="mark" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFB347"/><stop offset="1" stop-color="#FF4F8B"/></linearGradient></defs><path d="M345.0,165.3 A96,66 0 0 1 256.0,256.0" stroke="var(--ink)" stroke-opacity=".14" stroke-width="56" fill="none" stroke-linecap="round"/><path d="M167.0,346.7 A96,66 0 0 1 256.0,256.0" stroke="var(--ink)" stroke-opacity=".14" stroke-width="56" fill="none" stroke-linecap="round"/><path d="M345.0,165.3 A96,66 0 1 0 256.0,256.0 A96,66 0 1 1 167.0,346.7" stroke="url(#mg)" stroke-width="56" fill="none" stroke-linecap="round"/><circle cx="167.0" cy="346.7" r="20.2" fill="var(--ink)"/></svg>`;
 const icon = (n, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n] || ''}</svg>`;
 const flameIcon = () => `<svg class="icon" viewBox="0 0 24 24"><path d="M12 2c.6 3.2 4.6 5.4 5.6 9.2A6 6 0 0 1 12 22a6 6 0 0 1-6-6c0-2.6 1.4-4.4 3-5.7.1 1.9 1 3 2.2 3.4C10.6 10 10.8 5.6 12 2z"/></svg>`;
 
@@ -272,7 +282,7 @@ const MODE_NAMES = { pad: 'Pad', kit: 'Kit' };
 const defaultSettings = () => ({
   name: '', dominant: 'R', dailyGoal: 10, weeklyDays: 5, volume: 0.8, customTags: [],
   levels: { pad: { quick: 10, standard: 20, full: 40 }, kit: { quick: 20, standard: 45, full: 75 } },
-  defaultRoutine: null, onboarded: false, lastMode: 'pad', lastLevel: 'standard',
+  defaultRoutine: null, promoteAfter: 5, theme: 'dark', onboarded: false, lastMode: 'pad', lastLevel: 'standard',
 });
 let S = { settings: defaultSettings(), exercises: [], routines: [], logs: [], plans: [] };
 const UI = { mode: null, level: null, focus: null, libFilter: { q: '', tag: null, where: 'all' }, exId: null, editId: null, plan: null, summary: null, chartEx: null };
@@ -319,6 +329,37 @@ function tagSeconds(days = 14) {
   const from = addDays(dayKey(), -days); const m = {};
   S.logs.filter(l => l.date >= from).forEach(l => (l.entries || []).forEach(en => { const e = exById(en.exId); if (e) (e.tags || []).forEach(t => m[t] = (m[t] || 0) + en.sec); }));
   return m;
+}
+/* tempo model: base tempo (exercise.currentBpm) stays put; daily max is logged separately.
+   Base goes up only when the user accepts a suggestion after N clean sessions at base, spread over several days. */
+function cleanAtBase(e) {
+  const since = e.baseSince || '0000'; const base = e.currentBpm || 0; const dates = [];
+  S.logs.forEach(l => { if (l.date < since) return; (l.entries || []).forEach(x => { if (x.exId === e.id && (x.rating || 0) >= 4 && x.bpm && x.bpm >= base) dates.push(l.date); }); });
+  return { count: dates.length, days: new Set(dates).size };
+}
+const promoteNeed = () => S.settings.promoteAfter || 5;
+function promoReady(e) {
+  if (!e || !e.currentBpm) return false;
+  if (e.targetBpm && e.currentBpm >= e.targetBpm) return false;
+  const n = promoteNeed(), c = cleanAtBase(e);
+  if (c.count < n || c.days < Math.min(n, 5)) return false;
+  if (e.promoSnooze != null && c.count < e.promoSnooze + 2) return false;
+  return true;
+}
+function nextBase(e) { const nb = (e.currentBpm || 0) + (e.step || 4); return e.targetBpm ? Math.min(nb, e.targetBpm) : nb; }
+function setBase(e, bpm) {
+  if (!bpm || bpm === e.currentBpm) return;
+  if (!e.baseHistory) e.baseHistory = e.currentBpm ? [{ date: e.baseSince || dayKey(new Date(e.createdAt || Date.now())), bpm: e.currentBpm }] : [];
+  e.baseHistory.push({ date: dayKey(), bpm }); e.currentBpm = bpm; e.baseSince = dayKey(); delete e.promoSnooze; save();
+}
+function baseOn(e, date) { // base tempo that was valid on a given day
+  const h = (e.baseHistory || []).filter(x => x.date <= date); return h.length ? h[h.length - 1].bpm : (e.baseHistory?.[0]?.bpm ?? e.currentBpm);
+}
+function tempoSeries(e) { // per practice day: daily max + base
+  const byDay = {};
+  S.logs.forEach(l => (l.entries || []).forEach(x => { if (x.exId === e.id && x.bpm) { const d = byDay[l.date] ||= { max: 0, base: 0 }; d.max = Math.max(d.max, x.bpm); d.base = Math.max(d.base, x.base || 0); } }));
+  const days = Object.keys(byDay).sort();
+  return { labels: days.map(d => d.slice(5).replace('-', '/')), max: days.map(d => byDay[d].max), base: days.map(d => byDay[d].base || baseOn(e, d) || null) };
 }
 function bpmHistory(exId) {
   const out = []; S.logs.slice().sort((a, b) => a.startedAt - b.startedAt).forEach(l => (l.entries || []).forEach(en => { if (en.exId === exId && en.bpm) out.push({ date: l.date, bpm: en.bpm, rating: en.rating }); }));
@@ -380,7 +421,7 @@ function buildPlan(mode, level, focusTag = null) {
   const scored = cands.map(e => {
     const since = lp[e.id] ? diffDays(lp[e.id], today) : 21;
     const neglect = (e.tags || []).filter(t => focusTags.has(t)).reduce((a, t) => a + (ts[t] ? 0 : 4), 0);
-    const notDone = e.targetBpm && e.currentBpm && e.currentBpm < e.targetBpm ? 2 : 0;
+    const notDone = e.targetBpm && e.currentBpm && e.currentBpm < e.targetBpm ? 2 : 0; // still climbing
     return { e, s: Math.min(since, 21) * 2 + neglect + notDone + Math.random() * 6 };
   }).sort((a, b) => b.s - a.s);
   const per = mode === 'pad' ? 5 : 8;
@@ -459,9 +500,9 @@ function exRow(e, action = 'openEx') {
     ${prog !== null ? `<div class="row small" style="gap:8px"><div class="bar grow"><i style="width:${prog * 100}%"></i></div><span class="muted">${e.currentBpm || e.startBpm}/${e.targetBpm}</span></div>` : (e.currentBpm ? `<div class="small muted">${e.currentBpm} BPM</div>` : '')}
   </div></button>`;
 }
-function ringSVG(frac, size = 76, stroke = 9, color = 'var(--primary)') {
+function ringSVG(frac, size = 76, stroke = 9) {
   const r = (size - stroke) / 2, c = 2 * Math.PI * r;
-  return `<svg width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="var(--surface2)" stroke-width="${stroke}" fill="none"/><circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="${color}" stroke-width="${stroke}" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - clamp(frac, 0, 1))}"/></svg>`;
+  return `<svg width="${size}" height="${size}"><defs><linearGradient id="rg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFB347"/><stop offset="1" stop-color="#FF4F8B"/></linearGradient></defs><circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="var(--surface2)" stroke-width="${stroke}" fill="none"/><circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="url(#rg)" stroke-width="${stroke}" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - clamp(frac, 0, 1))}"/></svg>`;
 }
 function coachLine(si) {
   const name = S.settings.name ? `, ${esc(S.settings.name)}` : '';
@@ -484,18 +525,19 @@ VIEWS.today = () => {
   const plans = S.plans.slice().sort((a, b) => b.createdAt - a.createdAt);
   const recent = S.logs.slice().sort((a, b) => b.startedAt - a.startedAt).slice(0, 3);
   return `<div class="wrap">
-    <div class="topbar"><div class="brand">steadi<span>fy</span></div><button class="iconbtn" data-a="go" data-v="settings" aria-label="Settings">${icon('gear')}</button></div>
+    <div class="topbar"><div class="brand">${MARK}<div>steadi<span>fy</span></div></div><button class="iconbtn" data-a="go" data-v="settings" aria-label="Settings">${icon('gear')}</button></div>
     <div class="card">
       <div class="row between">
         <div class="streak"><div class="flame ${si.streak ? '' : 'off'}">${flameIcon()}</div>
           <div><div class="bignum">${si.streak}</div><div class="small muted" style="font-weight:700">day streak</div>
           ${si.freezes ? `<div class="freeze" title="Streak freezes">${icon('snow')} ${si.freezes} freeze${si.freezes > 1 ? 's' : ''}</div>` : ''}</div></div>
-        <div class="ring">${ringSVG(si.todaySec / si.goalSec, 76, 9, si.doneToday ? 'var(--flame)' : 'var(--primary)')}<div class="lbl"><div>${Math.floor(si.todaySec / 60)}<small>/ ${S.settings.dailyGoal} min</small></div></div></div>
+        <div class="ring">${ringSVG(si.todaySec / si.goalSec, 76, 9)}<div class="lbl"><div>${Math.floor(si.todaySec / 60)}<small>/ ${S.settings.dailyGoal} min</small></div></div></div>
       </div>
       <div class="week">${week}</div>
       <p class="small" style="margin:14px 0 0;font-weight:700">${coachLine(si)}</p>
     </div>
 
+    ${(() => { const r = S.exercises.filter(promoReady); return r.length ? `<button class="card row" style="width:100%;text-align:left;margin-top:12px;border-color:var(--primary)" data-a="showPromos"><div class="flame" style="width:44px;height:44px;border-radius:14px;background:var(--primary-soft);color:var(--primary)">${icon('up')}</div><div class="grow"><h3>${r.length} exercise${r.length > 1 ? 's' : ''} ready to speed up</h3><div class="small muted">You've been steady at your base tempo. Time for the next step?</div></div></button>` : ''; })()}
     <h2>Start practicing</h2>
     <div class="card">
       <div class="seg">${['pad', 'kit'].map(m => `<button class="${mode === m ? 'on' : ''}" data-a="setMode" data-m="${m}">${m === 'pad' ? 'Practice pad' : 'Full kit'}</button>`).join('')}</div>
@@ -606,12 +648,15 @@ VIEWS.exercise = () => {
     ${e.sticking ? `<div class="sticking">${esc(mirrorSticking(e.sticking))}</div>` : ''}
     ${ytBlock(e)}
     ${e.link ? `<a class="btn ghost block" href="${esc(e.link)}" target="_blank" rel="noopener">${icon('link')} Open source link</a>` : ''}
-    ${e.notes ? `<p style="white-space:pre-wrap">${esc(e.notes)}</p>` : ''}
+    ${e.notes ? `<div class="card" style="margin-top:12px"><div class="small muted" style="font-weight:800;margin-bottom:6px">HOW TO PRACTICE</div><div style="white-space:pre-wrap">${esc(e.notes)}</div></div>`
+      : `<button class="card" style="width:100%;text-align:left;margin-top:12px;border-style:dashed" data-a="editEx"><div class="small muted" style="font-weight:800">NO DESCRIPTION YET</div><div style="margin-top:4px">Add what the exercise is and what to watch out for, so next time you know exactly what to do.</div></button>`}
     <div class="stats" style="margin-top:14px">
-      <div class="stat"><div class="v">${e.currentBpm || '–'}</div><div class="k">Current BPM${e.targetBpm ? ` · goal ${e.targetBpm}` : ''}</div></div>
+      <div class="stat"><div class="v">${e.currentBpm || '–'}</div><div class="k">Base tempo${e.targetBpm ? ` · goal ${e.targetBpm}` : ''}</div>${e.currentBpm ? `<div class="small" style="margin-top:4px;font-weight:700">${Math.min(cleanAtBase(e).count, promoteNeed())}/${promoteNeed()} clean at base</div>` : ''}</div>
       <div class="stat"><div class="v">${fmtMin(secs)}</div><div class="k">Practiced${lp ? ` · last ${lp === dayKey() ? 'today' : diffDays(lp, dayKey()) + 'd ago'}` : ''}</div></div>
     </div>
-    ${hist.length > 1 ? `<h2>Tempo progress</h2><div class="card chart">${lineChart(hist.map(h => h.bpm), hist.map(h => h.date.slice(5)), e.targetBpm)}</div>` : ''}
+    ${promoReady(e) ? `<div style="margin-top:12px">${promoCard(e, 'detail')}</div>` : ''}
+    ${e.currentBpm ? `<button class="btn small ghost" style="margin-top:10px" data-a="adjustBase">${icon('metro')} Adjust base tempo</button>` : ''}
+    ${tempoSeries(e).labels.length > 1 ? `<h2>Tempo progress</h2><div class="card">${tempoChart(e)}</div>` : ''}
     <button class="btn primary block" style="margin-top:18px" data-a="practiceOne">${icon('play')} Practice now</button>
   </div>`;
 };
@@ -622,6 +667,15 @@ function ytBlock(e) {
   return `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${y.id}?${params}" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe></div>
     <a class="small" href="${watch}" target="_blank" rel="noopener">Open in YouTube${y.start ? ` (${toMMSS(y.start)}${y.end ? '–' + toMMSS(y.end) : ''})` : ''}</a>`;
 }
+A.adjustBase = () => {
+  const e = exById(UI.exId); let v = e.currentBpm;
+  openSheet(`<h3>Base tempo</h3><p class="small muted">Every session starts here. Change it only if it feels clearly too slow or too fast.</p>
+    <div class="row" style="justify-content:center;gap:12px;margin:14px 0"><button class="btn" data-b="-1">−</button><div class="bpm" id="bv">${v}</div><button class="btn" data-b="1">+</button></div>
+    <button class="btn primary block" id="bok">Save</button>`, bg => {
+    bg.addEventListener('click', ev => { const b = ev.target.closest('[data-b]'); if (b) { v = clamp(v + +b.dataset.b, 20, 320); $('#bv', bg).textContent = v; } });
+    $('#bok', bg).onclick = () => { setBase(e, v); closeSheet(); render(); };
+  });
+};
 A.editEx = () => { UI.editId = UI.exId; UI.draft = null; go('edit'); };
 A.practiceOne = () => { const e = exById(UI.exId); Player.begin({ id: uid(), mode: e.where === 'kit' ? 'kit' : 'pad', level: 'single', items: [{ kind: e.warmup ? 'warmup' : 'focus', exId: e.id, min: 5 }] }); go('session'); };
 
@@ -635,6 +689,7 @@ VIEWS.edit = () => {
   return `<div class="wrap">
     <div class="topbar"><button class="iconbtn" data-a="cancelEdit">${icon('x')}</button><b>${ex ? 'Edit exercise' : 'New exercise'}</b><button class="btn small primary" data-a="saveEx">Save</button></div>
     <label class="field"><span>Name *</span><input class="input" id="f_name" value="${esc(d.name)}" placeholder="e.g. Paradiddle accents"></label>
+    <label class="field"><span>Description · how to practice</span><textarea class="input" id="f_notes" style="min-height:120px" placeholder="What the exercise is, how to play it, what to watch out for. Book & page…">${esc(d.notes)}</textarea></label>
     <div class="field"><span>Where do you practice it?</span><div class="seg">${[['pad', 'Pad'], ['kit', 'Kit'], ['both', 'Both']].map(([k, l]) => `<button class="${d.where === k ? 'on' : ''}" data-a="setWhere" data-w="${k}">${l}</button>`).join('')}</div></div>
     <div class="field"><label class="row" style="justify-content:space-between;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px"><span style="font-weight:800">${icon('sun')} Part of my warm-up</span><input type="checkbox" id="f_warm" ${d.warmup ? 'checked' : ''} style="width:22px;height:22px"></label></div>
 
@@ -654,7 +709,7 @@ VIEWS.edit = () => {
       <input class="input" id="f_sb" type="number" inputmode="numeric" value="${d.startBpm || ''}" placeholder="Start">
       <input class="input" id="f_tb" type="number" inputmode="numeric" value="${d.targetBpm || ''}" placeholder="Goal">
       <input class="input" id="f_st" type="number" inputmode="numeric" value="${d.step || ''}" placeholder="Step"></div>
-      <div class="hint">Start → goal, and how much to speed up after a clean run.</div></div>
+      <div class="hint">${UI.editId ? 'Start → goal, and the step for each base increase. Change the current base on the exercise page.' : 'Your starting base tempo → goal, and the step for each base increase.'}</div></div>
     <label class="field"><span>Sticking (optional, written right-hand lead)</span><input class="input" id="f_stk" value="${esc(d.sticking)}" placeholder="RLRR LRLL" style="font-family:ui-monospace,monospace">
       <div class="hint">${S.settings.dominant === 'L' ? 'You are set as left-handed, so it will be shown mirrored.' : 'Left-handed players will see it mirrored.'}</div></label>
 
@@ -662,7 +717,6 @@ VIEWS.edit = () => {
       ${custom.length ? `<div class="small muted" style="font-weight:800;margin:10px 0 6px">Custom</div><div class="chips">${custom.map(t => `<button class="chip ${d.tags.includes(t) ? 'on' : ''}" data-a="togTag" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
       <div class="row" style="margin-top:10px"><input class="input grow" id="f_newtag" placeholder="Add your own tag"><button class="btn small" data-a="addTag">Add</button></div></div>
     <label class="field"><span>Source link (notefy, neofy, website…)</span><input class="input" id="f_link" value="${esc(d.link)}" placeholder="https://"></label>
-    <label class="field"><span>Notes</span><textarea class="input" id="f_notes" placeholder="What to focus on, book & page…">${esc(d.notes)}</textarea></label>
     ${ex ? `<button class="btn danger block" data-a="deleteEx">${icon('trash')} Delete exercise</button>` : ''}
   </div>`;
 };
@@ -690,7 +744,7 @@ A.saveEx = () => {
   syncDraft(); const d = UI.draft;
   if (!d.name) { toast('Give it a name'); $('#f_name').focus(); return; }
   if (d.youtube && !d.youtube.id) { toast("That YouTube link doesn't look right"); return; }
-  if (!d.currentBpm || !UI.editId) d.currentBpm = d.currentBpm || d.startBpm || null;
+  if (!d.currentBpm) { d.currentBpm = d.startBpm || null; d.baseSince = dayKey(); }
   const ix = S.exercises.findIndex(e => e.id === d.id);
   if (ix >= 0) S.exercises[ix] = d; else { d.createdAt = Date.now(); S.exercises.push(d); }
   save(); UI.exId = d.id; const wasWarm = UI.draftWarm; UI.draft = null; UI.editId = null; toast('Saved'); go(wasWarm ? 'warmup' : 'exercise');
@@ -805,7 +859,7 @@ const Metro = {
 const Player = {
   plan: null, idx: 0, itemSec: 0, running: false, last: 0, iv: null, entries: [], startedAt: 0, rated: false, wake: null,
   begin(plan) { UI._streakBefore = streakInfo().streak; this.plan = plan; this.idx = 0; this.entries = []; this.startedAt = Date.now(); this.resetItem(); this.running = false; },
-  resetItem() { this.itemSec = 0; this.rated = false; const e = exById(this.cur()?.exId); Metro.bpm = e?.currentBpm || e?.startBpm || Metro.bpm || 80; },
+  resetItem() { this.itemSec = 0; this.rated = false; this.nudge = false; this.nudged = false; const e = exById(this.cur()?.exId); Metro.bpm = e?.currentBpm || e?.startBpm || Metro.bpm || 80; },
   cur() { return this.plan?.items[this.idx]; },
   target() { return (this.cur()?.min || 1) * 60; },
   async lockWake() { try { this.wake = await navigator.wakeLock?.request('screen'); } catch (e) { } },
@@ -818,6 +872,11 @@ const Player = {
   tick() {
     const now = performance.now(); const dt = (now - this.last) / 1000; this.last = now;
     const before = this.itemSec; this.itemSec += dt;
+    // after ~1/3 of a focus block at base tempo, suggest warming up the tempo
+    const it = this.cur(), e = exById(it?.exId);
+    if (!this.nudged && it?.kind === 'focus' && e?.currentBpm && Metro.bpm === e.currentBpm && this.itemSec >= Math.min(180, this.target() * 0.35)) {
+      this.nudged = true; this.nudge = true; const n = $('#nudge'); if (n) n.style.display = 'block';
+    }
     if (before < this.target() && this.itemSec >= this.target()) { Metro.chime(); this.finishItem(); }
     this.paintTimer();
   },
@@ -832,11 +891,19 @@ const Player = {
     openSheet(`<h3>${esc(e.name)}</h3><p class="muted small" style="margin-top:4px">${fmtTime(this.itemSec)} practiced. How did it go?</p>
       <div class="rate" id="rt">${[1, 2, 3, 4, 5].map(n => `<button data-n="${n}">${n}</button>`).join('')}</div>
       <div class="row between small muted" style="margin-top:4px"><span>Rough</span><span>Clean</span></div>
-      <label class="field" style="margin-top:14px"><span>Top clean tempo (BPM)</span><div class="row"><button class="btn small" id="bm">−</button><input class="input center" id="rbpm" type="number" inputmode="numeric" value="${bpm0}" style="font-weight:900;font-size:20px"><button class="btn small" id="bp">+</button></div></label>
-      <div id="nextHint" class="hint"></div>
+      <label class="field" style="margin-top:14px"><span>Top clean tempo today (BPM)</span><div class="row"><button class="btn small" id="bm">−</button><input class="input center" id="rbpm" type="number" inputmode="numeric" value="${bpm0}" style="font-weight:900;font-size:20px"><button class="btn small" id="bp">+</button></div></label>
+      <div id="nextHint" class="hint">${e.currentBpm ? `Base tempo: ${e.currentBpm} BPM` : ''}</div>
       <label class="field"><span>Note for next time</span><input class="input" id="rnote" placeholder="e.g. left hand rushes on beat 3"></label>
       <div class="row"><button class="btn grow" id="rmore">+2 min</button><button class="btn primary grow" id="rok">Next</button></div>`, bg => {
-      const hint = () => { const b = +$('#rbpm', bg).value; const st = e.step || 4; $('#nextHint', bg).innerHTML = rating >= 4 && b ? `Nice! Next time we'll start at <b>${e.targetBpm ? Math.min(b + st, Math.max(e.targetBpm, b)) : b + st} BPM</b>.` : rating && rating <= 2 ? 'Tempo stays where it is. Slow and clean wins.' : ''; };
+      const hint = () => {
+        const b = +$('#rbpm', bg).value, base = e.currentBpm, need = promoteNeed(), c = cleanAtBase(e);
+        let h = '';
+        if (base && b && rating >= 4 && b >= base) h = `Counts as a clean session at base: <b>${Math.min(c.count + 1, need)}/${need}</b>.${b > base ? ` Today's max +${b - base} over base.` : ''}`;
+        else if (base && b && b < base) h = `Below your base (${base}). No worries, tomorrow starts at base again.`;
+        else if (rating && rating <= 2) h = 'Slow and clean wins. Your base stays where it is.';
+        else if (base) h = `Tomorrow you start again at your base: ${base} BPM.`;
+        $('#nextHint', bg).innerHTML = h;
+      };
       $('#rt', bg).onclick = ev => { const b = ev.target.closest('button'); if (!b) return; rating = +b.dataset.n; $$('#rt button', bg).forEach(x => x.classList.toggle('on', +x.dataset.n === rating)); hint(); };
       $('#bm', bg).onclick = () => { $('#rbpm', bg).value = +$('#rbpm', bg).value - 1; hint(); };
       $('#bp', bg).onclick = () => { $('#rbpm', bg).value = +$('#rbpm', bg).value + 1; hint(); };
@@ -844,11 +911,8 @@ const Player = {
       $('#rmore', bg).onclick = () => { closeSheet(); it.min += 2; this.toggle(); };
       $('#rok', bg).onclick = () => {
         const bpm = +$('#rbpm', bg).value || null;
-        this.commit({ exId: e.id, sec: this.itemSec, bpm, rating: rating || null, note: $('#rnote', bg).value.trim() || null });
-        if (bpm) {
-          if (rating >= 4) { const nb = bpm + (e.step || 4); e.currentBpm = e.targetBpm ? Math.min(nb, Math.max(e.targetBpm, bpm)) : nb; }
-          else if (rating === 3 || !rating) e.currentBpm = Math.max(e.currentBpm || 0, bpm);
-        }
+        if (!e.currentBpm && bpm) setBase(e, bpm); // first time: today's tempo becomes the base
+        this.commit({ exId: e.id, sec: this.itemSec, bpm, base: e.currentBpm || null, rating: rating || null, note: $('#rnote', bg).value.trim() || null });
         save(); closeSheet(); this.advance();
       };
     });
@@ -880,7 +944,7 @@ const Player = {
   quit() {
     const has = this.entries.length || this.itemSec >= 20;
     confirmSheet(has ? 'End session now? Practiced time is saved.' : 'Leave this session?', 'End session', () => {
-      if (this.itemSec >= 20 && this.cur()) { const it = this.cur(); this.commit({ exId: it.exId || null, title: it.exId ? undefined : itemTitle(it), sec: this.itemSec, bpm: exById(it.exId) ? Metro.bpm : null }); }
+      if (this.itemSec >= 20 && this.cur()) { const it = this.cur(); this.commit({ exId: it.exId || null, title: it.exId ? undefined : itemTitle(it), sec: this.itemSec, bpm: exById(it.exId) ? Metro.bpm : null, base: exById(it.exId)?.currentBpm || null }); }
       if (this.entries.length) this.end(); else { this.teardown(); this.plan = null; go('today'); }
     });
   },
@@ -906,12 +970,13 @@ VIEWS.session = () => {
     ${e?.media ? `<div class="media" data-a="zoomImg" data-m="${e.media}"><img data-media="${e.media}" alt="Notation"></div>` : ''}
     ${e?.sticking ? `<div class="sticking">${esc(mirrorSticking(e.sticking))}</div>` : ''}
     ${e ? ytBlock(e) : ''}
-    ${e?.notes ? `<p class="small muted" style="white-space:pre-wrap">${esc(e.notes)}</p>` : ''}
+    ${e?.notes ? `<details class="card" style="margin-top:10px;padding:12px 14px" ${P.itemSec === 0 ? 'open' : ''}><summary class="small" style="font-weight:800;cursor:pointer">How to practice</summary><div class="small" style="white-space:pre-wrap;margin-top:8px">${esc(e.notes)}</div></details>` : ''}
     ${(() => { const h = e ? S.logs.flatMap(l => (l.entries || []).filter(x => x.exId === e.id && x.note).map(x => ({ d: l.date, n: x.note }))).pop() : null; return h ? `<p class="small" style="background:var(--surface2);padding:8px 10px;border-radius:10px"><b>Last time:</b> ${esc(h.n)}</p>` : ''; })()}
     ${it.kind !== 'free' ? `<div class="metro" style="margin-top:10px">
       <div class="row between"><button class="btn small" data-a="mBpm" data-d="-5">−5</button><button class="btn small" data-a="mBpm" data-d="-1">−1</button>
-        <div class="center"><div class="bpm" id="mbpm">${Metro.bpm}</div><div class="small muted" style="margin-top:-4px">BPM${e?.targetBpm ? ` · goal ${e.targetBpm}` : ''}</div></div>
+        <div class="center"><div class="bpm" id="mbpm">${Metro.bpm}</div><div class="small muted" style="margin-top:-4px" id="mdelta">${bpmLabel(e)}</div></div>
         <button class="btn small" data-a="mBpm" data-d="1">+1</button><button class="btn small" data-a="mBpm" data-d="5">+5</button></div>
+      ${e && it.kind === 'focus' ? `<button class="chip" id="nudge" data-a="mBpm" data-d="5" style="display:${P.nudge ? 'block' : 'none'};margin:8px auto 0;border-color:var(--primary);color:var(--primary)">Warmed up? Try +5 BPM</button>` : ''}
       <div class="beats" id="mbeats">${[...Array(Metro.beats)].map((_, i) => `<i class="${i === 0 ? 'acc' : ''}"></i>`).join('')}</div>
       <div class="row"><button class="btn small grow ${Metro.on ? 'primary' : ''}" id="mtoggle" data-a="mToggle">${icon('metro')} Click</button>
         <div class="seg grow" style="padding:3px">${[[1, '♩'], [2, '♪♪'], [3, '3'], [4, '4']].map(([n, l]) => `<button class="${Metro.sub === n ? 'on' : ''}" style="min-height:30px" data-a="mSub" data-n="${n}">${l}</button>`).join('')}</div></div>
@@ -929,7 +994,16 @@ A.pToggle = () => Player.toggle();
 A.pSkip = () => Player.skip();
 A.pDone = () => { if (Player.itemSec < 5) return toast('Play a bit first, or skip'); Player.finishItem(); };
 A.pQuit = () => Player.quit();
-A.mBpm = el => { Metro.bpm = clamp(Metro.bpm + +el.dataset.d, 20, 320); $('#mbpm').textContent = Metro.bpm; };
+function bpmLabel(e) {
+  if (!e?.currentBpm) return 'BPM';
+  const d = Metro.bpm - e.currentBpm;
+  return d === 0 ? `base${e.targetBpm ? ` · goal ${e.targetBpm}` : ''}` : `<span style="color:${d > 0 ? 'var(--primary)' : 'var(--muted)'};font-weight:800">${d > 0 ? '+' : ''}${d} vs base ${e.currentBpm}</span>`;
+}
+A.mBpm = el => {
+  Metro.bpm = clamp(Metro.bpm + +el.dataset.d, 20, 320); $('#mbpm').textContent = Metro.bpm;
+  const l = $('#mdelta'); if (l) l.innerHTML = bpmLabel(exById(Player.cur()?.exId));
+  Player.nudge = false; Player.nudged = true; const n = $('#nudge'); if (n) n.style.display = 'none';
+};
 A.mToggle = el => { Metro.on ? Metro.stop() : Metro.start(); Metro.wanted = Metro.on; el.classList.toggle('primary', Metro.on); };
 A.mSub = el => { Metro.sub = +el.dataset.n; $$('[data-a="mSub"]').forEach(b => b.classList.toggle('on', b === el)); };
 A.zoomImg = el => openSheet(`<div class="media" style="margin:0"><img data-media="${el.dataset.m}" alt=""></div><button class="btn block" style="margin-top:12px" data-a="closeSheet">Close</button>`);
@@ -943,26 +1017,48 @@ VIEWS.summary = () => {
     <p class="muted">${s.grew ? 'Your chain just got longer.' : s.doneToday ? 'Daily goal reached. See you tomorrow.' : `${Math.ceil((S.settings.dailyGoal * 60 - s.todaySec) / 60)} more minutes today to count it for your streak.`}</p></div>
     <div class="stats"><div class="stat"><div class="v">${fmtMin(s.totalSec)}</div><div class="k">This session</div></div><div class="stat"><div class="v">${fmtMin(s.todaySec)}</div><div class="k">Today total</div></div></div>
     <h2>What you played</h2>
-    ${s.entries.map(x => { const e = exById(x.exId); return `<div class="plan-item"><div class="kind"></div><div class="grow"><h3>${esc(e?.name || x.title || 'Free practice')}</h3><div class="small muted">${fmtTime(x.sec)}${x.bpm ? ` · ${x.bpm} BPM` : ''}${x.rating ? ` · ${'●'.repeat(x.rating)}${'○'.repeat(5 - x.rating)}` : ''}</div></div>${e?.currentBpm && x.bpm && e.currentBpm > x.bpm ? `<span class="pill pad">next ${e.currentBpm}</span>` : ''}</div>`; }).join('')}
+    ${s.entries.map(x => { const e = exById(x.exId); return `<div class="plan-item"><div class="kind"></div><div class="grow"><h3>${esc(e?.name || x.title || 'Free practice')}</h3><div class="small muted">${fmtTime(x.sec)}${x.bpm ? ` · ${x.bpm} BPM` : ''}${x.rating ? ` · ${'●'.repeat(x.rating)}${'○'.repeat(5 - x.rating)}` : ''}</div></div>${x.base && x.bpm && x.bpm > x.base ? `<span class="pill pad">+${x.bpm - x.base}</span>` : ''}</div>`; }).join('')}
+    ${(() => { const ids = [...new Set(s.entries.map(x => x.exId))]; const r = ids.map(exById).filter(promoReady); return r.length ? `<h2>Ready to speed up</h2>${r.map(e => promoCard(e, 'summary')).join('')}` : ''; })()}
     <button class="btn primary block" style="margin-top:20px" data-a="go" data-v="today">Done</button></div>`;
 };
 
 /* ================= PROGRESS ================= */
-function lineChart(vals, labels, goal) {
-  const W = 320, H = 150, pl = 30, pr = 8, pt = 10, pb = 22;
-  const all = vals.concat(goal ? [goal] : []); let mn = Math.min(...all), mx = Math.max(...all); if (mn === mx) { mn -= 5; mx += 5; } const padv = (mx - mn) * 0.1; mn -= padv; mx += padv;
-  const x = i => pl + (vals.length === 1 ? (W - pl - pr) / 2 : i * (W - pl - pr) / (vals.length - 1)); const y = v => pt + (1 - (v - mn) / (mx - mn)) * (H - pt - pb);
-  const path = vals.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('');
+function lineChart(series, labels, goal) {
+  // series: [{ vals:[number|null], color, dash, name }]
+  if (!Array.isArray(series) || typeof series[0] === 'number') series = [{ vals: series, color: 'var(--primary)' }];
+  const W = 320, H = 160, pl = 30, pr = 8, pt = 12, pb = 22, n = labels.length;
+  const all = series.flatMap(s => s.vals).filter(v => v != null).concat(goal ? [goal] : []);
+  let mn = Math.min(...all), mx = Math.max(...all); if (mn === mx) { mn -= 5; mx += 5; } const padv = (mx - mn) * 0.1; mn -= padv; mx += padv;
+  const x = i => pl + (n === 1 ? (W - pl - pr) / 2 : i * (W - pl - pr) / (n - 1)); const y = v => pt + (1 - (v - mn) / (mx - mn)) * (H - pt - pb);
   const ticks = [mn + padv, (mn + mx) / 2, mx - padv].map(v => Math.round(v));
-  const lstep = Math.ceil(labels.length / 6);
+  const lstep = Math.ceil(n / 6);
+  const line = s => { let d = '', pen = false; s.vals.forEach((v, i) => { if (v == null) { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`; pen = true; }); return d; };
+  const step = s => { let d = ''; s.vals.forEach((v, i) => { if (v == null) return; d += d ? `H${x(i).toFixed(1)}V${y(v).toFixed(1)}` : `M${x(i).toFixed(1)},${y(v).toFixed(1)}`; }); return d; };
   return `<svg viewBox="0 0 ${W} ${H}" role="img">
     ${ticks.map(t => `<line x1="${pl}" x2="${W - pr}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)"/><text x="${pl - 6}" y="${y(t) + 4}" font-size="10" text-anchor="end" fill="var(--muted)">${t}</text>`).join('')}
     ${goal ? `<line x1="${pl}" x2="${W - pr}" y1="${y(goal)}" y2="${y(goal)}" stroke="var(--flame)" stroke-dasharray="4 4"/><text x="${W - pr}" y="${y(goal) - 4}" font-size="10" text-anchor="end" fill="var(--flame)">goal ${goal}</text>` : ''}
-    <path d="${path}" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-    ${vals.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="var(--primary)"><title>${labels[i]}: ${v} BPM</title></circle>`).join('')}
-    ${labels.map((l, i) => i % lstep === 0 ? `<text x="${x(i)}" y="${H - 6}" font-size="10" text-anchor="${vals.length > 1 && i === 0 ? 'start' : vals.length > 1 && i === vals.length - 1 ? 'end' : 'middle'}" fill="var(--muted)">${esc(l)}</text>` : '').join('')}
+    ${series.map(s => `<path d="${s.step ? step(s) : line(s)}" fill="none" stroke="${s.color}" stroke-width="${s.step ? 3 : 2}" ${s.dash ? 'stroke-dasharray="3 4"' : ''} stroke-linejoin="round" stroke-linecap="round"/>
+      ${s.dots === false ? '' : s.vals.map((v, i) => v == null ? '' : `<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="${s.color}"><title>${labels[i]}: ${v} BPM</title></circle>`).join('')}`).join('')}
+    ${labels.map((l, i) => i % lstep === 0 || i === n - 1 ? `<text x="${x(i)}" y="${H - 6}" font-size="10" text-anchor="${n > 1 && i === 0 ? 'start' : n > 1 && i === n - 1 ? 'end' : 'middle'}" fill="var(--muted)">${esc(l)}</text>` : '').join('')}
   </svg>`;
 }
+function tempoChart(e) {
+  const t = tempoSeries(e); if (t.labels.length < 2) return '';
+  return `<div class="chart">${lineChart([{ vals: t.base, color: 'var(--ink)', step: true, dots: false, name: 'Base' }, { vals: t.max, color: 'var(--primary)', name: 'Daily max' }], t.labels, e.targetBpm)}</div>
+    <div class="row small muted" style="gap:14px;margin-top:6px"><span><b style="color:var(--ink)">━</b> Base tempo</span><span><b style="color:var(--primary)">●</b> Daily max</span>${e.targetBpm ? '<span style="color:var(--flame)">┅ Goal</span>' : ''}</div>`;
+}
+function promoCard(e, where) {
+  const c = cleanAtBase(e);
+  return `<div class="card" style="border-color:var(--primary);background:var(--primary-soft)">
+    <div class="row"><div class="flame" style="width:44px;height:44px;border-radius:14px;background:var(--surface);color:var(--primary)">${icon('up')}</div>
+    <div class="grow"><h3>${esc(e.name)}</h3><div class="small">${c.count} clean sessions at <b>${e.currentBpm} BPM</b> over ${c.days} days. Ready to move your base up?</div></div></div>
+    <div class="row" style="margin-top:12px"><button class="btn small grow" data-a="promoNo" data-id="${e.id}" data-w="${where}">Not yet</button><button class="btn small primary grow" data-a="promoYes" data-id="${e.id}" data-w="${where}">Base → ${nextBase(e)} BPM</button></div></div>`;
+}
+const afterPromo = el => { if (el.dataset.w === 'sheet') { closeSheet(); const r = S.exercises.filter(promoReady); if (r.length) A.showPromos(); } render(); };
+A.promoYes = el => { const e = exById(el.dataset.id); setBase(e, nextBase(e)); toast(`New base: ${e.currentBpm} BPM`); afterPromo(el); };
+A.promoNo = el => { const e = exById(el.dataset.id); e.promoSnooze = cleanAtBase(e).count; save(); toast("OK, we'll ask again after 2 more clean sessions"); afterPromo(el); };
+A.showPromos = () => openSheet(`<h3>Ready to speed up</h3><p class="small muted">You've played these cleanly at your base tempo for a while.</p>${S.exercises.filter(promoReady).map(e => promoCard(e, 'sheet')).join('')}`);
+
 VIEWS.progress = () => {
   const si = streakInfo(), dm = dayMinutes(), today = dayKey();
   const total = S.logs.reduce((a, l) => a + l.totalSec, 0);
@@ -979,9 +1075,9 @@ VIEWS.progress = () => {
   // tags 30 days
   const ts = tagSeconds(30); const tsArr = Object.entries(ts).sort((a, b) => b[1] - a[1]).slice(0, 8); const tmx = Math.max(1, ...tsArr.map(x => x[1]));
   // exercise bpm chart
-  const withHist = S.exercises.filter(e => bpmHistory(e.id).length > 1);
+  const withHist = S.exercises.filter(e => tempoSeries(e).labels.length > 1);
   if (!withHist.find(e => e.id === UI.chartEx)) UI.chartEx = withHist[0]?.id;
-  const ce = exById(UI.chartEx); const ch = ce ? bpmHistory(ce.id) : [];
+  const ce = exById(UI.chartEx);
   const logs = S.logs.slice().sort((a, b) => b.startedAt - a.startedAt).slice(0, 15);
   return `<div class="wrap">
     <div class="topbar"><h1>Progress</h1></div>
@@ -996,7 +1092,7 @@ VIEWS.progress = () => {
     <h2>Where your time goes <span class="small muted">(30 days)</span></h2>
     <div class="card">${tsArr.map(([t, s]) => `<div class="hbar"><span class="t">${esc(t)}</span><span class="b"><i style="width:${s / tmx * 100}%"></i></span><span class="n">${Math.round(s / 60)}m</span></div>`).join('') || '<div class="muted small">Practice a few tagged exercises to see this.</div>'}</div>
     <h2>Tempo ladder</h2>
-    ${withHist.length ? `<div class="card"><select class="input" id="chartSel">${withHist.map(e => `<option value="${e.id}" ${e.id === UI.chartEx ? 'selected' : ''}>${esc(e.name)}</option>`).join('')}</select><div class="chart" style="margin-top:10px">${lineChart(ch.map(h => h.bpm), ch.map(h => h.date.slice(5)), ce.targetBpm)}</div></div>` : '<div class="card muted small">Log BPM on the same exercise twice and your tempo curve appears here.</div>'}
+    ${withHist.length ? `<div class="card"><select class="input" id="chartSel">${withHist.map(e => `<option value="${e.id}" ${e.id === UI.chartEx ? 'selected' : ''}>${esc(e.name)}</option>`).join('')}</select><div style="margin-top:10px">${tempoChart(ce)}</div></div>` : '<div class="card muted small">Log tempo on the same exercise on two different days and your tempo curve appears here.</div>'}
     <h2>History</h2>
     ${logs.map(l => `<div class="plan-item"><div class="kind ${l.mode === 'kit' ? 'free' : ''}"></div><div class="grow"><h3>${keyToDate(l.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })} · ${fmtMin(l.totalSec)}</h3><div class="small muted">${MODE_NAMES[l.mode] || ''} · ${(l.entries || []).map(x => esc(exById(x.exId)?.name || x.title || 'Free')).join(', ')}</div></div></div>`).join('') || '<div class="empty">No sessions yet.</div>'}
   </div>`;
@@ -1082,12 +1178,15 @@ VIEWS.settings = () => {
   return `<div class="wrap">
     <div class="topbar"><button class="iconbtn" data-a="go" data-v="today">${icon('back')}</button><b>Settings</b><span style="width:40px"></span></div>
     <label class="field"><span>Your name</span><input class="input" id="s_name" value="${esc(st.name)}" placeholder="optional"></label>
+    <div class="field"><span>Appearance</span><div class="seg">${[['dark', 'Dark'], ['light', 'Light']].map(([k, l]) => `<button class="${(st.theme || 'dark') === k ? 'on' : ''}" data-a="setTheme" data-k="${k}">${l}</button>`).join('')}</div></div>
     <div class="field"><span>Dominant hand</span><div class="seg">${[['R', 'Right'], ['L', 'Left']].map(([k, l]) => `<button class="${st.dominant === k ? 'on' : ''}" data-a="setDom" data-k="${k}">${l}</button>`).join('')}</div>
       <div class="hint">“Weak hand” exercises and stickings follow this. Left-handed players see stickings mirrored.</div></div>
     <div class="field"><span>Daily goal (counts for your streak)</span><div class="seg">${[5, 10, 15, 20, 30].map(n => `<button class="${st.dailyGoal === n ? 'on' : ''}" data-a="setGoal" data-n="${n}">${n}′</button>`).join('')}</div>
       <div class="hint">Keep it low. The goal is showing up every day, longer sessions are a bonus.</div></div>
     <div class="field"><span>Session lengths (minutes)</span>
       ${['pad', 'kit'].map(m => `<div class="row" style="margin-bottom:8px"><b style="width:44px">${MODE_NAMES[m]}</b>${LEVELS.map(l => `<label class="grow"><div class="small muted">${LEVEL_NAMES[l]}</div><input class="input" type="number" inputmode="numeric" data-lvl="${m}.${l}" value="${st.levels[m][l]}"></label>`).join('')}</div>`).join('')}</div>
+    <div class="field"><span>Speed up the base tempo after</span><div class="seg">${[3, 5, 7].map(n => `<button class="${(st.promoteAfter || 5) === n ? 'on' : ''}" data-a="setPromo" data-n="${n}">${n} clean</button>`).join('')}</div>
+      <div class="hint">Clean = rated 4–5 at or above the base tempo, spread over at least ${Math.min(st.promoteAfter || 5, 5)} different days. steadify suggests the step, you decide.</div></div>
     <label class="field"><span>Click volume</span><input type="range" min="0.1" max="1" step="0.05" id="s_vol" value="${st.volume}" style="width:100%"></label>
     <h2>Your data</h2>
     <p class="small muted">Everything is stored on this device, inside the app. Deleting the app from your home screen deletes the data, so export a backup now and then (save it to Files or iCloud).</p>
@@ -1105,6 +1204,14 @@ VIEWS.settings.after = () => {
   $('#s_imp').onchange = e => importData(e.target.files[0]);
 };
 A.setDom = el => { S.settings.dominant = el.dataset.k; save(); render(); };
+function applyTheme() {
+  const t = S.settings.theme || 'dark';
+  if (t === 'light') document.documentElement.dataset.theme = 'light'; else delete document.documentElement.dataset.theme;
+  try { localStorage.setItem('steadify-theme', t); } catch (e) { }
+  const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = t === 'light' ? '#F7F3F1' : '#0F0E11';
+}
+A.setTheme = el => { S.settings.theme = el.dataset.k; save(); applyTheme(); render(); };
+A.setPromo = el => { S.settings.promoteAfter = +el.dataset.n; save(); render(); };
 A.setGoal = el => { S.settings.dailyGoal = +el.dataset.n; save(); render(); };
 A.loadSamples = () => { addSamples(); save(); toast('Sample exercises added'); };
 A.resetAll = () => confirmSheet('Delete all exercises, routines and history? This cannot be undone.', 'Delete everything', async () => {
@@ -1136,7 +1243,7 @@ UI.ob = { name: '', dominant: 'R', goal: 10, samples: true };
 VIEWS.onboard = () => {
   const o = UI.ob;
   return `<div class="wrap ob">
-    <div class="logo-big">steadi<span>fy</span></div>
+    <div class="logo-big">${MARK}steadi<span>fy</span></div>
     <p class="center muted" style="margin:4px 0 26px;font-weight:700">your pocket coach</p>
     <div class="card">
       <label class="field"><span>What should I call you?</span><input class="input" id="o_name" value="${esc(o.name)}" placeholder="Your name (optional)"></label>
@@ -1155,8 +1262,58 @@ A.obDone = () => {
 };
 
 /* ================= samples ================= */
+const SAMPLE_DESC = {
+  'Slow full strokes': `Full strokes from about 9–12 inches: 8 with the right hand, then 8 with the left.
+• Let the stick bounce back up to the same height, don't hold it into the pad.
+• Both hands should look and sound identical.
+• Keep shoulders, wrists and grip relaxed. This sets up everything else.`,
+  'Single stroke roll': `Alternate hands RLRL as even 16th notes.
+• Both hands at exactly the same volume and height.
+• If you can hear which hand is playing, slow down.
+• Stay loose as the tempo rises. Tension is your speed limit.`,
+  'Double stroke roll': `Two strokes per hand: RRLL.
+• The second stroke tends to be weaker. Make it as strong as the first.
+• Slow: two separate wrist strokes. Faster: let the second one come from the rebound and fingers.
+• Goal: it should sound as even as a single stroke roll.`,
+  'Weak hand singles': `Steady 16th notes with your weak hand only.
+• First play 4 bars with your strong hand as a reference, then 4 bars weak hand.
+• Copy the strong hand's height, sound and relaxation.
+• Stop and shake out if your forearm tightens.`,
+  'Paradiddle': `RLRR LRLL as 16th notes. The leading hand switches every beat.
+• Accent the first note of each group: accents high (~9 in), taps low (~2 in).
+• The double at the end of each group must not rush.
+• Once it's solid, move the accent to other notes.`,
+  'Accent tap 8ths': `Continuous alternating 8th notes with one accent.
+• Accent note 1 for 2 bars, then move it to note 2, 3… through all 8 positions.
+• Accents high, taps low. The contrast is the point.
+• After an accent, stop the stick low (downstroke) so the next tap stays quiet.`,
+  'Triplet singles': `Alternating triplets: RLR LRL. The leading hand switches every beat.
+• Count out loud: “1-trip-let, 2-trip-let…”.
+• Accent the first note of each triplet to feel where the beat is.
+• Later, drop the accents and keep it perfectly even.`,
+  'Flam taps': `Each beat is a flam followed by a tap with the same hand: lR R rL L (small letter = grace note).
+• Grace note very low and close, main stroke high.
+• The tap leaves the stick low, ready to play the next grace note.
+• Listen for one fat “flam”, not two separate notes.`,
+  'Ghost note groove': `Basic groove: hi-hat 8ths, kick on 1 and 3, snare backbeat on 2 and 4. Add soft snare ghost notes on the 16th-note “e” and “a”.
+• Backbeat loud (rimshot), ghost notes barely audible, stick ~1 inch above the head.
+• Hi-hat stays steady while the snare hand moves between loud and soft.
+• Start with one ghost note per beat, then add more.`,
+  '16th kick variations': `Steady groove: hi-hat 8ths, snare on 2 and 4, kick on 1 and 3, plus one extra kick on a 16th note.
+• Move that extra kick through every position: 1e, 1&, 1a, 2e, 2&, 2a…
+• Play each variation for 4 bars before moving on.
+• The hi-hat and snare must not stumble when the kick moves.`,
+  'Fill around the toms': `One bar of groove, then one bar of fill: 16th notes moving around the kit (4 on snare, 4 on high tom, 4 on mid tom, 4 on floor tom; adapt to your kit).
+• Land on crash + kick on beat 1 of the next bar.
+• The fill must stay in exactly the same tempo as the groove. No rushing.
+• Then try shorter fills: only beats 3–4, or only beat 4.`,
+  'Play along: favourite song': `Pick a song you love and play along with the recording.
+• Lock in with the bass and the kick drum.
+• Keep the time and the feel rather than copying every detail.
+• Add the song as a YouTube link (with start/end of the hard part) or write its name here.`,
+};
 function addSamples() {
-  const mk = (name, o) => ({ id: uid(), name, tags: [], where: 'pad', warmup: false, startBpm: 60, targetBpm: 120, step: 4, sticking: '', notes: '', link: '', media: null, youtube: null, createdAt: Date.now(), sample: true, ...o, currentBpm: o.startBpm || 60 });
+  const mk = (name, o) => ({ id: uid(), name, tags: [], where: 'pad', warmup: false, startBpm: 60, targetBpm: 120, step: 4, sticking: '', notes: '', link: '', media: null, youtube: null, createdAt: Date.now(), sample: true, ...o, notes: SAMPLE_DESC[name] || o.notes || '', descV: 2, currentBpm: o.startBpm === null ? null : (o.startBpm || 60), baseSince: dayKey() });
   const ex = [
     mk('Slow full strokes', { warmup: true, tags: ['technique', '8ths'], startBpm: 60, targetBpm: 80, sticking: 'RRRR LLLL', notes: 'Big relaxed strokes, 8 per hand. Focus on rebound and even height.' }),
     mk('Single stroke roll', { warmup: true, tags: ['rudiment', '16ths', 'speed'], where: 'both', startBpm: 70, targetBpm: 140, sticking: 'RLRL RLRL' }),
@@ -1178,6 +1335,10 @@ function addSamples() {
 /* ================= boot ================= */
 (async function boot() {
   await load();
+  applyTheme();
+  // v1.5: give sample exercises a proper description (only if the user hasn't written their own)
+  const OLD = ['Big relaxed strokes, 8 per hand. Focus on rebound and even height.', 'Only your weak hand. Match the sound of your strong hand.', 'Accent the first note of each group.', 'Rotate one accent through the 8 notes. Taps stay low.', 'Backbeat loud, ghost notes barely audible.', ''];
+  S.exercises.forEach(e => { if (e.sample && e.descV !== 2 && SAMPLE_DESC[e.name] && OLD.includes((e.notes || '').trim())) { e.notes = SAMPLE_DESC[e.name]; e.descV = 2; } });
   if (navigator.storage?.persist) navigator.storage.persist().catch(() => { });
   if ('serviceWorker' in navigator && location.protocol === 'https:' && !/claudeusercontent|claude\.ai/.test(location.host)) navigator.serviceWorker.register('sw.js').catch(() => { });
   render();
