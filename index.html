@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>radimusi · music tools</title>
+  <meta name="description" content="Small web apps for musicians – drum notation, practice coaching, guitar and SP-404MKII.">
+  <meta name="theme-color" content="#0e0e10">
+  <meta property="og:title" content="radimusi · music tools">
+  <meta property="og:description" content="Small web apps for musicians.">
+  <meta property="og:url" content="https://radimusi.github.io/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230e0e10'/%3E%3Crect x='22' y='22' width='20' height='20' fill='%23f4f2ee'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0e0e10;
+      --line: #26262b;
+      --text: #f4f2ee;
+      --muted: #7d7d86;
+      --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: max(64px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
+    }
+    main { width: 100%; max-width: 440px; display: flex; flex-direction: column; }
+
+    header { margin-bottom: 48px; }
+    .tag {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tag::before { content: ""; width: 6px; height: 6px; background: var(--text); }
+    h1 {
+      margin-top: 20px;
+      font-size: clamp(40px, 12vw, 52px);
+      font-weight: 600; letter-spacing: -0.045em; line-height: .95;
+    }
+    .bio { margin-top: 14px; color: var(--muted); font-size: 15px; line-height: 1.5; max-width: 30ch; }
+
+    ul { list-style: none; border-top: 1px solid var(--line); }
+    li { border-bottom: 1px solid var(--line); }
+    a.link {
+      position: relative;
+      display: grid; grid-template-columns: 32px 1fr auto; align-items: baseline; gap: 0 8px;
+      padding: 22px 0;
+      color: inherit; text-decoration: none;
+    }
+    a.link::after {
+      content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 0;
+      background: var(--grad, var(--accent)); transition: width .35s cubic-bezier(.2,.7,.2,1);
+    }
+    a.link:hover::after, a.link:focus-visible::after { width: 100%; }
+    a.link:focus-visible { outline: none; }
+    .num { font-family: var(--mono); font-size: 11px; color: var(--muted); transition: color .2s; }
+    .name { font-size: 22px; font-weight: 600; letter-spacing: -0.03em; }
+    .desc { grid-column: 2 / 3; margin-top: 4px; font-size: 13px; color: var(--muted); line-height: 1.4; }
+    .arrow {
+      grid-row: 1 / 3; grid-column: 3; align-self: center;
+      font-size: 18px; color: var(--muted);
+      transition: transform .25s ease, color .2s;
+    }
+    .num, .arrow { background: var(--grad, var(--accent)); -webkit-background-clip: text; background-clip: text; }
+    a.link:hover .num, a.link:hover .arrow, a.link:focus-visible .num, a.link:focus-visible .arrow { color: transparent; }
+    a.link:hover .arrow { transform: translate(3px, -3px); }
+
+    footer {
+      margin-top: auto; padding-top: 56px;
+      display: flex; justify-content: space-between;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #55555d;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="tag">projects</div>
+      <h1>radimusi</h1>
+      <p class="bio">small web apps for musicians</p>
+    </header>
+
+    <ul>
+      <li>
+        <a class="link" href="https://radimusi.github.io/notefy/" style="--accent:#e4a853">
+          <span class="num">01</span>
+          <span class="name">notefy</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="desc">drum sequencer that writes real notation</span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://radimusi.github.io/steadify/" style="--accent:#FF7A72; --grad:linear-gradient(135deg,#FFB347,#FF4F8B)">
+          <span class="num">02</span>
+          <span class="name">steadify</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="desc">your pocket coach for daily practice</span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://radimusi.github.io/neofy/" style="--accent:#c85382; --grad:linear-gradient(135deg,#d2444e,#ab78a3)">
+          <span class="num">03</span>
+          <span class="name">neofy</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="desc">guitar scales, chords &amp; fretboard</span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://radimusi.github.io/groovegarden/" style="--accent:#699670">
+          <span class="num">04</span>
+          <span class="name">groove garden</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="desc">a friendly guide to the SP-404MKII</span>
+        </a>
+      </li>
+    </ul>
+
+    <footer><span>© <span id="y">2026</span></span><span>radimusi.github.io</span></footer>
+  </main>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
