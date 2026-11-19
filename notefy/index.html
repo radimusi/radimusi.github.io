@@ -255,6 +255,18 @@ select.psel{background:transparent;border:1px solid var(--paper-line);border-rad
 .plegend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px;color:var(--paper-muted);padding:10px 16px 14px;border-top:1px solid var(--paper-line)}
 .plegend b{color:var(--paper-ink);font-weight:600}
 .m-hit{cursor:grab}
+/* embed: only the notation, its play bar and the tempo */
+.embopen{display:none}
+body.embed .top,body.embed .bar,body.embed .seqsec,body.embed .ptools,body.embed .plegend,body.embed .phd .nrow,body.embed .gset .f-ts,body.embed .gset .gr,body.embed #toastRoot{display:none!important}
+body.embed .wrap{padding-bottom:0;gap:8px}
+body.embed{padding-block:8px}
+body.embed .phd{position:static;border-radius:10px 10px 0 0;box-shadow:none}
+body.embed #score{pointer-events:none}
+body.embed #score circle[fill="#b3b0a6"]{display:none}
+body.embed #score .m-bg{fill:transparent}
+body.embed .embopen{display:inline-block;margin:2px 8px 0;font-size:12px;color:var(--paper-muted);text-decoration:none}
+body.embed .embopen:hover{color:var(--paper-ink)}
+body.embed .gwrap{padding:0}
 #score{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .pseg.stems button{font-family:var(--f-body);font-size:11.5px;padding:4px 8px}
 .stk{cursor:pointer}
@@ -451,7 +463,7 @@ body.notectx .phd{box-shadow:0 8px 24px rgba(0,0,0,.35);border-radius:0 0 12px 1
     </div>
   </div>
 
-  <section style="display:flex;flex-direction:column;gap:8px">
+  <section class="seqsec" style="display:flex;flex-direction:column;gap:8px">
     <div class="section-h">
       <h2>Sequencer</h2>
       <span class="meta" id="gridMeta"></span>
@@ -480,7 +492,7 @@ body.notectx .phd{box-shadow:0 8px 24px rgba(0,0,0,.35);border-radius:0 0 12px 1
       </div>
     </div>
     <div class="sheet" id="sheet">
-      <div class="sheet-title"><span id="sheetName"></span><small id="sheetTempo"></small></div>
+      <div class="sheet-title"><span id="sheetName"></span><small id="sheetTempo"></small></div><a class="embopen" id="embOpen" target="_blank" rel="noopener" hidden>Open in notefy ↗</a>
       <div id="score"></div>
     </div>
     <div class="plegend">
@@ -2178,6 +2190,21 @@ async function openSharedFromHash(){
 }
 window.addEventListener("hashchange",openSharedFromHash);
 
+/* ---------- Embed mode: notefy?embed=1#g=… shows just the notation with playback (for Steadify and other pages) ---------- */
+const EMBED=(()=>{ try{ return new URLSearchParams(location.search).has("embed"); }catch(e){ return false; } })();
+async function bootEmbed(){
+  document.body.classList.add("embed");
+  saveDraft=()=>{}; // never touch the viewer's own draft or library
+  const m=/^#g=([zj][A-Za-z0-9_-]+)$/.exec(location.hash||""); let d=null;
+  if(m){ try{ d=cleanShared(await decodeGroove(m[1])); }catch(e){} }
+  if(!d){ $("#sheetName").textContent="This notefy link is broken or empty"; $("#score").innerHTML=""; postHeight(); return; }
+  applyBeat({...d,id:null,folder:"",sel:0}); S.dirty=false; S.follow=false;
+  updateHeader(); updateSwingUI(); renderGrid(); renderScore();
+  const a=$("#embOpen"); a.href=shareBase()+location.hash; a.hidden=false;
+  postHeight();
+}
+function postHeight(){ try{ if(window.parent!==window) window.parent.postMessage({type:"notefy-height",height:Math.ceil(document.documentElement.scrollHeight)},"*"); }catch(e){} }
+if(EMBED&&window.ResizeObserver) new ResizeObserver(()=>postHeight()).observe(document.documentElement);
 /* ---------- Boot ---------- */
 const pr=loadPrefs();
 if(pr){ S.onlyUsed=!!pr.onlyUsed; S.loop=["all","bar","off"].includes(pr.loop)?pr.loop:"all"; S.metroSub=pr.metroSub==="8"?"8":"q"; S.follow=!!pr.follow; S.metro=!!pr.metro; if(pr.mix!=null) S.mix=+pr.mix; }
@@ -2190,8 +2217,7 @@ if(exNow) d={...clone(exNow),id:null,folder:"",sel:d.sel||0,dirty:false};
 applyBeat(d||{...clone(EXAMPLES[0]),id:null,folder:""}, true);
 if(!d) S.dirty=false;
 updateHeader(); updateSwingUI(); updateTransport(); renderGrid(); renderScore();
-Store.init();
-openSharedFromHash();
+if(EMBED) bootEmbed(); else { Store.init(); openSharedFromHash(); }
 window.__notefy={hl:()=>hist.length,S,P,exportPdf,changeTs,setSub,renderScore,kit:()=>KIT};
 })();
 </script>
