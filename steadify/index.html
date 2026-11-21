@@ -214,6 +214,12 @@ textarea.input{min-height:80px;resize:vertical}
 .meter{display:inline-flex;gap:3px;align-items:center}
 .meter i{width:12px;height:6px;border-radius:3px;background:var(--surface2)}
 .meter i.on{background:var(--grad)}
+.grip{touch-action:none;cursor:grab;color:var(--muted);display:grid;place-items:center;width:22px;margin:-4px -4px -4px -6px;align-self:stretch}
+.grip .icon{width:20px;height:20px}
+.plan-item.dragging{position:relative;z-index:30;box-shadow:0 12px 30px rgba(0,0,0,.45);border-color:var(--primary);transition:none}
+.plan-item.dragging .grip{cursor:grabbing;color:var(--primary)}
+#planList .plan-item{transition:box-shadow .15s}
+.game-frame{position:fixed;left:0;right:0;top:env(safe-area-inset-top);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));width:100%;height:calc(100% - var(--nav-h) - env(safe-area-inset-bottom) - env(safe-area-inset-top));border:0;background:#0F0E11}
 
 </style>
 </head>
@@ -268,6 +274,8 @@ const ICONS = {
   calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
   target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
   star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+  grip: '<circle cx="9" cy="6" r="1.4" fill="currentColor"/><circle cx="15" cy="6" r="1.4" fill="currentColor"/><circle cx="9" cy="12" r="1.4" fill="currentColor"/><circle cx="15" cy="12" r="1.4" fill="currentColor"/><circle cx="9" cy="18" r="1.4" fill="currentColor"/><circle cx="15" cy="18" r="1.4" fill="currentColor"/>',
+  stage: '<rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 10.5a6.5 6.5 0 0 0 13 0M12 17v4M8 21h8"/>',
   chev: '<path d="M6 9l6 6 6-6"/>',
   drum: '<ellipse cx="12" cy="8" rx="8" ry="3"/><path d="M4 8v8c0 1.7 3.6 3 8 3s8-1.3 8-3V8"/>',
 };
@@ -503,7 +511,7 @@ const itemTitle = it => it.exId ? (exById(it.exId)?.name || 'Removed exercise') 
 /* ================= router & shell ================= */
 const VIEWS = {};
 const A = {}; // click actions
-const NAV = [['today', 'home', 'Today'], ['library', 'book', 'Library'], ['warmup', 'sun', 'Warm-up'], ['progress', 'chart', 'Progress']];
+const NAV = [['today', 'home', 'Today'], ['library', 'book', 'Library'], ['warmup', 'sun', 'Warm-up'], ['progress', 'chart', 'Progress'], ['stage', 'stage', 'Stage']];
 const NO_NAV = new Set(['session', 'onboard', 'summary', 'edit']);
 let current = 'today';
 
@@ -619,7 +627,7 @@ VIEWS.today = () => {
       <button class="btn primary block" style="margin-top:14px" data-a="buildPlan">${icon('play')} Build my session</button>
     </div>
 
-    ${plans.length ? `<h2>Planned sessions</h2>${plans.map(p => `<div class="plan-item"><div class="kind ${p.mode === 'kit' ? 'free' : ''}"></div><div class="grow"><h3>${esc(p.name || `${modeShort(p.mode)} · ${LEVEL_NAMES[p.level]}`)}</h3><div class="small muted">${planTotal(p)} min · ${p.items.length} blocks</div></div><button class="btn small ghost" data-a="openPlan" data-id="${p.id}">Open</button></div>`).join('')}` : ''}
+    ${plans.length ? `<h2>My sessions</h2>${plans.map(p => `<div class="plan-item"><div class="kind ${p.mode === 'kit' ? 'free' : ''}"></div><div class="grow" data-a="openPlan" data-id="${p.id}" style="cursor:pointer"><h3>${esc(p.name || `${modeShort(p.mode)} · ${LEVEL_NAMES[p.level]}`)}</h3><div class="small muted">${esc(modeShort(p.mode))} · ${planTotal(p)} min · ${p.items.length} blocks</div></div><button class="iconbtn" data-a="openPlan" data-id="${p.id}" aria-label="Edit">${icon('edit')}</button><button class="btn small primary" data-a="startTemplate" data-id="${p.id}" aria-label="Start">${icon('play')}</button></div>`).join('')}` : ''}
 
     ${recent.length ? `<h2>Recent</h2>${recent.map(l => `<div class="plan-item"><div class="kind ${l.mode === 'kit' ? 'free' : ''}"></div><div class="grow"><h3>${modeShort(l.mode) || 'Session'} · ${fmtMin(l.totalSec)}</h3><div class="small muted">${keyToDate(l.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })} · ${(l.entries || []).length} exercises</div></div></div>`).join('')}` : ''}
   </div>`;
@@ -637,18 +645,46 @@ VIEWS.plan = () => {
     <div class="topbar"><button class="iconbtn" data-a="go" data-v="today">${icon('back')}</button><b>${modeShort(p.mode)} · ${LEVEL_NAMES[p.level]}</b><button class="iconbtn" data-a="reshuffle" aria-label="Reshuffle">${icon('shuffle')}</button></div>
     <div class="row between" style="margin:6px 0 12px"><div><div class="bignum">${planTotal(p)} min</div><div class="small muted">${p.focusTag ? `Focus: ${esc(p.focusTag)}` : 'Balanced session'}</div></div>
     <div class="small muted" style="text-align:right">Warm-up → Focus${p.mode === 'kit' ? ' → Free play' : ''}</div></div>
-    ${p.items.map((it, i) => { const e = exById(it.exId); return `<div class="plan-item"><div class="kind ${it.kind}"></div>
+    <div id="planList">${p.items.map((it, i) => { const e = exById(it.exId); return `<div class="plan-item" data-i="${i}"><span class="grip" aria-label="Drag to reorder">${icon('grip')}</span><div class="kind ${it.kind}"></div>
       <div class="grow"><div class="small muted" style="font-weight:800;text-transform:uppercase;font-size:11px">${it.kind === 'warmup' ? 'Warm-up' : it.kind === 'free' ? 'Free play' : 'Focus'}</div><div class="row" style="gap:4px"><h3 style="min-width:0">${esc(itemTitle(it))}</h3>${e ? `<span class="star ${e.fav ? 'on' : ''}" data-a="favEx" data-id="${e.id}" role="button" aria-label="Favourite">${icon('star')}</span>` : ''}</div>${exPreview(e)}${e ? `<div class="row" style="gap:6px;margin:3px 0 1px">${usageMeter(usage(e, st))}</div>` : ''}${e?.currentBpm ? `<div class="small muted">${e.currentBpm} BPM${e.targetBpm ? ` → ${e.targetBpm}` : ''}</div>` : ''}</div>${e && exImages(e).length ? `<div class="thumb" style="width:44px;height:44px" data-a="zoomImg" data-id="${e.id}"><img data-media="${exImages(e)[0]}" alt=""></div>` : ''}
       <div class="stepper"><button data-a="planMin" data-i="${i}" data-d="-1">−</button><b>${it.min}′</b><button data-a="planMin" data-i="${i}" data-d="1">+</button></div>
-      <button class="iconbtn" data-a="planItemMenu" data-i="${i}" style="width:32px">${icon('edit')}</button></div>`; }).join('')}
+      <button class="iconbtn" data-a="planRemove" data-i="${i}" style="width:32px;color:var(--muted)" aria-label="Remove">${icon('trash')}</button></div>`; }).join('')}</div>
+    <div class="hint" style="text-align:center">Drag ⠿ to reorder</div>
     <button class="btn ghost block" style="margin-top:10px" data-a="planAdd">${icon('plus')} Add exercise</button>
     <div class="row" style="margin-top:18px">
-      <button class="btn grow" data-a="planSave">${icon('calendar')} ${p.saved ? 'Update plan' : 'Save for later'}</button>
+      <button class="btn grow" data-a="planSave">${icon('star')} ${p.saved ? 'Update template' : 'Save as template'}</button>
       <button class="btn primary grow" data-a="startPlan">${icon('play')} Start</button>
     </div>
-    ${p.saved ? `<button class="btn danger block" style="margin-top:10px" data-a="planDelete">${icon('trash')} Delete saved plan</button>` : ''}
+    ${p.saved ? `<button class="btn danger block" style="margin-top:10px" data-a="planDelete">${icon('trash')} Delete template</button>` : ''}
   </div>`;
 };
+VIEWS.plan.after = () => { $$('#planList .grip').forEach(h => h.addEventListener('pointerdown', ev => planDrag(ev, h))); };
+function planDrag(ev, handle) {
+  ev.preventDefault();
+  const row = handle.closest('.plan-item'), list = row.parentElement;
+  let startY = ev.pageY, topBefore = row.offsetTop;
+  row.classList.add('dragging'); handle.setPointerCapture(ev.pointerId);
+  let scrollIv = null;
+  const move = e => {
+    const y = e.pageY;
+    row.style.transform = `translateY(${y - startY}px)`;
+    const mid = row.getBoundingClientRect().top + row.offsetHeight / 2;
+    const prev = row.previousElementSibling, next = row.nextElementSibling;
+    if (next && mid > next.getBoundingClientRect().top + next.offsetHeight / 2) list.insertBefore(next, row);
+    else if (prev && mid < prev.getBoundingClientRect().top + prev.offsetHeight / 2) list.insertBefore(row, prev);
+    const t = row.offsetTop; if (t !== topBefore) { startY += t - topBefore; topBefore = t; row.style.transform = `translateY(${y - startY}px)`; }
+    clearInterval(scrollIv);
+    if (e.clientY < 70) scrollIv = setInterval(() => scrollBy(0, -8), 16); else if (e.clientY > innerHeight - 70) scrollIv = setInterval(() => scrollBy(0, 8), 16);
+  };
+  const up = () => {
+    clearInterval(scrollIv); handle.removeEventListener('pointermove', move); handle.removeEventListener('pointerup', up); handle.removeEventListener('pointercancel', up);
+    row.classList.remove('dragging'); row.style.transform = '';
+    const order = $$('.plan-item', list).map(r => +r.dataset.i);
+    UI.plan.items = order.map(i => UI.plan.items[i]);
+    const y = scrollY; render(); scrollTo(0, y);
+  };
+  handle.addEventListener('pointermove', move); handle.addEventListener('pointerup', up); handle.addEventListener('pointercancel', up);
+}
 A.reshuffle = () => { const p = UI.plan; const n = buildPlan(p.mode, p.level, p.focusTag); n.id = p.id; n.saved = p.saved; n.name = p.name; UI.plan = n; render(); };
 A.planMin = el => { const it = UI.plan.items[+el.dataset.i]; it.min = clamp(it.min + +el.dataset.d, 1, 90); render(); };
 A.planItemMenu = el => {
@@ -660,7 +696,7 @@ A.planItemMenu = el => {
     <button class="btn block danger" data-a="planRemove" data-i="${i}">${icon('trash')} Remove</button></div>`);
 };
 A.planMove = el => { const i = +el.dataset.i, j = i + +el.dataset.d, a = UI.plan.items; if (j >= 0 && j < a.length) [a[i], a[j]] = [a[j], a[i]]; closeSheet(); render(); };
-A.planRemove = el => { UI.plan.items.splice(+el.dataset.i, 1); closeSheet(); render(); };
+A.planRemove = el => { UI.plan.items.splice(+el.dataset.i, 1); closeSheet(); const y = scrollY; render(); scrollTo(0, y); };
 function pickExerciseSheet(title, onPick, filter = () => true) {
   const list = EX().filter(filter);
   openSheet(`<h3>${esc(title)}</h3><input class="input" id="pickQ" placeholder="Search…" style="margin:12px 0">
@@ -673,19 +709,25 @@ A.planSwap = el => { const i = +el.dataset.i; closeSheet(); pickExerciseSheet('S
 A.planAdd = () => pickExerciseSheet('Add to session', e => { UI.plan.items.push({ kind: e.warmup ? 'warmup' : 'focus', exId: e.id, min: 5 }); render(); });
 A.planSave = () => {
   const p = UI.plan;
-  openSheet(`<h3>Save plan</h3><p class="small muted">Great for planning your rehearsal room time in advance.</p>
-    <label class="field"><span>Name</span><input class="input" id="planName" value="${esc(p.name || `${modeShort(p.mode)} · ${LEVEL_NAMES[p.level]}`)}"></label>
-    <button class="btn primary block" id="planSaveOk">Save</button>`, bg => {
-    $('#planSaveOk', bg).onclick = () => {
-      p.name = $('#planName', bg).value.trim(); p.saved = true;
+  openSheet(`<h3>${p.saved ? 'Update template' : 'Save as template'}</h3><p class="small muted">Templates appear under “My sessions” on the Today screen. One tap starts the same session again.</p>
+    <label class="field"><span>Name</span><input class="input" id="planName" value="${esc(p.name || `${modeShort(p.mode)} · ${LEVEL_NAMES[p.level] || ''} · ${planTotal(p)} min`)}"></label>
+    <div class="row">${p.saved ? `<button class="btn grow" id="planSaveNew">Save as new</button>` : ''}<button class="btn primary grow" id="planSaveOk">${p.saved ? 'Update' : 'Save'}</button></div>`, bg => {
+    const store = asNew => {
+      p.name = $('#planName', bg).value.trim() || 'My session';
+      if (asNew) p.id = uid();
+      p.saved = true; p.createdAt = p.createdAt || Date.now(); p.inst = p.inst || cur().id;
       const copy = JSON.parse(JSON.stringify(p)); delete copy.saved;
       const ix = S.plans.findIndex(x => x.id === p.id); if (ix >= 0) S.plans[ix] = copy; else S.plans.push(copy);
-      save(); closeSheet(); toast('Plan saved'); render();
+      save(); closeSheet(); toast(ix >= 0 ? 'Template updated' : 'Template saved'); render();
     };
+    $('#planSaveOk', bg).onclick = () => store(false);
+    if ($('#planSaveNew', bg)) $('#planSaveNew', bg).onclick = () => store(true);
   });
 };
-A.planDelete = () => confirmSheet('Delete this saved plan?', 'Delete', () => { S.plans = S.plans.filter(x => x.id !== UI.plan.id); save(); UI.plan = null; go('today'); });
-A.startPlan = () => { if (!UI.plan.items.length) return toast('Add something to practice first'); Player.begin(JSON.parse(JSON.stringify(UI.plan))); go('session'); };
+A.planDelete = () => confirmSheet('Delete this template?', 'Delete', () => { S.plans = S.plans.filter(x => x.id !== UI.plan.id); save(); UI.plan = null; go('today'); });
+function runPlan(p) { const run = JSON.parse(JSON.stringify(p)); run.templateId = p.saved || S.plans.some(x => x.id === p.id) ? p.id : null; run.id = uid(); delete run.saved; Player.begin(run); go('session'); }
+A.startPlan = () => { if (!UI.plan.items.length) return toast('Add something to practice first'); runPlan(UI.plan); };
+A.startTemplate = el => { const p = S.plans.find(x => x.id === el.dataset.id); if (!p) return; const items = p.items.filter(i => !i.exId || exById(i.exId)); if (!items.length) return toast('This template is empty'); runPlan({ ...p, items }); };
 
 /* ================= LIBRARY ================= */
 VIEWS.library = () => {
@@ -995,7 +1037,7 @@ A.switchInst = () => {
   openSheet(`<div class="row between"><h3>Your instruments</h3><button class="btn small primary" data-a="addInst">${icon('plus')} Add</button></div><p class="small muted">${S.instruments.length > 1 ? 'Tap an instrument to switch. Each one has its own library, streak and goals.' : 'Add another instrument (guitar, bass, piano…) and then switch between them here. Each one has its own library, streak and goals.'}</p>
     <div class="stack" style="margin-top:12px">${S.instruments.map(i => { const s = streakFor(i); return `<button class="ex ${i.id === cur().id ? 'on' : ''}" data-a="pickInst" data-id="${i.id}" style="${i.id === cur().id ? 'border-color:var(--primary)' : ''}"><div class="thumb inst-thumb" style="background:linear-gradient(135deg,${ACCENTS[i.kind]?.g1 || '#888'},${ACCENTS[i.kind]?.g2 || '#555'});color:#1C0F14">${picto(i)}</div><div class="grow"><h3>${esc(i.name)}</h3><div class="small muted">${s.streak ? `${s.streak}-day streak` : 'No streak yet'} · ${S.exercises.filter(e => e.inst === i.id).length} exercises</div></div>${i.id === cur().id ? icon('check') : ''}</button>`; }).join('')}</div>`);
 };
-A.pickInst = el => { S.settings.currentInst = el.dataset.id; UI.mode = null; UI.level = null; UI.focus = null; UI.libFilter = { q: '', tag: null, where: 'all' }; UI.chartEx = null; save(); closeSheet(); go('today'); render(); };
+A.pickInst = el => { S.settings.currentInst = el.dataset.id; UI.mode = null; UI.level = null; UI.focus = null; UI.libFilter = { q: '', tag: null, where: 'all' }; UI.chartEx = null; save(); closeSheet(); go(current === 'stage' ? 'stage' : 'today'); render(); };
 function kindGrid(sel) {
   return `<div class="kinds">${KIND_ORDER.map(k => `<button class="kind-tile ${sel === k ? 'on' : ''}" data-kind="${k}" style="--kc:${ACCENTS[k].g2};--kg:linear-gradient(135deg,${ACCENTS[k].g1},${ACCENTS[k].g2})"><span class="kpi">${PICTO[k]}</span><span>${KINDS[k].label}</span></button>`).join('')}</div>`;
 }
@@ -1368,6 +1410,10 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && current === 'session' && Player.running) Player.lockWake();
 });
 
+/* ================= STAGE (motivation game, test version) ================= */
+VIEWS.stage = () => `<iframe class="game-frame" src="game.html?v=2.8.2" title="Stage"></iframe>`;
+window.steadify = { get S() { return S; }, save: () => save(), cur: () => cur(), LOGS: () => LOGS(), ACCENTS, switchInst: () => A.switchInst() };
+
 /* ================= image cropper ================= */
 function loadImage(src) { return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
 async function openCropper(fileOrCanvas) {
@@ -1468,7 +1514,7 @@ VIEWS.settings = () => {
     <label class="btn block">Import backup<input type="file" accept="application/json" id="s_imp" hidden></label>
     <button class="btn block" data-a="loadSamples">Add sample exercises</button>
     <button class="btn block danger" data-a="resetAll">Delete all data</button></div>
-    <p class="small muted center" style="margin-top:24px">steadify · your pocket coach</p>
+    <p class="small muted center" style="margin-top:24px">steadify · your pocket coach · v2.8.2 (Stage test)</p>
   </div>`;
 };
 VIEWS.settings.after = () => {
